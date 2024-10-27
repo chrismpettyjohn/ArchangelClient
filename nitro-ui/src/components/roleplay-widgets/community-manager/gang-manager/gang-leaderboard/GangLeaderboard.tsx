@@ -1,10 +1,12 @@
+import { CreateLinkEvent } from "../../../../../api";
+
 export function GangLeaderboard() {
     return (
         <>
             <ul>
-                <li>Gang 1</li>
-                <li>Gang 2</li>
-                <li>Gang 3</li>
+                <li onClick={() => CreateLinkEvent('gangs/1')}>Gang 1</li>
+                <li onClick={() => CreateLinkEvent('gangs/1')}>Gang 2</li>
+                <li onClick={() => CreateLinkEvent('gangs/1')}>Gang 3</li>
             </ul>
         </>
     )

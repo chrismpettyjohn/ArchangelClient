@@ -1,10 +1,12 @@
+import { CreateLinkEvent } from "../../../../../api";
+
 export function CorpList() {
     return (
         <>
             <ul>
-                <li>Corp 1</li>
-                <li>Corp 2</li>
-                <li>Corp 3</li>
+                <li onClick={() => CreateLinkEvent('corps/1')}>Corp 1</li>
+                <li onClick={() => CreateLinkEvent('corps/1')}>Corp 2</li>
+                <li onClick={() => CreateLinkEvent('corps/1')}>Corp 3</li>
             </ul>
         </>
     )
