@@ -508,7 +508,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         switch (operation) {
             case RoomObjectOperationType.OBJECT_UNDEFINED:
                 if ((category === RoomObjectCategory.FLOOR) || (category === RoomObjectCategory.WALL) || (event.objectType === RoomObjectUserType.MONSTER_PLANT)) {
-                    if ((event.altKey && !event.ctrlKey && !event.shiftKey) || this.decorateModeMove(event)) {
+                    if ((event.altKey && !event.ctrlKey && !event.shiftKey)) {
                         if (this._roomEngine.events) this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.REQUEST_MOVE, roomId, event.objectId, category));
                     }
                 }
@@ -530,7 +530,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         switch (operation) {
             case RoomObjectOperationType.OBJECT_UNDEFINED:
                 if ((category === RoomObjectCategory.FLOOR) || (category === RoomObjectCategory.WALL) || (event.objectType === RoomObjectUserType.MONSTER_PLANT)) {
-                    if ((!event.ctrlKey && !event.shiftKey) || this.decorateModeMove(event)) {
+                    if (!event.ctrlKey && !event.shiftKey) {
                         if (this._roomEngine.events) this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.REQUEST_MANIPULATION, roomId, event.objectId, category));
                     }
                 }

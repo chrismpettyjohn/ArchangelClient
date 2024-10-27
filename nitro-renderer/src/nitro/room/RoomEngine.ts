@@ -1486,11 +1486,11 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
     }
 
     public getRoomObjectCursor(roomId: number): IRoomObjectController {
-        return this.getObject(this.getRoomId(roomId), RoomEngine.CURSOR_OBJECT_ID, RoomObjectCategory.CURSOR);
+        return null;
     }
 
     public getRoomObjectSelectionArrow(roomId: number): IRoomObjectController {
-        return this.getObject(this.getRoomId(roomId), RoomEngine.ARROW_OBJECT_ID, RoomObjectCategory.CURSOR);
+        return null;
     }
 
     public getRoomOwnObject(roomId: number): IRoomObjectController {
