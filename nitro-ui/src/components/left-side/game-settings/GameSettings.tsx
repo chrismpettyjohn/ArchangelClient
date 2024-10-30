@@ -95,16 +95,6 @@ export function GameSettings() {
                     ),
                     view: () => <ControlsPanel />
                 },
-                {
-                    type: 'child',
-                    label: (
-                        <>
-                            <FaScroll style={{ marginRight: 8 }} />
-                            Macros
-                        </>
-                    ),
-                    view: () => <ControlsPanel />
-                },
             ]
         },
         {
