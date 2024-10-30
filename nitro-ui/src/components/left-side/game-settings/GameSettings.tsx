@@ -8,7 +8,7 @@ import { useRoleplayStats } from "../../../hooks/roleplay/use-rp-stats";
 import { SecurityPanel } from "./settings-section/SecurityPanel";
 import { PrivacyPanel } from "./settings-section/PrivacyPanel";
 import { SoundPanel } from "./settings-section/SoundPanel";
-import { ControlsPanel } from "./settings-section/ContorlsPanel";
+import { ControlsPanel } from "./settings-section/ControlsPanel";
 import { FocusMode, useSharedUI } from "../../../context/shared-ui";
 
 export interface SettingParent {
@@ -93,7 +93,7 @@ export function GameSettings() {
                             Controls
                         </>
                     ),
-                    view: () => 'sound'
+                    view: () => <ControlsPanel />
                 },
                 {
                     type: 'child',
