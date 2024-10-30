@@ -134,6 +134,9 @@ export const ModToolsView: FC<{}> = props => {
                         <Button gap={1} onClick={() => setShowSuperhire(_ => !_)} className="position-relative">
                             <Base className="position-absolute start-1" /> Superhire Tool
                         </Button>
+                        <Button gap={1} onClick={() => CreateLinkEvent('navigator/create')} className="position-relative">
+                            <Base className="position-absolute start-1" /> Create Room
+                        </Button>
                         <Button gap={1} onClick={() => CreateLinkEvent('catalog/toggle')} className="position-relative">
                             <Base className="position-absolute start-1" /> Catalog
                         </Button>
