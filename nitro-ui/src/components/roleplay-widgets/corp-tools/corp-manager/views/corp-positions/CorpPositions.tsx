@@ -1,19 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
-import { Column, Grid, LayoutAvatarImageView, Text } from "../../../../../common";
+import { Column, Grid, LayoutAvatarImageView, Text } from "../../../../../../common";
 import { CorpManagerViewProps } from "../../CorpManager";
-import { useMessageEvent, useSessionInfo } from "../../../../../hooks";
+import { useMessageEvent, useSessionInfo } from "../../../../../../hooks";
 import { CorpPositionInfoData, CorpPositionListData, CorpPositionListEvent } from "@nitro-rp/renderer";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef } from 'ag-grid-community';
-import { useRoleplayStats } from "../../../../../hooks/roleplay/use-rp-stats";
-import { corpChangeClothes } from "../../../../../api/roleplay/corp/CorpChangeClothes";
-import { FaCaretLeft, FaPlusCircle, FaShieldAlt, FaTimesCircle } from "react-icons/fa";
+import { useRoleplayStats } from "../../../../../../hooks/roleplay/use-rp-stats";
+import { corpChangeClothes } from "../../../../../../api/roleplay/corp/CorpChangeClothes";
+import { FaPlusCircle, FaShieldAlt, FaTimesCircle } from "react-icons/fa";
 import { Button } from "react-bootstrap";
 import { CorpPositionEditor } from "./corp-editor/CorpPositionEditor";
-import { CorpEditPosition } from "../../../../../api/roleplay/corp/CorpEditPosition";
-import { CorpCreatePosition } from "../../../../../api/roleplay/corp/CorpCreatePosition";
-import { CorpPositionList } from "../../../../../api/roleplay/corp/CorpPositionList";
-import { CorpDeletePosition } from "../../../../../api/roleplay/corp/CorpDeletePosition";
+import { CorpEditPosition } from "../../../../../../api/roleplay/corp/CorpEditPosition";
+import { CorpCreatePosition } from "../../../../../../api/roleplay/corp/CorpCreatePosition";
+import { CorpPositionList } from "../../../../../../api/roleplay/corp/CorpPositionList";
+import { CorpDeletePosition } from "../../../../../../api/roleplay/corp/CorpDeletePosition";
 
 export function CorpPositions({ corpID }: CorpManagerViewProps) {
     const { userInfo = null } = useSessionInfo();

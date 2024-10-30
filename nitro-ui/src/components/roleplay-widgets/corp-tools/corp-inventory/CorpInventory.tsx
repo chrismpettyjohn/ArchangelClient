@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useCorpData } from "../../../hooks/roleplay/use-corp-data";
-import { useMessageEvent } from "../../../hooks";
+import { useCorpData } from "../../../../hooks/roleplay/use-corp-data";
+import { useMessageEvent } from "../../../../hooks";
 import { CorpOpenInventoryEvent } from "@nitro-rp/renderer";
-import { NitroCardContentView, NitroCardHeaderView, NitroCardView } from "../../../common";
+import { NitroCardContentView, NitroCardHeaderView, NitroCardView } from "../../../../common";
 
 export function CorpInventory() {
     const [visible, setVisible] = useState(false);

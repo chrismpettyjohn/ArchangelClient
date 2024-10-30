@@ -1,18 +1,17 @@
 import { useMemo, useState } from "react";
-import { Column, Grid, LayoutAvatarImageView, Text } from "../../../../../common";
+import { Column, Grid, LayoutAvatarImageView, Text } from "../../../../../../common";
 import { CorpManagerViewProps } from "../../CorpManager";
-import { useSessionInfo } from "../../../../../hooks";
+import { useSessionInfo } from "../../../../../../hooks";
 import { CorpEmployeeData } from "@nitro-rp/renderer";
 import { AgGridReact } from "ag-grid-react";
 import { ColDef } from 'ag-grid-community';
-import { CorpEmployeeList } from "../../../../../api/roleplay/corp/CorpEmployeeList";
-import { FaCaretDown, FaCaretLeft, FaCaretUp, FaPlusCircle, FaTimesCircle, FaUsers } from "react-icons/fa";
+import { CorpEmployeeList } from "../../../../../../api/roleplay/corp/CorpEmployeeList";
+import { FaCaretDown, FaCaretUp, FaPlusCircle, FaTimesCircle, FaUsers } from "react-icons/fa";
 import { Button } from "react-bootstrap";
-import { CorpFireUser } from "../../../../../api/roleplay/corp/CorpFireUser";
-import { CorpPromoteUser } from "../../../../../api/roleplay/corp/CorpPromoteUser";
-import { CorpDemoteUser } from "../../../../../api/roleplay/corp/CorpDemoteUser";
-import { UserSelect } from "../../../../roleplay/UserSelect";
-import { useCorpEmployeeList } from "../../../../../hooks/roleplay/use-corp-employee-list";
+import { CorpFireUser } from "../../../../../../api/roleplay/corp/CorpFireUser";
+import { CorpPromoteUser } from "../../../../../../api/roleplay/corp/CorpPromoteUser";
+import { CorpDemoteUser } from "../../../../../../api/roleplay/corp/CorpDemoteUser";
+import { useCorpEmployeeList } from "../../../../../../hooks/roleplay/use-corp-employee-list";
 import { CorpHireEmployee } from "./CorpHireEmployee";
 
 export function CorpEmployees({ corpID }: CorpManagerViewProps) {

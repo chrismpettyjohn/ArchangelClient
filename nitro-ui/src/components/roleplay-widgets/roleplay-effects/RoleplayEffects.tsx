@@ -1,7 +1,7 @@
 import { UserArrestedEvent, UserDiedEvent } from "@nitro-rp/renderer";
-import { useMessageEvent, useSessionInfo } from "../../hooks";
+import { useMessageEvent, useSessionInfo } from "../../../hooks";
 import { useState } from "react";
-import { PlaySound, SoundNames } from "../../api";
+import { PlaySound, SoundNames } from "../../../api";
 
 const styles = {
     overlay: {

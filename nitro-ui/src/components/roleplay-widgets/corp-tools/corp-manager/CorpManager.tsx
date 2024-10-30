@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { Tab } from "../../inventory/Inventory.types";
+import { Tab } from "../../../inventory/Inventory.types";
 import { CorpInfo } from "./views/corp-info/CorpInfo";
 import { CorpPositions } from "./views/corp-positions/CorpPositions";
 import { CorpEmployees } from "./views/corp-employees/CorpEmployees";
-import { NitroCardContentView, NitroCardHeaderView, NitroCardTabsItemView, NitroCardTabsView, NitroCardView } from "../../../common";
+import { NitroCardContentView, NitroCardHeaderView, NitroCardTabsItemView, NitroCardTabsView, NitroCardView } from "../../../../common";
 import { CorpOpenComputerEvent } from "@nitro-rp/renderer";
-import { useMessageEvent } from "../../../hooks";
+import { useMessageEvent } from "../../../../hooks";
 
 export interface CorpManagerViewProps {
     corpID: number;

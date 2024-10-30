@@ -8,7 +8,7 @@ import { FocusMode, useSharedUI } from "../../../context/shared-ui";
 export const GAME_CONTROLS_ID = 'game-controls';
 
 export function GameControls() {
-    const { focus } = useSharedUI();
+    const { focus, setFocus } = useSharedUI();
     const [activeKey, setActiveKey] = useState<string | null>(null);
     const [activeDirection, setActiveDirection] = useState<MovementDirection | null>(null);
     const controlRef = useRef<HTMLDivElement>(null);
@@ -96,8 +96,7 @@ export function GameControls() {
             ref={controlRef}
             tabIndex={0}
             id={GAME_CONTROLS_ID}
-            onFocus={() => setIsActive(true)}
-            onBlur={() => setIsActive(false)}
+            onFocus={() => setFocus(FocusMode.Controls)}
             style={{
                 zIndex: 100,
                 pointerEvents: 'all',

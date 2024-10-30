@@ -1,13 +1,13 @@
 import { FaCaretLeft } from "react-icons/fa";
-import { Column, Grid, Text } from "../../../../../common";
+import { Column, Grid, Text } from "../../../../../../common";
 import { CorpManagerViewProps } from "../../CorpManager";
-import { UserSelect } from "../../../../roleplay/UserSelect";
+import { UserSelect } from "../../../../../roleplay/UserSelect";
 import { RoomUsersListRow } from "@nitro-rp/renderer";
 import { useState } from "react";
-import { CorpPositionSelect } from "../../../../roleplay/CorpPositionSelect";
+import { CorpPositionSelect } from "../../../../../roleplay/CorpPositionSelect";
 import { Button } from "react-bootstrap";
-import { CorpOfferJob } from "../../../../../api/roleplay/corp/CorpOfferJob";
-import { useSessionInfo } from "../../../../../hooks";
+import { CorpOfferJob } from "../../../../../../api/roleplay/corp/CorpOfferJob";
+import { useSessionInfo } from "../../../../../../hooks";
 
 export interface CorpEditPositionProps extends CorpManagerViewProps {
     onToggle(): void;

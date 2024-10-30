@@ -1,12 +1,12 @@
 import { ReactNode, useEffect, useState } from "react";
-import { Column, Flex, Grid, LayoutAvatarImageView, Text } from "../../../../../../common";
-import { CorpPositionInfoData, CorpPositionListData } from "@nitro-rp/renderer";
-import { corpChangeClothes } from "../../../../../../api/roleplay/corp/CorpChangeClothes";
+import { Column, Flex, Grid, LayoutAvatarImageView, Text } from "../../../../../../../common";
+import { CorpPositionInfoData, } from "@nitro-rp/renderer";
+import { corpChangeClothes } from "../../../../../../../api/roleplay/corp/CorpChangeClothes";
 import { Button } from "react-bootstrap";
-import { useSessionInfo } from "../../../../../../hooks";
-import { useRoleplayStats } from "../../../../../../hooks/roleplay/use-rp-stats";
-import { useCorpPositionData } from "../../../../../../hooks/roleplay/use-corp-position-data";
-import { useCorpPositionList } from "../../../../../../hooks/roleplay/use-corp-position-list";
+import { useSessionInfo } from "../../../../../../../hooks";
+import { useRoleplayStats } from "../../../../../../../hooks/roleplay/use-rp-stats";
+import { useCorpPositionData } from "../../../../../../../hooks/roleplay/use-corp-position-data";
+import { useCorpPositionList } from "../../../../../../../hooks/roleplay/use-corp-position-list";
 
 export interface CorpPositionEditorProps {
     children?: ReactNode;

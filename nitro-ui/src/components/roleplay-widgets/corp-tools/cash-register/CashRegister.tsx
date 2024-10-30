@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useCashRegister } from '../../../hooks/roleplay/use-open-cash-register';
+import { useCashRegister } from '../../../../hooks/roleplay/use-open-cash-register';
 
 export function CashRegister() {
     const cashRegister = useCashRegister();
