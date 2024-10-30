@@ -1,4 +1,5 @@
 import { Text } from "../../../../common";
+import { CITY_NAME } from "../../../../constant";
 
 export function StorylinePanel() {
     return (
@@ -6,9 +7,9 @@ export function StorylinePanel() {
             <Text bold fontSize={4} variant="white">Storyline</Text>
 
             <div style={{ display: 'flex', gap: 8, justifyContent: 'center', alignItems: 'center' }}>
-                <img src="https://i.imgur.com/QQN3WuG.png" alt="City of Nueva Esperanza" style={{ width: 250, objectFit: 'cover' }} />
+                <img src="https://i.imgur.com/QQN3WuG.png" alt={`City of ${CITY_NAME}`} style={{ width: 250, objectFit: 'cover' }} />
                 <p>
-                    In the city of <strong>Nueva Esperanza</strong>, an iron-fisted government known as <strong>The Sovereign Authority (SA)</strong>
+                    In the city of <strong>{CITY_NAME}</strong>, an iron-fisted government known as <strong>The Sovereign Authority (SA)</strong>
                     controls nearly every aspect of life. Originally promising "order and prosperity," the SA now rules with an iron grip,
                     enforcing strict laws and silencing any dissent. Over the years, these policies have widened the gap between the wealthy
                     elite and the struggling working class, fueling widespread resentment and whispers of rebellion.
@@ -42,7 +43,7 @@ export function StorylinePanel() {
             <div style={{ display: 'flex', gap: 8, justifyContent: 'center', alignItems: 'center' }}>
                 <p>
                     Meanwhile, whispers spread of a neutral group known as the <strong>World Accord (WA)</strong> watching from afar.
-                    The WA has not yet intervened but may step in if the humanitarian crisis in Nueva Esperanza worsens. For now,
+                    The WA has not yet intervened but may step in if the humanitarian crisis in {CITY_NAME} worsens. For now,
                     their influence is merely a rumor, casting an uncertain shadow over the escalating conflict.
                 </p>
                 <img src="https://i.imgur.com/AxhLguv.png" alt="Liberation Front members" style={{ width: 250, objectFit: 'cover' }} />

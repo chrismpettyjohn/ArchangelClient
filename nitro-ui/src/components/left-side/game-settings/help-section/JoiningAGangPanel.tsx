@@ -1,11 +1,12 @@
 import { Text } from "../../../../common";
 import { FaUserFriends, FaSkullCrossbones, FaMoneyBillWave, FaBolt } from "react-icons/fa";
+import { CITY_NAME } from "../../../../constant";
 
 export function JoiningAGangPanel() {
     return (
         <>
             <Text bold fontSize={4} variant="white">Join a Gang</Text>
-            <p>Joining a gang in Nueva Esperanza can offer protection, profits, and a place to belong, but it’s a dangerous path.</p>
+            <p>Joining a gang in {CITY_NAME} can offer protection, profits, and a place to belong, but it’s a dangerous path.</p>
             <br />
 
             <Text bold fontSize={4} variant="white">Gang Benefits</Text>

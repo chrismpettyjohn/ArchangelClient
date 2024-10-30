@@ -1,12 +1,13 @@
 import { FaCrosshairs, FaFistRaised, FaHeart, FaShieldAlt, FaSyncAlt } from "react-icons/fa";
 import { Text } from "../../../../common";
+import { CITY_NAME } from "../../../../constant";
 
 export function HowToFightPanel() {
     return (
         <>
             <Text bold fontSize={4} variant="white">How to Fight</Text>
             <p>
-                Fighting in Nueva Esperanza requires skill and strategy. Here are the essentials to get you started:
+                Fighting in {CITY_NAME} requires skill and strategy. Here are the essentials to get you started:
             </p>
             <br />
             <Text bold fontSize={4} variant="white">Combat Basics</Text>

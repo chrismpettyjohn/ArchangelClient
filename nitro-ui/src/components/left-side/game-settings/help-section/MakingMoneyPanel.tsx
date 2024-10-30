@@ -1,11 +1,12 @@
 import { Text } from "../../../../common";
 import { FaTractor, FaFish, FaTree, FaHardHat, FaUserSecret, FaDollarSign } from "react-icons/fa";
+import { CITY_NAME } from "../../../../constant";
 
 export function MakingMoneyPanel() {
     return (
         <>
             <Text bold fontSize={4} variant="white">Making Money</Text>
-            <p>In Nueva Esperanza, earning a living can be honest, risky, or a mix of both. Choose your path wisely:</p>
+            <p>In {CITY_NAME}, earning a living can be honest, risky, or a mix of both. Choose your path wisely:</p>
             <br />
 
             <Text bold fontSize={4} variant="white">Legitimate Work</Text>
