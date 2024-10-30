@@ -1,10 +1,11 @@
-import { IFurnitureStackingHeightMap, ILegacyWallGeometry, IObjectData, IRoomCanvasMouseListener, IRoomEngineServices, IRoomGeometry, IRoomObject, IRoomObjectController, IRoomObjectEventManager, ISelectedRoomObjectData, IVector3D, MouseEventType, NitroConfiguration, NitroLogger, RoomObjectCategory, RoomObjectOperationType, RoomObjectPlacementSource, RoomObjectType, RoomObjectUserType, RoomObjectVariable, Vector3d } from '../../api';
+import { CursorMode, IFurnitureStackingHeightMap, ILegacyWallGeometry, IObjectData, IRoomCanvasMouseListener, IRoomEngineServices, IRoomGeometry, IRoomObject, IRoomObjectController, IRoomObjectEventManager, ISelectedRoomObjectData, IVector3D, MouseEventType, NitroConfiguration, NitroLogger, RoomObjectCategory, RoomObjectOperationType, RoomObjectPlacementSource, RoomObjectType, RoomObjectUserType, RoomObjectVariable, Vector3d } from '../../api';
 import { Disposable } from '../../core';
 import { RoomEngineDimmerStateEvent, RoomEngineObjectEvent, RoomEngineObjectPlacedEvent, RoomEngineObjectPlacedOnUserEvent, RoomEngineObjectPlaySoundEvent, RoomEngineRoomAdEvent, RoomEngineSamplePlaybackEvent, RoomEngineTriggerWidgetEvent, RoomEngineUseProductEvent, RoomObjectBadgeAssetEvent, RoomObjectDataRequestEvent, RoomObjectDimmerStateUpdateEvent, RoomObjectEvent, RoomObjectFloorHoleEvent, RoomObjectFurnitureActionEvent, RoomObjectHSLColorEnabledEvent, RoomObjectHSLColorEnableEvent, RoomObjectMouseEvent, RoomObjectMoveEvent, RoomObjectPlaySoundIdEvent, RoomObjectRoomAdEvent, RoomObjectSamplePlaybackEvent, RoomObjectSoundMachineEvent, RoomObjectStateChangedEvent, RoomObjectTileMouseEvent, RoomObjectWallMouseEvent, RoomObjectWidgetRequestEvent, RoomSpriteMouseEvent } from '../../events';
 import { RoomEnterEffect, RoomId, RoomObjectUpdateMessage } from '../../room';
 import { BotPlaceComposer, FurnitureColorWheelComposer, FurnitureDiceActivateComposer, FurnitureDiceDeactivateComposer, FurnitureFloorUpdateComposer, FurnitureGroupInfoComposer, FurnitureMultiStateComposer, FurnitureOneWayDoorComposer, FurniturePickupComposer, FurniturePlaceComposer, FurniturePostItPlaceComposer, FurnitureRandomStateComposer, FurnitureWallMultiStateComposer, FurnitureWallUpdateComposer, GetItemDataComposer, GetResolutionAchievementsMessageComposer, PetMoveComposer, PetPlaceComposer, RemoveWallItemComposer, RoomUnitLookComposer, RoomUnitWalkComposer, SetItemDataMessageComposer, SetObjectDataMessageComposer, UserAttackComposer } from '../communication';
 import { Nitro } from '../Nitro';
 import { ObjectAvatarSelectedMessage, ObjectDataUpdateMessage, ObjectSelectedMessage, ObjectTileCursorUpdateMessage, ObjectVisibilityUpdateMessage } from './messages';
+import { RoomEngine } from './RoomEngine';
 import { SelectedRoomObjectData } from './utils';
 
 export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMouseListener, IRoomObjectEventManager {
@@ -314,16 +315,6 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         const category = this._roomEngine.getRoomObjectCategoryForType(event.objectType);
 
         switch (operation) {
-            case RoomObjectOperationType.OBJECT_ATTACK:
-                if (category === RoomObjectCategory.UNIT && selectedData) {
-                    alert('DIEEEEE')
-                }
-                break;
-            case RoomObjectOperationType.OBJECT_INTERACT:
-                if (category === RoomObjectCategory.UNIT && selectedData) {
-                    alert('PLAY WITH ME')
-                }
-                break;
             case RoomObjectOperationType.OBJECT_MOVE:
                 if (category === RoomObjectCategory.ROOM) {
                     if (selectedData) {
@@ -948,7 +939,11 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
         if (!session || session.isSpectator) return;
 
-        this.attackTarget(event.tileX, event.tileY, event.tileZ);
+        if (this._roomEngine.getCursorMode() === CursorMode.Attack) {
+            this.attackTarget(event.tileX, event.tileY, event.tileZ);
+            return;
+        }
+
     }
 
     private handleObjectMove(event: RoomObjectMouseEvent, roomId: number): void {
@@ -1319,8 +1314,6 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
     private attackTarget(x: number, y: number, z: number): void {
         if (!this._roomEngine || !this._roomEngine.connection) return;
-
-        console.log({ x, y, z })
         this._roomEngine.connection.send(new UserAttackComposer(x, y, z));
     }
 

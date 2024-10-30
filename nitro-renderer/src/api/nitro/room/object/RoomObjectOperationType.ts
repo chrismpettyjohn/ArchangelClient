@@ -11,6 +11,4 @@ export class RoomObjectOperationType {
     public static OBJECT_PICKUP_PET: string = 'OBJECT_PICKUP_PET';
     public static OBJECT_EJECT: string = 'OBJECT_EJECT';
     public static OBJECT_SAVE_STUFF_DATA: string = 'OBJECT_SAVE_STUFF_DATA';
-    public static OBJECT_ATTACK: string = 'OBJECT_ATTACK';
-    public static OBJECT_INTERACT: string = 'OBJECT_INTERACT';
 }

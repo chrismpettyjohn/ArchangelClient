@@ -2,12 +2,13 @@ import { IEventDispatcher } from '../../common';
 import { IConnection } from '../../communication';
 import { IRoomInstance, IRoomObjectController, IRoomRenderingCanvas, IVector3D } from '../../room';
 import { IRoomSessionManager, ISessionDataManager } from '../session';
+import { CursorMode } from './IRoomEngine';
 import { ISelectedRoomObjectData } from './ISelectedRoomObjectData';
 import { IObjectData } from './object';
 import { IFurnitureStackingHeightMap, ILegacyWallGeometry, ITileObjectMap } from './utils';
 
-export interface IRoomEngineServices
-{
+export interface IRoomEngineServices {
+    getCursorMode(): CursorMode;
     getRoomInstance(roomId: number): IRoomInstance;
     getActiveRoomInstanceRenderingCanvas(): IRoomRenderingCanvas;
     addRoomInstanceFloorHole(roomId: number, objectId: number): void;
