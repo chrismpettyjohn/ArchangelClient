@@ -6,7 +6,6 @@ import { useMessageEvent } from '../../../../hooks';
 import { ModToolsUserModActionView } from './ModToolsUserModActionView';
 import { ModToolsUserRoomVisitsView } from './ModToolsUserRoomVisitsView';
 import { ModToolsUserSendMessageView } from './ModToolsUserSendMessageView';
-import { ModToolsUserSuperhireView } from '../roleplay/ModToolsUserSuperhireView';
 
 interface ModToolsUserViewProps {
     userId: number;
@@ -135,10 +134,6 @@ export const ModToolsUserView: FC<ModToolsUserViewProps> = props => {
                             </Button>
                             <Button onClick={event => setModActionVisible(!modActionVisible)}>
                                 Mod Action
-                            </Button>
-                            <hr />
-                            <Button onClick={() => setSuperhireVisible(_ => !_)}>
-                                Superhire
                             </Button>
                         </Column>
                     </Grid>

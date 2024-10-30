@@ -1,4 +1,4 @@
-import { FaBox, FaCamera, FaCog, FaMicrophone, FaShieldAlt, FaTaxi } from "react-icons/fa";
+import { FaCamera, FaCog, FaMicrophone, FaShieldAlt, FaTaxi } from "react-icons/fa";
 import { CreateLinkEvent, GetSessionDataManager } from "../../../api";
 
 export function GameTools() {
@@ -13,25 +13,22 @@ export function GameTools() {
                 <div className="menu-button glass-panel " onClick={() => CreateLinkEvent('navigator/toggle')} >
                     <FaTaxi size={20} />
                 </div>
-                <div className="menu-button glass-panel" onClick={() => CreateLinkEvent('inventory/toggle')}>
-                    <FaBox size={20} />
-                </div>
                 <div className="menu-button glass-panel " onClick={() => CreateLinkEvent('camera/toggle')} >
                     <FaCamera size={20} />
                 </div>
-                {
-                    isMod() && (
-                        <div className="menu-button glass-panel " onClick={() => CreateLinkEvent('mod-tools/toggle')} >
-                            <FaShieldAlt size={20} />
-                        </div>
-                    )
-                }
                 <div className="menu-button glass-panel " onClick={() => CreateLinkEvent('game-settings/toggle')} >
                     <FaCog size={20} />
                 </div>
                 <div className="menu-button glass-panel " onClick={() => CreateLinkEvent('speech-wheel/toggle')} >
                     <FaMicrophone size={20} />
                 </div>
+                {
+                    isMod() && (
+                        <div className="menu-button glass-panel" onClick={() => CreateLinkEvent('mod-tools/toggle')} >
+                            <FaShieldAlt size={20} style={{ color: 'red' }} />
+                        </div>
+                    )
+                }
             </div>
         </div>
     )

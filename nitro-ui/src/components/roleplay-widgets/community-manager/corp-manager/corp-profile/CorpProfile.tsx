@@ -1,6 +1,6 @@
 import { useCorpData } from "../../../../../hooks/roleplay/use-corp-data";
 import { useRoleplayStats } from "../../../../../hooks/roleplay/use-rp-stats";
-import { Button, Column, Flex, Grid, LayoutAvatarImageView, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../../common";
+import { Button, Column, Flex, Grid, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../../common";
 import { FaCaretLeft, FaPencilAlt } from "react-icons/fa";
 import { CreateLinkEvent } from "../../../../../api";
 

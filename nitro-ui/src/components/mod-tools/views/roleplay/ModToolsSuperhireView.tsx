@@ -33,18 +33,18 @@ export function ModToolsSuperhireView({ onToggle }: ModToolsSuperhireViewProps) 
         <NitroCardView className="nitro-mod-tools-superhire" theme="primary-slim" windowPosition={DraggableWindowPosition.TOP_LEFT}>
             <NitroCardHeaderView headerText="Superhire" onCloseClick={onToggle} />
             <NitroCardContentView className="text-black h-100">
-                <Grid fullHeight={false} fullWidth style={{ padding: 16, minWidth: 400 }}>
+                <Grid fullHeight={false} fullWidth style={{ padding: 2, minWidth: 250 }}>
                     <Column center size={12} alignItems="start">
                         <Text bold fontSize={5}>
                             Superhire
                         </Text>
                     </Column>
                     <Column size={12}>
-                        <Text className="col-2" fontSize={5}>Username</Text>
+                        <Text className="col-2" variant="white" fontSize={5}>Username</Text>
                         <UserSelect userID={user?.id} onChange={onChangeUser} />
-                        <Text className="col-2" fontSize={5}>Corporation</Text>
+                        <Text className="col-2" variant="white" fontSize={5}>Corporation</Text>
                         <CorpSelect corpID={corpID} onChange={corp => setCorpID(corp.id)} />
-                        <Text className="col-2" fontSize={5}>Position</Text>
+                        <Text className="col-2" variant="white" fontSize={5}>Position</Text>
                         <CorpPositionSelect corpID={corpID} corpPositionID={corpPositionID} onChange={pos => setCorpPositionID(pos.id)} />
                         <Button disabled={disabled} size="lg" type="button" variant="success" onClick={onHireUser}>
                             Hire

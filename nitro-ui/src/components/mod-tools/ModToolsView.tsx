@@ -135,7 +135,10 @@ export const ModToolsView: FC<{}> = props => {
                             <Base className="position-absolute start-1" /> Superhire Tool
                         </Button>
                         <Button gap={1} onClick={() => CreateLinkEvent('catalog/toggle')} className="position-relative">
-                            <Base className="position-absolute start-1" /> Open Catalog
+                            <Base className="position-absolute start-1" /> Catalog
+                        </Button>
+                        <Button gap={1} onClick={() => CreateLinkEvent('inventory/toggle')} className="position-relative">
+                            <Base className="position-absolute start-1" /> Inventory
                         </Button>
                     </NitroCardContentView>
                 </NitroCardView>}
