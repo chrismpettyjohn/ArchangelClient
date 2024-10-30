@@ -1770,6 +1770,12 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
     public setSelectedObject(roomId: number, objectId: number, category: number): void {
         if (!this._roomEngine) return;
 
+        if (this._roomEngine.getCursorMode() === CursorMode.Attack) {
+            const location = this._roomEngine.getRoomObject(roomId, this._selectedObjectId, this._selectedObjectCategory).getLocation();
+            if (location) this._roomEngine.connection.send(new UserAttackComposer(~~(location.x), ~~(location.y), ~~(location.z)));
+            return;
+        }
+
         const eventDispatcher = this._roomEngine.events;
 
         if (!eventDispatcher) return;
@@ -1821,6 +1827,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
     public setSelectedAvatar(k: number, _arg_2: number, _arg_3: boolean): void {
         if (!this._roomEngine) return;
 
+
         const _local_4 = RoomObjectCategory.UNIT;
         const _local_5 = this._roomEngine.getRoomObject(k, this._selectedAvatarId, _local_4);
 
@@ -1833,7 +1840,6 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         let _local_6 = false;
 
         if (_arg_3) {
-            const _local_5 = this._roomEngine.getRoomObject(k, _arg_2, _local_4);
 
             if (_local_5 && _local_5.logic) {
                 _local_5.logic.processUpdateMessage(new ObjectAvatarSelectedMessage(true));
