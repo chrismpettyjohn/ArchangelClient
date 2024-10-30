@@ -15,8 +15,6 @@ import { NavigatorView } from '../navigator/NavigatorView';
 import { NitropediaView } from '../nitropedia/NitropediaView';
 import { RightSideView } from '../right-side/RightSideView';
 import { RoomView } from '../room/RoomView';
-import { UserProfileView } from '../user-profile/UserProfileView';
-import { UserSettingsView } from '../user-settings/UserSettingsView';
 import { WiredView } from '../wired/WiredView';
 import { LeftSideView } from '../left-side/LeftSideView';
 import { CorpTools } from '../roleplay-widgets/corp-tools/CorpTools';
@@ -52,8 +50,6 @@ export function MainView() {
             <LeftSideView />
             <MiddleView />
             <RightSideView />
-            <UserSettingsView />
-            <UserProfileView />
             <GroupsView />
             <CameraWidgetView />
             <NitropediaView />

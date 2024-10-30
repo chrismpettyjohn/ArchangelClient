@@ -1,11 +1,12 @@
 
-import { ILinkEventTracker } from "@nitro-rp/renderer";
+import { ILinkEventTracker, UserProfileEvent } from "@nitro-rp/renderer";
 import { ReactNode, useEffect, useState } from "react";
 import { UserManager } from "./user-manager/UserManager";
 import { GangManager } from "./gang-manager/GangManager";
 import { CorpManager } from "./corp-manager/CorpManager";
 import { FaBuilding, FaIdCard, FaSkull } from "react-icons/fa";
-import { AddEventLinkTracker, RemoveLinkEventTracker } from "../../../api";
+import { AddEventLinkTracker, CreateLinkEvent, RemoveLinkEventTracker } from "../../../api";
+import { useMessageEvent } from "../../../hooks";
 
 interface CommunityManagerView {
     key: string;
@@ -79,6 +80,11 @@ export function CommunityManager() {
 
         return () => RemoveLinkEventTracker(linkTracker);
     }, []);
+
+    useMessageEvent<UserProfileEvent>(UserProfileEvent, event => {
+        CreateLinkEvent(`users/${event.getParser().id}`)
+    });
+
 
     if (!view) {
         return null;
