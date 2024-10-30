@@ -3,12 +3,31 @@ import { MovementDirection } from "@nitro-rp/renderer";
 import { UserMovement } from "../../../api/roleplay/controls/UserMovement";
 import { FaCaretSquareDown, FaCaretSquareLeft, FaCaretSquareRight, FaCaretSquareUp } from "react-icons/fa";
 import { WeaponReload } from "../../../api/roleplay/combat/WeaponReload";
-import { Button } from "../../../common";
+import { FocusMode, useSharedUI } from "../../../context/shared-ui";
+
+export const GAME_CONTROLS_ID = 'game-controls';
 
 export function GameControls() {
-    const [activeKey, setActiveKey] = useState<string | null>(null);  // Track the active key
+    const { focus } = useSharedUI();
+    const [activeKey, setActiveKey] = useState<string | null>(null);
     const [activeDirection, setActiveDirection] = useState<MovementDirection | null>(null);
     const controlRef = useRef<HTMLDivElement>(null);
+    const isActive = focus === FocusMode.Controls;
+
+    useEffect(() => {
+        if (isActive) {
+            window.addEventListener('keydown', onKeyDown);
+            window.addEventListener('keyup', onKeyUp);
+        } else {
+            window.removeEventListener('keydown', onKeyDown);
+            window.removeEventListener('keyup', onKeyUp);
+        }
+
+        return () => {
+            window.removeEventListener('keydown', onKeyDown);
+            window.removeEventListener('keyup', onKeyUp);
+        };
+    }, [isActive, activeDirection, activeKey]);
 
     function onMove(direction: MovementDirection) {
         if (direction === activeDirection) {
@@ -19,43 +38,34 @@ export function GameControls() {
         }
 
         if (direction !== activeDirection) {
-            controlRef.current.focus();
             UserMovement(direction);
             setActiveDirection(direction);
         }
     }
 
-    function onKeyDown(event: KeyboardEvent) {
-        if (!controlRef.current || document.activeElement?.classList?.contains('chat-input')) {
-            return;
-        }
+    const onKeyDown = (event: KeyboardEvent) => {
+        if (!isActive) return; // Only proceed if control is active
 
         const key = event.key.toLowerCase();
 
         if (key !== activeKey) {
             setActiveKey(key);
 
-            console.log(key)
-
             switch (key) {
                 case 'w':
                 case "arrowup":
-                    controlRef.current.focus();
                     onMove(MovementDirection.UP);
                     break;
                 case 'a':
                 case "arrowleft":
-                    controlRef.current.focus();
                     onMove(MovementDirection.LEFT);
                     break;
                 case 's':
                 case "arrowdown":
-                    controlRef.current.focus();
                     onMove(MovementDirection.DOWN);
                     break;
                 case 'd':
                 case "arrowright":
-                    controlRef.current.focus();
                     onMove(MovementDirection.RIGHT);
                     break;
                 case 'r':
@@ -66,10 +76,10 @@ export function GameControls() {
             }
         }
 
-        event.stopPropagation();
-    }
+        event.preventDefault();
+    };
 
-    function onKeyUp(event: KeyboardEvent) {
+    const onKeyUp = (event: KeyboardEvent) => {
         const key = event.key.toLowerCase();
 
         if (key === activeKey) {
@@ -78,23 +88,16 @@ export function GameControls() {
             setActiveDirection(null);
         }
 
-        event.stopPropagation();
-    }
-
-    useEffect(() => {
-        window.addEventListener('keydown', onKeyDown);
-        window.addEventListener('keyup', onKeyUp);
-
-        return () => {
-            window.removeEventListener('keydown', onKeyDown);
-            window.removeEventListener('keyup', onKeyUp);
-        };
-    }, [activeDirection, activeKey]);
+        event.preventDefault();
+    };
 
     return (
         <div
             ref={controlRef}
             tabIndex={0}
+            id={GAME_CONTROLS_ID}
+            onFocus={() => setIsActive(true)}
+            onBlur={() => setIsActive(false)}
             style={{
                 zIndex: 100,
                 pointerEvents: 'all',

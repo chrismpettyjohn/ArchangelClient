@@ -9,6 +9,7 @@ import { SecurityPanel } from "./settings-section/SecurityPanel";
 import { PrivacyPanel } from "./settings-section/PrivacyPanel";
 import { SoundPanel } from "./settings-section/SoundPanel";
 import { ControlsPanel } from "./settings-section/ContorlsPanel";
+import { FocusMode, useSharedUI } from "../../../context/shared-ui";
 
 export interface SettingParent {
     type: 'parent';
@@ -40,6 +41,7 @@ export type SettingDivider = { type: 'divider'; };
 
 export function GameSettings() {
     const { userInfo } = useSessionInfo();
+    const { focus, setFocus } = useSharedUI();
     const roleplayStats = useRoleplayStats(userInfo?.userId);
     const [visible, setVisible] = useState(false);
     const settingOptions: SettingTop[] = useMemo(() => [
@@ -172,6 +174,16 @@ export function GameSettings() {
             RemoveLinkEventTracker(linkTracker);
         };
     }, []);
+
+    useEffect(() => {
+        if (visible && focus !== FocusMode.Modal) {
+            setFocus(FocusMode.Modal);
+        }
+
+        return (() => {
+            setFocus(FocusMode.Controls);
+        })
+    }, [visible, focus, setFocus]);
 
     if (!visible) {
         return null;
