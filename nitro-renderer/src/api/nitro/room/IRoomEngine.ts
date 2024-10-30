@@ -12,13 +12,19 @@ import { IRoomContentLoader } from './IRoomContentLoader';
 import { IRoomObjectEventManager } from './IRoomObjectEventManager';
 import { IObjectData, IRoomMapData } from './object';
 
-export interface IRoomEngine extends INitroManager
-{
+export enum CursorMode {
+    Interact = 'interact',
+    Attack = 'attack'
+}
+
+export interface IRoomEngine extends INitroManager {
     setActiveRoomId(roomId: number): void;
     onRoomEngineInitalized(flag: boolean): void;
     disableUpdate(flag: boolean): void;
     runUpdate(): void;
     createRoomInstance(roomId: number, roomMap: IRoomMapData): void;
+    setCursorMode(cursor: CursorMode): void;
+    getCursorMode(): CursorMode;
     getRoomInstanceDisplay(roomId: number, id: number, width: number, height: number, scale: number): DisplayObject;
     setRoomInstanceRenderingCanvasScale(roomId: number, canvasId: number, scale: number, point?: Point, offsetPoint?: Point, override?: boolean, asDelta?: boolean): void;
     setRoomInstanceRenderingCanvasMask(roomId: number, canvasId: number, flag: boolean): void;

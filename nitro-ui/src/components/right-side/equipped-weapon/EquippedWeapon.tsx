@@ -5,6 +5,7 @@ import { useSessionInfo } from "../../../hooks";
 import { useMyWeaponList } from "../../../hooks/roleplay/use-my-weapon-list";
 import { useRoleplayStats } from "../../../hooks/roleplay/use-rp-stats";
 import { NitroConfiguration } from "@nitro-rp/renderer";
+import { Button } from "react-bootstrap";
 
 export function EquippedWeapon() {
     const session = useSessionInfo();

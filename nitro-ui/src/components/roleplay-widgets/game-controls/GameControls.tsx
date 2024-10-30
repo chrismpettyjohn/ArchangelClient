@@ -25,10 +25,6 @@ export function GameControls() {
         }
     }
 
-    function onReload() {
-        WeaponReload();
-    }
-
     function onKeyDown(event: KeyboardEvent) {
         if (!controlRef.current || document.activeElement?.classList?.contains('chat-input')) {
             return;
@@ -63,7 +59,7 @@ export function GameControls() {
                     onMove(MovementDirection.RIGHT);
                     break;
                 case 'r':
-                    onReload();
+                    WeaponReload();
                     break;
                 default:
                     break;
@@ -124,11 +120,6 @@ export function GameControls() {
                 <div onClick={() => onMove(MovementDirection.RIGHT)} style={{ cursor: 'pointer', color: activeDirection === MovementDirection.RIGHT ? 'cyan' : 'white' }}>
                     <FaCaretSquareRight size={40} />
                 </div>
-            </div>
-            <div onClick={onReload} style={{ cursor: 'pointer', color: activeKey === 'r' ? 'cyan' : 'white', fontSize: 20, marginLeft: 30, position: 'absolute', top: 50, right: -100 }}>
-                <Button variant={activeKey === 'r' ? 'primary' : 'secondary'}>
-                    Reload
-                </Button>
             </div>
         </div >
     );

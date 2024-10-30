@@ -314,6 +314,16 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         const category = this._roomEngine.getRoomObjectCategoryForType(event.objectType);
 
         switch (operation) {
+            case RoomObjectOperationType.OBJECT_ATTACK:
+                if (category === RoomObjectCategory.UNIT && selectedData) {
+                    alert('DIEEEEE')
+                }
+                break;
+            case RoomObjectOperationType.OBJECT_INTERACT:
+                if (category === RoomObjectCategory.UNIT && selectedData) {
+                    alert('PLAY WITH ME')
+                }
+                break;
             case RoomObjectOperationType.OBJECT_MOVE:
                 if (category === RoomObjectCategory.ROOM) {
                     if (selectedData) {

@@ -4,6 +4,7 @@ import { ILinkEventTracker, MyWeaponData, NitroConfiguration } from "@nitro-rp/r
 import { EquipWeapon } from "../../../api/roleplay/combat/EquipWeapon";
 import { AddEventLinkTracker, RemoveLinkEventTracker } from "../../../api";
 import { useMyWeaponList } from "../../../hooks/roleplay/use-my-weapon-list";
+import { Button } from "react-bootstrap";
 
 export function WeaponWheel() {
     const weapons = useMyWeaponList();
@@ -50,6 +51,7 @@ export function WeaponWheel() {
 
     return (
         <div id="weapon-wheel" className="modal" onClick={() => setVisible(false)}>
+
             <div className="wheel" onClick={e => e.stopPropagation()}>
                 {
                     (weapons.slice(0, 8)).map((weapon, i) => (

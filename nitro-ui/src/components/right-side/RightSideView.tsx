@@ -10,6 +10,7 @@ import { TimeOfDay } from './time-of-day/TimeOfDay';
 import { CashBalance } from './cash-balance/CashBalance';
 import { WeaponWheel } from './weapon-wheel/WeaponWheel';
 import { EquippedWeapon } from './equipped-weapon/EquippedWeapon';
+import { ToggleCursorMode } from './toggle-cursor-mode/ToggleCursorMode';
 
 export const RightSideView: FC<{}> = props => {
     return (
@@ -28,6 +29,7 @@ export const RightSideView: FC<{}> = props => {
                     <OfferView />
                     <RoomPromotesWidgetView />
                     <NotificationCenterView />
+                    <ToggleCursorMode />
                     <EquippedWeapon />
                     <WeaponWheel />
                 </Column>

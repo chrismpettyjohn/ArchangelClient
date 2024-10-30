@@ -7,8 +7,6 @@ export function WeaponEffects() {
 
         const weaponSound = new Audio(soundBaseURL.replace('%sample%', `weapons/${event.getParser().uniqueName}/single`));
 
-        console.log(event.getParser().soundLevel)
-
         weaponSound.volume = event.getParser().soundLevel;
 
         weaponSound.play()

@@ -1,7 +1,7 @@
 import { RenderTexture, Resource, Texture } from '@pixi/core';
 import { Container, DisplayObject } from '@pixi/display';
 import { Matrix, Point, Rectangle } from '@pixi/math';
-import { IConnection, IDisposable, IFurnitureStackingHeightMap, IGetImageListener, IImageResult, ILegacyWallGeometry, IMessageComposer, INitroCommunicationManager, INitroEvent, IObjectData, IPetColorResult, IPetCustomPart, IRoomContentListener, IRoomContentLoader, IRoomCreator, IRoomEngine, IRoomEngineServices, IRoomGeometry, IRoomInstance, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRenderer, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISelectedRoomObjectData, ISessionDataManager, ITileObjectMap, IUpdateReceiver, IVector3D, LegacyDataType, MouseEventType, NitroConfiguration, NitroLogger, ObjectDataFactory, RoomControllerLevel, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, ToolbarIconEnum, Vector3d } from '../../api';
+import { CursorMode, IConnection, IDisposable, IFurnitureStackingHeightMap, IGetImageListener, IImageResult, ILegacyWallGeometry, IMessageComposer, INitroCommunicationManager, INitroEvent, IObjectData, IPetColorResult, IPetCustomPart, IRoomContentListener, IRoomContentLoader, IRoomCreator, IRoomEngine, IRoomEngineServices, IRoomGeometry, IRoomInstance, IRoomManager, IRoomManagerListener, IRoomObject, IRoomObjectController, IRoomObjectLogicFactory, IRoomObjectVisualizationFactory, IRoomRenderer, IRoomRendererFactory, IRoomRenderingCanvas, IRoomSessionManager, ISelectedRoomObjectData, ISessionDataManager, ITileObjectMap, IUpdateReceiver, IVector3D, LegacyDataType, MouseEventType, NitroConfiguration, NitroLogger, ObjectDataFactory, RoomControllerLevel, RoomObjectCategory, RoomObjectUserType, RoomObjectVariable, ToolbarIconEnum, Vector3d } from '../../api';
 import { NitroManager } from '../../core';
 import { BadgeImageReadyEvent, NitroToolbarAnimateIconEvent, RoomBackgroundColorEvent, RoomDragEvent, RoomEngineEvent, RoomEngineObjectEvent, RoomObjectEvent, RoomObjectFurnitureActionEvent, RoomObjectMouseEvent, RoomSessionEvent, RoomToObjectOwnAvatarMoveEvent } from '../../events';
 import { GetTicker, GetTickerTime, NitroSprite, TextureUtils } from '../../pixi-proxy';
@@ -62,6 +62,7 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
     private _mouseCursorUpdate: boolean;
     private _badgeListenerObjects: Map<string, RoomObjectBadgeImageAssetListener[]>;
     private _logicFactory: IRoomObjectLogicFactory;
+    private _cursorMode: CursorMode = CursorMode.Interact;
 
     constructor(communication: INitroCommunicationManager) {
         super();
@@ -736,17 +737,26 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         RoomEnterEffect.turnVisualizationOff();
     }
 
+    public setCursorMode(mode: CursorMode): void {
+        this._cursorMode = mode;
+        this.setPointer()
+    }
+
+    public getCursorMode(): CursorMode {
+        return this._cursorMode;
+    }
+
     private setPointer(): void {
         this._mouseCursorUpdate = false;
 
         const instanceData = this.getRoomInstanceData(this._activeRoomId);
 
-        if (instanceData && instanceData.hasButtonMouseCursorOwners()) {
-            document.body.style.cursor = 'crosshair'; // dd
+        if (this._cursorMode === CursorMode.Attack && instanceData && instanceData.hasButtonMouseCursorOwners()) {
+            document.body.style.cursor = 'crosshair';
+            return;
         }
-        else {
-            document.body.style.cursor = 'auto';
-        }
+
+        document.body.style.cursor = 'auto';
     }
 
     private processPendingFurniture(): void {

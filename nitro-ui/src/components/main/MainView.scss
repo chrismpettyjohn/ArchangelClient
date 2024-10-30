@@ -3,17 +3,17 @@
 .nitro-chatbar {
     position: absolute;
     bottom: 2%;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    width: 700px; 
     height: $toolbar-height;
     z-index: $toolbar-zindex;
-    
+    transform: translateX(-50%); 
+
     #toolbar-chat-input-container {
-        width: 680px;
+        width: 100%; 
         @include media-breakpoint-down(sm) {
-            width: 0px;
-            height: 0px;
+            width: 0;
+            height: 0;
         }
     }
 }
-
