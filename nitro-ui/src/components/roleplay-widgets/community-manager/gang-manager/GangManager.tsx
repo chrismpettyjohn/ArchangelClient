@@ -9,5 +9,5 @@ export function GangManager({ profileID }: GangManagerProps) {
     if (!profileID) {
         return <GangLeaderboard />
     }
-    return <GangProfile profileID={profileID} />
+    return <GangProfile gangID={profileID} />
 }

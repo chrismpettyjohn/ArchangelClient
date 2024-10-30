@@ -11,47 +11,11 @@ import { FaCaretLeft, FaPencilAlt } from "react-icons/fa";
 import { CreateLinkEvent } from "../../../../../api";
 import { MySkills } from "./my-skills/MySkills";
 import { MyStats } from "./my-stats/MyStats";
-import { TabWidget } from "../../../../../common/TabWidget";
 
 interface UserProfileProps {
     profileID: number;
 }
 
-const SOCIAL_WIDGETS: TabWidget[] = [
-    {
-        key: 'badges',
-        label: 'Badges',
-        view: () => <MyBadges />,
-    },
-    {
-        key: 'friends',
-        label: 'Friends',
-        view: () => <MyFriends />,
-    },
-    {
-        key: 'groups',
-        label: 'Groups',
-        view: () => <MyGroups />,
-    },
-]
-
-const ROLEPLAY_WIDGETS: TabWidget[] = [
-    {
-        key: 'stats',
-        label: 'Stats',
-        view: () => <MyStats />,
-    },
-    {
-        key: 'experience',
-        label: 'Experience',
-        view: () => <MySkills />,
-    },
-    {
-        key: 'rooms',
-        label: 'Properties',
-        view: () => <MyRooms />,
-    },
-]
 export function UserProfile({ profileID }: UserProfileProps) {
     const roleplayStats = useRoleplayStats(profileID);
     const corp = useCorpData(roleplayStats.corporationID);

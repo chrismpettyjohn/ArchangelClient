@@ -10,5 +10,5 @@ export function CorpManager({ profileID }: CorpManagerProps) {
         return <CorpList />
     }
 
-    return <CorpProfile profileID={profileID} />
+    return <CorpProfile corpID={profileID} />
 }
