@@ -10,6 +10,10 @@ import { PrivacyPanel } from "./settings-section/PrivacyPanel";
 import { SoundPanel } from "./settings-section/SoundPanel";
 import { ControlsPanel } from "./settings-section/ControlsPanel";
 import { FocusMode, useSharedUI } from "../../../context/shared-ui";
+import { StorylinePanel } from "./help-section/StorylinePanel";
+import { HowToFightPanel } from "./help-section/HowToFightPanel";
+import { MakingMoneyPanel } from "./help-section/MakingMoneyPanel";
+import { JoiningAGangPanel } from "./help-section/JoiningAGangPanel";
 
 export interface SettingParent {
     type: 'parent';
@@ -107,11 +111,10 @@ export function GameSettings() {
             ),
             value: "help",
             children: [
-                { type: 'child', label: "Storyline", view: () => 'storyline' },
-                { type: 'child', label: "How to fight", view: () => 'how-to-fight' },
-                { type: 'child', label: "Making money", view: () => 'making money' },
-                { type: 'child', label: "Advanced Weaponry", view: () => 'advanced weaponry' },
-                { type: 'child', label: "Joining a gang", view: () => 'gang warfare' },
+                { type: 'child', label: "Storyline", view: () => <StorylinePanel /> },
+                { type: 'child', label: "How to fight", view: () => <HowToFightPanel /> },
+                { type: 'child', label: "Making money", view: () => <MakingMoneyPanel /> },
+                { type: 'child', label: "Joining a gang", view: () => <JoiningAGangPanel /> },
             ]
         },
         {
