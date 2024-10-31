@@ -2,10 +2,6 @@ import { FaCamera, FaCog, FaMicrophone, FaShieldAlt, FaTaxi } from "react-icons/
 import { CreateLinkEvent, GetSessionDataManager } from "../../../api";
 
 export function GameTools() {
-    function isMod(): boolean {
-        return GetSessionDataManager().isModerator
-    }
-
     return (
 
         <div style={{ position: 'relative' }}>
@@ -23,7 +19,7 @@ export function GameTools() {
                     <FaMicrophone size={20} />
                 </div>
                 {
-                    isMod() && (
+                    GetSessionDataManager().isModerator && (
                         <div className="menu-button glass-panel" onClick={() => CreateLinkEvent('mod-tools/toggle')} >
                             <FaShieldAlt size={20} style={{ color: 'red' }} />
                         </div>
