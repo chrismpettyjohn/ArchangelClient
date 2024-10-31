@@ -1,5 +1,5 @@
 {
-    "socket.url": "wss://ws.habrpg.com",
+    "socket.url": "wss://emu.habrpg.com",
     "asset.url": "https://assets.habrpg.com/",
     "flash.asset.url": "https://assets.habrpg.com/",
     "image.library.url": "${flash.asset.url}/c_images/",
