@@ -9,6 +9,10 @@ import { ModToolsTicketsView } from './views/tickets/ModToolsTicketsView';
 import { ModToolsUserChatlogView } from './views/user/ModToolsUserChatlogView';
 import { ModToolsUserView } from './views/user/ModToolsUserView';
 import { ModToolsSuperhireView } from './views/roleplay/ModToolsSuperhireView';
+import { FaBoxOpen, FaPlusCircle, FaStoreAlt } from 'react-icons/fa';
+import { ModToolsBetaCodesView } from './views/beta/ModToolsBetaCodesView';
+import { ModToolsBugReportsView } from './views/beta/ModToolsBugReportsView';
+import { ModToolsWeaponsManagerView } from './views/roleplay/ModToolsWeaponsManagerView';
 
 export const ModToolsView: FC<{}> = props => {
     const [isVisible, setIsVisible] = useState(false);
@@ -141,13 +145,20 @@ export const ModToolsView: FC<{}> = props => {
                             <NitroCardAccordionSetView headerText="Builder">
                                 <Grid columnCount={2}>
                                     <Button gap={1} onClick={() => CreateLinkEvent('navigator/create')} className="position-relative">
-                                        <Base className="position-absolute start-1" /> Create Room
+                                        <Base className="position-absolute start-1" />
+                                        <FaPlusCircle style={{ marginRight: 4 }} />
+                                        Create Room
                                     </Button>
                                     <Button gap={1} onClick={() => CreateLinkEvent('catalog/toggle')} className="position-relative">
+                                        <FaStoreAlt style={{ marginRight: 4 }} />
                                         <Base className="position-absolute start-1" /> Catalog
                                     </Button>
                                     <Button gap={1} onClick={() => CreateLinkEvent('inventory/toggle')} className="position-relative">
+                                        <FaBoxOpen style={{ marginRight: 4 }} />
                                         <Base className="position-absolute start-1" /> Inventory
+                                    </Button>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/beta-codes/toggle')} className="position-relative">
+                                        <Base className="position-absolute start-1" /> Rooms
                                     </Button>
                                 </Grid>
                             </NitroCardAccordionSetView>
@@ -156,11 +167,27 @@ export const ModToolsView: FC<{}> = props => {
                                     <Button gap={1} onClick={() => setShowSuperhire(_ => !_)} className="position-relative">
                                         <Base className="position-absolute start-1" /> Superhire Tool
                                     </Button>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/weapons-manager/toggle')} className="position-relative">
+                                        <Base className="position-absolute start-1" /> Weapons
+                                    </Button>
+                                </Grid>
+                            </NitroCardAccordionSetView>
+                            <NitroCardAccordionSetView headerText="Beta">
+                                <Grid columnCount={2}>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/beta-codes/toggle')} className="position-relative">
+                                        <Base className="position-absolute start-1" /> Beta Codes
+                                    </Button>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/bug-reports/toggle')} className="position-relative">
+                                        <Base className="position-absolute start-1" /> Bug Reports
+                                    </Button>
                                 </Grid>
                             </NitroCardAccordionSetView>
                         </NitroCardAccordionView>
                     </NitroCardContentView>
                 </NitroCardView>}
+            <ModToolsBetaCodesView />
+            <ModToolsBugReportsView />
+            <ModToolsWeaponsManagerView />
             {showSuperhire && <ModToolsSuperhireView onToggle={() => setShowSuperhire(false)} />}
             {(openRooms.length > 0) && openRooms.map(roomId => <ModToolsRoomView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-info/${roomId}`)} />)}
             {(openRoomChatlogs.length > 0) && openRoomChatlogs.map(roomId => <ModToolsChatlogView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-chatlog/${roomId}`)} />)}
