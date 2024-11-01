@@ -19,7 +19,7 @@ export function CorpSelect({ corpID, onChange }: CorpSelectProps) {
     }
 
     return (
-        <select style={{ width: '100%', padding: 14 }} value={corpID} onChange={onChangeCorp}>            {
+        <select className="form-control form-control-sm" value={corpID} onChange={onChangeCorp}>            {
             !corpID && <option selected disabled>Select a corp</option>
         }
             {

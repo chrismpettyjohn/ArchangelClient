@@ -28,7 +28,7 @@ export function LicenseAgencySelect({ corpID, onChange }: LicenseAgencySelectPro
     }
 
     return (
-        <select style={{ width: '100%', padding: 14 }} value={corpID} onChange={onChangeAgency}>
+        <select className="form-control form-control-sm" value={corpID} onChange={onChangeAgency}>
             {
                 !corpID && <option selected disabled>Select a license agency</option>
             }

@@ -28,7 +28,7 @@ export function BankSelect({ bankID, onChange }: BankSelectProps) {
     }
 
     return (
-        <select style={{ width: '100%', padding: 14 }} value={bankID} onChange={onChangeBank}>
+        <select className="form-control form-control-sm" value={bankID} onChange={onChangeBank}>
             {
                 !bankID && <option selected disabled>Select a bank</option>
             }

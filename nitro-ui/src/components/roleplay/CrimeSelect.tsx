@@ -18,7 +18,7 @@ export function CrimeSelect({ crime, onChange }: CrimeSelectProps) {
     }
 
     return (
-        <select style={{ width: '100%', padding: 14 }} value={crime} onChange={onChangeCrime}>
+        <select className="form-control form-control-sm" value={crime} onChange={onChangeCrime}>
             {
                 !crime && <option selected disabled>Select a crime</option>
             }

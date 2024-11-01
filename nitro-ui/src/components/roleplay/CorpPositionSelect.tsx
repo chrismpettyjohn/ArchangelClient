@@ -20,7 +20,7 @@ export function CorpPositionSelect({ corpID, corpPositionID, onChange }: CorpPos
     }
 
     return (
-        <select style={{ width: '100%', padding: 14 }} value={corpPositionID} onChange={onChangeCorpPosition}>            {
+        <select className="form-control form-control-sm" value={corpPositionID} onChange={onChangeCorpPosition}>            {
             !corpPositionID && <option selected disabled>Select a position</option>
         }
             {

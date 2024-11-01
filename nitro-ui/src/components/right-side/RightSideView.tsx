@@ -15,11 +15,12 @@ export const RightSideView: FC<{}> = props => {
         <>
             <div className="nitro-right-side">
                 <div>
-                    <CashBalance />
-                    <br />
                     <div className="nitro-time-of-day">
-                        <TimeOfDay />
-                        <OnlineUserCount />
+                        <div style={{ display: 'flex', gap: 14 }}>
+                            <TimeOfDay />
+                            <OnlineUserCount />
+                        </div>
+                        <CashBalance />
                     </div>
                     <br />
                     <GroupRoomInformationView />

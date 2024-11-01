@@ -17,7 +17,7 @@ export function LicenseSelect({ licenseType, onChange }: LicenseSelectProps) {
     }
 
     return (
-        <select style={{ width: '100%', padding: 14 }} value={licenseType} onChange={onChangeLicense}>
+        <select className="form-control form-control-sm" value={licenseType} onChange={onChangeLicense}>
             {
                 !licenseType && <option selected disabled>Select a license type</option>
             }

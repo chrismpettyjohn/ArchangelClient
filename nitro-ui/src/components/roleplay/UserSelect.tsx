@@ -28,7 +28,7 @@ export function UserSelect({ userID, onChange }: UserSelectProps) {
     }
 
     return (
-        <select style={{ width: '100%', padding: 14 }} value={userID} onChange={onChangeUser}>            {
+        <select className="form-control form-control-sm" value={userID} onChange={onChangeUser}>            {
             !userID && <option selected disabled>Select a user</option>
         }
             {
