@@ -1,12 +1,12 @@
 .nitro-hotbar {
     position: absolute;
-    bottom: 100px;
-    left: 0;
-    width: 100%;
+    left: 50%;
+    bottom: 80px;
+    transform: translateX(-50%);
     height: $toolbar-height;
     z-index: $toolbar-zindex;
     pointer-events: all;
-    
+
     .hotbar {
             position: absolute;
             bottom: 20px;

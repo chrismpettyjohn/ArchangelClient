@@ -23,7 +23,7 @@ import { InventoryView } from '../inventory/InventoryView';
 import { Devices } from '../roleplay-devices/Devices';
 import { RoleplayEffects } from '../roleplay-widgets/roleplay-effects/RoleplayEffects';
 import { MiddleView } from '../middle/MiddleView';
-import { HotBarView } from './hotbar/HotBarView';
+import { HotBarView } from '../roleplay-widgets/hotbar/HotBarView';
 import { RoleplayWidgets } from '../roleplay-widgets/RoleplayWidgets';
 
 export function MainView() {
@@ -33,7 +33,7 @@ export function MainView() {
     }, []);
 
     return (
-        <Base fit>
+        <div>
             <HotBarView />
             <Flex center className="nitro-chatbar">
                 <Flex id="toolbar-chat-input-container" />
@@ -61,6 +61,6 @@ export function MainView() {
             <Devices />
             <RoleplayEffects />
             <RoleplayWidgets />
-        </Base>
+        </div>
     );
 }
