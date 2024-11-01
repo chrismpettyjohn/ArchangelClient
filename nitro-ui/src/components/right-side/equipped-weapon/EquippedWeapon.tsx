@@ -7,6 +7,7 @@ import { useRoleplayStats } from "../../../hooks/roleplay/use-rp-stats";
 import { CursorMode, NitroConfiguration } from "@nitro-rp/renderer";
 import { Button } from "react-bootstrap";
 import { FaRedo, FaShieldAlt, FaSkullCrossbones } from "react-icons/fa"; // Font Awesome reload icon
+import { WeaponReload } from "../../../api/roleplay/combat/WeaponReload";
 
 export function EquippedWeapon() {
     const session = useSessionInfo();
@@ -26,6 +27,7 @@ export function EquippedWeapon() {
 
     function onReload(event: SyntheticEvent) {
         event.stopPropagation();
+        WeaponReload();
     }
 
     const equippedWeapon = useMemo(() => {
