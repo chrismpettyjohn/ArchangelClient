@@ -1,7 +1,8 @@
 import { ILinkEventTracker } from '@nitro-rp/renderer';
-import { AddEventLinkTracker, RemoveLinkEventTracker } from '../../../../api';
-import { DraggableWindowPosition, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../../../common';
+import { AddEventLinkTracker, CreateLinkEvent, RemoveLinkEventTracker } from '../../../../api';
+import { Button, DraggableWindowPosition, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../../../common';
 import { useEffect, useState } from 'react';
+import { FaPencilAlt, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
 
 export function ModToolsWeaponsManagerView() {
     const [visible, setVisible] = useState(false);
@@ -32,10 +33,51 @@ export function ModToolsWeaponsManagerView() {
     }
 
     return (
-        <NitroCardView uniqueKey="staff-weapons" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" >
-            <NitroCardHeaderView headerText="Weapons Manager" onCloseClick={() => alert('will close')} />
-            <NitroCardContentView className="text-black h-100">
-                <Text fontSize={4} variant="white">hello world</Text>
+        <NitroCardView uniqueKey="staff-weapons" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" style={{ width: 400, height: 400 }}>
+            <NitroCardHeaderView headerText="Weapons Manager" onCloseClick={() => setVisible(false)} />
+            <NitroCardContentView className="h-100">
+                <input className="form-control form-control-sm" placeholder="Search weapons..." />
+                <table className="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <Text variant="white">Identifier</Text>
+                            </th>
+                            <th scope="col">
+                                <Text variant="white">Display Name</Text>
+                            </th>
+                            <th scope="col">
+                                <Text variant="white">Damage</Text>
+                            </th>
+                            <th scope="col">
+                                <Text variant="white">Actions</Text>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <Text variant="white">mp5</Text>
+                            </td>
+                            <td>
+                                <Text variant="white">HK MP5</Text>
+                            </td>
+                            <td>
+                                <Text variant="white">7-15</Text>
+                            </td>
+                            <td>
+                                <FaTrashAlt style={{ color: 'red', cursor: 'pointer', marginRight: 8 }} />
+                                <FaPencilAlt style={{ color: 'blue', cursor: 'pointer' }} onClick={() => CreateLinkEvent('staff/weapons-manager/edit/1')} />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button variant="primary">
+                        <FaPlusCircle style={{ marginRight: 4 }} />
+                        Add Weapon
+                    </Button>
+                </div>
             </NitroCardContentView>
         </NitroCardView>
     );

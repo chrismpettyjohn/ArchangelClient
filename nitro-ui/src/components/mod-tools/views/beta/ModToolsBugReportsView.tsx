@@ -33,7 +33,7 @@ export function ModToolsBugReportsView() {
 
     return (
         <NitroCardView uniqueKey="staff-bug-reports" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" >
-            <NitroCardHeaderView headerText="Bug Reports" onCloseClick={() => alert('will close')} />
+            <NitroCardHeaderView headerText="Bug Reports" onCloseClick={() => setVisible(false)} />
             <NitroCardContentView className="text-black h-100">
                 <Text fontSize={4} variant="white">hello world</Text>
             </NitroCardContentView>

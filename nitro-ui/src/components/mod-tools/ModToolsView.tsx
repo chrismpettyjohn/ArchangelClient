@@ -13,6 +13,7 @@ import { FaBoxOpen, FaPlusCircle, FaStoreAlt } from 'react-icons/fa';
 import { ModToolsBetaCodesView } from './views/beta/ModToolsBetaCodesView';
 import { ModToolsBugReportsView } from './views/beta/ModToolsBugReportsView';
 import { ModToolsWeaponsManagerView } from './views/roleplay/ModToolsWeaponsManagerView';
+import { ModToolsWeaponsManagerEditor } from './views/roleplay/ModToolsWeaponsEditorView';
 
 export const ModToolsView: FC<{}> = props => {
     const [isVisible, setIsVisible] = useState(false);
@@ -188,6 +189,7 @@ export const ModToolsView: FC<{}> = props => {
             <ModToolsBetaCodesView />
             <ModToolsBugReportsView />
             <ModToolsWeaponsManagerView />
+            <ModToolsWeaponsManagerEditor />
             {showSuperhire && <ModToolsSuperhireView onToggle={() => setShowSuperhire(false)} />}
             {(openRooms.length > 0) && openRooms.map(roomId => <ModToolsRoomView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-info/${roomId}`)} />)}
             {(openRoomChatlogs.length > 0) && openRoomChatlogs.map(roomId => <ModToolsChatlogView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-chatlog/${roomId}`)} />)}
