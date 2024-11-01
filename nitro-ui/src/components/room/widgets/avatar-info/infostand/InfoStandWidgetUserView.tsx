@@ -1,5 +1,5 @@
 import { RelationshipStatusInfoEvent, RelationshipStatusInfoMessageParser, RoomSessionFavoriteGroupUpdateEvent, RoomSessionUserBadgesEvent, RoomSessionUserFigureUpdateEvent } from '@nitro-rp/renderer';
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { AvatarInfoUser, CloneObject, GetConfiguration, GetGroupInformation, GetSessionDataManager, GetUserProfile, LocalizeText } from '../../../../../api';
 import { Column, Flex, LayoutAvatarImageView, LayoutBadgeImageView, Text, UserProfileIconView } from '../../../../../common';
@@ -21,6 +21,11 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
     const { avatarInfo = null, setAvatarInfo = null, onClose = null } = props;
     const roleplayStats = useRoleplayStats(avatarInfo.webID);
     const [relationships, setRelationships] = useState<RelationshipStatusInfoMessageParser>(null);
+
+    useEffect(() => {
+
+    }, []);
+
     useRoomSessionManagerEvent<RoomSessionUserBadgesEvent>(RoomSessionUserBadgesEvent.RSUBE_BADGES, event => {
         if (!avatarInfo || (avatarInfo.webID !== event.userId)) return;
 
