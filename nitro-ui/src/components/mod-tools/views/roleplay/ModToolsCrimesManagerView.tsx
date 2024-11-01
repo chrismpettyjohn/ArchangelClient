@@ -41,13 +41,13 @@ export function ModToolsCrimesManagerView() {
                     <thead>
                         <tr>
                             <th scope="col">
-                                <Text variant="white">Identifier</Text>
-                            </th>
-                            <th scope="col">
                                 <Text variant="white">Display Name</Text>
                             </th>
                             <th scope="col">
-                                <Text variant="white">Damage</Text>
+                                <Text variant="white">Description</Text>
+                            </th>
+                            <th scope="col">
+                                <Text variant="white">Jail Time</Text>
                             </th>
                             <th scope="col">
                                 <Text variant="white">Actions</Text>
@@ -57,13 +57,13 @@ export function ModToolsCrimesManagerView() {
                     <tbody>
                         <tr>
                             <td>
-                                <Text variant="white">mp5</Text>
+                                <Text variant="white">Murder</Text>
                             </td>
                             <td>
-                                <Text variant="white">HK MP5</Text>
+                                <Text variant="white">Killing a citizen</Text>
                             </td>
                             <td>
-                                <Text variant="white">7-15</Text>
+                                <Text variant="white">10m</Text>
                             </td>
                             <td>
                                 <FaTrashAlt style={{ color: 'red', cursor: 'pointer', marginRight: 8 }} />

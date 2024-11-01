@@ -33,7 +33,7 @@ export function ModToolsCorpsManagerView() {
     }
 
     return (
-        <NitroCardView uniqueKey="staff-corps" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" style={{ width: 400, height: 400 }}>
+        <NitroCardView uniqueKey="staff-corps" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" style={{ width: 600, height: 400 }}>
             <NitroCardHeaderView headerText="Corps Manager" onCloseClick={() => setVisible(false)} />
             <NitroCardContentView className="h-100">
                 <input className="form-control form-control-sm" placeholder="Search corps..." />
@@ -41,13 +41,16 @@ export function ModToolsCorpsManagerView() {
                     <thead>
                         <tr>
                             <th scope="col">
-                                <Text variant="white">Identifier</Text>
-                            </th>
-                            <th scope="col">
                                 <Text variant="white">Display Name</Text>
                             </th>
                             <th scope="col">
-                                <Text variant="white">Damage</Text>
+                                <Text variant="white">Owned By</Text>
+                            </th>
+                            <th scope="col">
+                                <Text variant="white">Headquarters</Text>
+                            </th>
+                            <th scope="col">
+                                <Text variant="white">Employees</Text>
                             </th>
                             <th scope="col">
                                 <Text variant="white">Actions</Text>
@@ -57,13 +60,16 @@ export function ModToolsCorpsManagerView() {
                     <tbody>
                         <tr>
                             <td>
-                                <Text variant="white">mp5</Text>
+                                <Text variant="white">Police</Text>
                             </td>
                             <td>
-                                <Text variant="white">HK MP5</Text>
+                                <Text variant="white">LeChris</Text>
                             </td>
                             <td>
-                                <Text variant="white">7-15</Text>
+                                <Text variant="white">Police Headquarters</Text>
+                            </td>
+                            <td>
+                                <Text variant="white">4</Text>
                             </td>
                             <td>
                                 <FaTrashAlt style={{ color: 'red', cursor: 'pointer', marginRight: 8 }} />
