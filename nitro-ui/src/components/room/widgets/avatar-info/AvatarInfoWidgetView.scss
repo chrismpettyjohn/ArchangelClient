@@ -24,8 +24,9 @@
 
 .nitro-infostand-container {
     position: absolute;
-    right: 40px;
-    bottom: 120px;
+    bottom: 125px;
+    right:  45px;
+    height: fit-content;
     z-index: $infostand-zindex;
     color: $white;
 
