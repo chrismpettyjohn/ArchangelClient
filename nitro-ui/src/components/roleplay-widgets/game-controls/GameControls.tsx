@@ -15,6 +15,10 @@ export function GameControls() {
     const isActive = focus === FocusMode.Controls;
 
     useEffect(() => {
+        controlRef.current?.focus();
+    }, []);
+
+    useEffect(() => {
         if (isActive) {
             window.addEventListener('keydown', onKeyDown);
             window.addEventListener('keyup', onKeyUp);
