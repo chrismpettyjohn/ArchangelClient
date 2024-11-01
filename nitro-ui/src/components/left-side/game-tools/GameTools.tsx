@@ -1,4 +1,4 @@
-import { FaCamera, FaCog, FaMicrophone, FaShieldAlt, FaTaxi } from "react-icons/fa";
+import { FaCamera, FaCog, FaCogs, FaMicrophone, FaShieldAlt, FaTaxi } from "react-icons/fa";
 import { CreateLinkEvent, GetSessionDataManager } from "../../../api";
 import { useState } from "react";
 import { useRoomSessionManagerEvent } from "../../../hooks";
@@ -44,9 +44,11 @@ export function GameTools() {
                 </div>
                 {
                     GetSessionDataManager().isModerator && (
-                        <div className="menu-button glass-panel" onClick={() => CreateLinkEvent('mod-tools/toggle')} >
-                            <FaShieldAlt size={20} style={{ color: 'red' }} />
-                        </div>
+                        <>
+                            <div className="menu-button glass-panel" onClick={() => CreateLinkEvent('mod-tools/toggle')} >
+                                <FaShieldAlt size={20} style={{ color: 'red' }} />
+                            </div>
+                        </>
                     )
                 }
             </div>

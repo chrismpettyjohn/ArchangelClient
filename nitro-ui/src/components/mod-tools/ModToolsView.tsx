@@ -1,7 +1,7 @@
 import { ILinkEventTracker, RoomEngineEvent, RoomId, RoomObjectCategory, RoomObjectType } from '@nitro-rp/renderer';
 import { FC, useEffect, useRef, useState } from 'react';
 import { AddEventLinkTracker, CreateLinkEvent, GetRoomSession, ISelectedUser, RemoveLinkEventTracker } from '../../api';
-import { Base, Button, DraggableWindowPosition, NitroCardContentView, NitroCardHeaderView, NitroCardView } from '../../common';
+import { Base, Button, DraggableWindowPosition, Grid, NitroCardAccordionSetView, NitroCardAccordionView, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../common';
 import { useModTools, useObjectSelectedEvent, useRoomEngineEvent } from '../../hooks';
 import { ModToolsChatlogView } from './views/room/ModToolsChatlogView';
 import { ModToolsRoomView } from './views/room/ModToolsRoomView';
@@ -116,33 +116,49 @@ export const ModToolsView: FC<{}> = props => {
         <>
             {isVisible &&
                 <NitroCardView uniqueKey="mod-tools" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" >
-                    <NitroCardHeaderView headerText={'Mod Tools'} onCloseClick={event => setIsVisible(false)} />
+                    <NitroCardHeaderView headerText="Staff Tools" onCloseClick={() => setIsVisible(false)} />
                     <NitroCardContentView className="text-black" gap={1}>
-                        <Button gap={1} onClick={event => CreateLinkEvent(`mod-tools/toggle-room-info/${currentRoomId}`)} disabled={(currentRoomId <= 0)} className="position-relative">
-                            <Base className="icon icon-small-room position-absolute start-1" /> Room Tool
-                        </Button>
-                        <Button innerRef={elementRef} gap={1} onClick={event => CreateLinkEvent(`mod-tools/toggle-room-chatlog/${currentRoomId}`)} disabled={(currentRoomId <= 0)} className="position-relative">
-                            <Base className="icon icon-chat-history position-absolute start-1" /> Chatlog Tool
-                        </Button>
-                        <Button gap={1} onClick={() => CreateLinkEvent(`mod-tools/toggle-user-info/${selectedUser.userId}`)} disabled={!selectedUser} className="position-relative">
-                            <Base className="icon icon-user position-absolute start-1" /> User: {selectedUser ? selectedUser.username : ''}
-                        </Button>
-                        <Button gap={1} onClick={() => setIsTicketsVisible(prevValue => !prevValue)} className="position-relative">
-                            <Base className="icon icon-tickets position-absolute start-1" /> Report Tool
-                        </Button>
-                        <div style={{ width: '100%', height: 2, background: 'white', marginTop: 4, marginBottom: 4 }} />
-                        <Button gap={1} onClick={() => setShowSuperhire(_ => !_)} className="position-relative">
-                            <Base className="position-absolute start-1" /> Superhire Tool
-                        </Button>
-                        <Button gap={1} onClick={() => CreateLinkEvent('navigator/create')} className="position-relative">
-                            <Base className="position-absolute start-1" /> Create Room
-                        </Button>
-                        <Button gap={1} onClick={() => CreateLinkEvent('catalog/toggle')} className="position-relative">
-                            <Base className="position-absolute start-1" /> Catalog
-                        </Button>
-                        <Button gap={1} onClick={() => CreateLinkEvent('inventory/toggle')} className="position-relative">
-                            <Base className="position-absolute start-1" /> Inventory
-                        </Button>
+                        <form onSubmit={e => e.preventDefault()} style={{ marginBottom: 14 }}>
+                            <input className="form-control form-control-sm" type="text" placeholder="Search tools..." />
+                        </form>
+                        <NitroCardAccordionView fullHeight overflow="hidden">
+                            <NitroCardAccordionSetView headerText="Room" isExpanded>
+                                <Grid columnCount={2}>
+                                    <Button gap={1} onClick={() => CreateLinkEvent(`mod-tools/toggle-room-info/${currentRoomId}`)} disabled={(currentRoomId <= 0)} className="position-relative">
+                                        <Base className="icon icon-small-room position-absolute start-1" /> Room Tool
+                                    </Button>
+                                    <Button innerRef={elementRef} gap={1} onClick={() => CreateLinkEvent(`mod-tools/toggle-room-chatlog/${currentRoomId}`)} disabled={(currentRoomId <= 0)} className="position-relative">
+                                        <Base className="icon icon-chat-history position-absolute start-1" /> Chatlog Tool
+                                    </Button>
+                                    <Button gap={1} onClick={() => CreateLinkEvent(`mod-tools/toggle-user-info/${selectedUser.userId}`)} disabled={!selectedUser} className="position-relative">
+                                        <Base className="icon icon-user position-absolute start-1" /> User: {selectedUser ? selectedUser.username : ''}
+                                    </Button>
+                                    <Button gap={1} onClick={() => setIsTicketsVisible(prevValue => !prevValue)} className="position-relative">
+                                        <Base className="icon icon-tickets position-absolute start-1" /> Report Tool
+                                    </Button>
+                                </Grid>
+                            </NitroCardAccordionSetView>
+                            <NitroCardAccordionSetView headerText="Builder">
+                                <Grid columnCount={2}>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('navigator/create')} className="position-relative">
+                                        <Base className="position-absolute start-1" /> Create Room
+                                    </Button>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('catalog/toggle')} className="position-relative">
+                                        <Base className="position-absolute start-1" /> Catalog
+                                    </Button>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('inventory/toggle')} className="position-relative">
+                                        <Base className="position-absolute start-1" /> Inventory
+                                    </Button>
+                                </Grid>
+                            </NitroCardAccordionSetView>
+                            <NitroCardAccordionSetView headerText="Roleplay">
+                                <Grid columnCount={2}>
+                                    <Button gap={1} onClick={() => setShowSuperhire(_ => !_)} className="position-relative">
+                                        <Base className="position-absolute start-1" /> Superhire Tool
+                                    </Button>
+                                </Grid>
+                            </NitroCardAccordionSetView>
+                        </NitroCardAccordionView>
                     </NitroCardContentView>
                 </NitroCardView>}
             {showSuperhire && <ModToolsSuperhireView onToggle={() => setShowSuperhire(false)} />}
