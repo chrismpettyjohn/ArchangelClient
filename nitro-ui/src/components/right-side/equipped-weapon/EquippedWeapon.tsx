@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { SyntheticEvent, useMemo } from "react";
 import { CreateLinkEvent } from "../../../api";
 import { Text } from "../../../common";
 import { useSessionInfo } from "../../../hooks";
@@ -6,6 +6,7 @@ import { useMyWeaponList } from "../../../hooks/roleplay/use-my-weapon-list";
 import { useRoleplayStats } from "../../../hooks/roleplay/use-rp-stats";
 import { NitroConfiguration } from "@nitro-rp/renderer";
 import { Button } from "react-bootstrap";
+import { FaRedo } from "react-icons/fa"; // Font Awesome reload icon
 
 export function EquippedWeapon() {
     const session = useSessionInfo();
@@ -27,6 +28,10 @@ export function EquippedWeapon() {
         }
     }, [roleplayStats.equippedWeaponID]);
 
+    const handleReload = (event: SyntheticEvent) => {
+        event.stopPropagation();
+    };
+
     return (
         <div className="nitro-equipped-weapon glass-panel" onClick={() => CreateLinkEvent('weapon-wheel/toggle')} style={{ zIndex: 1000, cursor: 'pointer' }}>
             <div className="weapon-hud">
@@ -43,11 +48,13 @@ export function EquippedWeapon() {
                         <div className="ammo-info">
                             <div className="current-ammo">{roleplayStats.equippedWeaponAmmoLeft}</div>
                             <div className="reserve-ammo">/&nbsp;{equippedWeapon.magazineSize}</div>
+                            <Button variant="link" onClick={handleReload} className="reload-button">
+                                <FaRedo />
+                            </Button>
                         </div>
-                    )
-                        : ''
+                    ) : ''
                 }
             </div>
         </div>
-    )
+    );
 }

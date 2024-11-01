@@ -4,6 +4,16 @@
     gap: 10px;
     position: absolute;
     bottom: 20px;
-    right: 425px;
+    right: 50%;
     width: 200px;
+    transform: translateX(50%);
+
+    @media (max-width: 768px) {
+        transform: translateX(30%);
+    }
+
+    @media (max-width: 480px) {
+        transform: translateX(10%);
+    }
+
 }

@@ -29,7 +29,6 @@ export const RightSideView: FC<{}> = props => {
                     <OfferView />
                     <RoomPromotesWidgetView />
                     <NotificationCenterView />
-                    <ToggleCursorMode />
                     <EquippedWeapon />
                     <WeaponWheel />
                 </Column>

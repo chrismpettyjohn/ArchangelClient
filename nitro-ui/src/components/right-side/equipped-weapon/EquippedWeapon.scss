@@ -51,3 +51,19 @@
     color: #4b9bff;
     font-size: 14px;
 }
+
+.reload-button {
+    color: #4b9bff;
+    font-size: 18px;
+    margin-left: 10px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.reload-button:hover {
+    color: #7abfff;
+}

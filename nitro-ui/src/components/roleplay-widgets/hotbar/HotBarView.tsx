@@ -22,7 +22,7 @@ export function HotBarView() {
                         const item = items[i]
                         const iconURL = item?.spriteId && GetRoomEngine().getFurnitureFloorIconUrl(item.spriteId);
                         return (
-                            <div className="hotbar-slot" key={`hotbar-item_${i}`} onClick={() => item ? DeviceOpen(item.id) : CreateLinkEvent('inventory/toggle')}>
+                            <div className="hotbar-slot" key={`hotbar-item_${i}`} onClick={() => item ? DeviceOpen(item.id) : CreateLinkEvent('inventory/toggle')} tabIndex={-1}>
                                 {
                                     item && (
                                         <>
