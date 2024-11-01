@@ -81,7 +81,7 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
             <Column overflow="visible" className="container-fluid content-area" gap={1}>
                 <Column gap={1}>
                     <Flex alignItems="center" justifyContent="between">
-                        <Flex alignItems="center" gap={1}>
+                        <Flex alignItems="center" gap={1} style={{ cursor: 'pointer' }} onClick={() => GetUserProfile(avatarInfo.webID)}>
                             <UserProfileIconView userId={avatarInfo.webID} />
                             <Text variant="white" small wrap>
                                 {roleplayStats.isDead && '☠️'}
@@ -93,13 +93,13 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                     <hr className="m-0" />
                 </Column>
                 <Column gap={1}>
-                    <Flex gap={1}>
-                        <Column fullWidth className="body-image" onClick={event => GetUserProfile(avatarInfo.webID)}>
-                            <LayoutAvatarImageView figure={avatarInfo.figure} direction={4} />
+                    <Flex gap={2}>
+                        <Column fullWidth className="body-image" style={{ cursor: 'pointer' }} onClick={() => GetUserProfile(avatarInfo.webID)}>
+                            <LayoutAvatarImageView figure={avatarInfo.figure} direction={4} style={{ height: 120, objectFit: 'cover' }} />
                         </Column>
-                        <Column grow alignItems="center" gap={0}>
+                        <Column grow alignItems="center" gap={2}>
                             <Flex gap={1}>
-                                <Flex center className="badge-image" onClick={event => GetGroupInformation(roleplayStats.corporationID)}>
+                                <Flex center className="badge-image" onClick={() => GetGroupInformation(roleplayStats.corporationID)}>
                                     <CorpBadge corpID={roleplayStats.corporationID} />
                                 </Flex>
                                 <Flex center pointer={(roleplayStats.gangID > 0)} className="badge-image" onClick={event => GetGroupInformation(roleplayStats.gangID)}>
@@ -114,41 +114,13 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                                     {avatarInfo.badges[1] && <LayoutBadgeImageView badgeCode={avatarInfo.badges[1]} showInfo={true} />}
                                 </Flex>
                             </Flex>
-                            <Flex center gap={1}>
-                                <Flex center className="badge-image">
-                                    {avatarInfo.badges[2] && <LayoutBadgeImageView badgeCode={avatarInfo.badges[2]} showInfo={true} />}
-                                </Flex>
-                                <Flex center className="badge-image">
-                                    {avatarInfo.badges[3] && <LayoutBadgeImageView badgeCode={avatarInfo.badges[3]} showInfo={true} />}
-                                </Flex>
-                            </Flex>
                         </Column>
                     </Flex>
                     <hr className="m-0" />
                 </Column>
                 <Column gap={1}>
+                    <Text bold fullWidth pointer wrap textBreak small variant="white">Current activity</Text>
                     <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
-                        <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.health')}</Text>
-                        <ProgressBar className="progress-danger" value={roleplayStats.healthNow} minValue={0} maxValue={roleplayStats.healthMax} children={roleplayStats.healthNow <= 0 ? LocalizeText('roleplay.stats.user_is_dead') : undefined} />
-                    </Flex>
-                    <hr className="m-0" />
-                </Column>
-                <Column gap={1}>
-                    <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
-                        <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.energy')}</Text>
-                        <div className="roleplay-stats-progress-bar progress-primary">
-                            <div className="progress" />
-                            <div className="progress-text">
-                                <ProgressBar className="progress-primary" value={roleplayStats.energyNow} minValue={0} maxValue={roleplayStats.energyMax} />
-                            </div>
-                        </div>
-                    </Flex>
-                    <hr className="m-0" />
-                </Column>
-
-                <Column gap={1}>
-                    <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
-                        <Text bold fullWidth pointer wrap textBreak small variant="white">{LocalizeText('roleplay.stats.activity')}</Text>
                         <Text small fullWidth variant="white">{avatarInfo?.motto ?? '-'}</Text>
                     </Flex>
                     <hr className="m-0" />

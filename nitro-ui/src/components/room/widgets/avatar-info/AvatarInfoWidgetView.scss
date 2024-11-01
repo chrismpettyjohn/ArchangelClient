@@ -48,7 +48,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: url('https://img.freepik.com/free-vector/realistic-cannabis-leaf-background_52683-51735.jpg?semt=ais_hybrid');
             background-size: cover;
             background-color: rgba($light-dark, 1);
             width: 100%;
@@ -132,4 +131,58 @@
     .pet-stats {
         height: 18px;
     }
+}
+
+.user-profile {
+  display: flex;
+  width: 400px;
+  height: 120px;
+  background: rgba(211, 211, 211, 0.5); /* Light grey glass background */
+  border-radius: 8px;
+  padding: 10px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.left {
+  width: 80px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.username {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.right {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.badge-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 25px);
+  grid-gap: 5px;
+}
+
+.badge {
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
 }
