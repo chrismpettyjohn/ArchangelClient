@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Column, Flex } from '../../common';
 import { OfferView } from '../catalog/views/targeted-offer/OfferView';
 import { GroupRoomInformationView } from '../groups/views/GroupRoomInformationView';
 import { NotificationCenterView } from '../notification-center/NotificationCenterView';
@@ -10,19 +9,18 @@ import { TimeOfDay } from './time-of-day/TimeOfDay';
 import { CashBalance } from './cash-balance/CashBalance';
 import { WeaponWheel } from './weapon-wheel/WeaponWheel';
 import { EquippedWeapon } from './equipped-weapon/EquippedWeapon';
-import { ToggleCursorMode } from './toggle-cursor-mode/ToggleCursorMode';
 
 export const RightSideView: FC<{}> = props => {
     return (
         <>
             <div className="nitro-right-side">
-                <Column position="relative" gap={1}>
+                <div>
                     <CashBalance />
                     <br />
-                    <Flex gap={4}>
+                    <div className="nitro-time-of-day">
                         <TimeOfDay />
                         <OnlineUserCount />
-                    </Flex>
+                    </div>
                     <br />
                     <GroupRoomInformationView />
                     <MysteryBoxExtensionView />
@@ -31,7 +29,7 @@ export const RightSideView: FC<{}> = props => {
                     <NotificationCenterView />
                     <EquippedWeapon />
                     <WeaponWheel />
-                </Column>
+                </div>
             </div >
         </>
     );

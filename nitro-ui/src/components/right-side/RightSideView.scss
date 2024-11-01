@@ -3,13 +3,13 @@
 @import './weapon-wheel/WeaponWheel';
 @import './equipped-weapon/EquippedWeapon';
 
-.nitro-right-side {
+.nitro-time-of-day {
     position: absolute;
-    top: 50px;
-    right: 100px;
-    height: calc(100% - #{$toolbar-height});
-    z-index: $rightside-zindex;
+    top: 20px;
+    right:  20px;
+    width: fit-content;
+    height: fit-content;
+    padding: 14px;
     display: flex;
-    flex: 1;
-    width: 200px;
+    gap: 14px;
 }
