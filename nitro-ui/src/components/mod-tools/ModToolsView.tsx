@@ -9,11 +9,15 @@ import { ModToolsTicketsView } from './views/tickets/ModToolsTicketsView';
 import { ModToolsUserChatlogView } from './views/user/ModToolsUserChatlogView';
 import { ModToolsUserView } from './views/user/ModToolsUserView';
 import { ModToolsSuperhireView } from './views/roleplay/ModToolsSuperhireView';
-import { FaBoxOpen, FaPlusCircle, FaStoreAlt } from 'react-icons/fa';
+import { FaBoxOpen, FaBriefcase, FaBug, FaCrosshairs, FaHouseUser, FaPlusCircle, FaStar, FaStoreAlt, FaUsers, FaUserTie, FaVial } from 'react-icons/fa';
 import { ModToolsBetaCodesView } from './views/beta/ModToolsBetaCodesView';
 import { ModToolsBugReportsView } from './views/beta/ModToolsBugReportsView';
 import { ModToolsWeaponsManagerView } from './views/roleplay/ModToolsWeaponsManagerView';
 import { ModToolsWeaponsManagerEditor } from './views/roleplay/ModToolsWeaponsEditorView';
+import { ModToolsCorpsManagerView } from './views/roleplay/ModToolsCorpsManagerView';
+import { ModToolsCorpsEditorView } from './views/roleplay/ModToolsCorpsEditorView';
+import { ModToolsCrimesManagerView } from './views/roleplay/ModToolsCrimesManagerView';
+import { ModToolsCrimesEditorView } from './views/roleplay/ModToolsCrimesEditorView';
 
 export const ModToolsView: FC<{}> = props => {
     const [isVisible, setIsVisible] = useState(false);
@@ -152,34 +156,47 @@ export const ModToolsView: FC<{}> = props => {
                                     </Button>
                                     <Button gap={1} onClick={() => CreateLinkEvent('catalog/toggle')} className="position-relative">
                                         <FaStoreAlt style={{ marginRight: 4 }} />
-                                        <Base className="position-absolute start-1" /> Catalog
+                                        Catalog
                                     </Button>
                                     <Button gap={1} onClick={() => CreateLinkEvent('inventory/toggle')} className="position-relative">
                                         <FaBoxOpen style={{ marginRight: 4 }} />
-                                        <Base className="position-absolute start-1" /> Inventory
+                                        Inventory
                                     </Button>
                                     <Button gap={1} onClick={() => CreateLinkEvent('staff/beta-codes/toggle')} className="position-relative">
-                                        <Base className="position-absolute start-1" /> Rooms
+                                        <FaHouseUser style={{ marginRight: 4 }} />
+                                        Rooms
                                     </Button>
                                 </Grid>
                             </NitroCardAccordionSetView>
                             <NitroCardAccordionSetView headerText="Roleplay">
                                 <Grid columnCount={2}>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/corps-manager/toggle')} className="position-relative">
+                                        <FaBriefcase style={{ marginRight: 4 }} />
+                                        Corps
+                                    </Button>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/crimes-manager/toggle')} className="position-relative">
+                                        <FaStar style={{ marginRight: 4 }} />
+                                        Crimes
+                                    </Button>
                                     <Button gap={1} onClick={() => setShowSuperhire(_ => !_)} className="position-relative">
-                                        <Base className="position-absolute start-1" /> Superhire Tool
+                                        <FaUserTie style={{ marginRight: 4 }} />
+                                        Superhire
                                     </Button>
                                     <Button gap={1} onClick={() => CreateLinkEvent('staff/weapons-manager/toggle')} className="position-relative">
-                                        <Base className="position-absolute start-1" /> Weapons
+                                        <FaCrosshairs style={{ marginRight: 4 }} />
+                                        Weapons
                                     </Button>
                                 </Grid>
                             </NitroCardAccordionSetView>
                             <NitroCardAccordionSetView headerText="Beta">
                                 <Grid columnCount={2}>
                                     <Button gap={1} onClick={() => CreateLinkEvent('staff/beta-codes/toggle')} className="position-relative">
-                                        <Base className="position-absolute start-1" /> Beta Codes
+                                        <FaVial style={{ marginRight: 4 }} />
+                                        Beta Codes
                                     </Button>
                                     <Button gap={1} onClick={() => CreateLinkEvent('staff/bug-reports/toggle')} className="position-relative">
-                                        <Base className="position-absolute start-1" /> Bug Reports
+                                        <FaBug style={{ marginRight: 4 }} />
+                                        Bug Reports
                                     </Button>
                                 </Grid>
                             </NitroCardAccordionSetView>
@@ -190,6 +207,10 @@ export const ModToolsView: FC<{}> = props => {
             <ModToolsBugReportsView />
             <ModToolsWeaponsManagerView />
             <ModToolsWeaponsManagerEditor />
+            <ModToolsCorpsManagerView />
+            <ModToolsCorpsEditorView />
+            <ModToolsCrimesManagerView />
+            <ModToolsCrimesEditorView />
             {showSuperhire && <ModToolsSuperhireView onToggle={() => setShowSuperhire(false)} />}
             {(openRooms.length > 0) && openRooms.map(roomId => <ModToolsRoomView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-info/${roomId}`)} />)}
             {(openRoomChatlogs.length > 0) && openRoomChatlogs.map(roomId => <ModToolsChatlogView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-chatlog/${roomId}`)} />)}
