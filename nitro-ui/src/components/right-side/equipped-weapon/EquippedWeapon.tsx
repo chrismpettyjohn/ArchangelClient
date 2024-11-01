@@ -1,4 +1,4 @@
-import { SyntheticEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { SyntheticEvent, useEffect, useMemo, useState } from "react";
 import { CreateLinkEvent, GetRoomEngine } from "../../../api";
 import { Text } from "../../../common";
 import { useSessionInfo } from "../../../hooks";
