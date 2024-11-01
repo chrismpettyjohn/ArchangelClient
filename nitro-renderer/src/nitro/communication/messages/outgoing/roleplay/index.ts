@@ -7,6 +7,8 @@ export * from './bank/BankAccountWithdrawComposer'
 export * from './bank/BankConnectATMComposer';
 export * from './bank/BankConnectComputerComposer';
 export * from './bank/BankListComposer';
+export * from './beta-code/BetaCodeDeleteComposer';
+export * from './beta-code/BetaCodeGenerateComposer';
 export * from './billing/PayBillComposer';
 export * from './combat/CombatDelayComposer';
 export * from './combat/EquipWeaponComposer';

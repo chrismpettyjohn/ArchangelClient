@@ -603,4 +603,8 @@ export class OutgoingHeader {
 
     public static WEAPON_RELOAD_COMPOSER = 8068;
 
+    public static BETA_CODE_GENERATE_COMPOSER = 8069;
+
+    public static BETA_CODE_DELETE_COMPOSER = 8070;
+
 }
