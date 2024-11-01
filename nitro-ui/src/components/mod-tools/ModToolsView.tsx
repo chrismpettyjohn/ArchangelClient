@@ -19,14 +19,13 @@ import { ModToolsCorpsEditorView } from './views/roleplay/ModToolsCorpsEditorVie
 import { ModToolsCrimesManagerView } from './views/roleplay/ModToolsCrimesManagerView';
 import { ModToolsCrimesEditorView } from './views/roleplay/ModToolsCrimesEditorView';
 
-export const ModToolsView: FC<{}> = props => {
+export const ModToolsView: FC<{}> = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [currentRoomId, setCurrentRoomId] = useState<number>(-1);
     const [selectedUser, setSelectedUser] = useState<ISelectedUser>(null);
     const [isTicketsVisible, setIsTicketsVisible] = useState(false);
     const { openRooms = [], openRoomChatlogs = [], openUserChatlogs = [], openUserInfos = [], openRoomInfo = null, closeRoomInfo = null, toggleRoomInfo = null, openRoomChatlog = null, closeRoomChatlog = null, toggleRoomChatlog = null, openUserInfo = null, closeUserInfo = null, toggleUserInfo = null, openUserChatlog = null, closeUserChatlog = null, toggleUserChatlog = null } = useModTools();
     const elementRef = useRef<HTMLDivElement>(null);
-    const [showSuperhire, setShowSuperhire] = useState(false);
 
     useRoomEngineEvent<RoomEngineEvent>([
         RoomEngineEvent.INITIALIZED,
@@ -178,7 +177,7 @@ export const ModToolsView: FC<{}> = props => {
                                         <FaStar style={{ marginRight: 4 }} />
                                         Crimes
                                     </Button>
-                                    <Button gap={1} onClick={() => setShowSuperhire(_ => !_)} className="position-relative">
+                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/superhire/toggle')} className="position-relative">
                                         <FaUserTie style={{ marginRight: 4 }} />
                                         Superhire
                                     </Button>
@@ -211,7 +210,7 @@ export const ModToolsView: FC<{}> = props => {
             <ModToolsCorpsEditorView />
             <ModToolsCrimesManagerView />
             <ModToolsCrimesEditorView />
-            {showSuperhire && <ModToolsSuperhireView onToggle={() => setShowSuperhire(false)} />}
+            <ModToolsSuperhireView />
             {(openRooms.length > 0) && openRooms.map(roomId => <ModToolsRoomView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-info/${roomId}`)} />)}
             {(openRoomChatlogs.length > 0) && openRoomChatlogs.map(roomId => <ModToolsChatlogView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-chatlog/${roomId}`)} />)}
             {(openUserInfos.length > 0) && openUserInfos.map(userId => <ModToolsUserView key={userId} userId={userId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-user-info/${userId}`)} />)}
