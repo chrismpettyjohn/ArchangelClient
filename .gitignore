@@ -27,8 +27,6 @@ Thumbs.db
 /dist
 *.zip
 .env
-renderer-config.json
-ui-config.json
 .vscode
 node_modules
 

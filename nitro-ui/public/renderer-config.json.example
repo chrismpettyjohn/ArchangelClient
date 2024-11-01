@@ -1,8 +1,9 @@
 {
-    "socket.url": "wss://ws.website.com:2096",
-    "asset.url": "https://website.com",
-    "image.library.url": "https://website.com/c_images/",
-    "hof.furni.url": "https://website.com/dcr/hof_furni",
+    "socket.url": "ws://localhost:2096",
+    "asset.url": "http://localhost:8080/",
+    "flash.asset.url": "http://localhost:8080/",
+    "image.library.url": "${flash.asset.url}/c_images/",
+    "hof.furni.url": "${flash.asset.url}/bundled/furniture",
     "images.url": "${asset.url}/images",
     "gamedata.url": "${asset.url}/gamedata",
     "sounds.url": "${asset.url}/sounds/%sample%.mp3",
@@ -88,7 +89,7 @@
         "bearbaby",
         "terrierbaby",
         "gnome",
-        "gnome",
+        "leprechaun",
         "kittenbaby",
         "puppybaby",
         "pigletbaby",
@@ -97,9 +98,7 @@
         "pterosaur",
         "velociraptor",
         "cow",
-        "LeetPen",
-        "bbwibb",
-        "elephants"
+        "dragondog"
     ],
     "preload.assets.urls": [
         "${asset.url}/bundled/generic/avatar_additions.nitro",

@@ -1,9 +1,9 @@
 {
     "image.library.notifications.url": "${image.library.url}notifications/%image%.png",
     "achievements.images.url": "${image.library.url}Quests/%image%.png",
-    "camera.url": "https://camera.url",
-    "thumbnails.url": "https://camera.url/thumbnail/%thumbnail%.png",
-    "url.prefix": "https://website.com",
+    "camera.url": "https://habrpg.com/client/camera",
+    "thumbnails.url": "${camera.url}/thumbnails/%thumbnail%.png",
+    "url.prefix": "https://habrpg.com",
     "habbopages.url": "${url.prefix}/",
     "group.homepage.url": "${url.prefix}/groups/%groupid%/id",
     "guide.help.alpha.groupid": 0,
@@ -65,28 +65,7 @@
     ],
     "hotelview": {
         "show.avatar": true,
-        "widgets": {
-            "slot.1.widget": "promoarticle",
-            "slot.1.conf": {},
-            "slot.2.widget": "widgetcontainer",
-            "slot.2.conf": {
-                "image": "${image.library.url}web_promo_small/spromo_Canal_Bundle.png",
-                "texts": "2021NitroPromo",
-                "btnLink": "https://google.com"
-            },
-            "slot.3.widget": "promoarticle",
-            "slot.3.conf": {},
-            "slot.4.widget": "",
-            "slot.4.conf": {},
-            "slot.5.widget": "",
-            "slot.5.conf": {},
-            "slot.6.widget": "achievementcompetition_hall_of_fame",
-            "slot.6.conf": {
-                "campaign": "habboFameComp"
-            },
-            "slot.7.widget": "",
-            "slot.7.conf": {}
-        },
+        "widgets": {},
         "images": {
             "background": "${asset.url}/images/reception/stretch_blue.png",
             "background.colour": "#6eadc8",
@@ -127,11 +106,13 @@
     },
     "currency.display.number.short": false,
     "currency.asset.icon.url": "${images.url}/wallet/%type%.png",
+    "currency.seasonal.color": "bronze",
     "catalog.asset.url": "${image.library.url}catalogue",
     "catalog.asset.image.url": "${catalog.asset.url}/%name%.gif",
     "catalog.asset.icon.url": "${catalog.asset.url}/icon_%name%.png",
     "catalog.tab.icons": false,
     "catalog.headers": false,
+    "catalog.gifts.show.my.face": true,
     "chat.input.maxlength": 100,
     "chat.styles.disabled": [],
     "chat.styles": [
@@ -1199,5 +1180,27 @@
             "display": "BUBBLE",
             "image": "${image.library.url}/album1584/X1517.gif"
         }
-    }
+    },
+    "roleplay.crimes": [
+        {
+            "crime": "Mischief",
+            "sentence": 6
+        },
+        {
+            "crime": "Assault",
+            "sentence": 10
+        },
+        {
+            "crime": "Murder",
+            "sentence": 15
+        },
+        {
+            "crime": "Cop-Killing",
+            "sentence": 20
+        },
+        {
+            "crime": "Mass-Murder",
+            "sentence": 25
+        }
+    ]
 }
