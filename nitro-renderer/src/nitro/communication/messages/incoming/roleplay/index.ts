@@ -4,6 +4,8 @@ export * from './bank/BankOpenATMEvent';
 export * from './bank/BankOpenComputerEvent'
 export * from './beta-code/BetaCodeListEvent';
 export * from './billing/BillingInvoiceQueryEvent';
+export * from './bug-report/BugReportDataEvent';
+export * from './bug-report/BugReportListEvent';
 export * from './combat/CombatDelayEvent';
 export * from './combat/MyWeaponListEvent';
 export * from './combat/UserDiedEvent';

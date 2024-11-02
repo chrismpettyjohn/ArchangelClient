@@ -509,4 +509,6 @@ export class IncomingHeader {
     public static TURF_CAPTURE_TIME_LEFT_EVENT = 9037;
     public static WEAPON_ACTION_EVENT = 9038;
     public static BETA_CODE_LIST_EVENT = 9039;
+    public static BUG_REPORT_LIST_EVENT = 9040;
+    public static BUG_REPORT_DATA_EVENT = 9041;
 }
