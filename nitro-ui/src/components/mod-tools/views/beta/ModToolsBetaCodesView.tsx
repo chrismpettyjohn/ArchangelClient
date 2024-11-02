@@ -1,11 +1,24 @@
 import { useEffect, useState } from 'react';
 import { Button, DraggableWindowPosition, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../../../common';
-import { ILinkEventTracker } from '@nitro-rp/renderer';
-import { AddEventLinkTracker, RemoveLinkEventTracker } from '../../../../api';
+import { BetaCodeDeleteComposer, BetaCodeGenerateComposer, BetaCodeListEvent, BetaCodeListRow, BetaCodeQueryListComposer, ILinkEventTracker } from '@nitro-rp/renderer';
+import { AddEventLinkTracker, RemoveLinkEventTracker, SendMessageComposer } from '../../../../api';
 import { FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
+import { useMessageEvent } from '../../../../hooks';
 
 export function ModToolsBetaCodesView() {
     const [visible, setVisible] = useState(false);
+    const [betaCodes, setBetaCodes] = useState<BetaCodeListRow[]>([]);
+
+    useEffect(() => {
+        if (!visible) {
+            return;
+        }
+        SendMessageComposer(new BetaCodeQueryListComposer())
+    }, [visible]);
+
+    useMessageEvent(BetaCodeListEvent, (event: BetaCodeListEvent) => {
+        setBetaCodes(event.getParser().betaCodes);
+    })
 
     useEffect(() => {
         const linkTracker: ILinkEventTracker = {
@@ -27,13 +40,14 @@ export function ModToolsBetaCodesView() {
         return () => RemoveLinkEventTracker(linkTracker);
     }, [setVisible]);
 
+
     if (!visible) {
         return null;
     }
 
     return (
         <NitroCardView uniqueKey="staff-beta-codes" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" style={{ width: 400, height: 400 }}>
-            <NitroCardHeaderView headerText="Beta Codes" onCloseClick={() => alert('will close')} />
+            <NitroCardHeaderView headerText="Beta Codes" onCloseClick={() => setVisible(false)} />
             <NitroCardContentView className="h-100">
                 <input className="form-control form-control-sm" placeholder="Search beta codes..." />
                 <table className="table table-striped table-bordered">
@@ -46,7 +60,7 @@ export function ModToolsBetaCodesView() {
                                 <Text variant="white">Claimed On</Text>
                             </th>
                             <th scope="col">
-                                <Text variant="white">Claimed By User</Text>
+                                <Text variant="white">Claimed By</Text>
                             </th>
                             <th scope="col">
                                 <Text variant="white">Actions</Text>
@@ -54,24 +68,31 @@ export function ModToolsBetaCodesView() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <Text variant="white">DADDY-LONG-LEGS</Text>
-                            </td>
-                            <td>
-                                <Text variant="white">11-01-2024</Text>
-                            </td>
-                            <td>
-                                <Text variant="white">LeChris</Text>
-                            </td>
-                            <td>
-                                <FaTrashAlt style={{ color: 'red', cursor: 'pointer' }} />
-                            </td>
-                        </tr>
+                        {
+                            betaCodes.map(_ => (
+                                <tr key={`beta_code_${_.id}`}>
+                                    <td>
+                                        <Text variant="white">{_.code}</Text>
+                                    </td>
+                                    <td>
+                                        <Text variant="white">{_.createdAt ? new Date(_.createdAt).toLocaleDateString() : '-'}</Text>
+                                    </td>
+                                    <td>
+                                        <Text variant="white">{_.claimedByUsername ? _.claimedByUsername : '-'}</Text>
+                                    </td>
+                                    <td>
+                                        <FaTrashAlt style={{ color: 'red', cursor: 'pointer' }} onClick={() => SendMessageComposer(new BetaCodeDeleteComposer(_.id))} />
+                                    </td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
+                {
+                    betaCodes.length === 0 && <Text style={{ marginTop: -20 }} variant="white">There are no beta codes.</Text>
+                }
                 <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'flex-end' }}>
-                    <Button variant="primary">
+                    <Button variant="primary" onClick={() => SendMessageComposer(new BetaCodeGenerateComposer())}>
                         <FaPlusCircle style={{ marginRight: 4 }} />
                         Generate Code
                     </Button>

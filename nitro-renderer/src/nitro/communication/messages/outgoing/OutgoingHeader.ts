@@ -607,4 +607,16 @@ export class OutgoingHeader {
 
     public static BETA_CODE_DELETE_COMPOSER = 8070;
 
+    public static BUG_REPORT_CREATE_COMPOSER = 8072;
+
+    public static BUG_REPORT_UPDATE_COMPOSER = 8073;
+
+    public static BUG_REPORT_DELETE_COMPOSER = 8074;
+
+    public static BUG_REPORT_QUERY_LIST_COMPOSER = 8075;
+
+    public static BUG_REPORT_QUERY_ONE_COMPOSER = 8076;
+
+    public static BETA_CODE_QUERY_LIST_COMPOSER = 8077;
+
 }
