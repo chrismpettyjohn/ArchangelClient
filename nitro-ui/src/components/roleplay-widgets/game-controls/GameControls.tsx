@@ -34,6 +34,7 @@ export function GameControls() {
     }, [isActive, activeDirection, activeKey]);
 
     const onMove = useCallback((direction: MovementDirection) => {
+        if (!isActive) return;
         if (direction === activeDirection) {
             setActiveKey(null);
             UserMovement(MovementDirection.STOP);
@@ -45,10 +46,10 @@ export function GameControls() {
             UserMovement(direction);
             setActiveDirection(direction);
         }
-    }, [activeDirection, setActiveKey, setActiveDirection]);
+    }, [isActive, activeDirection, setActiveKey, setActiveDirection]);
 
     const onKeyDown = useCallback((event: KeyboardEvent) => {
-        if (!isActive) return; // Only proceed if control is active
+        if (!isActive) return;
 
         const key = event.key.toLowerCase();
 
@@ -79,11 +80,10 @@ export function GameControls() {
                     break;
             }
         }
-
-        event.preventDefault();
     }, [isActive, setActiveKey, onMove]);
 
     const onKeyUp = useCallback((event: KeyboardEvent) => {
+        if (!isActive) return;
         const key = event.key.toLowerCase();
 
         if (key === activeKey) {
@@ -91,9 +91,7 @@ export function GameControls() {
             onMove(MovementDirection.STOP);
             setActiveDirection(null);
         }
-
-        event.preventDefault();
-    }, [activeKey, setActiveKey, onMove, setActiveDirection]);
+    }, [isActive, activeKey, setActiveKey, onMove, setActiveDirection]);
 
     return (
         <div
