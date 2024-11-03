@@ -1,13 +1,11 @@
 import { FaMapPin, FaSkull } from 'react-icons/fa';
 import { TurfTimer } from './turf-timer/TurfTimer';
-import { useNavigator, useSessionInfo } from '../../hooks';
-import { Flex, LayoutAvatarImageView, Text } from '../../common';
+import { useNavigator } from '../../hooks';
+import { Flex, Text } from '../../common';
 import { CreateLinkEvent } from '../../api';
 
 export function MiddleView() {
     const { navigatorData = null } = useNavigator();
-    const { userInfo } = useSessionInfo();
-    console.log(navigatorData)
     return (
         <>
             <div className="nitro-middle">

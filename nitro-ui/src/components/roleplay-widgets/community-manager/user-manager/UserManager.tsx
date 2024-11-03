@@ -6,7 +6,6 @@ export interface UserManagerProps {
 }
 
 export function UserManager({ profileID }: UserManagerProps) {
-    console.log({ profileID })
     if (!profileID) {
         return <UserLeaderboard />
     }

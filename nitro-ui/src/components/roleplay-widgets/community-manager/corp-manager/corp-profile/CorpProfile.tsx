@@ -9,7 +9,6 @@ interface CorpProfileProps {
 }
 
 export function CorpProfile({ corpID }: CorpProfileProps) {
-    console.log({ corpID })
     const corp = useCorpData(corpID);
     const owner = useRoleplayStats(corp.userID);
 

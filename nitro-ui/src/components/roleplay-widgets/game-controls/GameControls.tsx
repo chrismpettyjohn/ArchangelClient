@@ -40,7 +40,6 @@ export function GameControls() {
     }, [isActive, activeDirection, activeKey]);
 
     const onMove = useCallback((direction: MovementDirection) => {
-        console.log({ isActive })
         if (!isActive) return;
         if (direction === activeDirection) {
             setActiveKey(null);

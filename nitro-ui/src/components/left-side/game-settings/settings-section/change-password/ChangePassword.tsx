@@ -12,7 +12,6 @@ export function ChangePassword() {
     const onChangePassword = useCallback((event: SyntheticEvent) => {
         event.preventDefault();
         if (!canChangePassword) return;
-        console.log('will change');
     }, [canChangePassword]);
     return (
         <form onSubmit={onChangePassword}>

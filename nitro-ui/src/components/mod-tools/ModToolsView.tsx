@@ -18,6 +18,8 @@ import { ModToolsCorpsManagerView } from './views/roleplay/ModToolsCorpsManagerV
 import { ModToolsCorpsEditorView } from './views/roleplay/ModToolsCorpsEditorView';
 import { ModToolsCrimesManagerView } from './views/roleplay/ModToolsCrimesManagerView';
 import { ModToolsCrimesEditorView } from './views/roleplay/ModToolsCrimesEditorView';
+import { ModToolsUserWeaponsManagerView } from './views/user/ModToolsUserWeaponsManagerView';
+import { ModToolsUserSuperhireView } from './views/user/ModToolsUserSuperhireView';
 
 export const ModToolsView: FC<{}> = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -177,10 +179,6 @@ export const ModToolsView: FC<{}> = () => {
                                         <FaStar style={{ marginRight: 4 }} />
                                         Crimes
                                     </Button>
-                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/superhire/toggle')} className="position-relative">
-                                        <FaUserTie style={{ marginRight: 4 }} />
-                                        Superhire
-                                    </Button>
                                     <Button gap={1} onClick={() => CreateLinkEvent('staff/weapons-manager/toggle')} className="position-relative">
                                         <FaCrosshairs style={{ marginRight: 4 }} />
                                         Weapons
@@ -210,7 +208,8 @@ export const ModToolsView: FC<{}> = () => {
             <ModToolsCorpsEditorView />
             <ModToolsCrimesManagerView />
             <ModToolsCrimesEditorView />
-            <ModToolsSuperhireView />
+            <ModToolsUserSuperhireView />
+            <ModToolsUserWeaponsManagerView />
             {(openRooms.length > 0) && openRooms.map(roomId => <ModToolsRoomView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-info/${roomId}`)} />)}
             {(openRoomChatlogs.length > 0) && openRoomChatlogs.map(roomId => <ModToolsChatlogView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-chatlog/${roomId}`)} />)}
             {(openUserInfos.length > 0) && openUserInfos.map(userId => <ModToolsUserView key={userId} userId={userId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-user-info/${userId}`)} />)}

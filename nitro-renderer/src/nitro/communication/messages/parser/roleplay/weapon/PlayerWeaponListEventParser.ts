@@ -26,21 +26,25 @@ export class PlayerWeaponListEventParser implements IMessageParser {
     public parse(wrapper: IMessageDataWrapper): boolean {
         if (!wrapper) return false;
 
-        const [id, weaponId, displayName, type, ammoRemaining, ammoCapacity] = wrapper.readString().split(';');
+        const weaponCount = wrapper.readInt();
 
-        this._playerWeapons.push({
-            id: Number(id),
-            weaponId: Number(weaponId),
-            displayName,
-            type: WeaponType[type as keyof typeof WeaponType],
-            ammoRemaining: Number(ammoRemaining),
-            ammoCapacity: Number(ammoCapacity),
-        })
+        for (let i = 0; i < weaponCount; i++) {
+            const [id, weaponId, displayName, type, ammoRemaining, ammoCapacity] = wrapper.readString().split(';');
+
+            this._playerWeapons.push({
+                id: Number(id),
+                weaponId: Number(weaponId),
+                displayName,
+                type: WeaponType[type as keyof typeof WeaponType],
+                ammoRemaining: Number(ammoRemaining),
+                ammoCapacity: Number(ammoCapacity),
+            })
+        }
 
         return true;
     }
 
-    public get playerWeapon(): PlayerWeaponListRow[] {
+    public get playerWeapons(): PlayerWeaponListRow[] {
         return this._playerWeapons;
     }
 }

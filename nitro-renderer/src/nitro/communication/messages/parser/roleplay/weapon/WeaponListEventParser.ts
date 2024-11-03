@@ -1,5 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 import { WeaponType } from './PlayerWeaponListEventParser';
+import { parseWeaponType } from './WeaponDataEventParser';
 
 export interface WeaponListRow {
     id: number;
@@ -33,7 +34,7 @@ export class WeaponListEventParser implements IMessageParser {
                 id: Number(id),
                 displayName,
                 uniqueName,
-                type: WeaponType[type as keyof typeof WeaponType],
+                type: parseWeaponType(type),
                 minDamage: Number(minDamage),
                 maxDamage: Number(maxDamage),
                 accuracy: Number(accuracy),

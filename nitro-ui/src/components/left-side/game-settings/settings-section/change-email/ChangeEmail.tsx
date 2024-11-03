@@ -12,7 +12,6 @@ export function ChangeEmail() {
     const onChangePassword = useCallback((event: SyntheticEvent) => {
         event.preventDefault();
         if (!canChangeEmail) return;
-        console.log('will change');
     }, [canChangeEmail]);
     return (
         <form onSubmit={onChangePassword}>

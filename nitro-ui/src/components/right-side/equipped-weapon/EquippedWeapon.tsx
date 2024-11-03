@@ -13,7 +13,7 @@ export function EquippedWeapon() {
     const session = useSessionInfo();
     const weapons = useMyWeaponList();
     const roleplayStats = useRoleplayStats(session?.userInfo?.userId);
-    const [safety, setSafety] = useState(false);
+    const [safety, setSafety] = useState(true);
 
     useEffect(() => {
         GetRoomEngine().setCursorMode(safety ? CursorMode.Interact : CursorMode.Attack);

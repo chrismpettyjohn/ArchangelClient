@@ -82,7 +82,7 @@ export function ModToolsWeaponsManagerView() {
                                     </td>
                                     <td>
                                         <FaTrashAlt style={{ color: 'red', cursor: 'pointer', marginRight: 8 }} />
-                                        <FaPencilAlt style={{ color: 'blue', cursor: 'pointer' }} onClick={() => CreateLinkEvent('staff/weapons-manager/edit/1')} />
+                                        <FaPencilAlt style={{ color: 'blue', cursor: 'pointer' }} onClick={() => CreateLinkEvent(`staff/weapons-manager/edit/${_.id}`)} />
                                     </td>
                                 </tr>
                             ))

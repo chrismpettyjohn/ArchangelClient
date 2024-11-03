@@ -1,11 +1,12 @@
 import { FriendlyTime, GetModeratorUserInfoMessageComposer, ModeratorUserInfoData, ModeratorUserInfoEvent } from '@nitro-rp/renderer';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { CreateLinkEvent, LocalizeText, SendMessageComposer } from '../../../../api';
-import { Button, Column, DraggableWindowPosition, Grid, NitroCardContentView, NitroCardHeaderView, NitroCardView } from '../../../../common';
+import { Button, Column, DraggableWindowPosition, Grid, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../../../common';
 import { useMessageEvent } from '../../../../hooks';
 import { ModToolsUserModActionView } from './ModToolsUserModActionView';
 import { ModToolsUserRoomVisitsView } from './ModToolsUserRoomVisitsView';
 import { ModToolsUserSendMessageView } from './ModToolsUserSendMessageView';
+import { ModToolsSuperhireView } from '../roleplay/ModToolsSuperhireView';
 
 interface ModToolsUserViewProps {
     userId: number;
@@ -99,7 +100,7 @@ export const ModToolsUserView: FC<ModToolsUserViewProps> = props => {
 
     return (
         <>
-            <NitroCardView className="nitro-mod-tools-user" theme="primary-slim" windowPosition={DraggableWindowPosition.TOP_LEFT}>
+            <NitroCardView className="nitro-mod-tools-user" theme="primary-slim" windowPosition={DraggableWindowPosition.TOP_LEFT} style={{ width: 450 }}>
                 <NitroCardHeaderView headerText={LocalizeText('modtools.userinfo.title', ['username'], [userInfo.userName])} onCloseClick={() => onCloseClick()} />
                 <NitroCardContentView className="text-black">
                     <Grid overflow="hidden">
@@ -110,9 +111,9 @@ export const ModToolsUserView: FC<ModToolsUserViewProps> = props => {
 
                                         return (
                                             <tr key={index}>
-                                                <th scope="row">{LocalizeText(property.localeKey)}</th>
+                                                <th scope="row"><Text bold fontSize={6} variant="white">{LocalizeText(property.localeKey)}</Text></th>
                                                 <td>
-                                                    {property.value}
+                                                    <Text variant="white">{property.value}</Text>
                                                     {property.showOnline &&
                                                         <i className={`icon icon-pf-${userInfo.online ? 'online' : 'offline'} ms-2`} />}
                                                 </td>
@@ -123,17 +124,23 @@ export const ModToolsUserView: FC<ModToolsUserViewProps> = props => {
                             </table>
                         </Column>
                         <Column size={4} gap={1}>
-                            <Button onClick={event => CreateLinkEvent(`mod-tools/open-user-chatlog/${userId}`)}>
+                            <Button onClick={() => CreateLinkEvent(`mod-tools/open-user-chatlog/${userId}`)}>
                                 Room Chat
                             </Button>
-                            <Button onClick={event => setSendMessageVisible(!sendMessageVisible)}>
+                            <Button onClick={() => setSendMessageVisible(!sendMessageVisible)}>
                                 Send Message
                             </Button>
-                            <Button onClick={event => setRoomVisitsVisible(!roomVisitsVisible)}>
+                            <Button onClick={() => setRoomVisitsVisible(!roomVisitsVisible)}>
                                 Room Visits
                             </Button>
-                            <Button onClick={event => setModActionVisible(!modActionVisible)}>
+                            <Button onClick={() => setModActionVisible(!modActionVisible)}>
                                 Mod Action
+                            </Button>
+                            <Button onClick={() => CreateLinkEvent(`staff/superhire/${userInfo.userId}`)}>
+                                Employment
+                            </Button>
+                            <Button onClick={() => CreateLinkEvent(`staff/player-weapons-manager/${userInfo.userId}`)}>
+                                Weapon Inventory
                             </Button>
                         </Column>
                     </Grid>

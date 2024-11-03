@@ -68,32 +68,24 @@ export class WeaponDataEventParser implements IMessageParser {
     public parse(wrapper: IMessageDataWrapper): boolean {
         if (!wrapper) return false;
 
-
-        try {
-            this._id = wrapper.readInt();
-            this._uniqueName = wrapper.readString();
-            this._displayName = wrapper.readString();
-            this._type = parseWeaponType(wrapper.readString());
-            this._minDamage = wrapper.readInt();
-            this._maxDamage = wrapper.readInt();
-            this._range = wrapper.readInt();
-            this._accuracy = wrapper.readInt();
-            console.log({ _accuracy: this._accuracy })
-            this._reloadTime = wrapper.readInt();
-            console.log({ reloadTime: this._reloadTime })
-            this._reloadMessage = wrapper.readString();
-            this._ammoCapacity = wrapper.readInt();
-            this._weight = wrapper.readInt();
-            this._cooldown = wrapper.readInt();
-            this._specialAbilities = wrapper.readString();
-            this._equipEffect = wrapper.readInt();
-            this._equipMessage = wrapper.readString();
-            this._unequipMessage = wrapper.readString();
-            this._attackMessage = wrapper.readString();
-        } catch (e: any) {
-            console.log(e);
-            throw e;
-        }
+        this._id = wrapper.readInt();
+        this._uniqueName = wrapper.readString();
+        this._displayName = wrapper.readString();
+        this._type = parseWeaponType(wrapper.readString());
+        this._minDamage = wrapper.readInt();
+        this._maxDamage = wrapper.readInt();
+        this._range = wrapper.readInt();
+        this._accuracy = wrapper.readInt();
+        this._reloadTime = wrapper.readInt();
+        this._reloadMessage = wrapper.readString();
+        this._ammoCapacity = wrapper.readInt();
+        this._weight = wrapper.readInt();
+        this._cooldown = wrapper.readInt();
+        this._specialAbilities = wrapper.readString();
+        this._equipEffect = wrapper.readInt();
+        this._equipMessage = wrapper.readString();
+        this._unequipMessage = wrapper.readString();
+        this._attackMessage = wrapper.readString();
 
         return true;
     }
@@ -122,7 +114,7 @@ export class WeaponDataEventParser implements IMessageParser {
     }
 }
 
-function parseWeaponType(type: string): WeaponType | null {
+export function parseWeaponType(type: string): WeaponType | null {
     if (Object.values(WeaponType).includes(type as WeaponType)) {
         return type as WeaponType;
     } else {

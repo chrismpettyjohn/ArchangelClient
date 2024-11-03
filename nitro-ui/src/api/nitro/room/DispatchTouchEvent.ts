@@ -6,8 +6,6 @@ let lastClick = 0;
 let clickCount = 0;
 
 export const DispatchTouchEvent = (event: TouchEvent, canvasId: number = 1, longTouch: boolean = false, altKey: boolean = false, ctrlKey: boolean = false, shiftKey: boolean = false) => {
-    console.log({ canvasId })
-
     let x = 0;
     let y = 0;
 

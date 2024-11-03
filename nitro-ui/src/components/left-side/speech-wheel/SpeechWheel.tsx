@@ -116,7 +116,6 @@ export function SpeechWheel() {
     const speechOptions = useMemo(() => hoveredItem?.children ?? SPEECH_CATEGORIES, [hoveredItem?.children]);
 
     function useSpeechOption(speechCat: SpeechOption) {
-        console.log({ speechCat })
         setHoveredItem(speechCat);
         if (!speechCat?.children) {
             setVisible(false);
