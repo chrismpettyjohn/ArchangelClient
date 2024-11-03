@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { MovementDirection } from "@nitro-rp/renderer";
 import { UserMovement } from "../../../api/roleplay/controls/UserMovement";
 import { FaCaretSquareDown, FaCaretSquareLeft, FaCaretSquareRight, FaCaretSquareUp } from "react-icons/fa";
@@ -12,7 +12,7 @@ export function GameControls() {
     const [activeKey, setActiveKey] = useState<string | null>(null);
     const [activeDirection, setActiveDirection] = useState<MovementDirection | null>(null);
     const controlRef = useRef<HTMLDivElement>(null);
-    const isActive = focus === FocusMode.Controls;
+    const isActive = useMemo(() => focus === FocusMode.Controls, [focus]);
 
     useEffect(() => {
         controlRef.current?.focus();
@@ -33,7 +33,7 @@ export function GameControls() {
         };
     }, [isActive, activeDirection, activeKey]);
 
-    function onMove(direction: MovementDirection) {
+    const onMove = useCallback((direction: MovementDirection) => {
         if (direction === activeDirection) {
             setActiveKey(null);
             UserMovement(MovementDirection.STOP);
@@ -45,9 +45,9 @@ export function GameControls() {
             UserMovement(direction);
             setActiveDirection(direction);
         }
-    }
+    }, [activeDirection, setActiveKey, setActiveDirection]);
 
-    const onKeyDown = (event: KeyboardEvent) => {
+    const onKeyDown = useCallback((event: KeyboardEvent) => {
         if (!isActive) return; // Only proceed if control is active
 
         const key = event.key.toLowerCase();
@@ -81,9 +81,9 @@ export function GameControls() {
         }
 
         event.preventDefault();
-    };
+    }, [isActive, setActiveKey, onMove]);
 
-    const onKeyUp = (event: KeyboardEvent) => {
+    const onKeyUp = useCallback((event: KeyboardEvent) => {
         const key = event.key.toLowerCase();
 
         if (key === activeKey) {
@@ -93,7 +93,7 @@ export function GameControls() {
         }
 
         event.preventDefault();
-    };
+    }, [activeKey, setActiveKey, onMove, setActiveDirection]);
 
     return (
         <div

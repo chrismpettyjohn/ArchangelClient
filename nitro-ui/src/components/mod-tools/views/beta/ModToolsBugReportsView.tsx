@@ -1,11 +1,44 @@
-import { ILinkEventTracker } from '@nitro-rp/renderer';
-import { AddEventLinkTracker, RemoveLinkEventTracker } from '../../../../api';
+import { BugReportListEvent, BugReportListRow, BugReportQueryListComposer, ILinkEventTracker } from '@nitro-rp/renderer';
+import { AddEventLinkTracker, RemoveLinkEventTracker, SendMessageComposer } from '../../../../api';
 import { DraggableWindowPosition, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../../../common';
 import { useEffect, useState } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
+import { useMessageEvent } from '../../../../hooks';
 
 export function ModToolsBugReportsView() {
     const [visible, setVisible] = useState(false);
+    const [bugReports, setBugReports] = useState<BugReportListRow[]>([]);
+
+    useEffect(() => {
+        if (!visible) {
+            return;
+        }
+        SendMessageComposer(new BugReportQueryListComposer())
+    }, [visible]);
+
+    useMessageEvent(BugReportListEvent, (event: BugReportListEvent) => {
+        setBugReports(event.getParser().bugReports);
+    })
+
+    useEffect(() => {
+        const linkTracker: ILinkEventTracker = {
+            linkReceived: (url: string) => {
+                const parts = url.split('/');
+                if (parts.length < 3) return;
+
+                switch (parts[2]) {
+                    case 'toggle':
+                        setVisible(prevValue => !prevValue);
+                        return;
+                }
+            },
+            eventUrlPrefix: 'staff/beta-codes'
+        };
+
+        AddEventLinkTracker(linkTracker);
+
+        return () => RemoveLinkEventTracker(linkTracker);
+    }, [setVisible]);
 
     useEffect(() => {
         const linkTracker: ILinkEventTracker = {
@@ -58,25 +91,32 @@ export function ModToolsBugReportsView() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <Text variant="white">typing doesn't work on chat bar</Text>
-                            </td>
-                            <td>
-                                <span style={{ color: 'yellow' }}>In Progress</span>
-                            </td>
-                            <td>
-                                <Text variant="white">11-01-2024</Text>
-                            </td>
-                            <td>
-                                <Text variant="white">LeChris</Text>
-                            </td>
-                            <td>
-                                <FaCheckCircle style={{ color: 'green', cursor: 'pointer' }} />
-                            </td>
-                        </tr>
+                        {
+                            bugReports.map(_ => (
+                                <tr key={`bug_report_${_.id}`}>
+                                    <td>
+                                        <Text variant="white">{_.displayName}</Text>
+                                    </td>
+                                    <td>
+                                        <span style={{ color: 'yellow' }}>In Progress</span>
+                                    </td>
+                                    <td>
+                                        <Text variant="white">{new Date(_.createdAt).toLocaleDateString()}</Text>
+                                    </td>
+                                    <td>
+                                        <Text variant="white">{_.createdByUsername}</Text>
+                                    </td>
+                                    <td>
+                                        <FaCheckCircle style={{ color: 'green', cursor: 'pointer' }} />
+                                    </td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
+                {
+                    bugReports.length === 0 && <Text style={{ marginTop: -20 }} variant="white">There are no bug reports.</Text>
+                }
             </NitroCardContentView>
         </NitroCardView>
     );

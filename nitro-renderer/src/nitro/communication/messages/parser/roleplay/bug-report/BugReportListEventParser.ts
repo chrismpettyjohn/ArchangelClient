@@ -4,6 +4,7 @@ export interface BugReportListRow {
     id: number;
     displayName: string;
     createdByUserId: number;
+    createdByUsername: string;
     createdAt: number;
     closedAt?: number;
     closedByUserId?: number;
@@ -23,12 +24,13 @@ export class BugReportListEventParser implements IMessageParser {
         const totalBugReports = wrapper.readInt();
 
         for (let i = 0; i < totalBugReports; i++) {
-            const [id, displayName, createdByUserId, createdAt, closedAt, closedByUserId] = wrapper.readString().split(';');
+            const [id, displayName, createdByUserId, createdByUsername, createdAt, closedAt, closedByUserId] = wrapper.readString().split(';');
             this._bugReports.push({
                 id: Number(id),
                 displayName,
                 createdByUserId: Number(createdByUserId),
                 createdAt: Number(closedAt) || undefined,
+                createdByUsername: createdByUsername || undefined,
                 closedAt: Number(closedAt) || undefined,
                 closedByUserId: Number(closedByUserId) || undefined,
             });
