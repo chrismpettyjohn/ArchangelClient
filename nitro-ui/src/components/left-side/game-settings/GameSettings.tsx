@@ -1,6 +1,6 @@
 import { ILinkEventTracker } from "@nitro-rp/renderer";
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import { FaInfoCircle, FaKeyboard, FaLock, FaMicrophone, FaScroll, FaStar, FaUserLock, FaWrench } from "react-icons/fa";
+import { FaInfoCircle, FaKeyboard, FaLock, FaMicrophone, FaStar, FaUserLock, FaWrench } from "react-icons/fa";
 import { AddEventLinkTracker, RemoveLinkEventTracker } from "../../../api";
 import { ArchangelAboutPanel } from './archangel-section/AboutPanel';
 import { useSessionInfo } from "../../../hooks";
@@ -9,11 +9,11 @@ import { SecurityPanel } from "./settings-section/SecurityPanel";
 import { PrivacyPanel } from "./settings-section/PrivacyPanel";
 import { SoundPanel } from "./settings-section/SoundPanel";
 import { ControlsPanel } from "./settings-section/ControlsPanel";
-import { FocusMode, useSharedUI } from "../../../context/shared-ui";
 import { StorylinePanel } from "./help-section/StorylinePanel";
 import { HowToFightPanel } from "./help-section/HowToFightPanel";
 import { MakingMoneyPanel } from "./help-section/MakingMoneyPanel";
 import { JoiningAGangPanel } from "./help-section/JoiningAGangPanel";
+import { ChatWidgetOverlay } from "../../chat-widget-overlay/ChatWidgetOverlay";
 
 export interface SettingParent {
     type: 'parent';
@@ -45,7 +45,6 @@ export type SettingDivider = { type: 'divider'; };
 
 export function GameSettings() {
     const { userInfo } = useSessionInfo();
-    const { focus, setFocus } = useSharedUI();
     const roleplayStats = useRoleplayStats(userInfo?.userId);
     const [visible, setVisible] = useState(false);
     const settingOptions: SettingTop[] = useMemo(() => [
@@ -168,55 +167,46 @@ export function GameSettings() {
         };
     }, []);
 
-    useEffect(() => {
-        if (visible && focus !== FocusMode.Modal) {
-            setFocus(FocusMode.Modal);
-        }
-
-        return (() => {
-            setFocus(FocusMode.Controls);
-        })
-    }, [visible, focus, setFocus]);
-
     if (!visible) {
         return null;
     }
 
-
     return (
-        <div id="habbo-roleplay-menu">
-            <div className="menu-tabs">
-                {settingOptions.map((option, i) => (
-                    <div
-                        className={`tab ${section.value === option.value ? "active" : ""}`}
-                        key={`settings_sect_${i}`}
-                        onClick={() => onChangeSection(option)}
-                    >
-                        {option.label}
-                    </div>
-                ))}
-            </div>
-            <div className="menu-content">
-                {
-                    section.type === 'parent' && (
-                        <div className="menu-sidebar">
-                            {section.children?.map((child, i) => {
-                                if (child.type === 'divider') {
-                                    return <hr key={`settings_opt_${i}`} style={{ background: 'white', height: 2 }} />
-                                }
-                                return (
-                                    <div className={`menu-item ${panel === child ? 'active' : ''}`} key={`settings_opt_${i}`} onClick={() => setPanel(child)}>
-                                        {child.label}
-                                    </div>
-                                )
-                            })}
+        <ChatWidgetOverlay visible={visible}>
+            <div id="habbo-roleplay-menu">
+                <div className="menu-tabs">
+                    {settingOptions.map((option, i) => (
+                        <div
+                            className={`tab ${section.value === option.value ? "active" : ""}`}
+                            key={`settings_sect_${i}`}
+                            onClick={() => onChangeSection(option)}
+                        >
+                            {option.label}
                         </div>
-                    )
-                }
-                <div className="menu-settings">
-                    {panel.view ? panel.view() : ''}
+                    ))}
+                </div>
+                <div className="menu-content">
+                    {
+                        section.type === 'parent' && (
+                            <div className="menu-sidebar">
+                                {section.children?.map((child, i) => {
+                                    if (child.type === 'divider') {
+                                        return <hr key={`settings_opt_${i}`} style={{ background: 'white', height: 2 }} />
+                                    }
+                                    return (
+                                        <div className={`menu-item ${panel === child ? 'active' : ''}`} key={`settings_opt_${i}`} onClick={() => setPanel(child)}>
+                                            {child.label}
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        )
+                    }
+                    <div className="menu-settings">
+                        {panel.view ? panel.view() : ''}
+                    </div>
                 </div>
             </div>
-        </div>
+        </ChatWidgetOverlay>
     );
 }

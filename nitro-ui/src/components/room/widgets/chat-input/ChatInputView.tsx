@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { ChatMessageTypeEnum, GetConfiguration, LocalizeText, RoomWidgetUpdateChatInputContentEvent } from '../../../../api';
 import { Text } from '../../../../common';
 import { useChatInputWidget, useRoom, useSessionInfo, useUiEvent } from '../../../../hooks';
+import { ChatWidgetOverlay } from '../../../chat-widget-overlay/ChatWidgetOverlay';
 
 export const ChatInputView: FC<{}> = props => {
     const [chatValue, setChatValue] = useState<string>('');
@@ -117,7 +118,6 @@ export const ChatInputView: FC<{}> = props => {
 
     useEffect(() => {
         if (!isFocused) {
-            console.log('do it')
             inputRef.current.blur();
         }
     }, [isFocused]);
@@ -125,29 +125,31 @@ export const ChatInputView: FC<{}> = props => {
     if (!roomSession || roomSession.isSpectator) return null;
 
     return createPortal(
-        <div className="nitro-chat-input-container glass-panel">
-            <div className="input-sizer align-items-center">
-                {!floodBlocked && (
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        className="chat-input"
-                        placeholder={LocalizeText('widgets.chatinput.default')}
-                        value={chatValue}
-                        maxLength={maxChatLength}
-                        onBlur={handleBlur}  // Handle blur to refocus if needed
-                        onChange={event => setChatValue(event.target.value)}
-                        //onMouseDown={event => setInputFocus()}
-                        style={{ pointerEvents: isFocused ? 'auto' : 'none' }}
-                    />
-                )}
-                {floodBlocked && (
-                    <Text variant="danger">
-                        {LocalizeText('chat.input.alert.flood', ['time'], [floodBlockedSeconds.toString()])}
-                    </Text>
-                )}
+        <ChatWidgetOverlay visible={isFocused}>
+            <div className="nitro-chat-input-container glass-panel">
+                <div className="input-sizer align-items-center">
+                    {!floodBlocked && (
+                        <input
+                            ref={inputRef}
+                            type="text"
+                            className="chat-input"
+                            placeholder={LocalizeText('widgets.chatinput.default')}
+                            value={chatValue}
+                            maxLength={maxChatLength}
+                            onBlur={handleBlur}  // Handle blur to refocus if needed
+                            onChange={event => setChatValue(event.target.value)}
+                            //onMouseDown={event => setInputFocus()}
+                            style={{ pointerEvents: isFocused ? 'auto' : 'none' }}
+                        />
+                    )}
+                    {floodBlocked && (
+                        <Text variant="danger">
+                            {LocalizeText('chat.input.alert.flood', ['time'], [floodBlockedSeconds.toString()])}
+                        </Text>
+                    )}
+                </div>
             </div>
-        </div>,
+        </ChatWidgetOverlay>,
         document.getElementById('toolbar-chat-input-container')
     );
 };

@@ -8,21 +8,27 @@ import { FocusMode, useSharedUI } from "../../../context/shared-ui";
 export const GAME_CONTROLS_ID = 'game-controls';
 
 export function GameControls() {
-    const { focus, setFocus } = useSharedUI();
+    const { focus } = useSharedUI();
     const [activeKey, setActiveKey] = useState<string | null>(null);
     const [activeDirection, setActiveDirection] = useState<MovementDirection | null>(null);
     const controlRef = useRef<HTMLDivElement>(null);
     const isActive = useMemo(() => focus === FocusMode.Controls, [focus]);
 
+
     useEffect(() => {
+        if (!isActive) {
+            return;
+        }
         controlRef.current?.focus();
-    }, []);
+    }, [isActive]);
 
     useEffect(() => {
         if (isActive) {
             window.addEventListener('keydown', onKeyDown);
             window.addEventListener('keyup', onKeyUp);
-        } else {
+        }
+
+        if (!isActive) {
             window.removeEventListener('keydown', onKeyDown);
             window.removeEventListener('keyup', onKeyUp);
         }
@@ -34,6 +40,7 @@ export function GameControls() {
     }, [isActive, activeDirection, activeKey]);
 
     const onMove = useCallback((direction: MovementDirection) => {
+        console.log({ isActive })
         if (!isActive) return;
         if (direction === activeDirection) {
             setActiveKey(null);
@@ -91,14 +98,13 @@ export function GameControls() {
             onMove(MovementDirection.STOP);
             setActiveDirection(null);
         }
-    }, [isActive, activeKey, setActiveKey, onMove, setActiveDirection]);
+    }, [isActive, focus, activeKey, setActiveKey, onMove, setActiveDirection]);
 
     return (
         <div
             ref={controlRef}
             tabIndex={0}
             id={GAME_CONTROLS_ID}
-            onFocus={() => setFocus(FocusMode.Controls)}
             style={{
                 zIndex: 100,
                 pointerEvents: 'all',
