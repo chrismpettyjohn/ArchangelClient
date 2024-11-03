@@ -38,3 +38,6 @@ export * from './user/UserOpenWardrobeEvent';
 export * from './user/UserRoleplayStatsChangeEvent';
 export * from './user/UserOnlineCountEvent';
 export * from './user/RoleplayPermissionsEvent';
+export * from './weapon/PlayerWeaponListEvent';
+export * from './weapon/WeaponDataEvent';
+export * from './weapon/WeaponListEvent';

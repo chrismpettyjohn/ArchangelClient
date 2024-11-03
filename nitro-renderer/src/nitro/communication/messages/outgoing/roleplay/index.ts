@@ -74,3 +74,11 @@ export * from './taxi/CallTaxiComposer';
 export * from './user/UserRoleplayStatsQueryComposer';
 export * from './user/RoleplayPermissionsComposer'
 export * from './user/UserOnlineCountComposer';
+export * from './weapon/PlayerWeaponCreateComposer';
+export * from './weapon/PlayerWeaponDeleteComposer';
+export * from './weapon/PlayerWeaponQueryListComposer';
+export * from './weapon/WeaponCreateComposer';
+export * from './weapon/WeaponDeleteComposer';
+export * from './weapon/WeaponQueryListComposer';
+export * from './weapon/WeaponQueryOneComposer';
+export * from './weapon/WeaponUpdateComposer';

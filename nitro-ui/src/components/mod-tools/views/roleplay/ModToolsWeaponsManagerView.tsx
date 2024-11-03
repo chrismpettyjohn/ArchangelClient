@@ -1,11 +1,24 @@
-import { ILinkEventTracker } from '@nitro-rp/renderer';
-import { AddEventLinkTracker, CreateLinkEvent, RemoveLinkEventTracker } from '../../../../api';
+import { ILinkEventTracker, WeaponListEvent, WeaponListRow, WeaponQueryListComposer } from '@nitro-rp/renderer';
+import { AddEventLinkTracker, CreateLinkEvent, RemoveLinkEventTracker, SendMessageComposer } from '../../../../api';
 import { Button, DraggableWindowPosition, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../../../common';
 import { useEffect, useState } from 'react';
 import { FaPencilAlt, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
+import { useMessageEvent } from '../../../../hooks';
 
 export function ModToolsWeaponsManagerView() {
     const [visible, setVisible] = useState(false);
+    const [weapons, setWeapons] = useState<WeaponListRow[]>([]);
+
+    useEffect(() => {
+        if (!visible) {
+            return;
+        }
+        SendMessageComposer(new WeaponQueryListComposer())
+    }, [visible]);
+
+    useMessageEvent(WeaponListEvent, (event: WeaponListEvent) => {
+        setWeapons(event.getParser().weapons);
+    })
 
     useEffect(() => {
         const linkTracker: ILinkEventTracker = {
@@ -55,21 +68,25 @@ export function ModToolsWeaponsManagerView() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <Text variant="white">mp5</Text>
-                            </td>
-                            <td>
-                                <Text variant="white">HK MP5</Text>
-                            </td>
-                            <td>
-                                <Text variant="white">7-15</Text>
-                            </td>
-                            <td>
-                                <FaTrashAlt style={{ color: 'red', cursor: 'pointer', marginRight: 8 }} />
-                                <FaPencilAlt style={{ color: 'blue', cursor: 'pointer' }} onClick={() => CreateLinkEvent('staff/weapons-manager/edit/1')} />
-                            </td>
-                        </tr>
+                        {
+                            weapons.map(_ => (
+                                <tr key={`weapon_${_.id}`}>
+                                    <td>
+                                        <Text variant="white">{_.uniqueName}</Text>
+                                    </td>
+                                    <td>
+                                        <Text variant="white">{_.displayName}</Text>
+                                    </td>
+                                    <td>
+                                        <Text variant="white">{_.minDamage} - {_.maxDamage}</Text>
+                                    </td>
+                                    <td>
+                                        <FaTrashAlt style={{ color: 'red', cursor: 'pointer', marginRight: 8 }} />
+                                        <FaPencilAlt style={{ color: 'blue', cursor: 'pointer' }} onClick={() => CreateLinkEvent('staff/weapons-manager/edit/1')} />
+                                    </td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
                 <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'flex-end' }}>

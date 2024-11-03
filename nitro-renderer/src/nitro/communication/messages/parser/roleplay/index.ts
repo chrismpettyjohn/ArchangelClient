@@ -39,3 +39,6 @@ export * from './user/UserOpenWardrobeEventParser';
 export * from './user/RoleplayPermissionsEventParser';
 export * from './user/UserOnlineCountEventParser';
 export * from './user/UserRoleplayStatsChangeParser';
+export * from './weapon/PlayerWeaponListEventParser';
+export * from './weapon/WeaponDataEventParser';
+export * from './weapon/WeaponListEventParser';

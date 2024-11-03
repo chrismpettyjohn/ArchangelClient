@@ -619,4 +619,20 @@ export class OutgoingHeader {
 
     public static BETA_CODE_QUERY_LIST_COMPOSER = 8077;
 
+    public static PLAYER_WEAPON_CREATE_COMPOSER = 8078;
+
+    public static PLAYER_WEAPON_DELETE_COMPOSER = 8079;
+
+    public static PLAYER_WEAPON_QUERY_LIST_COMPOSER = 8080;
+
+    public static WEAPON_CREATE_COMPOSER = 8081;
+
+    public static WEAPON_DELETE_COMPOSER = 8082;
+
+    public static WEAPON_QUERY_LIST_COMPOSER = 8083;
+
+    public static WEAPON_QUERY_ONE_COMPOSER = 8084;
+
+    public static WEAPON_UPDATE_COMPOSER = 8085;
+
 }
