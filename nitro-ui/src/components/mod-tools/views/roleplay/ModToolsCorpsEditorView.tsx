@@ -40,6 +40,9 @@ export function ModToolsCorpsEditorView() {
             <NitroCardView uniqueKey="staff-corps" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" style={{ width: 400, height: 600 }}>
                 <NitroCardHeaderView headerText="Corps Manager" onCloseClick={() => setCorpID(undefined)} />
                 <NitroCardContentView className="h-100">
+                    <div style={{ background: 'orange', padding: 4, display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', fontWeight: 800, fontSize: 24 }}>
+                        this is a mock up
+                    </div>
                     <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flex: 1, flexDirection: 'column', gap: 8 }}>
                         <div>
                             <Text bold fontSize={5} variant="white">Identifier</Text>

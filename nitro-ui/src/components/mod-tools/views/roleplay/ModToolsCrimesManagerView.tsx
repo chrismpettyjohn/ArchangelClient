@@ -36,6 +36,9 @@ export function ModToolsCrimesManagerView() {
         <NitroCardView uniqueKey="staff-crimes" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" style={{ width: 400, height: 400 }}>
             <NitroCardHeaderView headerText="Crimes Manager" onCloseClick={() => setVisible(false)} />
             <NitroCardContentView className="h-100">
+                <div style={{ background: 'orange', padding: 4, display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', fontWeight: 800, fontSize: 24 }}>
+                    this is a mock up
+                </div>
                 <input className="form-control form-control-sm" placeholder="Search crimes..." />
                 <table className="table table-striped table-bordered">
                     <thead>
