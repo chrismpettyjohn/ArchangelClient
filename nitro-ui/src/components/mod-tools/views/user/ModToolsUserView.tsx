@@ -6,7 +6,6 @@ import { useMessageEvent } from '../../../../hooks';
 import { ModToolsUserModActionView } from './ModToolsUserModActionView';
 import { ModToolsUserRoomVisitsView } from './ModToolsUserRoomVisitsView';
 import { ModToolsUserSendMessageView } from './ModToolsUserSendMessageView';
-import { ModToolsSuperhireView } from '../roleplay/ModToolsSuperhireView';
 
 interface ModToolsUserViewProps {
     userId: number;

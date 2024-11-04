@@ -22,36 +22,8 @@ export function ModToolsBugReportsView() {
 
     useEffect(() => {
         const linkTracker: ILinkEventTracker = {
-            linkReceived: (url: string) => {
-                const parts = url.split('/');
-                if (parts.length < 3) return;
-
-                switch (parts[2]) {
-                    case 'toggle':
-                        setVisible(prevValue => !prevValue);
-                        return;
-                }
-            },
-            eventUrlPrefix: 'staff/beta-codes'
-        };
-
-        AddEventLinkTracker(linkTracker);
-
-        return () => RemoveLinkEventTracker(linkTracker);
-    }, [setVisible]);
-
-    useEffect(() => {
-        const linkTracker: ILinkEventTracker = {
-            linkReceived: (url: string) => {
-                const parts = url.split('/');
-
-                if (parts.length < 3) return;
-
-                switch (parts[2]) {
-                    case 'toggle':
-                        setVisible(prevValue => !prevValue);
-                        return;
-                }
+            linkReceived: () => {
+                setVisible(true);
             },
             eventUrlPrefix: 'staff/bug-reports'
         };

@@ -10,22 +10,19 @@ export function ModToolsBetaCodesView() {
     const [betaCodes, setBetaCodes] = useState<BetaCodeListRow[]>([]);
 
     useEffect(() => {
-        if (!visible) {
-            return;
-        }
+        if (!visible) return;
         SendMessageComposer(new BetaCodeQueryListComposer())
     }, [visible]);
 
     useMessageEvent(BetaCodeListEvent, (event: BetaCodeListEvent) => {
         setBetaCodes(event.getParser().betaCodes);
-    })
+    });
 
     useEffect(() => {
         const linkTracker: ILinkEventTracker = {
             linkReceived: (url: string) => {
                 const parts = url.split('/');
                 if (parts.length < 3) return;
-
                 switch (parts[2]) {
                     case 'toggle':
                         setVisible(prevValue => !prevValue);
@@ -36,14 +33,34 @@ export function ModToolsBetaCodesView() {
         };
 
         AddEventLinkTracker(linkTracker);
-
         return () => RemoveLinkEventTracker(linkTracker);
     }, [setVisible]);
 
-
-    if (!visible) {
-        return null;
+    const copyToClipboard = (code) => {
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(code).catch(() => fallbackCopyToClipboard(code));
+        } else {
+            fallbackCopyToClipboard(code);
+        }
     }
+
+    const fallbackCopyToClipboard = (code) => {
+        const textArea = document.createElement('textarea');
+        textArea.value = code;
+        textArea.style.position = 'fixed'; // Prevents scrolling to bottom of page
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+        } catch (err) {
+            console.error('Fallback: Copying text command was unsuccessful', err);
+        }
+        document.body.removeChild(textArea);
+    };
+
+
+    if (!visible) return null;
 
     return (
         <NitroCardView uniqueKey="staff-beta-codes" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" style={{ width: 400, height: 400 }}>
@@ -71,8 +88,8 @@ export function ModToolsBetaCodesView() {
                         {
                             betaCodes.map(_ => (
                                 <tr key={`beta_code_${_.id}`}>
-                                    <td>
-                                        <Text variant="white">{_.code}</Text>
+                                    <td onClick={() => copyToClipboard(_.code)} style={{ cursor: 'pointer' }}>
+                                        <Text variant="white" title="Click to copy">{_.code}</Text>
                                     </td>
                                     <td>
                                         <Text variant="white">{_.createdAt ? new Date(_.createdAt).toLocaleDateString() : '-'}</Text>

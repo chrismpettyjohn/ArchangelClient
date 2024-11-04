@@ -12,7 +12,7 @@ import { FaBoxOpen, FaBriefcase, FaBug, FaCrosshairs, FaHouseUser, FaPlusCircle,
 import { ModToolsBetaCodesView } from './views/beta/ModToolsBetaCodesView';
 import { ModToolsBugReportsView } from './views/beta/ModToolsBugReportsView';
 import { ModToolsWeaponsManagerView } from './views/roleplay/ModToolsWeaponsManagerView';
-import { ModToolsWeaponsManagerEditor } from './views/roleplay/ModToolsWeaponsEditorView';
+import { ModToolsWeaponsEditorView } from './views/roleplay/ModToolsWeaponsEditorView';
 import { ModToolsCorpsManagerView } from './views/roleplay/ModToolsCorpsManagerView';
 import { ModToolsCorpsEditorView } from './views/roleplay/ModToolsCorpsEditorView';
 import { ModToolsCrimesManagerView } from './views/roleplay/ModToolsCrimesManagerView';
@@ -20,6 +20,7 @@ import { ModToolsCrimesEditorView } from './views/roleplay/ModToolsCrimesEditorV
 import { ModToolsUserWeaponsManagerView } from './views/user/ModToolsUserWeaponsManagerView';
 import { ModToolsUserSuperhireView } from './views/user/ModToolsUserSuperhireView';
 import { ModToolsCrimesCreatorView } from './views/roleplay/ModToolsCrimesCreatorView';
+import { ModToolsWeaponsCreatorView } from './views/roleplay/ModToolsWeaponsCreatorView';
 
 export const ModToolsView: FC<{}> = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -203,7 +204,8 @@ export const ModToolsView: FC<{}> = () => {
             <ModToolsBetaCodesView />
             <ModToolsBugReportsView />
             <ModToolsWeaponsManagerView />
-            <ModToolsWeaponsManagerEditor />
+            <ModToolsWeaponsCreatorView />
+            <ModToolsWeaponsEditorView />
             <ModToolsCorpsManagerView />
             <ModToolsCorpsEditorView />
             <ModToolsCrimesManagerView />
