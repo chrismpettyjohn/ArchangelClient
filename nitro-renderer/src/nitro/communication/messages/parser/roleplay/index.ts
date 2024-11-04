@@ -18,6 +18,8 @@ export * from './corp/CorpOpenComputerEventParser';
 export * from './corp/CorpOpenInventoryParser';
 export * from './corp/CorpPositionInfoParser';
 export * from './corp/CorpPositionListEventParser';
+export * from './crime/CrimeDataEventParser';
+export * from './crime/CrimeListEventParser';
 export * from './device/InfoScreenViewEventParser';
 export * from './device/DeviceOpenEventParser';
 export * from './game/TimeOfDayEventParser';

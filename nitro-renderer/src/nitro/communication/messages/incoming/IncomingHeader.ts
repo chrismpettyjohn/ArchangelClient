@@ -514,4 +514,6 @@ export class IncomingHeader {
     public static WEAPON_DATA_EVENT = 9042;
     public static WEAPON_LIST_EVENT = 9043;
     public static PLAYER_WEAPON_LIST_EVENT = 9044;
+    public static CRIME_LIST_EVENT = 9045;
+    public static CRIME_DATA_EVENT = 9046;
 }

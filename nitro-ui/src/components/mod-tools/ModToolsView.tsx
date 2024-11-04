@@ -8,8 +8,7 @@ import { ModToolsRoomView } from './views/room/ModToolsRoomView';
 import { ModToolsTicketsView } from './views/tickets/ModToolsTicketsView';
 import { ModToolsUserChatlogView } from './views/user/ModToolsUserChatlogView';
 import { ModToolsUserView } from './views/user/ModToolsUserView';
-import { ModToolsSuperhireView } from './views/roleplay/ModToolsSuperhireView';
-import { FaBoxOpen, FaBriefcase, FaBug, FaCrosshairs, FaHouseUser, FaPlusCircle, FaStar, FaStoreAlt, FaUsers, FaUserTie, FaVial } from 'react-icons/fa';
+import { FaBoxOpen, FaBriefcase, FaBug, FaCrosshairs, FaHouseUser, FaPlusCircle, FaStar, FaStoreAlt, FaVial } from 'react-icons/fa';
 import { ModToolsBetaCodesView } from './views/beta/ModToolsBetaCodesView';
 import { ModToolsBugReportsView } from './views/beta/ModToolsBugReportsView';
 import { ModToolsWeaponsManagerView } from './views/roleplay/ModToolsWeaponsManagerView';
@@ -20,6 +19,7 @@ import { ModToolsCrimesManagerView } from './views/roleplay/ModToolsCrimesManage
 import { ModToolsCrimesEditorView } from './views/roleplay/ModToolsCrimesEditorView';
 import { ModToolsUserWeaponsManagerView } from './views/user/ModToolsUserWeaponsManagerView';
 import { ModToolsUserSuperhireView } from './views/user/ModToolsUserSuperhireView';
+import { ModToolsCrimesCreatorView } from './views/roleplay/ModToolsCrimesCreatorView';
 
 export const ModToolsView: FC<{}> = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -208,6 +208,7 @@ export const ModToolsView: FC<{}> = () => {
             <ModToolsCorpsEditorView />
             <ModToolsCrimesManagerView />
             <ModToolsCrimesEditorView />
+            <ModToolsCrimesCreatorView />
             <ModToolsUserSuperhireView />
             <ModToolsUserWeaponsManagerView />
             {(openRooms.length > 0) && openRooms.map(roomId => <ModToolsRoomView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-info/${roomId}`)} />)}

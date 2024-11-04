@@ -1,11 +1,24 @@
-import { ILinkEventTracker } from '@nitro-rp/renderer';
-import { AddEventLinkTracker, CreateLinkEvent, RemoveLinkEventTracker } from '../../../../api';
+import { ILinkEventTracker, CrimeQueryListComposer, CrimeData, CrimeListEvent, CrimeDeleteComposer } from '@nitro-rp/renderer';
+import { AddEventLinkTracker, CreateLinkEvent, RemoveLinkEventTracker, SendMessageComposer } from '../../../../api';
 import { Button, DraggableWindowPosition, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../../../common';
 import { useEffect, useState } from 'react';
 import { FaPencilAlt, FaPlusCircle, FaTrashAlt } from 'react-icons/fa';
+import { useMessageEvent } from '../../../../hooks';
 
 export function ModToolsCrimesManagerView() {
     const [visible, setVisible] = useState(false);
+    const [crimes, setCrimes] = useState<CrimeData[]>([]);
+
+    useEffect(() => {
+        if (!visible) {
+            return;
+        }
+        SendMessageComposer(new CrimeQueryListComposer())
+    }, [visible]);
+
+    useMessageEvent(CrimeListEvent, (event: CrimeListEvent) => {
+        setCrimes(event.getParser().crimes);
+    })
 
     useEffect(() => {
         const linkTracker: ILinkEventTracker = {
@@ -36,9 +49,6 @@ export function ModToolsCrimesManagerView() {
         <NitroCardView uniqueKey="staff-crimes" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" style={{ width: 400, height: 400 }}>
             <NitroCardHeaderView headerText="Crimes Manager" onCloseClick={() => setVisible(false)} />
             <NitroCardContentView className="h-100">
-                <div style={{ background: 'orange', padding: 4, display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', fontWeight: 800, fontSize: 24 }}>
-                    this is a mock up
-                </div>
                 <input className="form-control form-control-sm" placeholder="Search crimes..." />
                 <table className="table table-striped table-bordered">
                     <thead>
@@ -47,10 +57,7 @@ export function ModToolsCrimesManagerView() {
                                 <Text variant="white">Display Name</Text>
                             </th>
                             <th scope="col">
-                                <Text variant="white">Description</Text>
-                            </th>
-                            <th scope="col">
-                                <Text variant="white">Jail Time</Text>
+                                <Text variant="white">Damage</Text>
                             </th>
                             <th scope="col">
                                 <Text variant="white">Actions</Text>
@@ -58,25 +65,29 @@ export function ModToolsCrimesManagerView() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <Text variant="white">Murder</Text>
-                            </td>
-                            <td>
-                                <Text variant="white">Killing a citizen</Text>
-                            </td>
-                            <td>
-                                <Text variant="white">10m</Text>
-                            </td>
-                            <td>
-                                <FaTrashAlt style={{ color: 'red', cursor: 'pointer', marginRight: 8 }} />
-                                <FaPencilAlt style={{ color: 'blue', cursor: 'pointer' }} onClick={() => CreateLinkEvent('staff/crimes-manager/edit/1')} />
-                            </td>
-                        </tr>
+                        {
+                            crimes.map(_ => (
+                                <tr key={`crime_${_.displayName}`}>
+                                    <td>
+                                        <Text variant="white">{_.displayName}</Text>
+                                    </td>
+                                    <td>
+                                        <Text variant="white">{_.description}</Text>
+                                    </td>
+                                    <td>
+                                        <Text variant="white">{Math.round(_.jailTime / 60)} minutes</Text>
+                                    </td>
+                                    <td>
+                                        <FaTrashAlt style={{ color: 'red', cursor: 'pointer', marginRight: 8 }} onClick={() => SendMessageComposer(new CrimeDeleteComposer(_.id))} />
+                                        <FaPencilAlt style={{ color: 'blue', cursor: 'pointer' }} onClick={() => CreateLinkEvent(`staff/crimes-manager/edit/${_.id}`)} />
+                                    </td>
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
                 <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'flex-end' }}>
-                    <Button variant="primary">
+                    <Button variant="primary" onClick={() => CreateLinkEvent('staff/crimes-manager/create')}>
                         <FaPlusCircle style={{ marginRight: 4 }} />
                         Add Crime
                     </Button>

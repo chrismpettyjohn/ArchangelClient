@@ -1,12 +1,29 @@
-import { ILinkEventTracker } from '@nitro-rp/renderer';
-import { AddEventLinkTracker, RemoveLinkEventTracker } from '../../../../api';
-import { Button, DraggableWindowPosition, Grid, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../../../common';
-import { useEffect, useState } from 'react';
-import { FaPencilAlt } from 'react-icons/fa';
+import { CrimeData, CrimeDataEvent, CrimeQueryListComposer, CrimeUpdateComposer, ILinkEventTracker } from '@nitro-rp/renderer';
+import { AddEventLinkTracker, RemoveLinkEventTracker, SendMessageComposer } from '../../../../api';
+import { DraggableWindowPosition, NitroCardContentView, NitroCardHeaderView, NitroCardView } from '../../../../common';
+import { useCallback, useEffect, useState } from 'react';
 import { ChatWidgetOverlay } from '../../../chat-widget-overlay/ChatWidgetOverlay';
+import { CrimeEditor } from './editors/CrimeEditor';
+import { useMessageEvent } from '../../../../hooks';
 
 export function ModToolsCrimesEditorView() {
     const [crimeID, setCrimeID] = useState<number>();
+    const [crime, setCrime] = useState<CrimeData>();
+
+    useEffect(() => {
+        if (!crimeID) {
+            return;
+        }
+        SendMessageComposer(new CrimeQueryListComposer());
+    }, [crimeID]);
+
+    useMessageEvent(CrimeDataEvent, (event: CrimeDataEvent) => {
+        if (crime) {
+            onToggle();
+            return;
+        }
+        setCrime(event.getParser().crime);
+    });
 
     useEffect(() => {
         const linkTracker: ILinkEventTracker = {
@@ -31,90 +48,26 @@ export function ModToolsCrimesEditorView() {
         return () => RemoveLinkEventTracker(linkTracker);
     }, [setCrimeID]);
 
-    if (!crimeID) {
+    const onToggle = useCallback(() => {
+        setCrime(undefined);
+        setCrimeID(undefined);
+    }, [setCrime, setCrimeID]);
+
+    const onUpdateCrime = useCallback((crime: CrimeData) => {
+        SendMessageComposer(new CrimeUpdateComposer(crimeID, crime.displayName, crime.description, crime.jailTime))
+        onToggle();
+    }, [crimeID, onToggle]);
+
+    if (!crime) {
         return null;
     }
 
     return (
         <ChatWidgetOverlay visible>
             <NitroCardView uniqueKey="staff-crimes" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" style={{ width: 400, height: 600 }}>
-                <NitroCardHeaderView headerText="Crimes Manager" onCloseClick={() => setCrimeID(undefined)} />
+                <NitroCardHeaderView headerText={`Editing Crime "${crime.displayName}"`} onCloseClick={onToggle} />
                 <NitroCardContentView className="h-100">
-                    <div style={{ background: 'orange', padding: 4, display: 'flex', width: '100%', justifyContent: 'center', alignItems: 'center', fontWeight: 800, fontSize: 24 }}>
-                        this is a mock up
-                    </div>
-                    <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flex: 1, flexDirection: 'column', gap: 8 }}>
-                        <div>
-                            <Text bold fontSize={5} variant="white">Identifier</Text>
-                            <input className="form-control form-control-sm" placeholder="hk-mp5" type="text" />
-                        </div>
-                        <div>
-                            <Text bold fontSize={5} variant="white">Display Name</Text>
-                            <input className="form-control form-control-sm" placeholder="HK MP5" type="text" />
-                        </div>
-                        <div>
-                            <Text bold fontSize={5} variant="white">Special Abilities</Text>
-                            <input className="form-control form-control-sm" placeholder="5" type="number" />
-                        </div>
-                        <Grid columnCount={2}>
-                            <div>
-                                <Text bold fontSize={5} variant="white">Type</Text>
-                                <input className="form-control form-control-sm" placeholder="5" type="number" />
-                            </div>
-                            <div>
-                                <Text bold fontSize={5} variant="white">Weight</Text>
-                                <input className="form-control form-control-sm" placeholder="3" type="number" />
-                            </div>
-                            <div>
-                                <Text bold fontSize={5} variant="white">Ammo Capacity</Text>
-                                <input className="form-control form-control-sm" placeholder="30" type="number" />
-                            </div>
-                            <div>
-                                <Text bold fontSize={5} variant="white">Min. Damage</Text>
-                                <input className="form-control form-control-sm" placeholder="7" type="number" />
-                            </div>
-                            <div>
-                                <Text bold fontSize={5} variant="white">Max. Damage</Text>
-                                <input className="form-control form-control-sm" placeholder="15" type="number" />
-                            </div>
-                            <div>
-                                <Text bold fontSize={5} variant="white">Range</Text>
-                                <input className="form-control form-control-sm" placeholder="8" type="number" />
-                            </div>
-                            <div>
-                                <Text bold fontSize={5} variant="white">Cooldown</Text>
-                                <input className="form-control form-control-sm" placeholder="5" type="number" />
-                            </div>
-                            <div>
-                                <Text bold fontSize={5} variant="white">Reload Time</Text>
-                                <input className="form-control form-control-sm" placeholder="5" type="number" />
-                            </div>
-                        </Grid>
-                        <hr />
-                        <div>
-                            <Text bold fontSize={5} variant="white">Equip Effect</Text>
-                            <input className="form-control form-control-sm" placeholder="5" type="number" />
-                        </div>
-                        <div>
-                            <Text bold fontSize={5} variant="white">Equip Message</Text>
-                            <input className="form-control form-control-sm" placeholder="5" type="number" />
-                        </div>
-                        <div>
-                            <Text bold fontSize={5} variant="white">Reload Message</Text>
-                            <input className="form-control form-control-sm" placeholder="5" type="number" />
-                        </div>
-                        <div>
-                            <Text bold fontSize={5} variant="white">Holster Message</Text>
-                            <input className="form-control form-control-sm" placeholder="5" type="number" />
-                        </div>
-                    </form>
-
-                    <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button variant="primary">
-                            <FaPencilAlt style={{ marginRight: 4 }} />
-                            Save
-                        </Button>
-                    </div>
+                    <CrimeEditor defaultCrime={crime} onSave={onUpdateCrime} />
                 </NitroCardContentView>
             </NitroCardView>
         </ChatWidgetOverlay>

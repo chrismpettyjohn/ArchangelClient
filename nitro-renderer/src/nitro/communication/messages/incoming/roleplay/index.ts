@@ -18,6 +18,8 @@ export * from './corp/CashRegisterEvent';
 export * from './corp/CorpEmployeeListEvent';
 export * from './corp/CorpPositionInfoQueryEvent';
 export * from './corp/CorpPositionListEvent';
+export * from './crime/CrimeDataEvent';
+export * from './crime/CrimeListEvent';
 export * from './device/InfoScreenViewEvent';
 export * from './device/DeviceOpenEvent';
 export * from './taxi/TaxiFeeQueryEvent';
