@@ -635,4 +635,26 @@ export class OutgoingHeader {
 
     public static WEAPON_UPDATE_COMPOSER = 8085;
 
+    public static CRIME_CREATE_COMPOSER = 8006;
+
+    public static CRIME_DELETE_COMPOSER = 8007;
+
+    public static CRIME_QUERY_LIST_COMPOSER = 8008;
+
+    public static CRIME_QUERY_ONE_COMPOSER = 8009;
+
+    public static CRIME_UPDATE_COMPOSER = 8090;
+
+    public static CORP_CREATE_COMPOSER = 8091;
+
+    public static CORP_UPDATE_COMPOSER = 8092;
+
+    public static CORP_DELETE_COMPOSER = 8093;
+
+    public static CORP_QUERY_LIST_COMPOSER = 8094;
+
+    public static CORP_QUERY_ONE_COMPOSER = 8095;
+
+
 }
+
