@@ -39,9 +39,6 @@ export function GameTools() {
                 <div className="menu-button glass-panel " onClick={() => CreateLinkEvent('game-settings/toggle')} >
                     <FaCog size={20} />
                 </div>
-                <div className="menu-button glass-panel " onClick={() => CreateLinkEvent('speech-wheel/toggle')} >
-                    <FaMicrophone size={20} />
-                </div>
                 {
                     GetSessionDataManager().isModerator && (
                         <>

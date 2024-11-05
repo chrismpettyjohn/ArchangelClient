@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { ChatWidgetOverlay } from '../../../chat-widget-overlay/ChatWidgetOverlay';
 import { CrimeEditor } from './editors/CrimeEditor';
 import { useMessageEvent } from '../../../../hooks';
+import { allowedNodeEnvironmentFlags } from 'process';
 
 export function ModToolsCrimesEditorView() {
     const [crimeID, setCrimeID] = useState<number>();
@@ -18,6 +19,7 @@ export function ModToolsCrimesEditorView() {
     }, [crimeID]);
 
     useMessageEvent(CrimeDataEvent, (event: CrimeDataEvent) => {
+        alert('hm')
         if (crime) {
             onToggle();
             return;
