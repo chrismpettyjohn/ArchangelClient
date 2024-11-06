@@ -30,7 +30,7 @@ export function NavigatorSearchResultItemView({ canSeeAllRooms, roomData, disabl
 
     const isCurrentRoom = roomData?.roomId === roomSession?.roomId;
 
-    const isDisabled = disabled || !arrivesAt || !canPayTaxiFee || isCurrentRoom;
+    const isDisabled = disabled || arrivesAt || !canPayTaxiFee || isCurrentRoom;
 
     const onAttemptTaxi = useCallback(() => {
         if (!canPayTaxiFee) {
