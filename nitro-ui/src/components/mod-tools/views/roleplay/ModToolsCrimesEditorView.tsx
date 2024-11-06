@@ -1,4 +1,4 @@
-import { CrimeData, CrimeDataEvent, CrimeQueryListComposer, CrimeUpdateComposer, ILinkEventTracker } from '@nitro-rp/renderer';
+import { CrimeData, CrimeDataEvent, CrimeQueryListComposer, CrimeQueryOneComposer, CrimeUpdateComposer, ILinkEventTracker } from '@nitro-rp/renderer';
 import { AddEventLinkTracker, RemoveLinkEventTracker, SendMessageComposer } from '../../../../api';
 import { DraggableWindowPosition, NitroCardContentView, NitroCardHeaderView, NitroCardView } from '../../../../common';
 import { useCallback, useEffect, useState } from 'react';
@@ -15,11 +15,10 @@ export function ModToolsCrimesEditorView() {
         if (!crimeID) {
             return;
         }
-        SendMessageComposer(new CrimeQueryListComposer());
+        SendMessageComposer(new CrimeQueryOneComposer(crimeID));
     }, [crimeID]);
 
     useMessageEvent(CrimeDataEvent, (event: CrimeDataEvent) => {
-        alert('hm')
         if (crime) {
             onToggle();
             return;

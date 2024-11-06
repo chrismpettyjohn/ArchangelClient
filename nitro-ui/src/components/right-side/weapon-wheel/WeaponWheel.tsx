@@ -1,20 +1,32 @@
 import { Text } from "../../../common";
 import { useCallback, useEffect, useState } from "react";
-import { ILinkEventTracker, MyWeaponData, NitroConfiguration } from "@nitro-rp/renderer";
+import { ILinkEventTracker, MyWeaponData, MyWeaponListEvent, NitroConfiguration } from "@nitro-rp/renderer";
 import { EquipWeapon } from "../../../api/roleplay/combat/EquipWeapon";
 import { AddEventLinkTracker, RemoveLinkEventTracker } from "../../../api";
-import { useMyWeaponList } from "../../../hooks/roleplay/use-my-weapon-list";
-import { Button } from "react-bootstrap";
+import { useMessageEvent } from "../../../hooks";
+import { ListMyWeapons } from "../../../api/roleplay/combat/ListMyWeapons";
 
 export function WeaponWheel() {
-    const weapons = useMyWeaponList();
-    const [visible, setVisible] = useState(false);
+
+    const [visible, setVisible] = useState(false)
+    const [weaponList, setWeaponList] = useState<MyWeaponData[]>([]);
     const [hoveredItem, setHoveredItem] = useState<MyWeaponData>();
 
     const onEquip = useCallback((uniqueName: string) => {
         EquipWeapon(uniqueName);
         setVisible(false);
     }, []);
+
+    useEffect(() => {
+        if (visible) {
+            ListMyWeapons();
+        }
+    }, [visible]);
+
+    useMessageEvent<MyWeaponListEvent>(MyWeaponListEvent, event => {
+        const eventData: MyWeaponData[] = event.getParser().data;
+        setWeaponList(eventData);
+    });
 
     useEffect(() => {
         const linkTracker: ILinkEventTracker = {
@@ -54,7 +66,7 @@ export function WeaponWheel() {
 
             <div className="wheel" onClick={e => e.stopPropagation()}>
                 {
-                    (weapons.slice(0, 8)).map((weapon, i) => (
+                    (weaponList.slice(0, 8)).map((weapon, i) => (
                         <div className="wheel-item" key={`weapon_${weapon.uniqueName}`} id={`item${i + 1}`} onMouseEnter={() => setHoveredItem(weapon)} onClick={() => onEquip(weapon.uniqueName)}>
                             <img src={`${NitroConfiguration.getValue('image.library.url')}/weapon_icons/${weapon.uniqueName}.png`} alt={weapon.uniqueName} className="weapon-icon" />
                         </div>
@@ -65,7 +77,7 @@ export function WeaponWheel() {
                 <div className="weapon-name">
                     <Text bold fontSize={5} variant="white">
                         {hoveredItem ? hoveredItem.displayName : ''}
-                        {!weapons.length ? "You don't own any weapons" : ''}
+                        {!weaponList.length ? "You don't own any weapons" : ''}
                     </Text>
                 </div>
             </div>
