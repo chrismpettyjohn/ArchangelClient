@@ -214,7 +214,7 @@ export function NavigatorView() {
         <>
             {isVisible &&
                 <NitroCardView uniqueKey="navigator" className="nitro-navigator">
-                    <NitroCardHeaderView headerText={LocalizeText(isCreatorOpen ? 'navigator.createroom.title' : 'navigator.title')} onCloseClick={event => setIsVisible(false)} />
+                    <NitroCardHeaderView headerText={LocalizeText(isCreatorOpen ? 'Create Room' : 'Taxi')} onCloseClick={() => setIsVisible(false)} />
                     <NitroCardContentView position="relative">
                         {
                             rpPerms.canSeeAllRooms && (

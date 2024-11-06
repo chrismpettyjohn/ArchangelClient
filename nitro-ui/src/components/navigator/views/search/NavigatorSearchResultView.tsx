@@ -1,4 +1,4 @@
-import { NavigatorSearchResultList, RoomDataParser, RoomEnterEvent } from '@nitro-rp/renderer';
+import { NavigatorSearchResultList, RoomDataParser } from '@nitro-rp/renderer';
 import { useState } from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { LocalizeText, } from '../../../../api';
