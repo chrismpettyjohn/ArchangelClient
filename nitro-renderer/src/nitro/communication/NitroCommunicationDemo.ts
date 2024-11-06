@@ -5,8 +5,7 @@ import { GetTickerTime } from '../../pixi-proxy';
 import { Nitro } from '../Nitro';
 import { AuthenticatedEvent, ClientHelloMessageComposer, ClientPingEvent, InfoRetrieveMessageComposer, PongMessageComposer, SSOTicketMessageComposer } from './messages';
 
-export class NitroCommunicationDemo extends NitroManager implements INitroCommunicationDemo
-{
+export class NitroCommunicationDemo extends NitroManager implements INitroCommunicationDemo {
     private _communication: INitroCommunicationManager;
 
     private _handShaking: boolean;
@@ -14,8 +13,7 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
 
     private _pongInterval: any;
 
-    constructor(communication: INitroCommunicationManager)
-    {
+    constructor(communication: INitroCommunicationManager) {
         super();
 
         this._communication = communication;
@@ -31,12 +29,10 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
         this.sendPong = this.sendPong.bind(this);
     }
 
-    protected onInit(): void
-    {
+    protected onInit(): void {
         const connection = this._communication.connection;
 
-        if(connection)
-        {
+        if (connection) {
             connection.addEventListener(SocketConnectionEvent.CONNECTION_OPENED, this.onConnectionOpenedEvent);
             connection.addEventListener(SocketConnectionEvent.CONNECTION_CLOSED, this.onConnectionClosedEvent);
             connection.addEventListener(SocketConnectionEvent.CONNECTION_ERROR, this.onConnectionErrorEvent);
@@ -46,12 +42,10 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
         this._communication.registerMessageEvent(new AuthenticatedEvent(this.onAuthenticatedEvent.bind(this)));
     }
 
-    protected onDispose(): void
-    {
+    protected onDispose(): void {
         const connection = this._communication.connection;
 
-        if(connection)
-        {
+        if (connection) {
             connection.removeEventListener(SocketConnectionEvent.CONNECTION_OPENED, this.onConnectionOpenedEvent);
             connection.removeEventListener(SocketConnectionEvent.CONNECTION_CLOSED, this.onConnectionClosedEvent);
             connection.removeEventListener(SocketConnectionEvent.CONNECTION_ERROR, this.onConnectionErrorEvent);
@@ -64,17 +58,16 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
         super.onDispose();
     }
 
-    private onConnectionOpenedEvent(event: Event): void
-    {
+    private onConnectionOpenedEvent(event: Event): void {
         const connection = this._communication.connection;
 
-        if(!connection) return;
+        if (!connection) return;
 
         this._didConnect = true;
 
         this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_ESTABLISHED, connection);
 
-        if(NitroConfiguration.getValue<boolean>('system.pong.manually', false)) this.startPonging();
+        if (NitroConfiguration.getValue<boolean>('system.pong.manually', false)) this.startPonging();
 
         this.startHandshake(connection);
 
@@ -83,34 +76,29 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
         this.tryAuthentication(connection);
     }
 
-    private onConnectionClosedEvent(event: CloseEvent): void
-    {
+    private onConnectionClosedEvent(event: CloseEvent): void {
         const connection = this._communication.connection;
 
-        if(!connection) return;
+        if (!connection) return;
 
         this.stopPonging();
 
-        if(this._didConnect) this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_CLOSED, connection);
+        if (this._didConnect) this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_CLOSED, connection);
     }
 
-    private onConnectionErrorEvent(event: CloseEvent): void
-    {
+    private onConnectionErrorEvent(event: CloseEvent): void {
         const connection = this._communication.connection;
 
-        if(!connection) return;
+        if (!connection) return;
 
         this.stopPonging();
 
         this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_ERROR, connection);
     }
 
-    private tryAuthentication(connection: IConnection): void
-    {
-        if(!connection || !this.getSSO())
-        {
-            if(!this.getSSO())
-            {
+    private tryAuthentication(connection: IConnection): void {
+        if (!connection || !this.getSSO()) {
+            if (!this.getSSO()) {
                 NitroLogger.error('Login without an SSO ticket is not supported');
             }
 
@@ -122,16 +110,14 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
         connection.send(new SSOTicketMessageComposer(this.getSSO(), GetTickerTime()));
     }
 
-    private onClientPingEvent(event: ClientPingEvent): void
-    {
-        if(!event || !event.connection) return;
+    private onClientPingEvent(event: ClientPingEvent): void {
+        if (!event || !event.connection) return;
 
         this.sendPong(event.connection);
     }
 
-    private onAuthenticatedEvent(event: AuthenticatedEvent): void
-    {
-        if(!event || !event.connection) return;
+    private onAuthenticatedEvent(event: AuthenticatedEvent): void {
+        if (!event || !event.connection) return;
 
         this.completeHandshake(event.connection);
 
@@ -140,52 +126,45 @@ export class NitroCommunicationDemo extends NitroManager implements INitroCommun
         event.connection.send(new InfoRetrieveMessageComposer());
     }
 
-    private startHandshake(connection: IConnection): void
-    {
+    private startHandshake(connection: IConnection): void {
         this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_HANDSHAKING, connection);
 
         this._handShaking = true;
     }
 
-    private completeHandshake(connection: IConnection): void
-    {
+    private completeHandshake(connection: IConnection): void {
         this.dispatchCommunicationDemoEvent(NitroCommunicationDemoEvent.CONNECTION_HANDSHAKED, connection);
 
         this._handShaking = false;
     }
 
-    private startPonging(): void
-    {
+    private startPonging(): void {
         this.stopPonging();
 
         this._pongInterval = setInterval(this.sendPong, NitroConfiguration.getValue<number>('system.pong.interval.ms', 20000));
     }
 
-    private stopPonging(): void
-    {
-        if(!this._pongInterval) return;
+    private stopPonging(): void {
+        if (!this._pongInterval) return;
 
         clearInterval(this._pongInterval);
 
         this._pongInterval = null;
     }
 
-    private sendPong(connection: IConnection = null): void
-    {
+    private sendPong(connection: IConnection = null): void {
         connection = ((connection || this._communication.connection) || null);
 
-        if(!connection) return;
+        if (!connection) return;
 
         connection.send(new PongMessageComposer());
     }
 
-    private dispatchCommunicationDemoEvent(type: string, connection: IConnection): void
-    {
+    private dispatchCommunicationDemoEvent(type: string, connection: IConnection): void {
         Nitro.instance.events.dispatchEvent(new NitroCommunicationDemoEvent(type, connection));
     }
 
-    private getSSO(): string
-    {
+    private getSSO(): string {
         return NitroConfiguration.getValue('sso.ticket', null);
     }
 }

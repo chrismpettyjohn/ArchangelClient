@@ -3,7 +3,7 @@ import { useMessageEvent, useSessionInfo } from "../../../hooks";
 import { useState } from "react";
 import { PlaySound, SoundNames } from "../../../api";
 
-const styles = {
+export const rpMessageOverlay = {
     overlay: {
         position: 'fixed',
         top: 0,
@@ -63,18 +63,18 @@ export function RoleplayEffects() {
         <>
             {
                 died && (
-                    <div style={styles.overlay}>
-                        <div style={styles.messageBox}>
-                            <div style={{ ...styles.message, color: 'red' }}>WASTED</div>
+                    <div style={rpMessageOverlay.overlay}>
+                        <div style={rpMessageOverlay.messageBox}>
+                            <div style={{ ...rpMessageOverlay.message, color: 'red' }}>WASTED</div>
                         </div>
                     </div>
                 )
             }
             {
                 arrested && (
-                    <div style={styles.overlay}>
-                        <div style={styles.messageBox}>
-                            <div style={styles.message}>BUSTED</div>
+                    <div style={rpMessageOverlay.overlay}>
+                        <div style={rpMessageOverlay.messageBox}>
+                            <div style={rpMessageOverlay.message}>BUSTED</div>
                         </div>
                     </div>
                 )
