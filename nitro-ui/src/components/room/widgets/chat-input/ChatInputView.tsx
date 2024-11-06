@@ -91,6 +91,8 @@ export const ChatInputView: FC<{}> = props => {
             setChatValue('');
             sendChat(text, chatType, recipientName, chatStyleId);
         }
+
+        setIsFocused(false);
     }, [chatModeIdWhisper, maxChatLength, chatStyleId]);
 
     useEffect(() => {
