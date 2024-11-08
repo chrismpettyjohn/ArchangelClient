@@ -1314,7 +1314,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
     private attackTarget(x: number, y: number, z: number): void {
         if (!this._roomEngine || !this._roomEngine.connection) return;
-        this._roomEngine.connection.send(new UserAttackComposer(x, y, z));
+        this._roomEngine.connection.send(new UserAttackComposer(Math.trunc(x - 1.499), Math.trunc(y - 1.499), z));
     }
 
     private handleMouseOverObject(category: number, roomId: number, event: RoomObjectMouseEvent): ObjectTileCursorUpdateMessage {
@@ -1770,12 +1770,6 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
     public setSelectedObject(roomId: number, objectId: number, category: number): void {
         if (!this._roomEngine) return;
 
-        if (this._roomEngine.getCursorMode() === CursorMode.Attack) {
-            const location = this._roomEngine.getRoomObject(roomId, this._selectedObjectId, this._selectedObjectCategory).getLocation();
-            if (location) this._roomEngine.connection.send(new UserAttackComposer(~~(location.x), ~~(location.y), ~~(location.z)));
-            return;
-        }
-
         const eventDispatcher = this._roomEngine.events;
 
         if (!eventDispatcher) return;
@@ -1785,6 +1779,13 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectCategory.FLOOR:
             case RoomObjectCategory.WALL:
                 if (category === RoomObjectCategory.UNIT) {
+
+                    if (this._roomEngine.getCursorMode() === CursorMode.Attack) {
+                        const roomObject = this._roomEngine.getRoomObject(roomId, objectId, category);
+                        this._roomEngine.connection.send(new UserAttackComposer(~~(roomObject.location.x), ~~(roomObject.location.y), ~~(roomObject.location.z)));
+                        return;
+                    }
+
                     this.deselectObject(roomId);
                     this.setSelectedAvatar(roomId, objectId, true);
                 }
@@ -1797,6 +1798,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                         const roomObject = this._roomEngine.getRoomObject(roomId, objectId, category);
 
                         if (roomObject && roomObject.logic) {
+
                             roomObject.logic.processUpdateMessage(new ObjectSelectedMessage(true));
 
                             this._selectedObjectId = objectId;
