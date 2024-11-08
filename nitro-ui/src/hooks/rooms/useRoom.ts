@@ -169,8 +169,7 @@ const useRoomState = () => {
                 updateEvent = new RoomWidgetUpdateRoomObjectEvent(RoomWidgetUpdateRoomObjectEvent.OBJECT_ROLL_OUT, event.objectId, event.category, event.roomId);
                 break;
             case RoomEngineObjectEvent.DOUBLE_CLICK:
-                alert('DOUBLE CLIKC')
-                console.log({ event })
+                console.log('DOUBLE CLIKC: ', { event })
                 break;
         }
 
