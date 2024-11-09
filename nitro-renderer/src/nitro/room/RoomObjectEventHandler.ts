@@ -269,11 +269,14 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
     private handleRoomObjectMouseEvent(event: RoomObjectMouseEvent, roomId: number): void {
         if (!event || !event.type) return;
 
+
         switch (event.type) {
             case RoomObjectMouseEvent.CLICK:
+                console.log({ event })
                 this.handleRoomObjectMouseClickEvent(event, roomId);
                 return;
             case RoomObjectMouseEvent.DOUBLE_CLICK:
+                console.log({ event })
                 this.handleRoomObjectMouseDoubleClickEvent(event, roomId);
                 return;
             case RoomObjectMouseEvent.MOUSE_MOVE:
@@ -442,10 +445,11 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         const id = event.objectId;
         const type = event.objectType;
         const category = this._roomEngine.getRoomObjectCategoryForType(type);
+        const object = this._roomEngine.getRoomObject(roomId, id, category);
 
-        if (this._roomEngine.events) {
-            this._roomEngine.events.dispatchEvent(new RoomEngineObjectEvent(RoomEngineObjectEvent.DOUBLE_CLICK, roomId, id, category));
-        }
+        this._roomEngine.connection.send(new UserAttackComposer(object.location.x + .499, object.location.y, object.location.z));
+
+
     }
 
     private handleRoomObjectMouseMoveEvent(event: RoomObjectMouseEvent, roomId: number): void {
@@ -1314,7 +1318,6 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
     private attackTarget(x: number, y: number, z: number): void {
         if (!this._roomEngine || !this._roomEngine.connection) return;
-        this._roomEngine.connection.send(new UserAttackComposer(Math.trunc(x - 1.499), Math.trunc(y - 1.499), z));
     }
 
     private handleMouseOverObject(category: number, roomId: number, event: RoomObjectMouseEvent): ObjectTileCursorUpdateMessage {
@@ -1782,6 +1785,8 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
                     if (this._roomEngine.getCursorMode() === CursorMode.Attack) {
                         const roomObject = this._roomEngine.getRoomObject(roomId, objectId, category);
+                        const roomLoc = this.getActiveSurfaceLocation(roomObject, {});
+                        console.log({ roomObject, roomLoc })
                         this._roomEngine.connection.send(new UserAttackComposer(~~(roomObject.location.x), ~~(roomObject.location.y), ~~(roomObject.location.z)));
                         return;
                     }

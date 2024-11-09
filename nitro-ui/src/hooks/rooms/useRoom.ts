@@ -168,9 +168,6 @@ const useRoomState = () => {
             case RoomEngineObjectEvent.MOUSE_LEAVE:
                 updateEvent = new RoomWidgetUpdateRoomObjectEvent(RoomWidgetUpdateRoomObjectEvent.OBJECT_ROLL_OUT, event.objectId, event.category, event.roomId);
                 break;
-            case RoomEngineObjectEvent.DOUBLE_CLICK:
-                console.log('DOUBLE CLIKC: ', { event })
-                break;
         }
 
         if (updateEvent) DispatchUiEvent(updateEvent);
