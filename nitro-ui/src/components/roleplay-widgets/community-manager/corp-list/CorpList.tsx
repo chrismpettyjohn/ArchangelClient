@@ -1,11 +1,14 @@
 import { FaCaretRight } from "react-icons/fa";
-import { CreateLinkEvent } from "../../../../../api";
-import { useCorpList } from "../../../../../hooks/roleplay/use-corp-list";
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
+import { AddEventLinkTracker, CreateLinkEvent, RemoveLinkEventTracker } from "../../../../api";
+import { useCorpList } from "../../../../hooks/roleplay/use-corp-list";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { ILinkEventTracker } from "@nitro-rp/renderer";
+import { CommunityLayout } from "../CommunityLayout";
 
 export function CorpList() {
     const corps = useCorpList()
     const [search, setSearch] = useState('');
+    const [visible, setVisible] = useState(false);
 
     const filteredCorps = useMemo(() => {
         return corps.filter(_ => _.displayName.toLowerCase().includes(search))
@@ -13,8 +16,30 @@ export function CorpList() {
 
     const onSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => setSearch(event.currentTarget.value ?? ''), [setSearch]);
 
+    useEffect(() => {
+        const linkTracker: ILinkEventTracker = {
+            linkReceived: (url: string) => {
+                const parts = url.split('/');
+                if (parts.length < 2) {
+                    return;
+                }
+                const action = parts[1];
+                setVisible(action === 'list');
+            },
+            eventUrlPrefix: 'corps'
+        };
+
+        AddEventLinkTracker(linkTracker);
+
+        return () => RemoveLinkEventTracker(linkTracker);
+    }, []);
+
+    if (!visible) {
+        return null;
+    }
+
     return (
-        <div className="h-100 w-100">
+        <CommunityLayout tab="corps" onClose={() => setVisible(false)}>
             <form className="form-group w-100 mb-4">
                 <input className="form-control form-control-sm" type="text" placeholder="Search by corp name..." value={search} onChange={onSearch} />
             </form>
@@ -22,7 +47,7 @@ export function CorpList() {
                 {filteredCorps.map((corp) => (
                     <li
                         key={`corp_${corp.id}`}
-                        onClick={() => CreateLinkEvent(`corps/${corp.id}`)}
+                        onClick={() => CreateLinkEvent(`corps/profile/${corp.id}`)}
                         style={{
                             display: "flex",
                             alignItems: "center",
@@ -55,6 +80,6 @@ export function CorpList() {
                     <p>No corps found</p>
                 )
             }
-        </div>
+        </CommunityLayout>
     );
 }
