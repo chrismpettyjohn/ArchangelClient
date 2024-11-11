@@ -23,22 +23,22 @@ export function CorpProfile() {
 
     return (
         <CommunityLayout tab="corps" onClose={onHide}>
+            <Flex className="mb-4" fullWidth justifyContent="between">
+                <Button variant="secondary" onClick={() => CreateLinkEvent('community/corps/list')}>
+                    <FaCaretLeft style={{ marginRight: 8 }} />
+                    Go back
+                </Button>
+                {
+                    corp.userID === session?.userInfo?.userId && (
+                        <Button variant="success" onClick={() => CreateLinkEvent('community/corps/list')}>
+                            <FaPencilAlt style={{ marginRight: 8 }} />
+                            Edit Corp
+                        </Button>
+                    )
+                }
+            </Flex>
             <Grid fullHeight fullWidth gap={4}>
                 <Column size={4} fullHeight fullWidth>
-                    <Flex className="mb-4" fullWidth justifyContent="between">
-                        <Button variant="secondary" onClick={() => CreateLinkEvent('community/corps/list')}>
-                            <FaCaretLeft style={{ marginRight: 8 }} />
-                            Go back
-                        </Button>
-                        {
-                            corp.userID === session?.userInfo?.userId && (
-                                <Button variant="success" onClick={() => CreateLinkEvent('community/corps/list')}>
-                                    <FaPencilAlt style={{ marginRight: 8 }} />
-                                    Edit Corp
-                                </Button>
-                            )
-                        }
-                    </Flex>
                     <div className="profile-card">
                         <div className="profile-header" style={{ backgroundImage: 'url(https://j.gifs.com/rR9pv4.gif)', backgroundSize: 'cover' }}>
                             <div className="overlay" />
