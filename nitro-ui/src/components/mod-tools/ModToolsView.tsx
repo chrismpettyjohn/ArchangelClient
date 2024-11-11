@@ -21,6 +21,7 @@ import { ModToolsUserWeaponsManagerView } from './views/user/ModToolsUserWeapons
 import { ModToolsUserSuperhireView } from './views/user/ModToolsUserSuperhireView';
 import { ModToolsCrimesCreatorView } from './views/roleplay/ModToolsCrimesCreatorView';
 import { ModToolsWeaponsCreatorView } from './views/roleplay/ModToolsWeaponsCreatorView';
+import { ModToolsRoomsManagerView } from './views/room/ModToolsRoomsManagerView';
 
 export const ModToolsView: FC<{}> = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -133,7 +134,7 @@ export const ModToolsView: FC<{}> = () => {
                             <input className="form-control form-control-sm" type="text" placeholder="Search tools..." />
                         </form>
                         <NitroCardAccordionView fullHeight overflow="hidden">
-                            <NitroCardAccordionSetView headerText="Room" isExpanded>
+                            <NitroCardAccordionSetView headerText="Moderator" isExpanded>
                                 <Grid columnCount={2}>
                                     <Button gap={1} onClick={() => CreateLinkEvent(`mod-tools/toggle-room-info/${currentRoomId}`)} disabled={(currentRoomId <= 0)} className="position-relative">
                                         <Base className="icon icon-small-room position-absolute start-1" /> Room Tool
@@ -151,11 +152,6 @@ export const ModToolsView: FC<{}> = () => {
                             </NitroCardAccordionSetView>
                             <NitroCardAccordionSetView headerText="Builder">
                                 <Grid columnCount={2}>
-                                    <Button gap={1} onClick={() => CreateLinkEvent('navigator/create')} className="position-relative">
-                                        <Base className="position-absolute start-1" />
-                                        <FaPlusCircle style={{ marginRight: 4 }} />
-                                        Create Room
-                                    </Button>
                                     <Button gap={1} onClick={() => CreateLinkEvent('catalog/toggle')} className="position-relative">
                                         <FaStoreAlt style={{ marginRight: 4 }} />
                                         Catalog
@@ -164,7 +160,7 @@ export const ModToolsView: FC<{}> = () => {
                                         <FaBoxOpen style={{ marginRight: 4 }} />
                                         Inventory
                                     </Button>
-                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/beta-codes/toggle')} className="position-relative">
+                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/rooms-manager/toggle')} className="position-relative">
                                         <FaHouseUser style={{ marginRight: 4 }} />
                                         Rooms
                                     </Button>
@@ -213,6 +209,7 @@ export const ModToolsView: FC<{}> = () => {
             <ModToolsCrimesCreatorView />
             <ModToolsUserSuperhireView />
             <ModToolsUserWeaponsManagerView />
+            <ModToolsRoomsManagerView />
             {(openRooms.length > 0) && openRooms.map(roomId => <ModToolsRoomView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-info/${roomId}`)} />)}
             {(openRoomChatlogs.length > 0) && openRoomChatlogs.map(roomId => <ModToolsChatlogView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-chatlog/${roomId}`)} />)}
             {(openUserInfos.length > 0) && openUserInfos.map(userId => <ModToolsUserView key={userId} userId={userId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-user-info/${userId}`)} />)}
