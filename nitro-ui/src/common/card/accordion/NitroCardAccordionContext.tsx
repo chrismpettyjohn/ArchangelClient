@@ -1,21 +1,21 @@
-import { createContext, Dispatch, FC, ProviderProps, SetStateAction, useContext } from 'react';
+import { createContext, Dispatch, FC, ProviderProps, SetStateAction, useCallback, useContext, useState } from 'react';
 
-export interface INitroCardAccordionContext
-{
-    closers: Function[];
-    setClosers: Dispatch<SetStateAction<Function[]>>;
-    closeAll: () => void;
+export interface INitroCardAccordionContext {
+    active: string;
+    onToggle(key: string): void;
 }
 
 const NitroCardAccordionContext = createContext<INitroCardAccordionContext>({
-    closers: null,
-    setClosers: null,
-    closeAll: null
+    active: '',
+    onToggle: () => { },
 });
 
-export const NitroCardAccordionContextProvider: FC<ProviderProps<INitroCardAccordionContext>> = props =>
-{
-    return <NitroCardAccordionContext.Provider { ...props } />;
+export const NitroCardAccordionContextProvider: FC<ProviderProps<INitroCardAccordionContext>> = props => {
+    const [active, setActive] = useState('');
+    const onToggle = useCallback((key: string) => {
+        setActive(_ => _ === key ? '' : key);
+    }, [setActive]);
+    return <NitroCardAccordionContext.Provider {...props} />;
 }
 
 export const useNitroCardAccordionContext = () => useContext(NitroCardAccordionContext);

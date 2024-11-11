@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useId } from 'react';
 import { FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { Column, ColumnProps, Flex, Text } from '../..';
 import { useNitroCardAccordionContext } from './NitroCardAccordionContext';
@@ -8,68 +8,42 @@ export interface NitroCardAccordionSetViewProps extends ColumnProps {
     isExpanded?: boolean;
 }
 
-export const NitroCardAccordionSetView: FC<NitroCardAccordionSetViewProps> = props => {
-    const { headerText = '', isExpanded = false, gap = 0, classNames = [], children = null, ...rest } = props;
-    const [isOpen, setIsOpen] = useState(false);
-    const { setClosers = null, closeAll = null } = useNitroCardAccordionContext();
+export const NitroCardAccordionSetView: FC<NitroCardAccordionSetViewProps> = ({
+    headerText = '',
+    isExpanded = false,
+    gap = 0,
+    classNames = [],
+    children = null,
+    ...rest
+}) => {
+    const { active, onToggle } = useNitroCardAccordionContext();
+    const uniqueKey = useId();
+    const isOpen = useMemo(() => active === uniqueKey, [active]);
 
-    const onClick = () => {
-        closeAll();
-
-        setIsOpen(prevValue => !prevValue);
-    }
-
-    const onClose = useCallback(() => setIsOpen(false), []);
-
-    const getClassNames = useMemo(() => {
-        const newClassNames = ['nitro-card-accordion-set'];
-
-        if (isOpen) newClassNames.push('active');
-
-        if (classNames && classNames.length) newClassNames.push(...classNames);
-
-        return newClassNames;
-    }, [isOpen, classNames]);
+    const getClassNames = useMemo(() => [
+        'nitro-card-accordion-set',
+        active === uniqueKey && 'active',
+        ...classNames,
+    ].filter(Boolean), [active, classNames]);
 
     useEffect(() => {
-        setIsOpen(isExpanded);
-    }, [isExpanded]);
-
-    useEffect(() => {
-        const closeFunction = onClose;
-
-        setClosers(prevValue => {
-            const newClosers = [...prevValue];
-
-            newClosers.push(closeFunction);
-
-            return newClosers;
-        });
-
-        return () => {
-            setClosers(prevValue => {
-                const newClosers = [...prevValue];
-
-                const index = newClosers.indexOf(closeFunction);
-
-                if (index >= 0) newClosers.splice(index, 1);
-
-                return newClosers;
-            });
+        if (isExpanded) {
+            onToggle(uniqueKey);
+            return () => onToggle(uniqueKey);
         }
-    }, [onClose, setClosers]);
+    }, [isExpanded, onToggle]);
 
     return (
         <Column classNames={getClassNames} gap={gap} {...rest}>
-            <Flex pointer justifyContent="between" className="nitro-card-accordion-set-header px-2 py-1" onClick={onClick}>
+            <Flex pointer justifyContent="between" className="nitro-card-accordion-set-header px-2 py-1" onClick={() => onToggle(uniqueKey)}>
                 <Text variant="white">{headerText}</Text>
-                {isOpen && <FaCaretUp className="fa-icon" />}
-                {!isOpen && <FaCaretDown className="fa-icon" />}
+                {isOpen ? <FaCaretUp className="fa-icon" /> : <FaCaretDown className="fa-icon" />}
             </Flex>
-            {isOpen &&
+            {isOpen && (
                 <Column fullHeight overflow="auto" gap={0} className="nitro-card-accordion-set-content" style={{ padding: 8 }}>
                     {children}
-                </Column>}
+                </Column>
+            )}
         </Column>
     );
-}
+};

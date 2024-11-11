@@ -10,7 +10,7 @@ export function useCorpData(corpID: number): CorpInfoData {
         userName: '',
         userLook: '',
         roomID: 0,
-        name: '',
+        displayName: '',
         description: '',
         badgeCode: '',
         employeeCount: 0,

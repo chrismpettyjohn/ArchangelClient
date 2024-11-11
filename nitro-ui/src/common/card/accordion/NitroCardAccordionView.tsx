@@ -2,24 +2,20 @@ import { FC, useCallback, useState } from 'react';
 import { Column, ColumnProps } from '../..';
 import { NitroCardAccordionContextProvider } from './NitroCardAccordionContext';
 
-interface NitroCardAccordionViewProps extends ColumnProps
-{
-    
+interface NitroCardAccordionViewProps extends ColumnProps {
+
 }
 
-export const NitroCardAccordionView: FC<NitroCardAccordionViewProps> = props =>
-{
-    const { ...rest } = props;
-    const [ closers, setClosers ] = useState<Function[]>([]);
+export const NitroCardAccordionView: FC<NitroCardAccordionViewProps> = ({ ...rest }) => {
 
-    const closeAll = useCallback(() =>
-    {
-        for(const closer of closers) closer();
-    }, [ closers ]);
+    const [active, setActive] = useState('');
+    const onToggle = useCallback((key: string) => {
+        setActive(_ => _ === key ? '' : key);
+    }, [setActive]);
 
     return (
-        <NitroCardAccordionContextProvider value={ { closers, setClosers, closeAll } }>
-            <Column gap={ 0 } { ...rest } />
+        <NitroCardAccordionContextProvider value={{ active, onToggle }}>
+            <Column gap={0} {...rest} />
         </NitroCardAccordionContextProvider>
     );
 }

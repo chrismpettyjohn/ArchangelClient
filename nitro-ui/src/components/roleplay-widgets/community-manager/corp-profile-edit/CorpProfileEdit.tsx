@@ -1,4 +1,4 @@
-import { Button, Flex } from "../../../../common";
+import { Button, Flex, NitroCardAccordionSetView, NitroCardAccordionView } from "../../../../common";
 import { FaCaretLeft, FaPencilAlt } from "react-icons/fa";
 import { CreateLinkEvent } from "../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
@@ -29,7 +29,7 @@ export function CorpProfileEdit() {
 
     return (
         <CommunityLayout tab="corps" onClose={onHide}>
-            <form onSubmit={onSaveChanges}>
+            <form className="h-100 w-100" onSubmit={onSaveChanges}>
                 <Flex className="mb-4" fullWidth justifyContent="between">
                     <Button variant="secondary" onClick={() => CreateLinkEvent('community/corps/list')}>
                         <FaCaretLeft style={{ marginRight: 8 }} />
@@ -44,6 +44,14 @@ export function CorpProfileEdit() {
                         )
                     }
                 </Flex>
+                <NitroCardAccordionView fullHeight overflow="hidden">
+                    <NitroCardAccordionSetView headerText="Information" isExpanded>
+
+                    </NitroCardAccordionSetView>
+                    <NitroCardAccordionSetView headerText="Positions">
+
+                    </NitroCardAccordionSetView>
+                </NitroCardAccordionView>
             </form>
         </CommunityLayout >
     );

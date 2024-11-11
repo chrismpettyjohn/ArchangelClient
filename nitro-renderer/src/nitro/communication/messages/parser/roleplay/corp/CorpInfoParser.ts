@@ -7,7 +7,7 @@ export interface CorpInfoData {
     userName: string;
     userLook: string;
     roomID: number;
-    name: string;
+    displayName: string;
     description: string;
     badgeCode: string;
     employeeCount: number;
@@ -22,7 +22,7 @@ export class CorpInfoParser implements IMessageParser {
     private _userName: string;
     private _userLook: string;
     private _roomID: number;
-    private _name: string;
+    private _displayName: string;
     private _description: string;
     private _badgeCode: string;
     private _employeeCount: number;
@@ -35,7 +35,7 @@ export class CorpInfoParser implements IMessageParser {
         this._userName = '';
         this._userLook = '';
         this._roomID = 0;
-        this._name = '';
+        this._displayName = '';
         this._description = '';
         this._badgeCode = '';
         this._employeeCount = 0;
@@ -50,7 +50,7 @@ export class CorpInfoParser implements IMessageParser {
         this._id = wrapper.readInt();
         this._userID = wrapper.readInt();
         this._roomID = wrapper.readInt();
-        this._name = wrapper.readString();
+        this._displayName = wrapper.readString();
         this._description = wrapper.readString();
         this._badgeCode = wrapper.readString();
         this._employeeCount = wrapper.readInt();
@@ -67,7 +67,7 @@ export class CorpInfoParser implements IMessageParser {
             userName: this._userName,
             userLook: this._userLook,
             roomID: this._roomID,
-            name: this._name,
+            displayName: this._displayName,
             description: this._description,
             badgeCode: this._badgeCode,
             employeeCount: this._employeeCount,

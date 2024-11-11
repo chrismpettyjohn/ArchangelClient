@@ -46,29 +46,41 @@ export function CorpProfile() {
             </Flex>
             <Grid fullHeight fullWidth gap={4}>
                 <Column size={4} fullHeight fullWidth>
-                    <div className="profile-card">
-                        <div className="profile-header" style={{ backgroundImage: 'url(https://j.gifs.com/rR9pv4.gif)', backgroundSize: 'cover' }}>
-                            <div className="overlay" />
-                            <div className="avatar-placeholder" style={{ display: 'flex', height: 60, justifyContent: 'center', alignItems: 'center' }}>
-                                <img src="https://i.imgur.com/5Id8akw.png" />
+                    <div>
+                        <div className="profile-card" style={{ height: 350 }}>
+                            <div className="profile-header" style={{ backgroundImage: 'url(https://j.gifs.com/rR9pv4.gif)', backgroundSize: 'cover' }}>
+                                <div className="overlay" />
+                                <div className="avatar-placeholder" style={{ display: 'flex', height: 60, justifyContent: 'center', alignItems: 'center' }}>
+                                    <img src="https://i.imgur.com/5Id8akw.png" />
+                                </div>
                             </div>
-                            <p>{corp.name}</p>
-                        </div>
-
-                        <div className="profile-details">
-                            <p><strong>Founded:</strong> <i>10/30/2024</i></p>
-                            <p><strong>Owned By:</strong> <i>{corp.userName}</i></p>
-                            <p className="status">{corp.sector === CorpSector.Government ? 'Government' : 'Privately owned'}</p>
-                        </div>
-
-                        <div className="profile-footer">
-                            <div className="level">
-                                <strong>LEVEL</strong><br />
-                                <Text fontSize={4}>1</Text>
+                            <div className="profile-details" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                                <Text bold fontSize={4} variant="white">{corp.displayName}</Text>
+                                <div>
+                                    <Text bold variant="white">CEO</Text>
+                                    <br />
+                                    <Text variant="white">11-11-2024</Text>
+                                </div>
+                                <div>
+                                    <Text bold variant="white">Headquarters</Text>
+                                    <br />
+                                    <Text variant="white">11-11-2024</Text>
+                                </div>
+                                <div>
+                                    <Text bold variant="white">Established</Text>
+                                    <br />
+                                    <Text variant="white">11-11-2024</Text>
+                                </div>
                             </div>
-                            <div className="friends">
-                                <strong>EMPLOYEES</strong><br />
-                                <Text fontSize={4}>{corp.employeeCount}</Text>
+                            <div className="profile-footer">
+                                <div className="level">
+                                    <strong>GDP</strong><br />
+                                    <Text fontSize={4}>$22,000,000</Text>
+                                </div>
+                                <div className="friends">
+                                    <strong>EMPLOYEES</strong><br />
+                                    <Text fontSize={4}>{corp.employeeCount}</Text>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -85,7 +97,7 @@ export function CorpProfile() {
                                                 roleEmployees.map(employee => (
                                                     <li
                                                         key={`employee_${employee.userID}`}
-                                                        onClick={() => CreateLinkEvent(`community/users/profile/${corp.userID}`)}
+                                                        onClick={() => CreateLinkEvent(`community/gangs/profile/${corp.userID}`)}
                                                         style={{
                                                             display: "flex",
                                                             alignItems: "center",
