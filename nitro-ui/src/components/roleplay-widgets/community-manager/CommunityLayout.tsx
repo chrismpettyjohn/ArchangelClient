@@ -1,6 +1,7 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { FaBuilding, FaIdCard, FaSkull } from "react-icons/fa";
-import { CreateLinkEvent } from "../../../api";
+import { AddEventLinkTracker, CreateLinkEvent, RemoveLinkEventTracker } from "../../../api";
+import { ILinkEventTracker } from "@nitro-rp/renderer";
 
 interface CommunityManagerView {
     key: string;
@@ -45,7 +46,6 @@ export interface CommunityLayoutProps {
 }
 
 export function CommunityLayout({ children, tab, onClose }: CommunityLayoutProps) {
-
     return (
         <div className="modal" onClick={onClose}>
             <div id="habbo-roleplay-menu" onClick={e => e.stopPropagation()}>
@@ -67,3 +67,48 @@ export function CommunityLayout({ children, tab, onClose }: CommunityLayoutProps
         </div>
     )
 }
+
+interface LinkTrackerResult {
+    active: boolean;
+    resourceID?: number;
+    onHide(): void;
+}
+
+export function useCommunityLinkTracker(resource: string, action: string): LinkTrackerResult {
+    const [state, setState] = useState<Omit<LinkTrackerResult, 'onHide'>>({ active: false, resourceID: undefined });
+
+    useEffect(() => {
+        const linkTracker: ILinkEventTracker = {
+            linkReceived: (url: string) => {
+                const parts = url.split('/');
+                console.log({ url, length: parts.length })
+                if (parts.length < 3) {
+                    setState({ active: false });
+                    return;
+                }
+
+                const [_, urlResource, urlAction, urlResourceID] = parts;
+
+                if (urlResource === resource && urlAction === action) {
+                    setState({
+                        active: true,
+                        resourceID: urlResourceID ? parseInt(urlResourceID, 10) : undefined,
+                    });
+                } else {
+                    setState({ active: false });
+                }
+            },
+            eventUrlPrefix: 'community',
+        };
+
+        AddEventLinkTracker(linkTracker);
+
+        return () => RemoveLinkEventTracker(linkTracker);
+    }, [resource, action]);
+
+    function onHide() {
+        setState({ active: false, resourceID: undefined });
+    }
+
+    return { ...state, onHide };
+};

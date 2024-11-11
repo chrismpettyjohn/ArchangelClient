@@ -4,6 +4,7 @@ import { ReportBug } from "./report-bug/ReportBug";
 import { WebsocketDisconnect } from "./websocket-disconnect/WebsocketDisconnect";
 import { CorpList } from "./community-manager/corp-list/CorpList";
 import { CorpProfile } from "./community-manager/corp-profile/CorpProfile";
+import { UserList } from "./community-manager/user-list/UserList";
 
 export function RoleplayWidgets() {
     return (
@@ -14,6 +15,7 @@ export function RoleplayWidgets() {
             <WebsocketDisconnect />
             <CorpList />
             <CorpProfile />
+            <UserList />
         </>
     )
 }

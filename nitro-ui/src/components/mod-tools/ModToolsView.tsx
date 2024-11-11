@@ -166,7 +166,7 @@ export const ModToolsView: FC<{}> = () => {
                             </NitroCardAccordionSetView>
                             <NitroCardAccordionSetView headerText="Roleplay">
                                 <Grid columnCount={2}>
-                                    <Button gap={1} onClick={() => CreateLinkEvent('corps/list')} className="position-relative">
+                                    <Button gap={1} onClick={() => CreateLinkEvent('community/corps/list')} className="position-relative">
                                         <FaBriefcase style={{ marginRight: 4 }} />
                                         Corps
                                     </Button>

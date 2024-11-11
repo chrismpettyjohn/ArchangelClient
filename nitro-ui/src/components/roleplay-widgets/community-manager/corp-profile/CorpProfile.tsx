@@ -1,57 +1,38 @@
 import { useCorpData } from "../../../../hooks/roleplay/use-corp-data";
 import { Button, Column, Flex, Grid, LayoutAvatarImageView, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../common";
 import { FaCaretLeft, FaCaretRight, FaPencilAlt } from "react-icons/fa";
-import { AddEventLinkTracker, CreateLinkEvent, RemoveLinkEventTracker } from "../../../../api";
+import { CreateLinkEvent } from "../../../../api";
 import { useCorpEmployeeList } from "../../../../hooks/roleplay/use-corp-employee-list";
-import { CorpSector, ILinkEventTracker } from "@nitro-rp/renderer";
+import { CorpSector } from "@nitro-rp/renderer";
 import { useCorpPositionList } from "../../../../hooks/roleplay/use-corp-position-list";
 import { useSessionInfo } from "../../../../hooks";
-import { CommunityLayout } from "../CommunityLayout";
+import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
-import { useEffect, useState } from "react";
 
 
 export function CorpProfile() {
-    const [corpID, setCorpID] = useState<number>();
     const session = useSessionInfo();
-    const corp = useCorpData(corpID);
-    const roles = useCorpPositionList(corpID);
-    const employees = useCorpEmployeeList(corpID);
+    const { active, resourceID, onHide } = useCommunityLinkTracker('corps', 'profile');
+    const corp = useCorpData(resourceID);
+    const roles = useCorpPositionList(resourceID);
+    const employees = useCorpEmployeeList(resourceID);
 
-    useEffect(() => {
-        const linkTracker: ILinkEventTracker = {
-            linkReceived: (url: string) => {
-                const parts = url.split('/');
-                if (parts.length < 3) {
-                    if (corpID) setCorpID(undefined);
-                    return;
-                }
-                setCorpID(Number(parts[2]));
-            },
-            eventUrlPrefix: 'corps/profile'
-        };
-
-        AddEventLinkTracker(linkTracker);
-
-        return () => RemoveLinkEventTracker(linkTracker);
-    }, []);
-
-    if (!corpID) {
+    if (!active) {
         return null;
     }
 
     return (
-        <CommunityLayout tab="corps" onClose={() => setCorpID(undefined)}>
+        <CommunityLayout tab="corps" onClose={onHide}>
             <Grid fullHeight fullWidth gap={4}>
                 <Column size={4} fullHeight fullWidth>
                     <Flex justifyContent="between">
-                        <Button variant="secondary" onClick={() => CreateLinkEvent('corps/list')}>
+                        <Button variant="secondary" onClick={() => CreateLinkEvent('community/corps/list')}>
                             <FaCaretLeft style={{ marginRight: 8 }} />
                             Go back
                         </Button>
                         {
                             corp.userID === session?.userInfo?.userId && (
-                                <Button variant="success" onClick={() => CreateLinkEvent('corps/list')}>
+                                <Button variant="success" onClick={() => CreateLinkEvent('community/corps/list')}>
                                     <FaPencilAlt style={{ marginRight: 8 }} />
                                     Edit Corp
                                 </Button>
@@ -97,7 +78,7 @@ export function CorpProfile() {
                                                 roleEmployees.map(employee => (
                                                     <li
                                                         key={`employee_${employee.userID}`}
-                                                        onClick={() => CreateLinkEvent(`users/${corp.userID}`)}
+                                                        onClick={() => CreateLinkEvent(`community/users/${corp.userID}`)}
                                                         style={{
                                                             display: "flex",
                                                             alignItems: "center",

@@ -1,17 +1,16 @@
 import { FaCaretRight } from "react-icons/fa";
 import { CreateLinkEvent } from "../../../../api";
-import { useCorpList } from "../../../../hooks/roleplay/use-corp-list";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
 
-export function CorpList() {
-    const corps = useCorpList()
+export function UserList() {
+    const users = [];
     const [search, setSearch] = useState('');
-    const { active, onHide } = useCommunityLinkTracker('corps', 'list');
+    const { active, onHide } = useCommunityLinkTracker('users', 'list');
 
-    const filteredCorps = useMemo(() => {
-        return corps.filter(_ => _.displayName.toLowerCase().includes(search))
-    }, [corps, search]);
+    const filteredUsers = useMemo(() => {
+        return users.filter(_ => _.displayName.toLowerCase().includes(search))
+    }, [users, search]);
 
     const onSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => setSearch(event.currentTarget.value ?? ''), [setSearch]);
 
@@ -20,15 +19,15 @@ export function CorpList() {
     }
 
     return (
-        <CommunityLayout tab="corps" onClose={onHide}>
+        <CommunityLayout tab="users" onClose={onHide}>
             <form className="form-group w-100 mb-4">
-                <input className="form-control form-control-sm" type="text" placeholder="Search by corp name..." value={search} onChange={onSearch} />
+                <input className="form-control form-control-sm" type="text" placeholder="Search by user name..." value={search} onChange={onSearch} />
             </form>
             <ul style={{ listStyleType: "none", padding: 0, margin: 0, width: '100%' }}>
-                {filteredCorps.map((corp) => (
+                {filteredUsers.map((user) => (
                     <li
-                        key={`corp_${corp.id}`}
-                        onClick={() => CreateLinkEvent(`community/corps/profile/${corp.id}`)}
+                        key={`user_${user.id}`}
+                        onClick={() => CreateLinkEvent(`community/users/profile/${user.id}`)}
                         style={{
                             display: "flex",
                             alignItems: "center",
@@ -39,7 +38,7 @@ export function CorpList() {
                     >
                         <img
                             src="https://www.habborator.org/badges/badges/HBA.gif"
-                            alt={`${corp.displayName} badge`}
+                            alt={`${user.displayName} badge`}
                             style={{
                                 width: "45px",
                                 height: "45px",
@@ -47,8 +46,8 @@ export function CorpList() {
                             }}
                         />
                         <div style={{ flexGrow: 1 }}>
-                            <div style={{ fontWeight: "bold" }}>{corp.displayName}</div>
-                            <div>Employees: {corp.employeeCount}</div>
+                            <div style={{ fontWeight: "bold" }}>{user.displayName}</div>
+                            <div>Employees: {user.employeeCount}</div>
                         </div>
                         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
                             <FaCaretRight />
@@ -57,8 +56,8 @@ export function CorpList() {
                 ))}
             </ul>
             {
-                !filteredCorps.length && (
-                    <p>No corps found</p>
+                !filteredUsers.length && (
+                    <p>No users found</p>
                 )
             }
         </CommunityLayout>
