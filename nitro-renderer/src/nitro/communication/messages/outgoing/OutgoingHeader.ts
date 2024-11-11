@@ -651,8 +651,6 @@ export class OutgoingHeader {
 
     public static CORP_DELETE_COMPOSER = 8093;
 
-    public static CORP_QUERY_LIST_COMPOSER = 8094;
-
     public static CORP_QUERY_ONE_COMPOSER = 8095;
 
     public static PLAYER_QUERY_LIST = 8096;

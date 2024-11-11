@@ -17,19 +17,14 @@ export function EquippedWeapon() {
     const [remainingTime, setRemainingTime] = useState<number>(0);
     const [safety, setSafety] = useState(true);
 
-    useEffect(() => {
-        GetRoomEngine().setCursorMode(safety ? CursorMode.Interact : CursorMode.Attack);
-    }, [safety]);
-
-
     function onToggleSafety(event: SyntheticEvent) {
         event.stopPropagation();
         setSafety(prev => !prev);
     }
 
     useEffect(() => {
-        GetRoomEngine().setCursorMode(combatDelayExpiresAt ? CursorMode.Interact : CursorMode.Attack);
-    }, [combatDelayExpiresAt]);
+        GetRoomEngine().setCursorMode(safety ? CursorMode.Interact : CursorMode.Attack);
+    }, [safety]);
 
     useMessageEvent(CombatDelayEvent, (event: CombatDelayEvent) => {
         const expiresAt = event.getParser().data.combatDelayRemaining;
