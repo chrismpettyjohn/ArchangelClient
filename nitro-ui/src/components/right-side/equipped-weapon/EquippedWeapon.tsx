@@ -15,6 +15,17 @@ export function EquippedWeapon() {
     const roleplayStats = useRoleplayStats(session?.userInfo?.userId);
     const [combatDelayExpiresAt, setCombatDelayExpiresAt] = useState<number>();
     const [remainingTime, setRemainingTime] = useState<number>(0);
+    const [safety, setSafety] = useState(true);
+
+    useEffect(() => {
+        GetRoomEngine().setCursorMode(safety ? CursorMode.Interact : CursorMode.Attack);
+    }, [safety]);
+
+
+    function onToggleSafety(event: SyntheticEvent) {
+        event.stopPropagation();
+        setSafety(prev => !prev);
+    }
 
     useEffect(() => {
         GetRoomEngine().setCursorMode(combatDelayExpiresAt ? CursorMode.Interact : CursorMode.Attack);
@@ -43,11 +54,6 @@ export function EquippedWeapon() {
 
         return () => clearInterval(interval);
     }, [combatDelayExpiresAt]);
-
-
-    function onToggleSafety(event: SyntheticEvent) {
-        event.stopPropagation();
-    }
 
     function onReload(event: SyntheticEvent) {
         event.stopPropagation();
@@ -100,7 +106,7 @@ export function EquippedWeapon() {
                         </>
                     ) : ''}
                     <Button variant="link" onClick={onToggleSafety} className="reload-button">
-                        {combatDelayExpiresAt ? <FaShieldAlt /> : <FaSkullCrossbones style={{ color: 'red' }} />}
+                        {safety ? <FaShieldAlt /> : <FaSkullCrossbones style={{ color: 'red' }} />}
                     </Button>
                 </div>
             </div>
