@@ -25,7 +25,7 @@ export function CorpSelect({ corpID, onChange }: CorpSelectProps) {
             {
                 corps.map(corp => (
                     <option key={`corp_${corp.id}`} value={corp.id}>
-                        {corp.name}
+                        {corp.displayName}
                     </option>
                 ))
             }
