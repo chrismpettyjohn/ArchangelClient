@@ -1,11 +1,10 @@
-import { Button, Column, Flex, Grid, LayoutAvatarImageView, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../common";
-import { FaCaretLeft, FaCaretRight, FaPencilAlt } from "react-icons/fa";
+import { Button, Column, Flex, Grid, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../common";
+import { FaCaretLeft, FaPencilAlt } from "react-icons/fa";
 import { CreateLinkEvent } from "../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
 import { useRoleplayStats } from "../../../../hooks/roleplay/use-rp-stats";
 import { useSessionInfo } from "../../../../hooks";
-
 
 export function UserProfile() {
     const session = useSessionInfo();
@@ -26,9 +25,9 @@ export function UserProfile() {
                 </Button>
                 {
                     rpStats.userID === session?.userInfo?.userId && (
-                        <Button variant="success" onClick={() => CreateLinkEvent('community/users/list')}>
+                        <Button variant="success" onClick={() => CreateLinkEvent(`community/users/profile-edit/${rpStats.userID}`)}>
                             <FaPencilAlt style={{ marginRight: 8 }} />
-                            Edit User
+                            Edit Profile
                         </Button>
                     )
                 }

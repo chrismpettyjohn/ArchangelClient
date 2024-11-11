@@ -8,6 +8,8 @@ import { useCorpPositionList } from "../../../../hooks/roleplay/use-corp-positio
 import { useSessionInfo } from "../../../../hooks";
 import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
+import { useRoleplayPermissions } from "../../../../hooks/roleplay/use-roleplay-permissions";
+import { useMemo } from "react";
 
 
 export function CorpProfile() {
@@ -16,6 +18,11 @@ export function CorpProfile() {
     const corp = useCorpData(resourceID);
     const roles = useCorpPositionList(resourceID);
     const employees = useCorpEmployeeList(resourceID);
+    const permissions = useRoleplayPermissions();
+
+    const canEditCorp = useMemo(() => {
+        return session?.userInfo?.userId === corp.userID || permissions.canEditAllCorps
+    }, [corp, permissions]);
 
     if (!active) {
         return null;
@@ -29,8 +36,8 @@ export function CorpProfile() {
                     Go back
                 </Button>
                 {
-                    corp.userID === session?.userInfo?.userId && (
-                        <Button variant="success" onClick={() => CreateLinkEvent('community/corps/list')}>
+                    canEditCorp && (
+                        <Button variant="success" onClick={() => CreateLinkEvent(`community/corps/profile-edit/${corp.id}`)}>
                             <FaPencilAlt style={{ marginRight: 8 }} />
                             Edit Corp
                         </Button>

@@ -7,6 +7,8 @@ import { CorpProfile } from "./community-manager/corp-profile/CorpProfile";
 import { UserList } from "./community-manager/user-list/UserList";
 import { GangList } from "./community-manager/gang-list/GangList";
 import { UserProfile } from "./community-manager/users-profile/UsersProfile";
+import { UserProfileEditor } from "./community-manager/users-profile-editor/UsersProfileEditor";
+import { CorpProfileEdit } from "./community-manager/corp-profile-edit/CorpProfileEdit";
 
 export function RoleplayWidgets() {
     return (
@@ -17,8 +19,10 @@ export function RoleplayWidgets() {
             <WebsocketDisconnect />
             <CorpList />
             <CorpProfile />
+            <CorpProfileEdit />
             <UserList />
             <UserProfile />
+            <UserProfileEditor />
             <GangList />
         </>
     )
