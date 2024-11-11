@@ -32,6 +32,7 @@ export * from './license/LicenseAgencyListEvent';
 export * from './license/LicenseOpenComputerEvent';
 export * from './license/LicenseStatusEvent';
 export * from './player/PlayerQueryListEvent';
+export * from './player/PlayerQuerySkillsListEvent';
 export * from './police/PoliceCallInfoEvent';
 export * from './police/PoliceListReportsEvent';
 export * from './police/UserArrestedEvent';

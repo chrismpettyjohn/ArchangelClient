@@ -8,6 +8,10 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
         userID: 0,
         username: '',
         figure: '',
+        motto: '',
+        joinedAt: 0,
+        lastLogin: 0,
+        online: false,
         cashBalance: 0,
         bankBalance: 0,
         isDead: false,
@@ -21,9 +25,14 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
         hungerNow: 0,
         hungerMax: 0,
         corporationID: 0,
+        corpName: '',
         corporationPositionID: 0,
+        corpRoleName: '',
         isWorking: false,
-        gangID: undefined,
+        gangID: -1,
+        gangName: '',
+        gangRoleID: -1,
+        gangRoleName: '',
     })
 
     useEffect(() => {
@@ -31,6 +40,10 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
             userID: 0,
             username: '',
             figure: '',
+            motto: '',
+            joinedAt: 0,
+            lastLogin: 0,
+            online: false,
             cashBalance: 0,
             bankBalance: 0,
             isDead: false,
@@ -44,9 +57,14 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
             hungerNow: 0,
             hungerMax: 0,
             corporationID: 0,
+            corpName: '',
             corporationPositionID: 0,
+            corpRoleName: '',
             isWorking: false,
-            gangID: undefined,
+            gangID: -1,
+            gangName: '',
+            gangRoleID: -1,
+            gangRoleName: ''
         })
         UserRoleplayStatsQuery(userID)
     }, [userID]);

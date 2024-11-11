@@ -5,12 +5,13 @@ import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
 import { useRoleplayStats } from "../../../../hooks/roleplay/use-rp-stats";
 import { useSessionInfo } from "../../../../hooks";
+import { usePlayerSkills } from "../../../../hooks/roleplay/use-player-skills";
 
 export function UserProfile() {
     const session = useSessionInfo();
     const { active, resourceID, onHide } = useCommunityLinkTracker('users', 'profile');
     const rpStats = useRoleplayStats(resourceID);
-
+    const rpSkills = usePlayerSkills(resourceID);
 
     if (!active) {
         return null;
@@ -34,36 +35,42 @@ export function UserProfile() {
             </Flex>
             <Grid fullHeight fullWidth gap={4}>
                 <Column size={4} fullHeight fullWidth>
-                    <div className="profile-card">
-                        <div className="profile-header" style={{ backgroundImage: 'url(https://j.gifs.com/rR9pv4.gif)', backgroundSize: 'cover' }}>
-                            <div className="overlay" />
-                            <div className="avatar-placeholder" style={{ display: 'flex', height: 60, justifyContent: 'center', alignItems: 'center' }}>
-                                <img src="https://i.imgur.com/5Id8akw.png" />
+                    <div>
+                        <div className="profile-card">
+                            <div className="profile-header" style={{ backgroundImage: 'url(https://j.gifs.com/rR9pv4.gif)', backgroundSize: 'cover' }}>
+                                <div className="overlay" />
+                                <div className="avatar-placeholder" style={{ display: 'flex', height: 60, justifyContent: 'center', alignItems: 'center' }}>
+                                    <img src="https://i.imgur.com/5Id8akw.png" />
+                                </div>
+                                <p>{rpStats.username}</p>
                             </div>
-                            <p>{rpStats.username}</p>
-                        </div>
 
-                        <div className="profile-details">
-                            <p><strong>Last Online:</strong> <i>10/30/2024</i></p>
-                            <p><strong>Joined:</strong> <i>10/30/2024</i></p>
-                            <p>{rpStats.corporationPositionID} @ {rpStats.corporationID}</p>
-                        </div>
-
-                        <div className="profile-footer">
-                            <div className="level">
-                                <strong>LEVEL</strong><br />
-                                <Text fontSize={4}>1</Text>
+                            <div className="profile-details">
+                                <Text variant="white" fontSize={6}><strong>Joined At: </strong>{new Date(rpStats.joinedAt * 1000).toLocaleDateString()}</Text>
+                                <br />
+                                <Text variant="white" fontSize={6}><strong>Last Login: </strong>{new Date(rpStats.lastLogin * 1000).toLocaleDateString()}</Text>
+                                <br /><br />
+                                <Text variant="white" fontSize={6}>{rpStats.motto}</Text>
                             </div>
-                            <div className="friends">
-                                <strong>FACTION</strong><br />
-                                <Text fontSize={4}>Gang</Text>
+
+                            <div className="profile-footer" style={{ flexDirection: 'column', height: 'fit-content' }}>
+                                <div className="level w-100 bg-primary">
+                                    <Text bold fontSize={5}>My Job</Text><br />
+                                    <Text fontSize={6}>{rpStats.corpRoleName} @ {rpStats.corpName}</Text>
+                                </div>
+                                <div className="level w-100 bg-danger">
+                                    <Text bold fontSize={5}>My Gang</Text><br />
+                                    <Text fontSize={6}>{!!rpStats.gangRoleName ? (<>{rpStats.gangRoleName} @ {rpStats.gangName}</>) : 'N/A'}</Text>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </Column>
                 <Column size={8} fullHeight gap={4}>
                     <NitroCardAccordionView fullHeight overflow="hidden">
-                        <NitroCardAccordionSetView headerText="Skills" isExpanded>Skills</NitroCardAccordionSetView>
+                        <NitroCardAccordionSetView headerText="Skills" isExpanded>
+                            {rpSkills.lumberjackLevel}
+                        </NitroCardAccordionSetView>
                         <NitroCardAccordionSetView headerText="Properties">Properties</NitroCardAccordionSetView>
                         <NitroCardAccordionSetView headerText="Armory">Armory</NitroCardAccordionSetView>
                     </NitroCardAccordionView>

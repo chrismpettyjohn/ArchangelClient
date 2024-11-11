@@ -655,6 +655,8 @@ export class OutgoingHeader {
 
     public static PLAYER_QUERY_LIST = 8096;
 
+    public static PLAYER_QUERY_SKILLS_LIST = 8097;
+
 
 }
 

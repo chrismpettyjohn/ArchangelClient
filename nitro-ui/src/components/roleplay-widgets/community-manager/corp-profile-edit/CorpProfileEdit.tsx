@@ -1,4 +1,4 @@
-import { Button, Flex, NitroCardAccordionSetView, NitroCardAccordionView } from "../../../../common";
+import { Button, Flex, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../common";
 import { FaCaretLeft, FaPencilAlt } from "react-icons/fa";
 import { CreateLinkEvent } from "../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
@@ -7,6 +7,7 @@ import { useSessionInfo } from "../../../../hooks";
 import { useRoleplayPermissions } from "../../../../hooks/roleplay/use-roleplay-permissions";
 import { useCallback, useMemo } from "react";
 import { useCorpData } from "../../../../hooks/roleplay/use-corp-data";
+import { CorpDTO, CorpEditor } from "./corp-editor/CorpEditor";
 
 export function CorpProfileEdit() {
     const session = useSessionInfo();
@@ -14,45 +15,34 @@ export function CorpProfileEdit() {
     const corp = useCorpData(resourceID);
     const permissions = useRoleplayPermissions();
 
-    const canEditCorp = useMemo(() => {
-        return session?.userInfo?.userId === corp.userID || permissions.canEditAllCorps
-    }, [corp, permissions]);
-
-    const onSaveChanges = useCallback(() => {
-
+    const onSaveChanges = useCallback((dto: CorpDTO) => {
+        console.log('woo')
     }, []);
 
+    console.log({ resourceID });
 
-    if (!active) {
+
+    if (!active || !resourceID) {
         return null;
     }
 
     return (
         <CommunityLayout tab="corps" onClose={onHide}>
-            <form className="h-100 w-100" onSubmit={onSaveChanges}>
-                <Flex className="mb-4" fullWidth justifyContent="between">
-                    <Button variant="secondary" onClick={() => CreateLinkEvent('community/corps/list')}>
-                        <FaCaretLeft style={{ marginRight: 8 }} />
-                        Go back
-                    </Button>
-                    {
-                        canEditCorp && (
-                            <Button variant="success" onClick={onSaveChanges}>
-                                <FaPencilAlt style={{ marginRight: 8 }} />
-                                Save Changes
-                            </Button>
-                        )
-                    }
-                </Flex>
-                <NitroCardAccordionView fullHeight overflow="hidden">
-                    <NitroCardAccordionSetView headerText="Information" isExpanded>
+            <Flex className="mb-4" fullWidth justifyContent="between">
+                <Button variant="secondary" onClick={() => CreateLinkEvent('community/corps/list')}>
+                    <FaCaretLeft style={{ marginRight: 8 }} />
+                    Go back
+                </Button>
+            </Flex>
+            <NitroCardAccordionView fullHeight overflow="hidden">
+                <NitroCardAccordionSetView headerText="Information" isExpanded>
+                    <Text variant="white">Editing: <b>#{corp.id} {corp.displayName}</b></Text>
+                    <CorpEditor defaultCorp={corp} onSave={onSaveChanges} />
+                </NitroCardAccordionSetView>
+                <NitroCardAccordionSetView headerText="Positions">
 
-                    </NitroCardAccordionSetView>
-                    <NitroCardAccordionSetView headerText="Positions">
-
-                    </NitroCardAccordionSetView>
-                </NitroCardAccordionView>
-            </form>
+                </NitroCardAccordionSetView>
+            </NitroCardAccordionView>
         </CommunityLayout >
     );
 }

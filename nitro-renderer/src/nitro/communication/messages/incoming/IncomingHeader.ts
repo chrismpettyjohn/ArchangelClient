@@ -517,4 +517,5 @@ export class IncomingHeader {
     public static CRIME_LIST_EVENT = 9045;
     public static CRIME_DATA_EVENT = 9046;
     public static PLAYER_QUERY_LIST_EVENT = 9047;
+    public static PLAYER_QUERY_SKILLS_LIST_EVENT = 9048;
 }

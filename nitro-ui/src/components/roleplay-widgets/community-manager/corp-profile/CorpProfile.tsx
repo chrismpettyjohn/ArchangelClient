@@ -3,7 +3,6 @@ import { Button, Column, Flex, Grid, LayoutAvatarImageView, NitroCardAccordionSe
 import { FaCaretLeft, FaCaretRight, FaPencilAlt } from "react-icons/fa";
 import { CreateLinkEvent } from "../../../../api";
 import { useCorpEmployeeList } from "../../../../hooks/roleplay/use-corp-employee-list";
-import { CorpSector } from "@nitro-rp/renderer";
 import { useCorpPositionList } from "../../../../hooks/roleplay/use-corp-position-list";
 import { useSessionInfo } from "../../../../hooks";
 import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
@@ -19,6 +18,8 @@ export function CorpProfile() {
     const roles = useCorpPositionList(resourceID);
     const employees = useCorpEmployeeList(resourceID);
     const permissions = useRoleplayPermissions();
+
+    console.log({ resourceID, corp })
 
     const canEditCorp = useMemo(() => {
         return session?.userInfo?.userId === corp.userID || permissions.canEditAllCorps
@@ -97,7 +98,7 @@ export function CorpProfile() {
                                                 roleEmployees.map(employee => (
                                                     <li
                                                         key={`employee_${employee.userID}`}
-                                                        onClick={() => CreateLinkEvent(`community/gangs/profile/${corp.userID}`)}
+                                                        onClick={() => CreateLinkEvent(`community/users/profile/${corp.userID}`)}
                                                         style={{
                                                             display: "flex",
                                                             alignItems: "center",

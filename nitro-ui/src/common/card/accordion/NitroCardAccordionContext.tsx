@@ -11,10 +11,6 @@ const NitroCardAccordionContext = createContext<INitroCardAccordionContext>({
 });
 
 export const NitroCardAccordionContextProvider: FC<ProviderProps<INitroCardAccordionContext>> = props => {
-    const [active, setActive] = useState('');
-    const onToggle = useCallback((key: string) => {
-        setActive(_ => _ === key ? '' : key);
-    }, [setActive]);
     return <NitroCardAccordionContext.Provider {...props} />;
 }
 
