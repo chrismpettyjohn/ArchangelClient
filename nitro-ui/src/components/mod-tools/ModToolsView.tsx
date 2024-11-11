@@ -13,8 +13,6 @@ import { ModToolsBetaCodesView } from './views/beta/ModToolsBetaCodesView';
 import { ModToolsBugReportsView } from './views/beta/ModToolsBugReportsView';
 import { ModToolsWeaponsManagerView } from './views/roleplay/ModToolsWeaponsManagerView';
 import { ModToolsWeaponsEditorView } from './views/roleplay/ModToolsWeaponsEditorView';
-import { ModToolsCorpsManagerView } from './views/roleplay/ModToolsCorpsManagerView';
-import { ModToolsCorpsEditorView } from './views/roleplay/ModToolsCorpsEditorView';
 import { ModToolsCrimesManagerView } from './views/roleplay/ModToolsCrimesManagerView';
 import { ModToolsCrimesEditorView } from './views/roleplay/ModToolsCrimesEditorView';
 import { ModToolsUserWeaponsManagerView } from './views/user/ModToolsUserWeaponsManagerView';
@@ -168,7 +166,7 @@ export const ModToolsView: FC<{}> = () => {
                             </NitroCardAccordionSetView>
                             <NitroCardAccordionSetView headerText="Roleplay">
                                 <Grid columnCount={2}>
-                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/corps-manager/toggle')} className="position-relative">
+                                    <Button gap={1} onClick={() => CreateLinkEvent('corps/show')} className="position-relative">
                                         <FaBriefcase style={{ marginRight: 4 }} />
                                         Corps
                                     </Button>
@@ -202,8 +200,6 @@ export const ModToolsView: FC<{}> = () => {
             <ModToolsWeaponsManagerView />
             <ModToolsWeaponsCreatorView />
             <ModToolsWeaponsEditorView />
-            <ModToolsCorpsManagerView />
-            <ModToolsCorpsEditorView />
             <ModToolsCrimesManagerView />
             <ModToolsCrimesEditorView />
             <ModToolsCrimesCreatorView />

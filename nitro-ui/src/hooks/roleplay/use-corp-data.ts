@@ -1,4 +1,4 @@
-import { CorpInfoData, CorpInfoQueryEvent } from "@nitro-rp/renderer";
+import { CorpIndustry, CorpInfoData, CorpInfoQueryEvent, CorpSector } from "@nitro-rp/renderer";
 import { useEffect, useState } from "react";
 import { useMessageEvent } from "../events";
 import { CorpInfoQuery } from "../../api/roleplay/corp/CorpInfoQuery";
@@ -7,11 +7,15 @@ export function useCorpData(corpID: number): CorpInfoData {
     const [corpData, setCorpData] = useState<CorpInfoData>({
         id: 0,
         userID: 0,
+        userName: '',
+        userLook: '',
         roomID: 0,
         name: '',
         description: '',
         badgeCode: '',
-        tags: [],
+        employeeCount: 0,
+        industry: CorpIndustry.PublicAid,
+        sector: CorpSector.Government,
     });
 
     useEffect(() => {

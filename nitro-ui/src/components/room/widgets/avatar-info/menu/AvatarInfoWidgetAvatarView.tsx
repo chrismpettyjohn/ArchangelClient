@@ -1,4 +1,4 @@
-import { CorpType, RemoveFriendComposer, RequestFriendComposer, RoomObjectCategory, RoomObjectVariable, RoomUnitGiveHandItemComposer, TradingOpenComposer } from '@nitro-rp/renderer';
+import { CorpIndustry, RemoveFriendComposer, RequestFriendComposer, RoomObjectCategory, RoomObjectVariable, RoomUnitGiveHandItemComposer, TradingOpenComposer } from '@nitro-rp/renderer';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { AvatarInfoUser, DispatchUiEvent, GetOwnRoomObject, GetUserProfile, LocalizeText, RoomWidgetUpdateChatInputContentEvent, SendMessageComposer } from '../../../../../api';
 import { useFriends, useSessionInfo } from '../../../../../hooks';
@@ -171,7 +171,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                     )
                                 }
                                 {
-                                    sessionRoleplayStats.isWorking && myCorpData.tags.includes(CorpType.POLICE) && (
+                                    sessionRoleplayStats.isWorking && myCorpData.industry === CorpIndustry.Police && (
                                         <ContextMenuListItemView onClick={() => processAction('view_police')}>
                                             <FaChevronRight className="right fa-icon" />
                                             {LocalizeText('infostand.button.police')}
