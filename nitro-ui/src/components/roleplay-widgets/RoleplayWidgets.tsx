@@ -6,6 +6,7 @@ import { CorpList } from "./community-manager/corp-list/CorpList";
 import { CorpProfile } from "./community-manager/corp-profile/CorpProfile";
 import { UserList } from "./community-manager/user-list/UserList";
 import { GangList } from "./community-manager/gang-list/GangList";
+import { UserProfile } from "./community-manager/users-profile/UsersProfile";
 
 export function RoleplayWidgets() {
     return (
@@ -17,6 +18,7 @@ export function RoleplayWidgets() {
             <CorpList />
             <CorpProfile />
             <UserList />
+            <UserProfile />
             <GangList />
         </>
     )

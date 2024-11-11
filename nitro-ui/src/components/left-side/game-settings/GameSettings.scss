@@ -43,6 +43,7 @@
 .menu-content {
   display: flex;
   height: calc(100% - 10%);
+  overflow-y: auto;
 
   .menu-sidebar {
     flex: 1;

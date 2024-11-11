@@ -25,7 +25,7 @@ export function CorpProfile() {
         <CommunityLayout tab="corps" onClose={onHide}>
             <Grid fullHeight fullWidth gap={4}>
                 <Column size={4} fullHeight fullWidth>
-                    <Flex justifyContent="between">
+                    <Flex className="mb-4" fullWidth justifyContent="between">
                         <Button variant="secondary" onClick={() => CreateLinkEvent('community/corps/list')}>
                             <FaCaretLeft style={{ marginRight: 8 }} />
                             Go back
@@ -78,7 +78,7 @@ export function CorpProfile() {
                                                 roleEmployees.map(employee => (
                                                     <li
                                                         key={`employee_${employee.userID}`}
-                                                        onClick={() => CreateLinkEvent(`community/users/${corp.userID}`)}
+                                                        onClick={() => CreateLinkEvent(`community/users/profile/${corp.userID}`)}
                                                         style={{
                                                             display: "flex",
                                                             alignItems: "center",
