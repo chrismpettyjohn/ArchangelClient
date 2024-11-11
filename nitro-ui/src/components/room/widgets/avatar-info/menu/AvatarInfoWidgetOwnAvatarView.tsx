@@ -1,4 +1,4 @@
-import { AvatarAction, AvatarExpressionEnum, MyWeaponData, RoomObjectCategory, RoomUnitDropHandItemComposer } from '@nitro-rp/renderer';
+import { AvatarAction, AvatarExpressionEnum, MyWeaponData, RoomObjectCategory, RoomUnitDropHandItemComposer, UserOpenWardrobeEvent } from '@nitro-rp/renderer';
 import { FC, useState } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { AvatarInfoUser, CreateLinkEvent, GetCanStandUp, GetCanUseExpression, GetOwnPosture, GetUserProfile, HasHabboClub, HasHabboVip, IsRidingHorse, LocalizeText, PostureTypeEnum, SendMessageComposer } from '../../../../../api';
@@ -81,6 +81,9 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                         break;
                     case 'sit':
                         roomSession.sendPostureMessage(PostureTypeEnum.POSTURE_SIT);
+                        break;
+                    case 'wardrobe':
+                        CreateLinkEvent('avatar-editor/toggle');
                         break;
                     case 'stand':
                         roomSession.sendPostureMessage(PostureTypeEnum.POSTURE_STAND);
@@ -343,6 +346,9 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                     </ContextMenuListItemView>
                 </>
             }
+            <ContextMenuListItemView onClick={event => processAction('wardrobe')}>
+                Change Clothes
+            </ContextMenuListItemView>
         </ContextMenuView >
     );
 }
