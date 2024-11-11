@@ -52,7 +52,7 @@ export function CommunityLayout({ children, tab, onClose }: CommunityLayoutProps
                 <div className="menu-tabs">
                     {
                         COMMUNITY_MANAGER_VIEWS.map(_ => (
-                            <div className={`tab ${tab === _.key ? 'active' : ''}`} style={{ cursor: 'pointer' }} onClick={() => CreateLinkEvent(`${_.key}/list`)}>
+                            <div className={`tab ${tab === _.key ? 'active' : ''}`} style={{ cursor: 'pointer' }} onClick={() => CreateLinkEvent(`community/${_.key}/list`)}>
                                 {_.label}
                             </div>
                         ))
@@ -81,7 +81,6 @@ export function useCommunityLinkTracker(resource: string, action: string): LinkT
         const linkTracker: ILinkEventTracker = {
             linkReceived: (url: string) => {
                 const parts = url.split('/');
-                console.log({ url, length: parts.length })
                 if (parts.length < 3) {
                     setState({ active: false });
                     return;

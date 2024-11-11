@@ -2,14 +2,15 @@ import { FaCaretRight } from "react-icons/fa";
 import { CreateLinkEvent } from "../../../../api";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
 import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
-import { usePlayerList } from "../../../../hooks/roleplay/use-player-list";
-import { LayoutAvatarImageView } from "../../../../common";
 
-export function UserList() {
-    const [page, setPage] = useState(1);
+export function GangList() {
+    const gangs = [];
     const [search, setSearch] = useState('');
-    const players = usePlayerList(page, search);
-    const { active, onHide } = useCommunityLinkTracker('users', 'list');
+    const { active, onHide } = useCommunityLinkTracker('gangs', 'list');
+
+    const filteredGangs = useMemo(() => {
+        return gangs.filter(_ => _.displayName.toLowerCase().includes(search))
+    }, [gangs, search]);
 
     const onSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => setSearch(event.currentTarget.value ?? ''), [setSearch]);
 
@@ -18,15 +19,15 @@ export function UserList() {
     }
 
     return (
-        <CommunityLayout tab="users" onClose={onHide}>
+        <CommunityLayout tab="gangs" onClose={onHide}>
             <form className="form-group w-100 mb-4">
-                <input className="form-control form-control-sm" type="text" placeholder="Search by user name..." value={search} onChange={onSearch} />
+                <input className="form-control form-control-sm" type="text" placeholder="Search by gang name..." value={search} onChange={onSearch} />
             </form>
             <ul style={{ listStyleType: "none", padding: 0, margin: 0, width: '100%' }}>
-                {players.map((user) => (
+                {filteredGangs.map((gang) => (
                     <li
-                        key={`user_${user.id}`}
-                        onClick={() => CreateLinkEvent(`community/users/profile/${user.id}`)}
+                        key={`gang_${gang.id}`}
+                        onClick={() => CreateLinkEvent(`community/gangs/profile/${gang.id}`)}
                         style={{
                             display: "flex",
                             alignItems: "center",
@@ -35,10 +36,18 @@ export function UserList() {
                             cursor: "pointer",
                         }}
                     >
-                        <LayoutAvatarImageView figure={user.look} style={{ width: "45px", height: "45px", marginRight: "10px", }} />
+                        <img
+                            src="https://www.habborator.org/badges/badges/HBA.gif"
+                            alt={`${gang.displayName} badge`}
+                            style={{
+                                width: "45px",
+                                height: "45px",
+                                marginRight: "10px",
+                            }}
+                        />
                         <div style={{ flexGrow: 1 }}>
-                            <div style={{ fontWeight: "bold" }}>{user.username}</div>
-                            <div>{user.corpRoleName} @ {user.corpName}</div>
+                            <div style={{ fontWeight: "bold" }}>{gang.displayName}</div>
+                            <div>Employees: {gang.employeeCount}</div>
                         </div>
                         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
                             <FaCaretRight />
@@ -47,8 +56,8 @@ export function UserList() {
                 ))}
             </ul>
             {
-                !players.length && (
-                    <p>No users found</p>
+                !filteredGangs.length && (
+                    <p>No gangs found</p>
                 )
             }
         </CommunityLayout>

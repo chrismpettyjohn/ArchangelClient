@@ -30,6 +30,7 @@ export * from './items/HotBarListItemsEventParser';
 export * from './license/LicenseAgencyListEventParser';
 export * from './license/LicenseOpenComputerEventParser';
 export * from './license/LicenseStatusEventParser';
+export * from './player/PlayerQueryListEventParser';
 export * from './police/PoliceCallInfoEventParser';
 export * from './police/PoliceListReportsEventParser';
 export * from './police/UserArrestedEventParser';

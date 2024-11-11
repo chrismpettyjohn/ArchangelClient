@@ -63,6 +63,7 @@ export * from './license/LicenseAgencyListComposer';
 export * from './license/LicenseConnectComputerComposer';
 export * from './license/LicenseOfferComposer';
 export * from './license/LicenseStatusQueryComposer';
+export * from './player/PlayerQueryListComposer';
 export * from './police/CallPoliceComposer';
 export * from './police/PoliceArrestComposer';
 export * from './police/PoliceCuffComposer';
