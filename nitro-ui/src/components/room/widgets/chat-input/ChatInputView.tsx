@@ -1,8 +1,8 @@
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { ChatMessageTypeEnum, GetConfiguration, LocalizeText, RoomWidgetUpdateChatInputContentEvent } from '../../../../api';
+import { ChatMessageTypeEnum, GetConfiguration, LocalizeText } from '../../../../api';
 import { Text } from '../../../../common';
-import { useChatInputWidget, useRoom, useSessionInfo, useUiEvent } from '../../../../hooks';
+import { useChatInputWidget, useRoom, useSessionInfo } from '../../../../hooks';
 import { ChatWidgetOverlay } from '../../../chat-widget-overlay/ChatWidgetOverlay';
 
 export const ChatInputView: FC<{}> = props => {
@@ -35,7 +35,7 @@ export const ChatInputView: FC<{}> = props => {
                 return;
             }
 
-            // If the input is not focused, focus it and set isFocused to true
+
             inputRef.current.focus();
             setIsFocused(true);
 
@@ -47,10 +47,6 @@ export const ChatInputView: FC<{}> = props => {
         const value = (event.target as HTMLInputElement).value;
 
         switch (event.key) {
-            case ' ':
-            case 'Space':
-                setChatValue(prevValue => `${prevValue} ${selectedUsername}`);
-                return;
             case 'Enter':
                 sendChatValue(value, event.shiftKey);
                 return;
@@ -138,9 +134,8 @@ export const ChatInputView: FC<{}> = props => {
                             placeholder={LocalizeText('widgets.chatinput.default')}
                             value={chatValue}
                             maxLength={maxChatLength}
-                            onBlur={handleBlur}  // Handle blur to refocus if needed
+                            onBlur={handleBlur}
                             onChange={event => setChatValue(event.target.value)}
-                            //onMouseDown={event => setInputFocus()}
                             style={{ pointerEvents: isFocused ? 'auto' : 'none' }}
                         />
                     )}
