@@ -34,7 +34,8 @@ export function CorpProfileEditPosition() {
                     Go back
                 </Button>
             </Flex>
-            <Text variant="white">Editing: <b>#{position.id} {position.displayName}</b></Text>
+            <Text fontSize={3} variant="white">Editing: <b>#{position.orderID} {position.displayName}</b></Text>
+            <br /><br />
             <CorpPositionEditor defaultCorpPosition={position} onSave={onSaveChanges} />
         </CommunityLayout >
     );

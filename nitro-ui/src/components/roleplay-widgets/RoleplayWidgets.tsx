@@ -6,10 +6,10 @@ import { CorpList } from "./community-manager/corp-list/CorpList";
 import { CorpProfile } from "./community-manager/corp-profile/CorpProfile";
 import { UserList } from "./community-manager/user-list/UserList";
 import { GangList } from "./community-manager/gang-list/GangList";
-import { UserProfile } from "./community-manager/users-profile/UsersProfile";
-import { UserProfileEditor } from "./community-manager/users-profile-editor/UsersProfileEditor";
+import { UserProfile } from "./community-manager/user-profile/UserProfile";
 import { CorpProfileEdit } from "./community-manager/corp-profile-edit/CorpProfileEdit";
 import { CorpProfileEditPosition } from "./community-manager/corp-profile-edit-position/CorpProfileEditPosition";
+import { UserProfileEditor } from "./community-manager/user-profile-editor/UserProfileEditor";
 
 export function RoleplayWidgets() {
     return (

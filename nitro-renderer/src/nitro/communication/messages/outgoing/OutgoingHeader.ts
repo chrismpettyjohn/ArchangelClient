@@ -657,6 +657,8 @@ export class OutgoingHeader {
 
     public static PLAYER_QUERY_SKILLS_LIST = 8097;
 
+    public static ROOM_QUERY_LIST_COMPOSER = 8098;
+
 
 }
 

@@ -37,6 +37,7 @@ export * from './police/PoliceListReportsEventParser';
 export * from './police/UserArrestedEventParser';
 export * from './police/WantedListEventParser';
 export * from './room/RoomListUsersEventParser';
+export * from './room/RoomQueryListEventParser';
 export * from './taxi/TaxiDispatchedEventParser';
 export * from './taxi/TaxiFeeEventParser'
 export * from './user/UserOpenWardrobeEventParser';

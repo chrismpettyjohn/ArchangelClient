@@ -38,6 +38,7 @@ export * from './police/PoliceListReportsEvent';
 export * from './police/UserArrestedEvent';
 export * from './police/WantedListEvent';
 export * from './room/RoomListUsersEvent';
+export * from './room/RoomQueryListEvent';
 export * from './user/UserOpenWardrobeEvent';
 export * from './user/UserRoleplayStatsChangeEvent';
 export * from './user/UserOnlineCountEvent';

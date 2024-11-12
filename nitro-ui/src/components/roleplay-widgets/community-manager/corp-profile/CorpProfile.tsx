@@ -45,8 +45,8 @@ export function CorpProfile() {
             </Flex>
             <Grid fullHeight fullWidth gap={4}>
                 <Column size={4} fullHeight fullWidth>
-                    <div>
-                        <div className="profile-card" style={{ height: 350 }}>
+                    <div className="h-100 w-100">
+                        <div className="profile-card" style={{ height: 'calc(100% - 55px)' }}>
                             <div className="profile-header" style={{ backgroundImage: 'url(https://j.gifs.com/rR9pv4.gif)', backgroundSize: 'cover' }}>
                                 <div className="overlay" />
                                 <div className="avatar-placeholder" style={{ display: 'flex', height: 60, justifyContent: 'center', alignItems: 'center' }}>

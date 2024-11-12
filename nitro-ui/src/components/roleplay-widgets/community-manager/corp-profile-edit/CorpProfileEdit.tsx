@@ -35,15 +35,15 @@ export function CorpProfileEdit() {
                 </Button>
             </Flex>
             <NitroCardAccordionView fullHeight overflow="hidden">
-                <NitroCardAccordionSetView headerText="Information" isExpanded>
-                    <Text variant="white">Editing: <b>#{corp.id} {corp.displayName}</b></Text>
+                <NitroCardAccordionSetView headerText="Information">
+                    <Text fontSize={3} variant="white">Editing: <b>#{corp.id} {corp.displayName}</b></Text>
                     <CorpEditor defaultCorp={corp} onSave={onSaveChanges} />
                 </NitroCardAccordionSetView>
                 <NitroCardAccordionSetView headerText="Positions">
                     <ul style={{ listStyleType: "none", padding: 0, margin: 0, width: '100%' }}>
                         {positions.map((position) => (
                             <li
-                                key={`position_${position.id}`}
+                                key={`position${position.id}`}
                                 onClick={() => CreateLinkEvent(`community/corps/profile-position-edit/${position.id}`)}
                                 style={{
                                     display: "flex",
@@ -63,7 +63,7 @@ export function CorpProfileEdit() {
                                     }}
                                 />
                                 <div style={{ flexGrow: 1 }}>
-                                    <div style={{ fontWeight: "bold" }}>{corp.displayName}</div>
+                                    <div style={{ fontWeight: "bold" }}>{position.name}</div>
                                     <div>Employees: {position.employeeCount}</div>
                                 </div>
                                 <div style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
@@ -74,7 +74,7 @@ export function CorpProfileEdit() {
                     </ul>
                     {
                         !positions.length && (
-                            <p>No corps found</p>
+                            <p>No positions found</p>
                         )
                     }
                 </NitroCardAccordionSetView>

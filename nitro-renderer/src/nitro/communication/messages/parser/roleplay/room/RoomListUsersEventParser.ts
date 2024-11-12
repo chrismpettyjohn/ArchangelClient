@@ -16,9 +16,9 @@ export class RoomUsersListEventParser implements IMessageParser {
     public parse(wrapper: IMessageDataWrapper): boolean {
         if (!wrapper) return false;
 
-        const totalBanks = wrapper.readInt();
+        const totalUsers = wrapper.readInt();
 
-        for (let i = 0; i < totalBanks; i++) {
+        for (let i = 0; i < totalUsers; i++) {
             const [id, username] = wrapper.readString().split(';');
             this._users.push({ id: Number(id), username });
         }

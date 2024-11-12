@@ -2,9 +2,10 @@ import { CorpIndustry, CorpInfoData, CorpSector } from "@nitro-rp/renderer"
 import { useCallback, useState } from "react";
 import { Button, Text } from "../../../../../common";
 import Select from 'react-select';
-
-const CORP_INDUSTRY_OPTIONS: Array<{ key: string; value: CorpIndustry }> = Object.values(CorpIndustry).map(_ => ({ key: _, value: _ }))
-const CORP_SECTOR_OPTIONS: Array<{ key: string; value: CorpSector }> = Object.values(CorpSector).map(_ => ({ key: _, value: _ }))
+import { CorpIndustrySelect } from "../../../../roleplay/CorpIndustrySelect";
+import { CorpSectorSelect } from "../../../../roleplay/CorpSectorSelect";
+import { RoomSelect } from "../../../../roleplay/RoomSelect";
+import { UserSelect } from "../../../../roleplay/UserSelect";
 
 export interface CorpDTO {
     displayName: string;
@@ -43,24 +44,29 @@ export function CorpEditor({ defaultCorp, onSave }: CorpEditorProps) {
             </div>
             <div>
                 <Text fontSize={5} variant="white">Description</Text>
-                <input className="form-control" placeholder="display name" value={dto.displayName} onChange={e => onChanges({ displayName: e.target.value ?? '' })} />
+                <textarea className="form-control" placeholder="display name" value={dto.displayName} onChange={e => onChanges({ displayName: e.target.value ?? '' })} rows={6} />
             </div>
-            <div>
-                <Text fontSize={5} variant="white">CEO</Text>
-                <Select options={CORP_INDUSTRY_OPTIONS as any} value={dto.industry} onChange={(o: any) => onChanges({ industry: o.value })} />
+            <div style={{ display: 'flex', gap: 14 }}>
+                <div className="w-100">
+                    <Text fontSize={5} variant="white">CEO</Text>
+                    <UserSelect userID={dto.userID} onChange={user => onChanges({ userID: user.id })} />
+                </div>
+                <div className="w-100">
+                    <Text fontSize={5} variant="white">Headquarters</Text>
+                    <RoomSelect roomID={dto.roomID} onChange={roomID => onChanges({ roomID })} />
+                </div>
             </div>
-            <div>
-                <Text fontSize={5} variant="white">Headquarters</Text>
-                <Select options={CORP_INDUSTRY_OPTIONS as any} value={dto.industry} onChange={(o: any) => onChanges({ industry: o.value })} />
+            <div style={{ display: 'flex', gap: 14 }}>
+                <div className="w-100">
+                    <Text fontSize={5} variant="white">Industry</Text>
+                    <CorpIndustrySelect industry={dto.industry} onChange={industry => onChanges({ industry })} />
+                </div>
+                <div className="w-100">
+                    <Text fontSize={5} variant="white">Sector</Text>
+                    <CorpSectorSelect sector={dto.sector} onChange={sector => onChanges({ sector })} />
+                </div>
             </div>
-            <div>
-                <Text fontSize={5} variant="white">Industry</Text>
-                <Select options={CORP_INDUSTRY_OPTIONS as any} value={dto.industry} onChange={(o: any) => onChanges({ industry: o.value })} />
-            </div>
-            <div>
-                <Text fontSize={5} variant="white">Sector</Text>
-                <Select options={CORP_SECTOR_OPTIONS as any} value={dto.sector} onChange={(o: any) => onChanges({ sector: o.value })} />
-            </div>
+
             <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
                 <div>
                     <Button variant="success" size="sm">

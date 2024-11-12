@@ -76,6 +76,7 @@ export * from './police/WantedListAddUserComposer';
 export * from './police/WantedListRemoveUserComposer';
 export * from './police/WantedListQueryComposer';
 export * from './room/RoomListUsersComposer';
+export * from './room/RoomQueryListComposer';
 export * from './taxi/TaxiFeeQueryComposer';
 export * from './taxi/CallTaxiComposer';
 export * from './user/UserRoleplayStatsQueryComposer';

@@ -79,8 +79,8 @@ export function UserProfile() {
             </Flex>
             <Grid fullHeight fullWidth gap={4}>
                 <Column size={5} fullHeight fullWidth>
-                    <div>
-                        <div className="profile-card">
+                    <div className="h-100 w-100">
+                        <div className="profile-card" style={{ height: 'calc(100% - 55px)' }}>
                             <div className="profile-header" style={{ backgroundImage: 'url(https://j.gifs.com/rR9pv4.gif)', backgroundSize: 'cover' }}>
                                 <div className="overlay" />
                                 <div className="avatar-placeholder" style={{ display: 'flex', height: 60, justifyContent: 'center', alignItems: 'center' }}>
@@ -93,24 +93,25 @@ export function UserProfile() {
                                 <br />
                                 <Text variant="white" fontSize={6}><strong>Last Login: </strong>{new Date(rpStats.lastLogin * 1000).toLocaleDateString()}</Text>
                                 <br /><br />
-                                <Text variant="white" fontSize={6}>{rpStats.motto}</Text>
+                                <Text variant="white" fontSize={6}><strong>Employer: </strong>{rpStats.corpRoleName} @ {rpStats.corpName}</Text>
+                                <br />
+                                <Text variant="white" fontSize={6}><strong>Gang: </strong>{!!rpStats.gangRoleName ? (<>{rpStats.gangRoleName} @ {rpStats.gangName}</>) : 'N/A'}</Text>
                             </div>
                             <div className="profile-footer" style={{ flexDirection: 'column', height: 'fit-content' }}>
-                                <div className="level w-100 bg-primary">
-                                    <Text bold fontSize={5}>My Job</Text><br />
-                                    <Text fontSize={6}>{rpStats.corpRoleName} @ {rpStats.corpName}</Text>
-                                </div>
-                                <div className="level w-100 bg-danger">
-                                    <Text bold fontSize={5}>My Gang</Text><br />
-                                    <Text fontSize={6}>{!!rpStats.gangRoleName ? (<>{rpStats.gangRoleName} @ {rpStats.gangName}</>) : 'N/A'}</Text>
+                                <div className="level w-100">
+                                    <Text bold fontSize={5} variant="white">LEVEL</Text><br />
+                                    <Text fontSize={6} variant="white">1</Text>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </Column>
-                <Column size={7} fullHeight gap={4}>
+                <Column size={7} gap={4}>
                     <NitroCardAccordionView fullHeight overflow="hidden">
-                        <NitroCardAccordionSetView headerText="Skills" isExpanded>
+                        <NitroCardAccordionSetView headerText="Guestbook">
+                            <Text variant="white">Coming soon</Text>
+                        </NitroCardAccordionSetView>
+                        <NitroCardAccordionSetView headerText="Skills">
                             <div className="skills-grid">
                                 {skills.map((skill, index) => (
                                     <div key={index} className="skill-card">
