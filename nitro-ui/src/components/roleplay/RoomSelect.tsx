@@ -1,7 +1,9 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Select from "react-select";
 import { useMessageEvent } from "../../hooks";
 import { RoomListRow, RoomQueryListComposer, RoomQueryListEvent } from "@nitro-rp/renderer";
 import { SendMessageComposer } from "../../api";
+import { getSelectDarkTheme, SELECT_DARK_THEME } from "./select.base";
 
 export interface RoomSelectProps {
     roomID?: number;
@@ -19,26 +21,26 @@ export function RoomSelect({ roomID, onChange }: RoomSelectProps) {
         setRooms(event.getParser().rooms);
     });
 
-    function onChangeRoom(event: ChangeEvent<HTMLSelectElement>) {
-        const matchingRoom = rooms.find(_ => _.id === Number(event.currentTarget.value));
-        if (!matchingRoom) {
-            return;
+    const roomOptions = rooms.map(room => ({
+        value: room.id,
+        label: room.name,
+    }));
+
+    function onChangeRoom(selectedOption: any) {
+        const matchingRoom = rooms.find(_ => _.id === selectedOption?.value);
+        if (matchingRoom) {
+            onChange(matchingRoom.id);
         }
-        onChange(matchingRoom.id);
     }
 
     return (
-        <select className="form-control form-control-sm" value={roomID} onChange={onChangeRoom}>
-            {
-                !roomID && <option selected disabled>Select a room</option>
-            }
-            {
-                rooms.map(room => (
-                    <option key={`room_${room.id}`} value={room.id} selected={room.id === roomID}>
-                        {room.name}
-                    </option>
-                ))
-            }
-        </select>
-    )
+        <Select
+            options={roomOptions}
+            value={roomOptions.find(option => option.value === roomID)}
+            onChange={onChangeRoom}
+            placeholder="Select a room"
+            styles={SELECT_DARK_THEME}
+            theme={getSelectDarkTheme}
+        />
+    );
 }

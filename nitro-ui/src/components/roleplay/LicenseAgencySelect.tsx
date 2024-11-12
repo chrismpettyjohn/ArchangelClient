@@ -1,7 +1,9 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import Select from 'react-select';
+import { useEffect, useMemo, useState } from "react";
 import { LicenseAgencyData, LicenseAgencyListEvent } from "@nitro-rp/renderer";
 import { useMessageEvent } from "../../hooks";
 import { LicenseAgencyListQuery } from "../../api/roleplay/license/LicenseAgencyListQuery";
+import { getSelectDarkTheme, SELECT_DARK_THEME } from './select.base';
 
 export interface LicenseAgencySelectProps {
     corpID?: number;
@@ -10,6 +12,12 @@ export interface LicenseAgencySelectProps {
 
 export function LicenseAgencySelect({ corpID, onChange }: LicenseAgencySelectProps) {
     const [licenseAgencies, setLicenseAgencies] = useState<Array<LicenseAgencyData>>([]);
+    const licenseOptions = useMemo(() => {
+        return licenseAgencies.map(_ => ({
+            label: _.corpName,
+            value: _.corpID,
+        }))
+    }, [licenseAgencies]);
 
     useEffect(() => {
         LicenseAgencyListQuery();
@@ -19,8 +27,8 @@ export function LicenseAgencySelect({ corpID, onChange }: LicenseAgencySelectPro
         setLicenseAgencies(event.getParser().agencies);
     });
 
-    function onChangeAgency(event: ChangeEvent<HTMLSelectElement>) {
-        const matchingAgency = licenseAgencies.find(_ => _.corpID === Number(event.currentTarget.value));
+    function onChangeAgency(opt: any) {
+        const matchingAgency = licenseAgencies.find(_ => _.corpID === Number(opt.value));
         if (!matchingAgency) {
             return;
         }
@@ -28,17 +36,13 @@ export function LicenseAgencySelect({ corpID, onChange }: LicenseAgencySelectPro
     }
 
     return (
-        <select className="form-control form-control-sm" value={corpID} onChange={onChangeAgency}>
-            {
-                !corpID && <option selected disabled>Select a license agency</option>
-            }
-            {
-                licenseAgencies.map(agency => (
-                    <option key={`agency_${agency.corpID}`} value={agency.corpID}>
-                        {agency.corpName}
-                    </option>
-                ))
-            }
-        </select>
-    )
+        <Select
+            options={licenseOptions}
+            value={licenseOptions.find(option => option.value === corpID)}
+            onChange={onChangeAgency}
+            placeholder="Select an agency"
+            styles={SELECT_DARK_THEME}
+            theme={getSelectDarkTheme}
+        />
+    );
 }

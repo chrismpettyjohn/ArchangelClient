@@ -1,7 +1,9 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import Select from 'react-select';
+import { useEffect, useMemo, useState } from "react";
 import { BankListQuery } from "../../api/roleplay/bank/BankListQuery";
 import { BankListEvent, BankListRow } from "@nitro-rp/renderer";
 import { useMessageEvent } from "../../hooks";
+import { getSelectDarkTheme, SELECT_DARK_THEME } from './select.base';
 
 export interface BankSelectProps {
     bankID?: number;
@@ -10,6 +12,12 @@ export interface BankSelectProps {
 
 export function BankSelect({ bankID, onChange }: BankSelectProps) {
     const [banks, setBanks] = useState<Array<BankListRow>>([]);
+    const bankOptions = useMemo(() => {
+        return banks.map(_ => ({
+            label: _.corpName,
+            value: _.corpID,
+        }))
+    }, [banks]);
 
     useEffect(() => {
         BankListQuery();
@@ -19,8 +27,8 @@ export function BankSelect({ bankID, onChange }: BankSelectProps) {
         setBanks(event.getParser().banks);
     });
 
-    function onChangeBank(event: ChangeEvent<HTMLSelectElement>) {
-        const matchingBank = banks.find(_ => _.corpID === Number(event.currentTarget.value));
+    function onChangeBank(opt: any) {
+        const matchingBank = banks.find(_ => _.corpID === Number(opt.value));
         if (!matchingBank) {
             return;
         }
@@ -28,17 +36,13 @@ export function BankSelect({ bankID, onChange }: BankSelectProps) {
     }
 
     return (
-        <select className="form-control form-control-sm" value={bankID} onChange={onChangeBank}>
-            {
-                !bankID && <option selected disabled>Select a bank</option>
-            }
-            {
-                banks.map(bank => (
-                    <option key={`bank_${bank.corpID}`} value={bank.corpID}>
-                        {bank.corpName}
-                    </option>
-                ))
-            }
-        </select>
-    )
+        <Select
+            options={bankOptions}
+            value={bankOptions.find(option => option.value === bankID)}
+            onChange={onChangeBank}
+            placeholder="Select a sector"
+            styles={SELECT_DARK_THEME}
+            theme={getSelectDarkTheme}
+        />
+    );
 }

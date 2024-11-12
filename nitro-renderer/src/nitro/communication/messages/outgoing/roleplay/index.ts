@@ -25,6 +25,7 @@ export * from './controls/UserMovementComposer';
 export * from './corp/CorpAcceptJobComposer';
 export * from './corp/CorpCreatePositionComposer';
 export * from './corp/CorpDeclineOfferComposer';
+export * from './corp/CorpDeleteComposer';
 export * from './corp/CorpDeletePositionComposer';
 export * from './corp/CorpDemoteUserComposer';
 export * from './corp/CorpEditComposer';

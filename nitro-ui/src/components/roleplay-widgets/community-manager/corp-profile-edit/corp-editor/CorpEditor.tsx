@@ -45,7 +45,7 @@ export function CorpEditor({ defaultCorp, onSave }: CorpEditorProps) {
             </div>
             <div>
                 <Text fontSize={5} variant="white">Description</Text>
-                <textarea className="form-control" placeholder="display name" value={dto.displayName} onChange={e => onChanges({ displayName: e.target.value ?? '' })} rows={6} />
+                <textarea className="form-control" placeholder="display name" value={dto.description} onChange={e => onChanges({ description: e.target.value ?? '' })} rows={6} />
             </div>
             <div style={{ display: 'flex', gap: 14 }}>
                 <div className="w-100">

@@ -1,6 +1,6 @@
 import { useCorpData } from "../../../../hooks/roleplay/use-corp-data";
 import { Button, Column, Flex, Grid, LayoutAvatarImageView, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../common";
-import { FaCaretLeft, FaCaretRight, FaPencilAlt } from "react-icons/fa";
+import { FaCaretLeft, FaCaretRight, FaPencilAlt, FaPlusSquare } from "react-icons/fa";
 import { CreateLinkEvent } from "../../../../api";
 import { useCorpEmployeeList } from "../../../../hooks/roleplay/use-corp-employee-list";
 import { useCorpPositionList } from "../../../../hooks/roleplay/use-corp-position-list";
@@ -82,44 +82,62 @@ export function CorpProfile() {
                 </Column>
                 <Column size={8} fullHeight gap={4}>
                     <NitroCardAccordionView fullHeight overflow="hidden">
-                        <ul style={{ listStyleType: "none", padding: 0, margin: 0, width: '100%' }}>
-                            {
-                                roles.map(role => {
-                                    const roleEmployees = employees.filter(_ => _.corpPositionID === role.id);
-                                    return (
-                                        <NitroCardAccordionSetView key={`role_${role.id}`} headerText={role.name} isExpanded>
-                                            {
-                                                roleEmployees.map(employee => (
-                                                    <li
-                                                        key={`employee_${employee.userID}`}
-                                                        onClick={() => CreateLinkEvent(`community/users/profile/${employee.userID}`)}
-                                                        style={{
-                                                            display: "flex",
-                                                            alignItems: "center",
-                                                            padding: "10px",
-                                                            borderBottom: "1px solid #ccc",
-                                                            cursor: "pointer",
-                                                        }}
-                                                    >
-                                                        <LayoutAvatarImageView figure={employee.figure} style={{ width: "45px", height: "45px", marginRight: "10px", }} />
-                                                        <div style={{ flexGrow: 1 }}>
-                                                            <div style={{ fontWeight: "bold" }}>{employee.username}</div>
-                                                            <div><b className="mr-2">Since:</b> 11-01-2024</div>
-                                                        </div>
-                                                        <div style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
-                                                            <FaCaretRight />
-                                                        </div>
-                                                    </li>
-                                                ))
-                                            }
-                                            {
-                                                !roleEmployees.length && <Text variant="white" fontSize={6}>This role is empty</Text>
-                                            }
-                                        </NitroCardAccordionSetView>
-                                    )
-                                })
-                            }
-                        </ul>
+                        {
+                            roles.map(role => {
+                                const roleEmployees = employees.filter(_ => _.corpPositionID === role.id);
+                                return (
+                                    <NitroCardAccordionSetView key={`role_${role.id}`} headerText={role.name} isExpanded>
+                                        {
+                                            roleEmployees.map(employee => (
+                                                <li
+                                                    key={`employee_${employee.userID}`}
+                                                    onClick={() => CreateLinkEvent(`community/users/profile/${employee.userID}`)}
+                                                    style={{
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        padding: "10px",
+                                                        borderBottom: "1px solid #ccc",
+                                                        cursor: "pointer",
+                                                    }}
+                                                >
+                                                    <LayoutAvatarImageView figure={employee.figure} style={{ width: "45px", height: "45px", marginRight: "10px", }} />
+                                                    <div style={{ flexGrow: 1 }}>
+                                                        <div style={{ fontWeight: "bold" }}>{employee.username}</div>
+                                                        <div><b className="mr-2">Since:</b> 11-01-2024</div>
+                                                    </div>
+                                                    <div style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
+                                                        <FaCaretRight />
+                                                    </div>
+                                                </li>
+                                            ))
+                                        }
+                                        {
+                                            !roleEmployees.length && <Text variant="white" fontSize={6}>This role is empty</Text>
+                                        }
+                                        {
+                                            canEditCorp && (
+                                                <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end', marginTop: 14 }}>
+                                                    <Button variant="primary" onClick={() => CreateLinkEvent(`community/corps/profile-position-edit/${role.id}`)}>
+                                                        <FaPencilAlt style={{ marginRight: 8 }} />
+                                                        Edit
+                                                    </Button>
+                                                </div>
+                                            )
+                                        }
+                                    </NitroCardAccordionSetView>
+                                )
+                            })
+                        }
+                        {
+                            canEditCorp && (
+                                <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end', marginTop: 14 }}>
+                                    <Button variant="primary" onClick={() => CreateLinkEvent(`community/corps/profile-position-create/${resourceID}`)}>
+                                        <FaPlusSquare style={{ marginRight: 8 }} />
+                                        Position
+                                    </Button>
+                                </div>
+                            )
+                        }
                     </NitroCardAccordionView>
                 </Column>
             </Grid>

@@ -1,17 +1,20 @@
-import { ChangeEvent } from "react";
+import Select from 'react-select';
 import { CorpSector } from "@nitro-rp/renderer";
+import { getSelectDarkTheme, SELECT_DARK_THEME } from './select.base';
 
 export interface CorpSectorSelectProps {
     sector?: CorpSector;
     onChange(newSector: CorpSector): void;
 }
 
-const CORP_SECTOR_OPTIONS: Array<{ key: string; value: CorpSector; }> = Object.values(CorpSector).map(_ => ({ key: _, value: _ }))
+const CORP_SECTOR_OPTIONS: Array<{ label: string; value: CorpSector }> = Object.entries(CorpSector).map(([key, value]) => ({ label: key, value }));
+
+console.log(CORP_SECTOR_OPTIONS)
 
 export function CorpSectorSelect({ sector, onChange }: CorpSectorSelectProps) {
 
-    function onChangeSector(event: ChangeEvent<HTMLSelectElement>) {
-        const mathingSector = CORP_SECTOR_OPTIONS.find(_ => _.key === event.currentTarget.value);
+    function onChangeSector(opt: any) {
+        const mathingSector = CORP_SECTOR_OPTIONS.find(_ => _.value === opt.value);
         if (!mathingSector) {
             return;
         }
@@ -19,17 +22,13 @@ export function CorpSectorSelect({ sector, onChange }: CorpSectorSelectProps) {
     }
 
     return (
-        <select className="form-control form-control-sm" value={sector} onChange={onChangeSector}>
-            {
-                !sector && <option selected disabled>Select a sector</option>
-            }
-            {
-                CORP_SECTOR_OPTIONS.map(_ => (
-                    <option key={`sector_${_.key}`} value={_.value} selected={_.value === sector}>
-                        {_.value}
-                    </option>
-                ))
-            }
-        </select>
-    )
+        <Select
+            options={CORP_SECTOR_OPTIONS}
+            value={CORP_SECTOR_OPTIONS.find(option => option.value === sector)}
+            onChange={onChangeSector}
+            placeholder="Select a sector"
+            styles={SELECT_DARK_THEME}
+            theme={getSelectDarkTheme}
+        />
+    );
 }

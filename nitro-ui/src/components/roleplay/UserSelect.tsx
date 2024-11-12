@@ -1,7 +1,9 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Select from "react-select";
 import { useMessageEvent } from "../../hooks";
 import { RoomListUsersEvent, RoomUsersListRow } from "@nitro-rp/renderer";
 import { RoomListUsers } from "../../api/roleplay/room/RoomListUsers";
+import { getSelectDarkTheme, SELECT_DARK_THEME } from "./select.base";
 
 export interface UserSelectProps {
     userID?: number;
@@ -19,25 +21,25 @@ export function UserSelect({ userID, onChange }: UserSelectProps) {
         setUsers(event.getParser().users);
     });
 
-    function onChangeUser(event: ChangeEvent<HTMLSelectElement>) {
-        const matchingUser = users.find(_ => _.id === Number(event.currentTarget.value));
-        if (!matchingUser) {
-            return;
-        }
+    const userOptions = users.map(user => ({
+        value: user.id,
+        label: user.username,
+    }));
+
+    function onChangeUser(selectedOption: any) {
+        const matchingUser = users.find(_ => _.id === selectedOption?.value);
+        if (!matchingUser) return;
         onChange(matchingUser);
     }
 
     return (
-        <select className="form-control form-control-sm" value={userID} onChange={onChangeUser}>            {
-            !userID && <option selected disabled>Select a user</option>
-        }
-            {
-                users.map(user => (
-                    <option key={`user_${user.id}`} value={user.id}>
-                        {user.username}
-                    </option>
-                ))
-            }
-        </select>
-    )
+        <Select
+            options={userOptions}
+            value={userOptions.find(option => option.value === userID)}
+            onChange={onChangeUser}
+            placeholder="Select a user"
+            styles={SELECT_DARK_THEME}
+            theme={getSelectDarkTheme}
+        />
+    );
 }

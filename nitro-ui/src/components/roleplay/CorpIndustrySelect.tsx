@@ -1,17 +1,18 @@
-import { ChangeEvent } from "react";
+import Select from 'react-select';
 import { CorpIndustry } from "@nitro-rp/renderer";
+import { getSelectDarkTheme, SELECT_DARK_THEME } from './select.base';
 
 export interface CorpIndustrySelectProps {
     industry?: CorpIndustry;
     onChange(newIndustry: CorpIndustry): void;
 }
 
-const CORP_INDUSTRY_OPTIONS: Array<{ key: string; value: CorpIndustry; }> = Object.values(CorpIndustry).map(_ => ({ key: _, value: _ }))
+const CORP_INDUSTRY_OPTIONS: Array<{ label: string; value: CorpIndustry }> = Object.entries(CorpIndustry).map(([key, value]) => ({ label: key, value }));
 
 export function CorpIndustrySelect({ industry, onChange }: CorpIndustrySelectProps) {
 
-    function onChangeIndustry(event: ChangeEvent<HTMLSelectElement>) {
-        const mathingIndustry = CORP_INDUSTRY_OPTIONS.find(_ => _.key === event.currentTarget.value);
+    function onChangeIndustry(opt: any) {
+        const mathingIndustry = CORP_INDUSTRY_OPTIONS.find(_ => _.key === opt.value);
         if (!mathingIndustry) {
             return;
         }
@@ -19,17 +20,13 @@ export function CorpIndustrySelect({ industry, onChange }: CorpIndustrySelectPro
     }
 
     return (
-        <select className="form-control form-control-sm" value={industry} onChange={onChangeIndustry}>
-            {
-                !industry && <option selected disabled>Select an industry</option>
-            }
-            {
-                CORP_INDUSTRY_OPTIONS.map(_ => (
-                    <option key={`industry_${_.key}`} value={_.value} selected={_.value === industry}>
-                        {_.value}
-                    </option>
-                ))
-            }
-        </select>
-    )
+        <Select
+            options={CORP_INDUSTRY_OPTIONS}
+            value={CORP_INDUSTRY_OPTIONS.find(option => option.value === industry)}
+            onChange={onChangeIndustry}
+            placeholder="Select an industry"
+            styles={SELECT_DARK_THEME}
+            theme={getSelectDarkTheme}
+        />
+    );
 }

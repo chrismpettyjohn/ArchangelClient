@@ -9,7 +9,7 @@ import { useCallback } from "react";
 import { useCorpData } from "../../../../hooks/roleplay/use-corp-data";
 import { CorpDTO, CorpEditor } from "./corp-editor/CorpEditor";
 import { useCorpPositionList } from "../../../../hooks/roleplay/use-corp-position-list";
-import { CorpEditComposer } from "@nitro-rp/renderer";
+import { CorpDeleteComposer, CorpEditComposer } from "@nitro-rp/renderer";
 
 export function CorpProfileEdit() {
     const session = useSessionInfo();
@@ -23,6 +23,11 @@ export function CorpProfileEdit() {
     const onSaveChanges = useCallback((dto: CorpDTO) => {
         SendMessageComposer(new CorpEditComposer(resourceID, dto.displayName, dto.description, dto.userID, dto.roomID, dto.sector, dto.industry))
     }, []);
+
+    const onDeleteCorp = useCallback(() => {
+        SendMessageComposer(new CorpDeleteComposer(resourceID))
+        CreateLinkEvent('community/corps/list');
+    }, [resourceID]);
 
     if (!active || !canEditCorp) {
         return null;
@@ -43,7 +48,7 @@ export function CorpProfileEdit() {
                 </NitroCardAccordionSetView>
                 <NitroCardAccordionSetView headerText="Positions">
                     <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
-                        <Button variant="primary" onClick={() => CreateLinkEvent(`corps/profile-position-create/${corp.id}`)}>
+                        <Button variant="primary" onClick={() => CreateLinkEvent(`community/corps/profile-position-create/${resourceID}`)}>
                             <FaPlusSquare style={{ marginRight: 8 }} />
                             Add
                         </Button>
@@ -86,6 +91,19 @@ export function CorpProfileEdit() {
                         )
                     }
                 </NitroCardAccordionSetView>
+                {
+                    corp.userID == session?.userInfo?.userId && (
+                        <NitroCardAccordionSetView headerText="Delete">
+                            <Text bold fontSize={4} variant="white">Are you sure?</Text>
+                            <Text fontSize={5} variant="white">You're about to lay remove <strong>{corp.employeeCount} jobs</strong> from the community</Text>
+                            <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
+                                <Button variant="danger" onClick={onDeleteCorp}>
+                                    delete corp forever
+                                </Button>
+                            </div>
+                        </NitroCardAccordionSetView>
+                    )
+                }
             </NitroCardAccordionView>
         </CommunityLayout >
     );
