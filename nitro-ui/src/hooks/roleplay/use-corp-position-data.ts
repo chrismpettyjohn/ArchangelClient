@@ -3,12 +3,17 @@ import { useEffect, useState } from "react";
 import { useMessageEvent } from "../events";
 import { CorpPositionInfoQuery } from "../../api/roleplay/corp/CorpPositionInfoQuery";
 
-export function useCorpPositionData(corpID: number, corpPositionID: number): CorpPositionInfoData {
+export function useCorpPositionData(corpPositionID: number): CorpPositionInfoData {
     const [corpPositionData, setCorpPositionData] = useState<CorpPositionInfoData>({
-        id: 0,
-        corpID: 0,
-        name: '',
-        desc: '',
+        id: -1,
+        corpID: -1,
+        orderID: -1,
+        displayName: '',
+        description: '',
+        motto: '',
+        salary: -1,
+        maleUniform: '',
+        femaleUniform: '',
         canHire: false,
         canFire: false,
         canPromote: false,
@@ -20,12 +25,12 @@ export function useCorpPositionData(corpID: number, corpPositionID: number): Cor
         if (corpPositionID === corpPositionData.id) {
             return;
         }
-        CorpPositionInfoQuery(corpID, corpPositionID);
-    }, [corpID, corpPositionID]);
+        CorpPositionInfoQuery(corpPositionID);
+    }, [corpPositionID]);
 
     useMessageEvent<CorpPositionInfoQueryEvent>(CorpPositionInfoQueryEvent, event => {
         const eventData: CorpPositionInfoData = event.getParser().data;
-        if (eventData.corpID !== corpID || eventData.corpID == corpPositionID) {
+        if (eventData.id !== corpPositionID) {
             return;
         }
         setCorpPositionData(eventData);

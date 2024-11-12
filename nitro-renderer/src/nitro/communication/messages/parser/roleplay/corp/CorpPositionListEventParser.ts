@@ -6,6 +6,7 @@ export interface CorpPositionListData {
     salary: number;
     maleFigure: string;
     femaleFigure: string;
+    employeeCount: number;
 }
 
 export class CorpPositionListEventParser implements IMessageParser {
@@ -25,8 +26,8 @@ export class CorpPositionListEventParser implements IMessageParser {
         const totalPositions = wrapper.readInt();
 
         for (let i = 0; i < totalPositions; i++) {
-            const [id, name, salary, maleFigure, femaleFigure] = wrapper.readString().split(';');
-            this._corpPositions.push({ id: Number(id), name, salary: Number(salary), maleFigure, femaleFigure })
+            const [id, name, salary, maleFigure, femaleFigure, employeeCount] = wrapper.readString().split(';');
+            this._corpPositions.push({ id: Number(id), name, salary: Number(salary), maleFigure, femaleFigure, employeeCount: Number(employeeCount) })
         }
 
         return true;

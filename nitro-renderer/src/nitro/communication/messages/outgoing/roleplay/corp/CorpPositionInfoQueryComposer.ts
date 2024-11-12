@@ -3,8 +3,8 @@ import { IMessageComposer } from "../../../../../../api";
 export class CorpPositionInfoQueryComposer implements IMessageComposer<ConstructorParameters<typeof CorpPositionInfoQueryComposer>> {
     private _data: ConstructorParameters<typeof CorpPositionInfoQueryComposer>;
 
-    constructor(corpID: number, corpPositionID: number) {
-        this._data = [corpID, corpPositionID];
+    constructor(corpPositionID: number) {
+        this._data = [corpPositionID];
     }
 
     public getMessageArray() {

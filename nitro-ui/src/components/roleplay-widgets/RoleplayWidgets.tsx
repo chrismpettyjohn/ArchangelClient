@@ -9,6 +9,7 @@ import { GangList } from "./community-manager/gang-list/GangList";
 import { UserProfile } from "./community-manager/users-profile/UsersProfile";
 import { UserProfileEditor } from "./community-manager/users-profile-editor/UsersProfileEditor";
 import { CorpProfileEdit } from "./community-manager/corp-profile-edit/CorpProfileEdit";
+import { CorpProfileEditPosition } from "./community-manager/corp-profile-edit-position/CorpProfileEditPosition";
 
 export function RoleplayWidgets() {
     return (
@@ -20,6 +21,7 @@ export function RoleplayWidgets() {
             <CorpList />
             <CorpProfile />
             <CorpProfileEdit />
+            <CorpProfileEditPosition />
             <UserList />
             <UserProfile />
             <UserProfileEditor />

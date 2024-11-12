@@ -3,7 +3,8 @@ import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
 export interface CorpPositionInfoData {
     id: number;
     corpID: number;
-    name: string;
+    displayName: string;
+    description: string;
     motto: string;
     salary: number;
     orderID: number;
@@ -20,6 +21,7 @@ export class CorpPositionInfoParser implements IMessageParser {
     private _id: number;
     private _corpID: number;
     private _name: string;
+    private _description: string;
     private _motto: string;
     private _salary: number;
     private _orderID: number;
@@ -35,6 +37,7 @@ export class CorpPositionInfoParser implements IMessageParser {
         this._id = 0;
         this._corpID = 0;
         this._name = '';
+        this._description = '';
         this._motto = '';
         this._orderID = 0;
         this._canHire = false;
@@ -51,6 +54,7 @@ export class CorpPositionInfoParser implements IMessageParser {
         this._id = wrapper.readInt();
         this._corpID = wrapper.readInt();
         this._name = wrapper.readString();
+        this._description = wrapper.readString();
         this._motto = wrapper.readString();
         this._salary = wrapper.readInt();
         this._orderID = wrapper.readInt();
@@ -69,7 +73,8 @@ export class CorpPositionInfoParser implements IMessageParser {
         return {
             id: this._id,
             corpID: this._corpID,
-            name: this._name,
+            displayName: this._name,
+            description: this._description,
             motto: this._motto,
             salary: this._salary,
             orderID: this._orderID,
