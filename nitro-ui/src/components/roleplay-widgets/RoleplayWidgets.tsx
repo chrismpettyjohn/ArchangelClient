@@ -10,6 +10,7 @@ import { UserProfile } from "./community-manager/user-profile/UserProfile";
 import { CorpProfileEdit } from "./community-manager/corp-profile-edit/CorpProfileEdit";
 import { CorpProfileEditPosition } from "./community-manager/corp-profile-edit-position/CorpProfileEditPosition";
 import { UserProfileEditor } from "./community-manager/user-profile-editor/UserProfileEditor";
+import { CorpProfileCreate } from "./community-manager/corp-profile-create/CorpProfileCreate";
 
 export function RoleplayWidgets() {
     return (
@@ -20,6 +21,7 @@ export function RoleplayWidgets() {
             <WebsocketDisconnect />
             <CorpList />
             <CorpProfile />
+            <CorpProfileCreate />
             <CorpProfileEdit />
             <CorpProfileEditPosition />
             <UserList />

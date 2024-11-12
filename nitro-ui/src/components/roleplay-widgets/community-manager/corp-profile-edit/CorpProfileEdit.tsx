@@ -9,7 +9,7 @@ import { useCallback } from "react";
 import { useCorpData } from "../../../../hooks/roleplay/use-corp-data";
 import { CorpDTO, CorpEditor } from "./corp-editor/CorpEditor";
 import { useCorpPositionList } from "../../../../hooks/roleplay/use-corp-position-list";
-import { CorpEditComposer, CorpEditPositionComposer } from "@nitro-rp/renderer";
+import { CorpEditComposer } from "@nitro-rp/renderer";
 
 export function CorpProfileEdit() {
     const session = useSessionInfo();

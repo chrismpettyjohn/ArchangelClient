@@ -29,10 +29,10 @@ export function useCorpData(corpID: number): CorpInfoData {
 
     useMessageEvent<CorpInfoQueryEvent>(CorpInfoQueryEvent, event => {
         const eventData: CorpInfoData = event.getParser().data;
-        console.log(eventData.id, corpID)
         if (eventData.id !== corpID) {
             return;
         }
+        alert('woo')
         setCorpData(eventData);
     });
 

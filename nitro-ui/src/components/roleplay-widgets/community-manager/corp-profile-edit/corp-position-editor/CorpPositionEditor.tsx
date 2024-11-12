@@ -1,7 +1,6 @@
 import { CorpPositionInfoData } from "@nitro-rp/renderer"
 import { useCallback, useState } from "react";
 import { Button, Text } from "../../../../../common";
-import Select from 'react-select';
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
 export interface CorpPositionDTO {
@@ -15,6 +14,7 @@ export interface CorpPositionDTO {
     canDemote: boolean;
     canHire: boolean;
     canFire: boolean;
+    canWorkAnywhere: boolean;
 
 }
 
@@ -35,6 +35,7 @@ export function CorpPositionEditor({ defaultCorpPosition, onSave }: CorpPosition
         canFire: defaultCorpPosition?.canFire ?? false,
         canPromote: defaultCorpPosition?.canPromote ?? false,
         canDemote: defaultCorpPosition?.canDemote ?? false,
+        canWorkAnywhere: defaultCorpPosition?.canWorkAnywhere ?? false,
     });
 
     const onChanges = useCallback((changes: Partial<CorpPositionDTO>) => {
@@ -48,14 +49,14 @@ export function CorpPositionEditor({ defaultCorpPosition, onSave }: CorpPosition
     const onSaveChanges = useCallback(() => onSave(dto), [dto, onSave]);
 
     return (
-        <form onSubmit={onSaveChanges} style={{ display: 'flex', flexDirection: 'column', gap: 14, height: 'calc(100% - 110px)' }}>
+        <form onSubmit={onSaveChanges} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div>
                 <Text fontSize={4} variant="white">Display Name</Text>
                 <input className="form-control" placeholder="display name" value={dto.displayName} onChange={e => onChanges({ displayName: e.target.value ?? '' })} />
             </div>
             <div>
                 <Text fontSize={4} variant="white">Description</Text>
-                <textarea className="form-control" placeholder="description" value={dto.description} onChange={e => onChanges({ description: e.target.value ?? '' })} rows={6} />
+                <textarea className="form-control" placeholder="description" value={dto.description} onChange={e => onChanges({ description: e.target.value ?? '' })} rows={5} />
             </div>
             <div>
                 <Text fontSize={4} variant="white">Salary</Text>
@@ -78,7 +79,7 @@ export function CorpPositionEditor({ defaultCorpPosition, onSave }: CorpPosition
                         <input
                             type="checkbox"
                             checked={dto.canHire}
-                            onClick={() => onToggle('canHire')}
+                            onChange={() => onToggle('canHire')}
                             style={{ marginRight: 8 }}
                         />
                         <Text fontSize={5} variant="white">Can Hire</Text>
@@ -87,7 +88,7 @@ export function CorpPositionEditor({ defaultCorpPosition, onSave }: CorpPosition
                         <input
                             type="checkbox"
                             checked={dto.canFire}
-                            onClick={() => onToggle('canFire')}
+                            onChange={() => onToggle('canFire')}
                             style={{ marginRight: 8 }}
                         />
                         <Text fontSize={5} variant="white">Can Fire</Text>
@@ -96,7 +97,7 @@ export function CorpPositionEditor({ defaultCorpPosition, onSave }: CorpPosition
                         <input
                             type="checkbox"
                             checked={dto.canPromote}
-                            onClick={() => onToggle('canPromote')}
+                            onChange={() => onToggle('canPromote')}
                             style={{ marginRight: 8 }}
                         />
                         <Text fontSize={5} variant="white">Can Promote</Text>
@@ -105,10 +106,19 @@ export function CorpPositionEditor({ defaultCorpPosition, onSave }: CorpPosition
                         <input
                             type="checkbox"
                             checked={dto.canDemote}
-                            onClick={() => onToggle('canDemote')}
+                            onChange={() => onToggle('canDemote')}
                             style={{ marginRight: 8 }}
                         />
                         <Text fontSize={5} variant="white">Can Demote</Text>
+                    </label>
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={dto.canWorkAnywhere}
+                            onChange={() => onToggle('canWorkAnywhere')}
+                            style={{ marginRight: 8 }}
+                        />
+                        <Text fontSize={5} variant="white">Can Work Anywhere</Text>
                     </label>
                 </div>
             </div>
@@ -120,7 +130,7 @@ export function CorpPositionEditor({ defaultCorpPosition, onSave }: CorpPosition
                     </Button>
                 </div>
                 <div>
-                    <Button variant="success" size="sm">
+                    <Button variant="success" size="sm" onClick={onSaveChanges}>
                         <FaPencilAlt style={{ marginRight: 8 }} />
                         Save Changes
                     </Button>

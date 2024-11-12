@@ -1,28 +1,31 @@
-import { Button, Flex, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../common";
-import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
-import { CreateLinkEvent } from "../../../../api";
+import { Button, Flex, Text } from "../../../../common";
+import { FaCaretLeft } from "react-icons/fa";
+import { CreateLinkEvent, SendMessageComposer } from "../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
 import { useSessionInfo } from "../../../../hooks";
-import { useRoleplayPermissions } from "../../../../hooks/roleplay/use-roleplay-permissions";
 import { useCallback } from "react";
-import { useCorpPositionList } from "../../../../hooks/roleplay/use-corp-position-list";
 import { CorpPositionDTO, CorpPositionEditor } from "../corp-profile-edit/corp-position-editor/CorpPositionEditor";
 import { useCorpPositionData } from "../../../../hooks/roleplay/use-corp-position-data";
+import { CorpEditPositionComposer } from "@nitro-rp/renderer";
+import { useRoleplayPermissions } from "../../../../hooks/roleplay/use-roleplay-permissions";
 
 export function CorpProfileEditPosition() {
     const session = useSessionInfo();
     const { active, resourceID, onHide } = useCommunityLinkTracker('corps', 'profile-position-edit');
     const position = useCorpPositionData(resourceID);
-    const permissions = useRoleplayPermissions();
-    const positions = useCorpPositionList(resourceID);
+    const permissions = useRoleplayPermissions()
+
+    const canEditCorp = position?.id === session?.userInfo?.userId || permissions.canEditAllCorps;
 
     const onSaveChanges = useCallback((dto: CorpPositionDTO) => {
-        console.log('woo')
-    }, []);
+        if (!position || !canEditCorp) {
+            return;
+        }
+        SendMessageComposer(new CorpEditPositionComposer(position.corpID, position.id, position.orderID, dto.displayName, dto.description, dto.salary, dto.maleFigure, dto.femaleFigure, dto.canHire, dto.canFire, dto.canPromote, dto.canDemote, dto.canWorkAnywhere));
+    }, [position, canEditCorp]);
 
-
-    if (!active) {
+    if (!active || !position || !canEditCorp) {
         return null;
     }
 
