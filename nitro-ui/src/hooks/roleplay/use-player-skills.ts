@@ -23,6 +23,7 @@ export function usePlayerSkills(userID: number): PlayerSkillsData {
     });
 
     useEffect(() => {
+        if (!userID) return;
         SendMessageComposer(new PlayerQuerySkillsListComposer(userID));
     }, [userID]);
 

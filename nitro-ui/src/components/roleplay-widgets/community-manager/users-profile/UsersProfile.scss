@@ -1,0 +1,41 @@
+
+.skills-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.skill-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s;
+  color: black;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  i {
+    font-size: 2em;
+    color: #3498db;
+    margin-bottom: 10px;
+  }
+
+  .skill-name {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+
+  .skill-level {
+    font-size: 0.9em;
+    color: #666;
+  }
+}
