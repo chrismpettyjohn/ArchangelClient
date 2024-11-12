@@ -15,12 +15,12 @@ export function CorpProfileCreate() {
     const permissions = useRoleplayPermissions();
 
     const onSaveChanges = useCallback((dto: CorpDTO) => {
-        console.log(dto)
         SendMessageComposer(new CorpCreateComposer(dto.displayName, dto.description, '', dto.userID, dto.roomID, dto.sector, dto.industry));
     }, []);
 
     useMessageEvent(CorpInfoQueryEvent, () => {
-        onHide();
+        if (!active) return;
+        CreateLinkEvent('community/corps/list');
     });
 
     if (!active || !permissions.canEditAllCorps) {
