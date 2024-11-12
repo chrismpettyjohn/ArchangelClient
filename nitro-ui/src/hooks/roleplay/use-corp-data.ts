@@ -10,16 +10,18 @@ export function useCorpData(corpID: number): CorpInfoData {
         userName: '',
         userLook: '',
         roomID: 0,
+        roomName: '',
         displayName: '',
         description: '',
         badgeCode: '',
         employeeCount: 0,
         industry: CorpIndustry.PublicAid,
         sector: CorpSector.Government,
+        createdAt: '',
     });
 
     useEffect(() => {
-        if (corpID === 0) {
+        if (!corpID) {
             return;
         }
         CorpInfoQuery(corpID);
@@ -27,6 +29,7 @@ export function useCorpData(corpID: number): CorpInfoData {
 
     useMessageEvent<CorpInfoQueryEvent>(CorpInfoQueryEvent, event => {
         const eventData: CorpInfoData = event.getParser().data;
+        console.log(eventData.id, corpID)
         if (eventData.id !== corpID) {
             return;
         }

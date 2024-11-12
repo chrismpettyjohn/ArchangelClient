@@ -19,10 +19,8 @@ export function CorpProfileEdit() {
         console.log('woo')
     }, []);
 
-    console.log({ resourceID });
 
-
-    if (!active || !resourceID) {
+    if (!active) {
         return null;
     }
 

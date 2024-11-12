@@ -19,8 +19,6 @@ export function CorpProfile() {
     const employees = useCorpEmployeeList(resourceID);
     const permissions = useRoleplayPermissions();
 
-    console.log({ resourceID, corp })
-
     const canEditCorp = useMemo(() => {
         return session?.userInfo?.userId === corp.userID || permissions.canEditAllCorps
     }, [corp, permissions]);
@@ -60,27 +58,23 @@ export function CorpProfile() {
                                 <div>
                                     <Text bold variant="white">CEO</Text>
                                     <br />
-                                    <Text variant="white">11-11-2024</Text>
+                                    <Text variant="white">{corp.userName}</Text>
                                 </div>
                                 <div>
                                     <Text bold variant="white">Headquarters</Text>
                                     <br />
-                                    <Text variant="white">11-11-2024</Text>
+                                    <Text variant="white">{corp.roomName}</Text>
                                 </div>
                                 <div>
                                     <Text bold variant="white">Established</Text>
                                     <br />
-                                    <Text variant="white">11-11-2024</Text>
+                                    <Text variant="white">{corp.createdAt}</Text>
                                 </div>
                             </div>
                             <div className="profile-footer">
-                                <div className="level">
-                                    <strong>GDP</strong><br />
-                                    <Text fontSize={4}>$22,000,000</Text>
-                                </div>
-                                <div className="friends">
+                                <div className="friends w-100">
                                     <strong>EMPLOYEES</strong><br />
-                                    <Text fontSize={4}>{corp.employeeCount}</Text>
+                                    <Text fontSize={4}>{corp.employeeCount + 1}</Text>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +92,7 @@ export function CorpProfile() {
                                                 roleEmployees.map(employee => (
                                                     <li
                                                         key={`employee_${employee.userID}`}
-                                                        onClick={() => CreateLinkEvent(`community/users/profile/${corp.userID}`)}
+                                                        onClick={() => CreateLinkEvent(`community/users/profile/${employee.userID}`)}
                                                         style={{
                                                             display: "flex",
                                                             alignItems: "center",
