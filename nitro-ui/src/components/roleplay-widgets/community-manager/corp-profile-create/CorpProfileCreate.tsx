@@ -30,7 +30,7 @@ export function CorpProfileCreate() {
     return (
         <CommunityLayout tab="corps" onClose={onHide}>
             <Flex className="mb-4" fullWidth justifyContent="between">
-                <Button variant="secondary" onClick={() => CreateLinkEvent('community/corps/profile/list')}>
+                <Button variant="secondary" onClick={() => CreateLinkEvent('community/corps/list')}>
                     <FaCaretLeft style={{ marginRight: 8 }} />
                     Go back
                 </Button>

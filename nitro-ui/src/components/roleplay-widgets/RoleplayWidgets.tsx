@@ -11,6 +11,7 @@ import { CorpProfileEdit } from "./community-manager/corp-profile-edit/CorpProfi
 import { CorpProfileEditPosition } from "./community-manager/corp-profile-edit-position/CorpProfileEditPosition";
 import { UserProfileEditor } from "./community-manager/user-profile-editor/UserProfileEditor";
 import { CorpProfileCreate } from "./community-manager/corp-profile-create/CorpProfileCreate";
+import { CorpProfileCreatePosition } from "./community-manager/corp-profile-create-position/CorpProfileCreatePosition";
 
 export function RoleplayWidgets() {
     return (
@@ -23,6 +24,7 @@ export function RoleplayWidgets() {
             <CorpProfile />
             <CorpProfileCreate />
             <CorpProfileEdit />
+            <CorpProfileCreatePosition />
             <CorpProfileEditPosition />
             <UserList />
             <UserProfile />

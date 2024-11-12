@@ -32,7 +32,6 @@ export function useCorpData(corpID: number): CorpInfoData {
         if (eventData.id !== corpID) {
             return;
         }
-        alert('woo')
         setCorpData(eventData);
     });
 

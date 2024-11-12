@@ -1,5 +1,5 @@
 import { Button, Flex, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../common";
-import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
+import { FaCaretLeft, FaCaretRight, FaPlusSquare } from "react-icons/fa";
 import { CreateLinkEvent, SendMessageComposer } from "../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
@@ -42,6 +42,12 @@ export function CorpProfileEdit() {
                     <CorpEditor defaultCorp={corp} onSave={onSaveChanges} />
                 </NitroCardAccordionSetView>
                 <NitroCardAccordionSetView headerText="Positions">
+                    <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
+                        <Button variant="primary" onClick={() => CreateLinkEvent(`corps/profile-position-create/${corp.id}`)}>
+                            <FaPlusSquare style={{ marginRight: 8 }} />
+                            Add
+                        </Button>
+                    </div>
                     <ul style={{ listStyleType: "none", padding: 0, margin: 0, width: '100%' }}>
                         {positions.map((position) => (
                             <li
