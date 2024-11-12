@@ -34,7 +34,7 @@ export function RoomSelect({ roomID, onChange }: RoomSelectProps) {
             }
             {
                 rooms.map(room => (
-                    <option key={`room_${room.id}`} value={room.id}>
+                    <option key={`room_${room.id}`} value={room.id} selected={room.id === roomID}>
                         {room.name}
                     </option>
                 ))

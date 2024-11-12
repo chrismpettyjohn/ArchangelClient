@@ -34,6 +34,7 @@ export function CorpEditor({ defaultCorp, onSave }: CorpEditorProps) {
     const onChanges = useCallback((changes: Partial<CorpDTO>) => {
         setDTO(_ => ({ ..._, ...changes }))
     }, [setDTO]);
+
     const onSaveChanges = useCallback(() => onSave(dto), [dto, onSave]);
 
     return (
@@ -69,7 +70,7 @@ export function CorpEditor({ defaultCorp, onSave }: CorpEditorProps) {
 
             <div style={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
                 <div>
-                    <Button variant="success" size="sm">
+                    <Button variant="success" size="sm" onClick={onSaveChanges}>
                         Save Changes
                     </Button>
                 </div>

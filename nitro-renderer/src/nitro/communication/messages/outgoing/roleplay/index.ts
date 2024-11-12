@@ -27,6 +27,7 @@ export * from './corp/CorpCreatePositionComposer';
 export * from './corp/CorpDeclineOfferComposer';
 export * from './corp/CorpDeletePositionComposer';
 export * from './corp/CorpDemoteUserComposer';
+export * from './corp/CorpEditComposer';
 export * from './corp/CorpEditPositionComposer';
 export * from './corp/CorpEmployeeListComposer';
 export * from './corp/CorpFireUserComposer';

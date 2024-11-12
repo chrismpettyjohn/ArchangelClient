@@ -24,9 +24,9 @@ export function CorpSectorSelect({ sector, onChange }: CorpSectorSelectProps) {
                 !sector && <option selected disabled>Select a sector</option>
             }
             {
-                CORP_SECTOR_OPTIONS.map(sector => (
-                    <option key={`sector_${sector.key}`} value={sector.value}>
-                        {sector.value}
+                CORP_SECTOR_OPTIONS.map(_ => (
+                    <option key={`sector_${_.key}`} value={_.value} selected={_.value === sector}>
+                        {_.value}
                     </option>
                 ))
             }

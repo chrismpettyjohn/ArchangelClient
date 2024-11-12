@@ -24,9 +24,9 @@ export function CorpIndustrySelect({ industry, onChange }: CorpIndustrySelectPro
                 !industry && <option selected disabled>Select an industry</option>
             }
             {
-                CORP_INDUSTRY_OPTIONS.map(industry => (
-                    <option key={`industry_${industry.key}`} value={industry.value}>
-                        {industry.value}
+                CORP_INDUSTRY_OPTIONS.map(_ => (
+                    <option key={`industry_${_.key}`} value={_.value} selected={_.value === industry}>
+                        {_.value}
                     </option>
                 ))
             }

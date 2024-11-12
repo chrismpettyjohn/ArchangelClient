@@ -1,6 +1,6 @@
 import { Button, Flex, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../common";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
-import { CreateLinkEvent } from "../../../../api";
+import { CreateLinkEvent, SendMessageComposer } from "../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
 import { useSessionInfo } from "../../../../hooks";
@@ -9,6 +9,7 @@ import { useCallback } from "react";
 import { useCorpData } from "../../../../hooks/roleplay/use-corp-data";
 import { CorpDTO, CorpEditor } from "./corp-editor/CorpEditor";
 import { useCorpPositionList } from "../../../../hooks/roleplay/use-corp-position-list";
+import { CorpEditComposer, CorpEditPositionComposer } from "@nitro-rp/renderer";
 
 export function CorpProfileEdit() {
     const session = useSessionInfo();
@@ -17,19 +18,20 @@ export function CorpProfileEdit() {
     const permissions = useRoleplayPermissions();
     const positions = useCorpPositionList(resourceID);
 
+    const canEditCorp = corp.id === session?.userInfo?.userId || permissions.canEditAllCorps;
+
     const onSaveChanges = useCallback((dto: CorpDTO) => {
-        console.log('woo')
+        SendMessageComposer(new CorpEditComposer(resourceID, dto.displayName, dto.description, dto.userID, dto.roomID, dto.sector, dto.industry))
     }, []);
 
-
-    if (!active) {
+    if (!active || !canEditCorp) {
         return null;
     }
 
     return (
         <CommunityLayout tab="corps" onClose={onHide}>
             <Flex className="mb-4" fullWidth justifyContent="between">
-                <Button variant="secondary" onClick={() => CreateLinkEvent('community/corps/list')}>
+                <Button variant="secondary" onClick={() => CreateLinkEvent(`community/corps/profile/${resourceID}`)}>
                     <FaCaretLeft style={{ marginRight: 8 }} />
                     Go back
                 </Button>

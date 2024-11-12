@@ -659,6 +659,8 @@ export class OutgoingHeader {
 
     public static ROOM_QUERY_LIST_COMPOSER = 8098;
 
+    public static CORP_EDIT_COMPOSER = 8099;
+
 
 }
 
