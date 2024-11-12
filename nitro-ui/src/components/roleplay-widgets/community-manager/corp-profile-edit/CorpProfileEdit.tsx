@@ -1,5 +1,5 @@
-import { Button, Flex, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../common";
-import { FaCaretLeft, FaCaretRight, FaPlusSquare } from "react-icons/fa";
+import { Button, Flex, LayoutAvatarImageView, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../common";
+import { FaCaretLeft, FaCaretRight, FaFire, FaPlusSquare, FaTimes } from "react-icons/fa";
 import { CreateLinkEvent, SendMessageComposer } from "../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
@@ -9,7 +9,8 @@ import { useCallback } from "react";
 import { useCorpData } from "../../../../hooks/roleplay/use-corp-data";
 import { CorpDTO, CorpEditor } from "./corp-editor/CorpEditor";
 import { useCorpPositionList } from "../../../../hooks/roleplay/use-corp-position-list";
-import { CorpDeleteComposer, CorpEditComposer } from "@nitro-rp/renderer";
+import { CorpDeleteComposer, CorpEditComposer, CorpFireUserComposer } from "@nitro-rp/renderer";
+import { useCorpEmployeeList } from "../../../../hooks/roleplay/use-corp-employee-list";
 
 export function CorpProfileEdit() {
     const session = useSessionInfo();
@@ -17,6 +18,7 @@ export function CorpProfileEdit() {
     const corp = useCorpData(resourceID);
     const permissions = useRoleplayPermissions();
     const positions = useCorpPositionList(resourceID);
+    const employees = useCorpEmployeeList(resourceID);
 
     const canEditCorp = corp.id === session?.userInfo?.userId || permissions.canEditAllCorps;
 
@@ -28,6 +30,10 @@ export function CorpProfileEdit() {
         SendMessageComposer(new CorpDeleteComposer(resourceID))
         CreateLinkEvent('community/corps/list');
     }, [resourceID]);
+
+    const onFireUser = useCallback((username: string) => {
+        SendMessageComposer(new CorpFireUserComposer(username));
+    }, []);
 
     if (!active || !canEditCorp) {
         return null;
@@ -88,6 +94,39 @@ export function CorpProfileEdit() {
                     {
                         !positions.length && (
                             <p>No positions found</p>
+                        )
+                    }
+                </NitroCardAccordionSetView>
+                <NitroCardAccordionSetView headerText="Employees">
+                    <ul style={{ listStyleType: "none", padding: 0, margin: 0, width: '100%' }}>
+                        {employees.map((employee) => (
+                            <li
+                                key={`employees_${employee.userID}`}
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    padding: "10px",
+                                    borderBottom: "1px solid #ccc",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                <LayoutAvatarImageView figure={employee.figure} style={{ width: "45px", height: "45px", marginRight: "10px", }} />
+                                <div style={{ flexGrow: 1 }}>
+                                    <div style={{ fontWeight: "bold" }}>{employee.username}</div>
+                                    <div>{employee.corpPositionName}</div>
+                                </div>
+                                <div style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
+                                    <Button variant="danger" onClick={() => onFireUser(employee.username)}>
+                                        <FaTimes style={{ marginRight: 8 }} />
+                                        Fire
+                                    </Button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                    {
+                        !employees.length && (
+                            <p>No employees found</p>
                         )
                     }
                 </NitroCardAccordionSetView>
