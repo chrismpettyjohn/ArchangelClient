@@ -1,7 +1,7 @@
 import { FaCaretRight } from "react-icons/fa";
-import { CreateLinkEvent } from "../../../../api";
+import { CreateLinkEvent } from "../../../../../api";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
-import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
+import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 
 export function GangList() {
     const gangs = [];

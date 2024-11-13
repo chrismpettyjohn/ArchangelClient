@@ -1,16 +1,16 @@
-import { Button, Flex, LayoutAvatarImageView, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../common";
-import { FaCaretLeft, FaCaretRight, FaFire, FaPlusSquare, FaTimes } from "react-icons/fa";
-import { CreateLinkEvent, SendMessageComposer } from "../../../../api";
-import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
+import { Button, Flex, LayoutAvatarImageView, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../../common";
+import { FaCaretLeft, FaCaretRight, FaPlusSquare, FaTimes } from "react-icons/fa";
+import { CreateLinkEvent, SendMessageComposer } from "../../../../../api";
+import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
-import { useSessionInfo } from "../../../../hooks";
-import { useRoleplayPermissions } from "../../../../hooks/roleplay/use-roleplay-permissions";
+import { useSessionInfo } from "../../../../../hooks";
+import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-roleplay-permissions";
 import { useCallback } from "react";
-import { useCorpData } from "../../../../hooks/roleplay/use-corp-data";
+import { useCorpData } from "../../../../../hooks/roleplay/use-corp-data";
 import { CorpDTO, CorpEditor } from "./corp-editor/CorpEditor";
-import { useCorpPositionList } from "../../../../hooks/roleplay/use-corp-position-list";
+import { useCorpPositionList } from "../../../../../hooks/roleplay/use-corp-position-list";
 import { CorpDeleteComposer, CorpEditComposer, CorpFireUserComposer } from "@nitro-rp/renderer";
-import { useCorpEmployeeList } from "../../../../hooks/roleplay/use-corp-employee-list";
+import { useCorpEmployeeList } from "../../../../../hooks/roleplay/use-corp-employee-list";
 
 export function CorpProfileEdit() {
     const session = useSessionInfo();

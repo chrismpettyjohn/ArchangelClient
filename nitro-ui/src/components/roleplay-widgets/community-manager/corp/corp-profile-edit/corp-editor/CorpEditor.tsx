@@ -1,11 +1,10 @@
 import { CorpIndustry, CorpInfoData, CorpSector } from "@nitro-rp/renderer"
 import { useCallback, useState } from "react";
-import { Button, Text } from "../../../../../common";
-import Select from 'react-select';
-import { CorpIndustrySelect } from "../../../../roleplay/CorpIndustrySelect";
-import { CorpSectorSelect } from "../../../../roleplay/CorpSectorSelect";
-import { RoomSelect } from "../../../../roleplay/RoomSelect";
-import { UserSelect } from "../../../../roleplay/UserSelect";
+import { Button, Text } from "../../../../../../common";
+import { CorpIndustrySelect } from "../../../../../roleplay/CorpIndustrySelect";
+import { CorpSectorSelect } from "../../../../../roleplay/CorpSectorSelect";
+import { RoomSelect } from "../../../../../roleplay/RoomSelect";
+import { UserSelect } from "../../../../../roleplay/UserSelect";
 
 export interface CorpDTO {
     displayName: string;

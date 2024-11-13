@@ -1,12 +1,12 @@
-import { Button, Flex, Text } from "../../../../common";
+import { Button, Flex, Text } from "../../../../../common";
 import { FaCaretLeft } from "react-icons/fa";
-import { CreateLinkEvent, SendMessageComposer } from "../../../../api";
-import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
+import { CreateLinkEvent, SendMessageComposer } from "../../../../../api";
+import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
 import { useCallback } from "react";
 import { CorpPositionDTO, CorpPositionEditor } from "../corp-profile-edit/corp-position-editor/CorpPositionEditor";
 import { CorpCreatePositionComposer } from "@nitro-rp/renderer";
-import { useRoleplayPermissions } from "../../../../hooks/roleplay/use-roleplay-permissions";
+import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-roleplay-permissions";
 
 export function CorpProfileCreatePosition() {
     const { active, resourceID, onHide } = useCommunityLinkTracker('corps', 'profile-position-create');

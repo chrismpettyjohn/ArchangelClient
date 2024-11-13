@@ -1,10 +1,10 @@
 import { FaCaretRight, FaPlusSquare } from "react-icons/fa";
-import { CreateLinkEvent } from "../../../../api";
-import { useCorpList } from "../../../../hooks/roleplay/use-corp-list";
+import { CreateLinkEvent } from "../../../../../api";
+import { useCorpList } from "../../../../../hooks/roleplay/use-corp-list";
 import { ChangeEvent, useCallback, useMemo, useState } from "react";
-import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
-import { Button } from "../../../../common";
-import { useRoleplayPermissions } from "../../../../hooks/roleplay/use-roleplay-permissions";
+import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
+import { Button } from "../../../../../common";
+import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-roleplay-permissions";
 
 export function CorpList() {
     const corps = useCorpList()

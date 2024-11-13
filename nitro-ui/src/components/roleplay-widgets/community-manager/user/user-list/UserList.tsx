@@ -1,9 +1,9 @@
 import { FaCaretRight } from "react-icons/fa";
-import { CreateLinkEvent } from "../../../../api";
-import { ChangeEvent, useCallback, useMemo, useState } from "react";
-import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
-import { usePlayerList } from "../../../../hooks/roleplay/use-player-list";
-import { LayoutAvatarImageView } from "../../../../common";
+import { CreateLinkEvent } from "../../../../../api";
+import { ChangeEvent, useCallback, useState } from "react";
+import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
+import { usePlayerList } from "../../../../../hooks/roleplay/use-player-list";
+import { LayoutAvatarImageView } from "../../../../../common";
 
 export function UserList() {
     const [page, setPage] = useState(1);

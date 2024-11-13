@@ -1,14 +1,14 @@
-import { Button, Flex, Text } from "../../../../common";
+import { Button, Flex, Text } from "../../../../../common";
 import { FaCaretLeft } from "react-icons/fa";
-import { CreateLinkEvent, SendMessageComposer } from "../../../../api";
-import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
+import { CreateLinkEvent, SendMessageComposer } from "../../../../../api";
+import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
-import { useSessionInfo } from "../../../../hooks";
+import { useSessionInfo } from "../../../../../hooks";
 import { useCallback } from "react";
 import { CorpPositionDTO, CorpPositionEditor } from "../corp-profile-edit/corp-position-editor/CorpPositionEditor";
-import { useCorpPositionData } from "../../../../hooks/roleplay/use-corp-position-data";
+import { useCorpPositionData } from "../../../../../hooks/roleplay/use-corp-position-data";
 import { CorpEditPositionComposer } from "@nitro-rp/renderer";
-import { useRoleplayPermissions } from "../../../../hooks/roleplay/use-roleplay-permissions";
+import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-roleplay-permissions";
 
 export function CorpProfileEditPosition() {
     const session = useSessionInfo();

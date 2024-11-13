@@ -1,6 +1,6 @@
 import { CorpPositionInfoData } from "@nitro-rp/renderer"
 import { useCallback, useState } from "react";
-import { Button, Text } from "../../../../../common";
+import { Button, Text } from "../../../../../../common";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 
 export interface CorpPositionDTO {

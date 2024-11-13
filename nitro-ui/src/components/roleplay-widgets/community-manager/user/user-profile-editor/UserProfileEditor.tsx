@@ -1,10 +1,10 @@
-import { Button, Flex } from "../../../../common";
+import { Button, Flex } from "../../../../../common";
 import { FaCaretLeft, FaPencilAlt } from "react-icons/fa";
-import { CreateLinkEvent } from "../../../../api";
-import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
+import { CreateLinkEvent } from "../../../../../api";
+import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
-import { useRoleplayStats } from "../../../../hooks/roleplay/use-rp-stats";
-import { useSessionInfo } from "../../../../hooks";
+import { useRoleplayStats } from "../../../../../hooks/roleplay/use-rp-stats";
+import { useSessionInfo } from "../../../../../hooks";
 
 export function UserProfileEditor() {
     const session = useSessionInfo();

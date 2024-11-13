@@ -1,10 +1,10 @@
-import { Button, Flex, Text } from "../../../../common";
+import { Button, Flex, Text } from "../../../../../common";
 import { FaCaretLeft } from "react-icons/fa";
-import { CreateLinkEvent, SendMessageComposer } from "../../../../api";
-import { CommunityLayout, useCommunityLinkTracker } from "../CommunityLayout";
+import { CreateLinkEvent, SendMessageComposer } from "../../../../../api";
+import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
-import { useMessageEvent } from "../../../../hooks";
-import { useRoleplayPermissions } from "../../../../hooks/roleplay/use-roleplay-permissions";
+import { useMessageEvent } from "../../../../../hooks";
+import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-roleplay-permissions";
 import { useCallback } from "react";
 import { CorpDTO, CorpEditor } from "../corp-profile-edit/corp-editor/CorpEditor";
 import { CorpCreateComposer } from "@nitro-rp/renderer/src/nitro/communication/messages/outgoing/roleplay/corp/CorpCreateComposer";
