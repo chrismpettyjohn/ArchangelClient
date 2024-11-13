@@ -54,7 +54,6 @@ export * from './gang/GangCreateComposer';
 export * from './gang/GangDeclineInviteComposer';
 export * from './gang/GangDeleteComposer';
 export * from './gang/GangDisbandComposer';
-export * from './gang/GangInfoQueryComposer';
 export * from './gang/GangInviteAcceptComposer';
 export * from './gang/GangInviteUserEventComposer';
 export * from './gang/GangLeaveComposer';

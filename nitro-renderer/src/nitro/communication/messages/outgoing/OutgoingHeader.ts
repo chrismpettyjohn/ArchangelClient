@@ -499,8 +499,6 @@ export class OutgoingHeader {
 
     public static CORP_INFO_QUERY = 8016;
 
-    public static GANG_INFO_QUERY = 8017;
-
     public static CORP_POSITION_INFO_QUERY = 8018;
 
     public static TIME_OF_DAY_QUERY = 8019;
