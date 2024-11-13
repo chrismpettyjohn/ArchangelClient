@@ -669,6 +669,16 @@ export class OutgoingHeader {
 
     public static GANG_QUERY_MANY_COMPOSER = 8104;
 
+    public static GANG_ROLE_CREATE_COMPOSER = 8105;
+
+    public static GANG_ROLE_UPDATE_COMPOSER = 8106;
+
+    public static GANG_ROLE_DELETE_COMPOSER = 8107;
+
+    public static GANG_ROLE_QUERY_LIST_COMPOSER = 8108;
+
+    public static GANG_ROLE_QUERY_ONE_COMPOSER = 8109;
+
 
 }
 

@@ -25,6 +25,8 @@ export * from './device/DeviceOpenEventParser';
 export * from './game/TimeOfDayEventParser';
 export * from './gang/GangQueryListEventParser';
 export * from './gang/GangQueryOneEventParser';
+export * from './gang/GangRoleQueryOneEventParser';
+export * from './gang/GangRoleQueryOneEventParser';
 export * from './gang/TurfCaptureTimeLeftEventParser';
 export * from './gang/TurfCaptureTimeLeftEventParser';
 export * from './items/HotBarListItemsEventParser';
