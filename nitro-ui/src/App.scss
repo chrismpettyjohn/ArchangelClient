@@ -97,5 +97,9 @@ $nitro-calendar-height: 400px;
     height: 100%;
 }
 
+* {
+  font-synthesis: none !important;
+}
+
 @import './common';
 @import './components';
