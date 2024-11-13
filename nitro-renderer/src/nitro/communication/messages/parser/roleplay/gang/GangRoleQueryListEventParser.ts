@@ -2,10 +2,12 @@ import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
 
 export interface GangRoleData {
     id: number;
+    gangId: number;
     orderId: number;
     displayName: string;
     canInvite: boolean;
     canKick: boolean;
+    memberCount: number;
 }
 
 export class GangRoleQueryListEventParser implements IMessageParser {
@@ -22,13 +24,15 @@ export class GangRoleQueryListEventParser implements IMessageParser {
         const gangCount = wrapper.readInt();
 
         for (let i = 0; i < gangCount; i++) {
-            const [id, orderId, displayName, canInvite, canKick] = wrapper.readString().split(';');
+            const [id, orderId, gangId, displayName, canInvite, canKick, memberCount] = wrapper.readString().split(';');
             this._roles.push({
                 id: Number(id),
+                gangId: Number(gangId),
                 orderId: Number(orderId),
                 displayName,
                 canInvite: Boolean(canInvite),
                 canKick: Boolean(canKick),
+                memberCount: Number(memberCount),
             })
         }
 

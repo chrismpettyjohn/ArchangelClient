@@ -1,7 +1,7 @@
 import { IMessageComposer } from "../../../../../../api";
 
-export class GangRoleQueryListComposer implements IMessageComposer<ConstructorParameters<typeof GangRoleQueryListComposer>> {
-    private _data: ConstructorParameters<typeof GangRoleQueryListComposer>;
+export class GangMemberQueryListComposer implements IMessageComposer<ConstructorParameters<typeof GangMemberQueryListComposer>> {
+    private _data: ConstructorParameters<typeof GangMemberQueryListComposer>;
 
     constructor(gangId: number) {
         this._data = [gangId]

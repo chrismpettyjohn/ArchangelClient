@@ -665,20 +665,22 @@ export class OutgoingHeader {
 
     public static GANG_DELETE_COMPOSER = 8102;
 
-    public static GANG_QUERY_ONE_COMPOSER = 8103;
+    public static GANG_ROLE_CREATE_COMPOSER = 8103;
 
-    public static GANG_QUERY_MANY_COMPOSER = 8104;
+    public static GANG_ROLE_UPDATE_COMPOSER = 8104;
 
-    public static GANG_ROLE_CREATE_COMPOSER = 8105;
+    public static GANG_ROLE_DELETE_COMPOSER = 8105;
 
-    public static GANG_ROLE_UPDATE_COMPOSER = 8106;
+    public static GANG_ROLE_QUERY_LIST_COMPOSER = 8106;
 
-    public static GANG_ROLE_DELETE_COMPOSER = 8107;
+    public static GANG_ROLE_QUERY_ONE_COMPOSER = 8107;
 
-    public static GANG_ROLE_QUERY_LIST_COMPOSER = 8108;
+    public static GANG_MEMBER_QUERY_LIST_COMPOSER = 8108;
 
-    public static GANG_ROLE_QUERY_ONE_COMPOSER = 8109;
+    public static GANG_MEMBER_KICK_COMPOSER = 8109;
 
+    public static GANG_QUERY_ONE_COMPOSER = 8110;
+
+    public static GANG_QUERY_LIST_COMPOSER = 8111;
 
 }
-

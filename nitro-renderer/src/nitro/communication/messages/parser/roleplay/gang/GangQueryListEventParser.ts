@@ -7,6 +7,7 @@ export interface GangInfoData {
     badgeCode: string;
     userID: number;
     roomID: number;
+    memberCount: number;
 }
 
 export class GangQueryListEventParser implements IMessageParser {
@@ -23,7 +24,7 @@ export class GangQueryListEventParser implements IMessageParser {
         const gangCount = wrapper.readInt();
 
         for (let i = 0; i < gangCount; i++) {
-            const [id, displayName, description, badgeCode, userId, roomId] = wrapper.readString().split(';');
+            const [id, displayName, description, badgeCode, userId, roomId, memberCount] = wrapper.readString().split(';');
             this._gangs.push({
                 id: Number(id),
                 displayName,
@@ -31,6 +32,7 @@ export class GangQueryListEventParser implements IMessageParser {
                 badgeCode,
                 userID: Number(userId),
                 roomID: Number(roomId),
+                memberCount: Number(memberCount),
             })
         }
 

@@ -7,6 +7,7 @@ import { UserSelect } from "../../../../../roleplay/UserSelect";
 export interface GangDTO {
     displayName: string;
     description: string;
+    badgeCode: string;
     roomID: number;
     userID: number;
 }
@@ -20,6 +21,7 @@ export function GangEditor({ defaultGang, onSave }: GangEditorProps) {
     const [dto, setDTO] = useState<GangDTO>({
         displayName: defaultGang?.displayName ?? '',
         description: defaultGang?.description ?? '',
+        badgeCode: defaultGang?.badgeCode ?? '',
         roomID: defaultGang?.roomID ?? -1,
         userID: defaultGang?.userID ?? -1,
     });

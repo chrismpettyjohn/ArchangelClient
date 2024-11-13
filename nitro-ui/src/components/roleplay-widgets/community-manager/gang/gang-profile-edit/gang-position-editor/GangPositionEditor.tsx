@@ -1,39 +1,26 @@
 import { useCallback, useState } from "react";
 import { Button, Text } from "../../../../../../common";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import { GangRoleData } from "@nitro-rp/renderer";
 
 export interface GangPositionDTO {
     orderID: number;
     displayName: string;
-    description: string;
-    salary: number;
-    maleFigure: string;
-    femaleFigure: string;
-    canPromote: boolean;
-    canDemote: boolean;
-    canHire: boolean;
-    canFire: boolean;
-    canWorkAnywhere: boolean;
+    canInvite: boolean;
+    canKick: boolean;
 }
 
 export interface GangPositionEditorProps {
-    defaultGangPosition?: GangPositionInfoData;
+    defaultGangPosition?: GangRoleData;
     onSave(dto: GangPositionDTO): void;
 }
 
 export function GangPositionEditor({ defaultGangPosition, onSave }: GangPositionEditorProps) {
     const [dto, setDTO] = useState<GangPositionDTO>({
-        orderID: defaultGangPosition?.orderID ?? -1,
+        orderID: defaultGangPosition?.orderId ?? -1,
         displayName: defaultGangPosition?.displayName ?? '',
-        description: defaultGangPosition?.description ?? '',
-        salary: defaultGangPosition?.salary ?? -1,
-        maleFigure: defaultGangPosition?.maleUniform ?? '',
-        femaleFigure: defaultGangPosition?.femaleUniform ?? '',
-        canHire: defaultGangPosition?.canHire ?? false,
-        canFire: defaultGangPosition?.canFire ?? false,
-        canPromote: defaultGangPosition?.canPromote ?? false,
-        canDemote: defaultGangPosition?.canDemote ?? false,
-        canWorkAnywhere: defaultGangPosition?.canWorkAnywhere ?? false,
+        canInvite: defaultGangPosition?.canInvite ?? false,
+        canKick: defaultGangPosition?.canKick ?? false,
     });
 
     const onChanges = useCallback((changes: Partial<GangPositionDTO>) => {
@@ -53,70 +40,25 @@ export function GangPositionEditor({ defaultGangPosition, onSave }: GangPosition
                 <input className="form-control" placeholder="display name" value={dto.displayName} onChange={e => onChanges({ displayName: e.target.value ?? '' })} />
             </div>
             <div>
-                <Text fontSize={4} variant="white">Description</Text>
-                <textarea className="form-control" placeholder="description" value={dto.description} onChange={e => onChanges({ description: e.target.value ?? '' })} rows={5} />
-            </div>
-            <div>
-                <Text fontSize={4} variant="white">Salary</Text>
-                <input className="form-control" placeholder="20" type="number" value={dto.salary} onChange={e => onChanges({ salary: Number(e.target.value) ?? 0 })} />
-            </div>
-            <div style={{ display: 'flex', gap: 14 }}>
-                <div className="w-100">
-                    <Text fontSize={4} variant="white">Male Uniform</Text>
-                    <input className="form-control" placeholder="male uniform" type="number" value={dto.maleFigure} onChange={e => onChanges({ maleFigure: e.target.value ?? '' })} />
-                </div>
-                <div className="w-100">
-                    <Text fontSize={4} variant="white">Female Uniform</Text>
-                    <input className="form-control" placeholder="female uniform" type="number" value={dto.femaleFigure} onChange={e => onChanges({ femaleFigure: e.target.value ?? '' })} />
-                </div>
-            </div>
-            <div>
                 <Text fontSize={4} variant="white">Permissions</Text>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px' }}>
                     <label>
                         <input
                             type="checkbox"
-                            checked={dto.canHire}
-                            onChange={() => onToggle('canHire')}
+                            checked={dto.canInvite}
+                            onChange={() => onToggle('canInvite')}
                             style={{ marginRight: 8 }}
                         />
-                        <Text fontSize={5} variant="white">Can Hire</Text>
+                        <Text fontSize={5} variant="white">Can Invite</Text>
                     </label>
                     <label>
                         <input
                             type="checkbox"
-                            checked={dto.canFire}
-                            onChange={() => onToggle('canFire')}
+                            checked={dto.canKick}
+                            onChange={() => onToggle('canKick')}
                             style={{ marginRight: 8 }}
                         />
-                        <Text fontSize={5} variant="white">Can Fire</Text>
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={dto.canPromote}
-                            onChange={() => onToggle('canPromote')}
-                            style={{ marginRight: 8 }}
-                        />
-                        <Text fontSize={5} variant="white">Can Promote</Text>
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={dto.canDemote}
-                            onChange={() => onToggle('canDemote')}
-                            style={{ marginRight: 8 }}
-                        />
-                        <Text fontSize={5} variant="white">Can Demote</Text>
-                    </label>
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={dto.canWorkAnywhere}
-                            onChange={() => onToggle('canWorkAnywhere')}
-                            style={{ marginRight: 8 }}
-                        />
-                        <Text fontSize={5} variant="white">Can Work Anywhere</Text>
+                        <Text fontSize={5} variant="white">Can Kick</Text>
                     </label>
                 </div>
             </div>

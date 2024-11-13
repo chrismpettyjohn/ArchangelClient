@@ -8,6 +8,7 @@ export class GangQueryOneEventParser implements IMessageParser {
     private _badgeCode: string;
     private _userID: number;
     private _roomID: number;
+    private _memberCount: number;
 
     public flush(): boolean {
         this._id = 0;
@@ -16,6 +17,7 @@ export class GangQueryOneEventParser implements IMessageParser {
         this._badgeCode = '';
         this._userID = 0;
         this._roomID = 0;
+        this._memberCount = 0;
         return true;
     }
 
@@ -28,6 +30,7 @@ export class GangQueryOneEventParser implements IMessageParser {
         this._badgeCode = wrapper.readString();
         this._userID = wrapper.readInt();
         this._roomID = wrapper.readInt();
+        this._memberCount = wrapper.readInt();
 
         return true;
     }
@@ -40,6 +43,7 @@ export class GangQueryOneEventParser implements IMessageParser {
             displayName: this._displayName,
             description: this._description,
             badgeCode: this._badgeCode,
+            memberCount: this._memberCount,
         }
     }
 }

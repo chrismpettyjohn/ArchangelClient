@@ -12,6 +12,7 @@ export function useGangData(gangID: number): GangInfoData {
         badgeCode: '',
         userID: -1,
         roomID: -1,
+        memberCount: -1,
     });
 
     useEffect(() => {
