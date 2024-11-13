@@ -26,7 +26,6 @@ export * from './taxi/TaxiFeeQueryEvent';
 export * from './gang/TimeOfDayEvent';
 export * from './gang/TurfCaptureTimeLeftEvent';
 export * from './gang/TurfContextMenuInfoEvent';
-export * from './gang/GangInfoQueryEvent';
 export * from './items/HotBarListItemsEvent';
 export * from './license/LicenseAgencyListEvent';
 export * from './license/LicenseOpenComputerEvent';

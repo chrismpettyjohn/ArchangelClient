@@ -49,7 +49,7 @@ export function GangProfile() {
                             <div className="avatar-placeholder" style={{ display: 'flex', height: 60, justifyContent: 'center', alignItems: 'center' }}>
                                 <img src="https://i.imgur.com/5Id8akw.png" />
                             </div>
-                            <p>{gang.name}</p>
+                            <p>{gang.displayName}</p>
                         </div>
 
                         <div className="profile-details">

@@ -472,7 +472,6 @@ export class IncomingHeader {
     // Roleplay
     public static USER_ROLEPLAY_STATS_CHANGE = 9001;
     public static CORP_INFO_QUERY = 9002;
-    public static GANG_INFO_QUERY = 9003;
     public static CORP_POSITION_INFO_QUERY = 9004;
     public static USER_OPEN_WARDROBE = 9005;
     public static TIME_OF_DAY_QUERY = 9006;
@@ -519,4 +518,6 @@ export class IncomingHeader {
     public static PLAYER_QUERY_LIST_EVENT = 9047;
     public static PLAYER_QUERY_SKILLS_LIST_EVENT = 9048;
     public static ROOM_QUERY_LIST_EVENT = 9049;
+    public static GANG_QUERY_LIST_EVENT = 9050;
+    public static GANG_QUERY_ONE_EVENT = 9051;
 }

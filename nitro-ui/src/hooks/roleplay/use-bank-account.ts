@@ -1,4 +1,4 @@
-import { BankAccountData, BankAccountInfoEvent, GangInfoData, GangInfoQueryEvent } from "@nitro-rp/renderer";
+import { BankAccountData, BankAccountInfoEvent } from "@nitro-rp/renderer";
 import { useEffect, useState } from "react";
 import { useMessageEvent } from "../events";
 import { BankAccountQuery } from "../../api/roleplay/bank/BankAccountQuery";

@@ -661,6 +661,16 @@ export class OutgoingHeader {
 
     public static CORP_EDIT_COMPOSER = 8099;
 
+    public static GANG_CREATE_COMPOSER = 8100;
+
+    public static GANG_UPDATE_COMPOSER = 8101;
+
+    public static GANG_DELETE_COMPOSER = 8102;
+
+    public static GANG_QUERY_ONE_COMPOSER = 8103;
+
+    public static GANG_QUERY_MANY_COMPOSER = 8104;
+
 
 }
 

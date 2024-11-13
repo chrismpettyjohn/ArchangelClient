@@ -1,7 +1,6 @@
-import { GangInfoQueryComposer } from '@nitro-rp/renderer';
+import { GangQueryOneComposer } from '@nitro-rp/renderer';
 import { SendMessageComposer } from '../../';
 
-export function GangInfoQuery(gangID: number): void
-{
-    SendMessageComposer(new GangInfoQueryComposer(gangID));
+export function GangQueryOne(gangID: number): void {
+    SendMessageComposer(new GangQueryOneComposer(gangID));
 }

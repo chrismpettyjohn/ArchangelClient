@@ -5,5 +5,5 @@ import { GangBadgeProps } from "./GangBadge.types";
 
 export function GangBadge({ gangID }: GangBadgeProps) {
     const gangData = useGangData(gangID);
-    return <LayoutBadgeImageView badgeCode={gangData.badgeCode} showInfo={true} isGroup customTitle={gangData.name} />
+    return <LayoutBadgeImageView badgeCode={gangData.badgeCode} showInfo={true} isGroup customTitle={gangData.displayName} />
 }

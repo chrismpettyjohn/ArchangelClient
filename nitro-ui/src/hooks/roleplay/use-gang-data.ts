@@ -1,24 +1,25 @@
-import { GangInfoData, GangInfoQueryEvent } from "@nitro-rp/renderer";
+import { GangInfoData } from "@nitro-rp/renderer";
 import { useEffect, useState } from "react";
 import { useMessageEvent } from "../events";
-import { GangInfoQuery } from "../../api/roleplay/gang/GangInfoQuery";
+import { GangQueryOne } from "../../api/roleplay/gang/GangInfoQuery";
+import { GangQueryOneEvent } from "@nitro-rp/renderer/src/nitro/communication/messages/incoming/roleplay/gang/GangQueryOneEvent";
 
-export function useGangData(gangID: number): GangInfoData  {
+export function useGangData(gangID: number): GangInfoData {
     const [gangData, setGangData] = useState<GangInfoData>({
-        id: 0,
-        userID: 0,
-        roomID: 0,
-        name: '',
+        id: -1,
+        displayName: '',
         description: '',
         badgeCode: '',
+        userID: -1,
+        roomID: -1,
     });
 
     useEffect(() => {
-        GangInfoQuery(gangID);
+        GangQueryOne(gangID);
     }, [gangID]);
 
-    useMessageEvent<GangInfoQueryEvent>(GangInfoQueryEvent, event => {
-        const eventData: GangInfoData = event.getParser().data;
+    useMessageEvent<GangQueryOneEvent>(GangQueryOneEvent, event => {
+        const eventData: GangInfoData = event.getParser().gang;
         if (eventData.id !== gangID) {
             return;
         }
