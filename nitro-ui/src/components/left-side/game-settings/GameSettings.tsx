@@ -132,7 +132,6 @@ export function GameSettings() {
     const [section, setSection] = useState<SettingTop>(settingOptions[0]);
     const [panel, setPanel] = useState<SettingPanel>(settingOptions[0].type === 'parent' ? settingOptions[0].children[0] as any : settingOptions[0])
 
-
     function onChangeSection(section: SettingTop) {
         setSection(section);
         setPanel(section.type === 'parent' ? section.children[0] as any : section);
@@ -173,37 +172,39 @@ export function GameSettings() {
 
     return (
         <ChatWidgetOverlay visible={visible}>
-            <div id="habbo-roleplay-menu">
-                <div className="menu-tabs">
-                    {settingOptions.map((option, i) => (
-                        <div
-                            className={`tab ${section.value === option.value ? "active" : ""}`}
-                            key={`settings_sect_${i}`}
-                            onClick={() => onChangeSection(option)}
-                        >
-                            {option.label}
-                        </div>
-                    ))}
-                </div>
-                <div className="menu-content">
-                    {
-                        section.type === 'parent' && (
-                            <div className="menu-sidebar">
-                                {section.children?.map((child, i) => {
-                                    if (child.type === 'divider') {
-                                        return <hr key={`settings_opt_${i}`} style={{ background: 'white', height: 2 }} />
-                                    }
-                                    return (
-                                        <div className={`menu-item ${panel === child ? 'active' : ''}`} key={`settings_opt_${i}`} onClick={() => setPanel(child)}>
-                                            {child.label}
-                                        </div>
-                                    )
-                                })}
+            <div className="modal" onClick={() => setVisible(false)} style={{ overflow: 'auto' }}>
+                <div id="habbo-roleplay-menu" onClick={e => e.stopPropagation()}>
+                    <div className="menu-tabs">
+                        {settingOptions.map((option, i) => (
+                            <div
+                                className={`tab ${section.value === option.value ? "active" : ""}`}
+                                key={`settings_sect_${i}`}
+                                onClick={() => onChangeSection(option)}
+                            >
+                                {option.label}
                             </div>
-                        )
-                    }
-                    <div className="menu-settings">
-                        {panel.view ? panel.view() : ''}
+                        ))}
+                    </div>
+                    <div className="menu-content">
+                        {
+                            section.type === 'parent' && (
+                                <div className="menu-sidebar">
+                                    {section.children?.map((child, i) => {
+                                        if (child.type === 'divider') {
+                                            return <hr key={`settings_opt_${i}`} style={{ background: 'white', height: 2 }} />
+                                        }
+                                        return (
+                                            <div className={`menu-item ${panel === child ? 'active' : ''}`} key={`settings_opt_${i}`} onClick={() => setPanel(child)}>
+                                                {child.label}
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            )
+                        }
+                        <div className="menu-settings">
+                            {panel.view ? panel.view() : ''}
+                        </div>
                     </div>
                 </div>
             </div>
