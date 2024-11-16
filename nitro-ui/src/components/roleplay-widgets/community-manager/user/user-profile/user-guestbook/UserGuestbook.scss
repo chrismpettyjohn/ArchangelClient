@@ -1,0 +1,62 @@
+.guestbook {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 100%;
+
+  .guestbook-post {
+    background: rgba(6, 55, 61, 0.9);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+
+    &-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .guestbook-post-pic {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      &-info {
+        display: flex;
+        flex-direction: column;
+
+        .guestbook-post-username {
+          font-weight: bold;
+          color: #fff;
+        }
+      }
+    }
+
+        .guestbook-post-createdAt {
+          font-size: 16px;
+          color: #ccc;
+        }
+
+    &-message {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+      color: #fff;
+    }
+
+    &-votes {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      font-size: 0.9rem;
+
+      .upvotes {
+        color: green;
+      }
+
+      .downvotes {
+        color: red;
+      }
+    }
+  }
+}

@@ -7,6 +7,7 @@ import { useRoleplayStats } from "../../../../../hooks/roleplay/use-rp-stats";
 import { useSessionInfo } from "../../../../../hooks";
 import { usePlayerSkills } from "../../../../../hooks/roleplay/use-player-skills";
 import { ReactNode, useMemo } from "react";
+import { UserGuestbook } from "./user-guestbook/UserGuestbook";
 
 
 export function UserProfile() {
@@ -108,8 +109,8 @@ export function UserProfile() {
                 </Column>
                 <Column size={7} gap={4}>
                     <NitroCardAccordionView fullHeight overflow="hidden">
-                        <NitroCardAccordionSetView headerText="Guestbook">
-                            <Text variant="white">Coming soon</Text>
+                        <NitroCardAccordionSetView headerText="Guestbook" isExpanded>
+                            <UserGuestbook userId={resourceID} />
                         </NitroCardAccordionSetView>
                         <NitroCardAccordionSetView headerText="Skills">
                             <div className="skills-grid">

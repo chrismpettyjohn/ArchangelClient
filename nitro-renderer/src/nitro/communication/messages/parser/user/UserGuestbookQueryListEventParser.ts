@@ -1,5 +1,4 @@
 import { IMessageDataWrapper, IMessageParser } from '../../../../../api';
-import { ScrKickbackData } from './ScrKickbackData';
 
 export interface UserGuestbookPost {
     id: number;
@@ -7,6 +6,8 @@ export interface UserGuestbookPost {
     userName: string;
     userFigure: string;
     message: string;
+    upvotes: number;
+    downvotes: number;
     createdAt: number;
     updatedAt: number;
 }
@@ -22,13 +23,15 @@ export class UserGuestbookQueryListEventParser implements IMessageParser {
         const postCount = wrapper.readInt();
 
         for (let i = 0; i < postCount; i++) {
-            const [id, userId, userName, userFigure, message, createdAt, updatedAt] = wrapper.readString().split(';');
+            const [id, userId, userName, userFigure, message, upvotes, downvotes, createdAt, updatedAt] = wrapper.readString().split(';');
             this.posts.push({
                 id: Number(id),
                 userId: Number(userId),
                 userName,
                 userFigure,
                 message,
+                upvotes: Number(upvotes),
+                downvotes: Number(downvotes),
                 createdAt: Number(createdAt),
                 updatedAt: Number(updatedAt),
             })

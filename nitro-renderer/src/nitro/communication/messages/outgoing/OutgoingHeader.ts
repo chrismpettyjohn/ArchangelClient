@@ -689,4 +689,14 @@ export class OutgoingHeader {
 
     public static EMU_SETTINGS_DELETE_COMPOSER = 8114;
 
+    public static USER_GUESTBOOK_CREATE_COMPOSER = 8115;
+
+    public static USER_GUESTBOOK_UPDATE_COMPOSER = 8116;
+
+    public static USER_GUESTBOOK_DELETE_COMPOSER = 8117;
+
+    public static USER_GUESTBOOK_QUERY_LIST_COMPOSER = 8118;
+
+    public static USER_GUESTBOOK_QUERY_ONE_COMPOSER = 8119;
+
 }
