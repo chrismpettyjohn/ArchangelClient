@@ -1,13 +1,19 @@
 import { FC, ReactNode, useMemo } from 'react';
 import { NotificationBubbleType } from '../../api';
 import { Column } from '../../common';
-import { useNotification } from '../../hooks';
+import { useMessageEvent, useNotification } from '../../hooks';
 import { GetAlertLayout } from './views/alert-layouts/GetAlertLayout';
 import { GetBubbleLayout } from './views/bubble-layouts/GetBubbleLayout';
 import { GetConfirmLayout } from './views/confirm-layouts/GetConfirmLayout';
+import { NotificationEvent } from '@nitro-rp/renderer';
 
 export const NotificationCenterView: FC<{}> = props => {
-    const { alerts = [], bubbleAlerts = [], confirms = [], closeAlert = null, closeBubbleAlert = null, closeConfirm = null } = useNotification();
+    const { alerts = [], bubbleAlerts = [], confirms = [], closeAlert = null, closeBubbleAlert = null, closeConfirm = null, showSingleBubble } = useNotification();
+
+    useMessageEvent(NotificationEvent, (event: NotificationEvent) => {
+        alert(event.getParser().message)
+        showSingleBubble(event.getParser().message, NotificationBubbleType.INFO);
+    })
 
     const getAlerts = useMemo(() => {
         if (!alerts || !alerts.length) return null;
