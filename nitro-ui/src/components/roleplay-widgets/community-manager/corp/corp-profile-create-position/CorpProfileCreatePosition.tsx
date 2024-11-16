@@ -24,6 +24,7 @@ export function CorpProfileCreatePosition() {
     }, [resourceID, canEditCorp, showSingleBubble]);
 
     useMessageEvent(CorpPositionInfoQueryEvent, (event: CorpPositionInfoQueryEvent) => {
+        if (!active) return;
         showSingleBubble(`${event.getParser().data.displayName} was created`, NotificationBubbleType.INFO)
         CreateLinkEvent(`community/corps/profile-position-edit/${event.getParser().data.id}`)
     })

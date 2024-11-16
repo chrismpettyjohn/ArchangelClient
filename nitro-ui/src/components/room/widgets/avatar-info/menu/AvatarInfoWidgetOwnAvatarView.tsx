@@ -145,7 +145,7 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
             {(mode === MODE_NORMAL) &&
                 <>
                     {
-                        (corpJobPosition.canWorkAnywhere || corpData.roomID === roomSession?.roomId) && (
+                        (corpJobPosition?.canWorkAnywhere || corpData?.roomID === roomSession?.roomId) && (
                             <ContextMenuListItemView onClick={event => processAction('view_business')}>
                                 <FaChevronRight className="right fa-icon" />
                                 {LocalizeText('infostand.button.business')}
