@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
 import { Button, Text } from "../../../../../../common";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
-import { GangRoleData } from "@nitro-rp/renderer";
+import { GangRoleData, GangRoleDeleteComposer } from "@nitro-rp/renderer";
+import { CreateLinkEvent, SendMessageComposer } from "../../../../../../api";
 
 export interface GangPositionDTO {
-    orderID: number;
     displayName: string;
     canInvite: boolean;
     canKick: boolean;
@@ -17,7 +17,6 @@ export interface GangPositionEditorProps {
 
 export function GangPositionEditor({ defaultGangPosition, onSave }: GangPositionEditorProps) {
     const [dto, setDTO] = useState<GangPositionDTO>({
-        orderID: defaultGangPosition?.orderId ?? -1,
         displayName: defaultGangPosition?.displayName ?? '',
         canInvite: defaultGangPosition?.canInvite ?? false,
         canKick: defaultGangPosition?.canKick ?? false,
@@ -26,6 +25,11 @@ export function GangPositionEditor({ defaultGangPosition, onSave }: GangPosition
     const onChanges = useCallback((changes: Partial<GangPositionDTO>) => {
         setDTO(_ => ({ ..._, ...changes }))
     }, [setDTO]);
+
+    const onDeleteGangPosition = useCallback(() => {
+        SendMessageComposer(new GangRoleDeleteComposer(defaultGangPosition.id));
+        CreateLinkEvent(`community/gangs/profile-edit/${defaultGangPosition.gangId}`)
+    }, [defaultGangPosition]);
 
     const onToggle = useCallback((key: keyof GangPositionDTO) => {
         setDTO(_ => ({ ..._, [key]: !_[key] }))
@@ -64,10 +68,14 @@ export function GangPositionEditor({ defaultGangPosition, onSave }: GangPosition
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 'auto' }}>
                 <div>
-                    <Button variant="danger" size="sm">
-                        <FaTrashAlt style={{ marginRight: 8 }} />
-                        Delete
-                    </Button>
+                    {
+                        defaultGangPosition && (
+                            <Button variant="danger" size="sm" onClick={onDeleteGangPosition}>
+                                <FaTrashAlt style={{ marginRight: 8 }} />
+                                Delete
+                            </Button>
+                        )
+                    }
                 </div>
                 <div>
                     <Button variant="success" size="sm" onClick={onSaveChanges}>

@@ -1,17 +1,18 @@
 import { Button, Flex, Text } from "../../../../../common";
 import { FaCaretLeft } from "react-icons/fa";
-import { CreateLinkEvent, SendMessageComposer } from "../../../../../api";
+import { CreateLinkEvent, NotificationBubbleType, SendMessageComposer } from "../../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
-import { useSessionInfo } from "../../../../../hooks";
+import { useMessageEvent, useNotification, useSessionInfo } from "../../../../../hooks";
 import { useCallback } from "react";
 import { GangPositionDTO, GangPositionEditor } from "../gang-profile-edit/gang-position-editor/GangPositionEditor";
 import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-roleplay-permissions";
-import { GangRoleUpdateComposer } from "@nitro-rp/renderer";
+import { GangQueryOneEvent, GangRoleUpdateComposer } from "@nitro-rp/renderer";
 import { useGangRoleData } from "../../../../../hooks/roleplay/use-gang-role-data";
 
 export function GangProfileEditPosition() {
     const session = useSessionInfo();
+    const { showSingleBubble } = useNotification()
     const { active, resourceID, onHide } = useCommunityLinkTracker('gangs', 'profile-position-edit');
     const position = useGangRoleData(resourceID);
     const permissions = useRoleplayPermissions()
@@ -24,6 +25,12 @@ export function GangProfileEditPosition() {
         }
         SendMessageComposer(new GangRoleUpdateComposer(position.id, position.orderId, dto.displayName, dto.canInvite, dto.canKick));
     }, [position, canEditGang]);
+
+    useMessageEvent(GangQueryOneEvent, (event: GangQueryOneEvent) => {
+        if (!active) return;
+        showSingleBubble(`${event.getParser().gang.displayName} was updated`, NotificationBubbleType.INFO)
+        CreateLinkEvent(`community/gangs/profile-position-edit/${event.getParser().gang.id}`)
+    })
 
     if (!active || !position || !canEditGang) {
         return null;

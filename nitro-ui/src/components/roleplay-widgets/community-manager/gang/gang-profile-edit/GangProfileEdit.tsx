@@ -1,9 +1,9 @@
 import { Button, Flex, LayoutAvatarImageView, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../../common";
 import { FaCaretLeft, FaCaretRight, FaPlusSquare, FaTimes } from "react-icons/fa";
-import { CreateLinkEvent, SendMessageComposer } from "../../../../../api";
+import { CreateLinkEvent, NotificationBubbleType, SendMessageComposer } from "../../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
-import { useSessionInfo } from "../../../../../hooks";
+import { useNotification, useSessionInfo } from "../../../../../hooks";
 import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-roleplay-permissions";
 import { useCallback } from "react";
 import { useGangData } from "../../../../../hooks/roleplay/use-gang-data";
@@ -14,6 +14,7 @@ import { GangDeleteComposer, GangMemberKickComposer, GangUpdateComposer } from "
 
 export function GangProfileEdit() {
     const session = useSessionInfo();
+    const { showSingleBubble } = useNotification()
     const { active, resourceID, onHide } = useCommunityLinkTracker('gangs', 'profile-edit');
     const gang = useGangData(resourceID);
     const permissions = useRoleplayPermissions();
@@ -24,15 +25,18 @@ export function GangProfileEdit() {
 
     const onSaveChanges = useCallback((dto: GangDTO) => {
         SendMessageComposer(new GangUpdateComposer(resourceID, dto.displayName, dto.description, dto.badgeCode, dto.userID, dto.roomID))
+        showSingleBubble(`${dto.displayName} was updated`, NotificationBubbleType.INFO)
     }, []);
 
     const onDeleteGang = useCallback(() => {
         SendMessageComposer(new GangDeleteComposer(resourceID))
+        showSingleBubble(`${gang.displayName} was deleted`, NotificationBubbleType.INFO)
         CreateLinkEvent('community/gangs/list');
     }, [resourceID]);
 
     const onFireUser = useCallback((username: string) => {
         SendMessageComposer(new GangMemberKickComposer(resourceID, username));
+        showSingleBubble(`${username} was fired`, NotificationBubbleType.INFO)
     }, []);
 
     if (!active || !canEditGang) {

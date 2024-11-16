@@ -16,6 +16,7 @@ export function useGangData(gangID: number): GangInfoData {
     });
 
     useEffect(() => {
+        if (!gangID) return;
         GangQueryOne(gangID);
     }, [gangID]);
 

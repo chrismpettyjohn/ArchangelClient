@@ -1,14 +1,16 @@
 import { Button, Flex, Text } from "../../../../../common";
 import { FaCaretLeft } from "react-icons/fa";
-import { CreateLinkEvent, SendMessageComposer } from "../../../../../api";
+import { CreateLinkEvent, NotificationBubbleType, SendMessageComposer } from "../../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
 import { useCallback } from "react";
 import { GangPositionDTO, GangPositionEditor } from "../gang-profile-edit/gang-position-editor/GangPositionEditor";
 import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-roleplay-permissions";
-import { GangRoleCreateComposer } from "@nitro-rp/renderer";
+import { GangRoleCreateComposer, GangRoleQueryOneEvent } from "@nitro-rp/renderer";
+import { useMessageEvent, useNotification } from "../../../../../hooks";
 
 export function GangProfileCreatePosition() {
+    const { showSingleBubble } = useNotification()
     const { active, resourceID, onHide } = useCommunityLinkTracker('gangs', 'profile-position-create');
     const permissions = useRoleplayPermissions()
 
@@ -18,8 +20,14 @@ export function GangProfileCreatePosition() {
         if (!resourceID || !canEditGang) {
             return;
         }
-        SendMessageComposer(new GangRoleCreateComposer(resourceID, dto.orderID, dto.displayName, dto.canInvite, dto.canKick));
+        SendMessageComposer(new GangRoleCreateComposer(resourceID, dto.displayName, dto.canInvite, dto.canKick));
     }, [resourceID, canEditGang]);
+
+    useMessageEvent(GangRoleQueryOneEvent, (event: GangRoleQueryOneEvent) => {
+        if (!active) return;
+        showSingleBubble(`${event.getParser().role.displayName} was created`, NotificationBubbleType.INFO)
+        CreateLinkEvent(`community/gangs/profile-position-edit/${event.getParser().role.id}`)
+    })
 
     if (!active || !resourceID || !canEditGang) {
         return null;
