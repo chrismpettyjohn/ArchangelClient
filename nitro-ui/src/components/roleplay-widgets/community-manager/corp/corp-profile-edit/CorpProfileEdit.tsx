@@ -1,9 +1,9 @@
 import { Button, Flex, LayoutAvatarImageView, NitroCardAccordionSetView, NitroCardAccordionView, Text } from "../../../../../common";
 import { FaCaretLeft, FaCaretRight, FaPlusSquare, FaTimes } from "react-icons/fa";
-import { CreateLinkEvent, SendMessageComposer } from "../../../../../api";
+import { CreateLinkEvent, NotificationBubbleType, SendMessageComposer } from "../../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
-import { useSessionInfo } from "../../../../../hooks";
+import { useNotification, useSessionInfo } from "../../../../../hooks";
 import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-roleplay-permissions";
 import { useCallback } from "react";
 import { useCorpData } from "../../../../../hooks/roleplay/use-corp-data";
@@ -14,6 +14,7 @@ import { useCorpEmployeeList } from "../../../../../hooks/roleplay/use-corp-empl
 
 export function CorpProfileEdit() {
     const session = useSessionInfo();
+    const { showSingleBubble } = useNotification()
     const { active, resourceID, onHide } = useCommunityLinkTracker('corps', 'profile-edit');
     const corp = useCorpData(resourceID);
     const permissions = useRoleplayPermissions();
@@ -23,16 +24,19 @@ export function CorpProfileEdit() {
     const canEditCorp = corp.id === session?.userInfo?.userId || permissions.canEditAllCorps;
 
     const onSaveChanges = useCallback((dto: CorpDTO) => {
+        showSingleBubble(`${dto.displayName} was updated`, NotificationBubbleType.INFO)
         SendMessageComposer(new CorpEditComposer(resourceID, dto.displayName, dto.description, dto.userID, dto.roomID, dto.sector, dto.industry))
     }, []);
 
     const onDeleteCorp = useCallback(() => {
         SendMessageComposer(new CorpDeleteComposer(resourceID))
+        showSingleBubble(`${corp.displayName} was deleted`, NotificationBubbleType.INFO)
         CreateLinkEvent('community/corps/list');
     }, [resourceID]);
 
     const onFireUser = useCallback((username: string) => {
         SendMessageComposer(new CorpFireUserComposer(username));
+        showSingleBubble(`${username} was fired`, NotificationBubbleType.INFO)
     }, []);
 
     if (!active || !canEditCorp) {

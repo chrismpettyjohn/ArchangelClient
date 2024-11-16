@@ -1,9 +1,9 @@
 import { Button, Flex, Text } from "../../../../../common";
 import { FaCaretLeft } from "react-icons/fa";
-import { CreateLinkEvent, SendMessageComposer } from "../../../../../api";
+import { CreateLinkEvent, NotificationBubbleType, SendMessageComposer } from "../../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
-import { useMessageEvent } from "../../../../../hooks";
+import { useMessageEvent, useNotification } from "../../../../../hooks";
 import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-roleplay-permissions";
 import { useCallback } from "react";
 import { CorpDTO, CorpEditor } from "../corp-profile-edit/corp-editor/CorpEditor";
@@ -11,6 +11,7 @@ import { CorpCreateComposer } from "@nitro-rp/renderer/src/nitro/communication/m
 import { CorpInfoQueryEvent } from "@nitro-rp/renderer";
 
 export function CorpProfileCreate() {
+    const { showSingleBubble } = useNotification()
     const { active, onHide } = useCommunityLinkTracker('corps', 'profile-create');
     const permissions = useRoleplayPermissions();
 
@@ -18,9 +19,10 @@ export function CorpProfileCreate() {
         SendMessageComposer(new CorpCreateComposer(dto.displayName, dto.description, '', dto.userID, dto.roomID, dto.sector, dto.industry));
     }, []);
 
-    useMessageEvent(CorpInfoQueryEvent, () => {
+    useMessageEvent(CorpInfoQueryEvent, (event: CorpInfoQueryEvent) => {
         if (!active) return;
-        CreateLinkEvent('community/corps/list');
+        showSingleBubble(`Successfully created ${event.getParser().data.displayName}`, NotificationBubbleType.INFO)
+        CreateLinkEvent(`community/corps/profile-edit/${event.getParser().data.id}`);
     });
 
     if (!active || !permissions.canEditAllCorps) {

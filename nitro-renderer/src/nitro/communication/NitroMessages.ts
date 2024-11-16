@@ -641,6 +641,7 @@ export class NitroMessages implements IMessageConfiguration {
         this._events.set(IncomingHeader.GANG_QUERY_LIST_EVENT, GangQueryListEvent);
         this._events.set(IncomingHeader.GANG_QUERY_ONE_EVENT, GangQueryOneEvent);
         this._events.set(IncomingHeader.EMU_SETTINGS_QUERY_LIST_EVENT, EmuSettingsQueryListEvent);
+        this._events.set(IncomingHeader.ROOM_QUERY_LIST_EVENT, RoomQueryListEvent);
     }
 
     private registerComposers(): void {

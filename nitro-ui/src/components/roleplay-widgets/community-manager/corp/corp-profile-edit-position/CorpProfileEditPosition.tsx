@@ -1,9 +1,9 @@
 import { Button, Flex, Text } from "../../../../../common";
 import { FaCaretLeft } from "react-icons/fa";
-import { CreateLinkEvent, SendMessageComposer } from "../../../../../api";
+import { CreateLinkEvent, NotificationBubbleType, SendMessageComposer } from "../../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
-import { useSessionInfo } from "../../../../../hooks";
+import { useNotification, useSessionInfo } from "../../../../../hooks";
 import { useCallback } from "react";
 import { CorpPositionDTO, CorpPositionEditor } from "../corp-profile-edit/corp-position-editor/CorpPositionEditor";
 import { useCorpPositionData } from "../../../../../hooks/roleplay/use-corp-position-data";
@@ -12,6 +12,7 @@ import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-rolepl
 
 export function CorpProfileEditPosition() {
     const session = useSessionInfo();
+    const { showSingleBubble } = useNotification()
     const { active, resourceID, onHide } = useCommunityLinkTracker('corps', 'profile-position-edit');
     const position = useCorpPositionData(resourceID);
     const permissions = useRoleplayPermissions()
@@ -23,7 +24,8 @@ export function CorpProfileEditPosition() {
             return;
         }
         SendMessageComposer(new CorpEditPositionComposer(position.corpID, position.id, position.orderID, dto.displayName, dto.description, dto.salary, dto.maleFigure, dto.femaleFigure, dto.canHire, dto.canFire, dto.canPromote, dto.canDemote, dto.canWorkAnywhere));
-    }, [position, canEditCorp]);
+        showSingleBubble(`${dto.displayName} was updated`, NotificationBubbleType.INFO)
+    }, [position, canEditCorp, showSingleBubble]);
 
     if (!active || !position || !canEditCorp) {
         return null;

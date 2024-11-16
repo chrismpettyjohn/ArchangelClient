@@ -68,6 +68,7 @@ export class CorpInfoParser implements IMessageParser {
             this._sector = toCorpSector(wrapper.readString());
             this._createdAt = wrapper.readString();
         } catch (e: any) {
+            alert('ok')
             console.log({ e });
             throw e;
         }

@@ -13,7 +13,16 @@ export function CorpList() {
     const permissions = useRoleplayPermissions();
 
     const filteredCorps = useMemo(() => {
-        return corps.filter(_ => _.displayName.toLowerCase().includes(search))
+        return corps
+            .filter(_ => _.displayName.toLowerCase().includes(search))
+            .sort((a, b) => {
+                const employeeComparison = b.employeeCount - a.employeeCount;
+                if (employeeComparison !== 0) {
+                    return employeeComparison
+                }
+                return a.displayName.localeCompare(b.displayName);
+            });
+
     }, [corps, search]);
 
     const onSearch = useCallback((event: ChangeEvent<HTMLInputElement>) => setSearch(event.currentTarget.value ?? ''), [setSearch]);

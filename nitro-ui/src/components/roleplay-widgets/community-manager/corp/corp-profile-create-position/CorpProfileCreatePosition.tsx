@@ -1,14 +1,16 @@
 import { Button, Flex, Text } from "../../../../../common";
 import { FaCaretLeft } from "react-icons/fa";
-import { CreateLinkEvent, SendMessageComposer } from "../../../../../api";
+import { CreateLinkEvent, NotificationBubbleType, SendMessageComposer } from "../../../../../api";
 import { CommunityLayout, useCommunityLinkTracker } from "../../CommunityLayout";
 import { _setVisible } from "ag-grid-community";
 import { useCallback } from "react";
 import { CorpPositionDTO, CorpPositionEditor } from "../corp-profile-edit/corp-position-editor/CorpPositionEditor";
-import { CorpCreatePositionComposer } from "@nitro-rp/renderer";
+import { CorpCreatePositionComposer, CorpPositionInfoQueryEvent } from "@nitro-rp/renderer";
 import { useRoleplayPermissions } from "../../../../../hooks/roleplay/use-roleplay-permissions";
+import { useMessageEvent, useNotification } from "../../../../../hooks";
 
 export function CorpProfileCreatePosition() {
+    const { showSingleBubble } = useNotification()
     const { active, resourceID, onHide } = useCommunityLinkTracker('corps', 'profile-position-create');
     const permissions = useRoleplayPermissions()
 
@@ -18,8 +20,13 @@ export function CorpProfileCreatePosition() {
         if (!resourceID || !canEditCorp) {
             return;
         }
-        SendMessageComposer(new CorpCreatePositionComposer(resourceID, dto.orderID, dto.displayName, dto.description, dto.salary, dto.maleFigure, dto.femaleFigure, dto.canHire, dto.canFire, dto.canPromote, dto.canDemote, dto.canWorkAnywhere));
-    }, [resourceID, canEditCorp]);
+        SendMessageComposer(new CorpCreatePositionComposer(resourceID, dto.displayName, dto.description, dto.salary, dto.maleFigure, dto.femaleFigure, dto.canHire, dto.canFire, dto.canPromote, dto.canDemote, dto.canWorkAnywhere));
+    }, [resourceID, canEditCorp, showSingleBubble]);
+
+    useMessageEvent(CorpPositionInfoQueryEvent, (event: CorpPositionInfoQueryEvent) => {
+        showSingleBubble(`${event.getParser().data.displayName} was created`, NotificationBubbleType.INFO)
+        CreateLinkEvent(`community/corps/profile-position-edit/${event.getParser().data.id}`)
+    })
 
     console.log({ active, resourceID, canEditCorp })
     if (!active || !resourceID || !canEditCorp) {
