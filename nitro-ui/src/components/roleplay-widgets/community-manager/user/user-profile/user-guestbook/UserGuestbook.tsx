@@ -71,10 +71,8 @@ export function UserGuestbook({ userId }: UserGuestbookProps) {
                             <Text variant="white">{post.message}</Text>
                         </div>
                         <div style={{ display: 'flex', flex: 1, justifyContent: 'space-between', alignItems: 'center' }}>
-                            <div className="guestbook-post-createdAt">{post.createdAt}</div>
+                            <div className="guestbook-post-createdAt">{new Date(post.createdAt * 1000).toLocaleDateString()}</div>
                             <div className="guestbook-post-votes">
-                                <span className="upvotes">👍 {post.upvotes}</span>
-                                <span className="downvotes">👎 {post.downvotes}</span>
                                 {
                                     post.userId === session?.userInfo?.userId && (
                                         <span className="downvotes" style={{ alignItems: 'center', display: 'flex' }}>
