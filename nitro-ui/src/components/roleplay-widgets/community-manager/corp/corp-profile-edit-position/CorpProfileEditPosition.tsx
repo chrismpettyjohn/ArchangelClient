@@ -23,7 +23,7 @@ export function CorpProfileEditPosition() {
         if (!position || !canEditCorp) {
             return;
         }
-        SendMessageComposer(new CorpEditPositionComposer(position.corpID, position.id, position.orderID, dto.displayName, dto.description, dto.salary, dto.maleFigure, dto.femaleFigure, dto.canHire, dto.canFire, dto.canPromote, dto.canDemote, dto.canWorkAnywhere));
+        SendMessageComposer(new CorpEditPositionComposer(position.id, position.orderID, dto.displayName, dto.description, dto.salary, dto.maleFigure, dto.femaleFigure, dto.canHire, dto.canFire, dto.canPromote, dto.canDemote, dto.canWorkAnywhere));
         showSingleBubble(`${dto.displayName} was updated`, NotificationBubbleType.INFO)
     }, [position, canEditCorp, showSingleBubble]);
 

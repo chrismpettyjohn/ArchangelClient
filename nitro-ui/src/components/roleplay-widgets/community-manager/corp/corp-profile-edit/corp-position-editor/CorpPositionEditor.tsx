@@ -1,7 +1,8 @@
-import { CorpPositionInfoData } from "@nitro-rp/renderer"
+import { CorpDeletePositionComposer, CorpPositionInfoData } from "@nitro-rp/renderer"
 import { useCallback, useState } from "react";
 import { Button, Text } from "../../../../../../common";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import { CreateLinkEvent, SendMessageComposer } from "../../../../../../api";
 
 export interface CorpPositionDTO {
     orderID: number;
@@ -41,6 +42,12 @@ export function CorpPositionEditor({ defaultCorpPosition, onSave }: CorpPosition
     const onChanges = useCallback((changes: Partial<CorpPositionDTO>) => {
         setDTO(_ => ({ ..._, ...changes }))
     }, [setDTO]);
+
+    const onDeletePosition = useCallback(() => {
+        if (!defaultCorpPosition) return;
+        SendMessageComposer(new CorpDeletePositionComposer(defaultCorpPosition.id))
+        CreateLinkEvent(`community/corps/profile-edit/${defaultCorpPosition.corpID}`);
+    }, [defaultCorpPosition]);
 
     const onToggle = useCallback((key: keyof CorpPositionDTO) => {
         setDTO(_ => ({ ..._, [key]: !_[key] }))
@@ -124,10 +131,14 @@ export function CorpPositionEditor({ defaultCorpPosition, onSave }: CorpPosition
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 'auto' }}>
                 <div>
-                    <Button variant="danger" size="sm">
-                        <FaTrashAlt style={{ marginRight: 8 }} />
-                        Delete
-                    </Button>
+                    {
+                        defaultCorpPosition && (
+                            <Button variant="danger" size="sm" onClick={onDeletePosition}>
+                                <FaTrashAlt style={{ marginRight: 8 }} />
+                                Delete
+                            </Button>
+                        )
+                    }
                 </div>
                 <div>
                     <Button variant="success" size="sm" onClick={onSaveChanges}>
