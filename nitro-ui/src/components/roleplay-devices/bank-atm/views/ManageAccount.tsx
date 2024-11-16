@@ -49,16 +49,16 @@ export function ManageAccount({ bankCorpID, onClose }: ManageAccountProps) {
         <>
             <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <CorpBadge corpID={bankCorpID} />
-                <Text bold fontSize={4}>{corpInfo.name}</Text>
+                <Text bold fontSize={4} variant="white">{corpInfo.displayName}</Text>
             </div>
             <Grid fullHeight={false}>
                 <Column center size={6} overflow="hidden">
-                    <Text bold fontSize={5}>Cash on hand:</Text>
-                    <Text fontSize={4}>${Number(rpStats.cashBalance).toLocaleString()}</Text>
+                    <Text bold fontSize={5} variant="white">Cash on hand:</Text>
+                    <Text fontSize={4} variant="white">${Number(rpStats.cashBalance).toLocaleString()}</Text>
                 </Column>
                 <Column center size={6} overflow="auto">
-                    <Text bold fontSize={5}>Bank account:</Text>
-                    <Text fontSize={4}>${Number(bankInfo.checkingBalance).toLocaleString()}</Text>
+                    <Text bold fontSize={5} variant="white">Bank account:</Text>
+                    <Text fontSize={4} variant="white">${Number(bankInfo.checkingBalance).toLocaleString()}</Text>
                 </Column>
             </Grid>
             <Grid fullHeight={false}>

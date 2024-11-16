@@ -25,8 +25,8 @@ export function SetupComputer({ itemID, onConnected }: SetupComputerProps) {
     return (
         <Grid fullHeight={false}>
             <Column size={12}>
-                <Text bold fontSize={4}>Configure Computer</Text>
-                <Text fontSize={5}>This Computer has never been setup before.  Please connect it to a bank below.</Text>
+                <Text bold fontSize={4} variant="white">Configure Computer</Text>
+                <Text fontSize={5} variant="white">This Computer has never been setup before.  Please connect it to a bank below.</Text>
             </Column>
             <Column center size={6}>
                 <Grid fullHeight={false}>

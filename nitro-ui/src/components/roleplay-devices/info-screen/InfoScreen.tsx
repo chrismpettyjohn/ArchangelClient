@@ -43,7 +43,7 @@ export function InfoScreen() {
                 { }
                 {
                     !editing
-                        ? <Text fontSize={6}>{info.content}</Text>
+                        ? <Text fontSize={6} variant="white">{info.content}</Text>
                         : (
                             <textarea className="flex-grow-1 form-control w-100" value={content} onChange={event => setContent(event.currentTarget.value)} />
                         )

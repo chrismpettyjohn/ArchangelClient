@@ -46,11 +46,11 @@ export function LookupAccount({ bankCorpID, onClose }: LookupAccountProps) {
         <>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <CorpBadge corpID={bankCorpID} />
-                <Text bold fontSize={4}>{corpInfo.name}</Text>
+                <Text bold fontSize={4} variant="white">{corpInfo.displayName}</Text>
             </div>
             <Grid fullHeight={false}>
                 <Column size={6} justifyContent="center">
-                    <Text bold fontSize={4}>Lookup account</Text>
+                    <Text bold fontSize={4} variant="white">Lookup account</Text>
                     <UserSelect userID={user?.id} onChange={setUser} />
                 </Column>
                 <Column size={6} justifyContent="center">

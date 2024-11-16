@@ -113,8 +113,8 @@ export function PoliceLaptop() {
                             </div>
                             <hr />
                             <div style={{ display: 'flex', gap: 8 }}>
-                                <FaExclamationCircle style={{ color: 'black', fontSize: '2rem' }} />
-                                <Text fontSize={6}>This is a secure system containing <b>confidential information</b>.  <b>Do not share or distribute.</b></Text>
+                                <FaExclamationCircle style={{ color: 'white', fontSize: '2rem' }} />
+                                <Text variant="white" fontSize={6}>This is a secure system containing <b>confidential information</b>.  <b>Do not share or distribute.</b></Text>
                             </div>
                         </NitroCardContentView>
                     </NitroCardView >

@@ -3,8 +3,8 @@ import { IMessageComposer } from "../../../../../../api";
 export class WantedListAddUserComposer implements IMessageComposer<ConstructorParameters<typeof WantedListAddUserComposer>> {
     private _data: ConstructorParameters<typeof WantedListAddUserComposer>;
 
-    constructor(username: string, crime: string) {
-        this._data = [username, crime];
+    constructor(username: string, crimeID: number) {
+        this._data = [username, crimeID]
     }
 
     public getMessageArray() {

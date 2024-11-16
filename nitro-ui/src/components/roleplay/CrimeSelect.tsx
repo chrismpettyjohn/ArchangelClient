@@ -5,24 +5,20 @@ import { getSelectDarkTheme, SELECT_DARK_THEME } from './select.base';
 
 export interface CrimeSelectProps {
     crimeID: number;
-    onChange(crime: Crime): void;
+    onChange(crimeID: number): void;
 }
 
 export function CrimeSelect({ crimeID, onChange }: CrimeSelectProps) {
     const crimeList = useCrimes();
     const crimeOptions = useMemo(() => {
         return crimeList.map(_ => ({
-            label: _.crime,
+            label: <>{_.crime} ({_.sentence} mins)</>,
             value: _.id,
         }))
     }, [crimeList]);
 
-    function onChangeCrime(event: any) {
-        const matchingCrime = crimeList.find(_ => _.crime === event.currentTarget.value);
-        if (!matchingCrime) {
-            return;
-        }
-        onChange(matchingCrime);
+    function onChangeCrime(opt: any) {
+        onChange(opt.value);
     }
 
     return (

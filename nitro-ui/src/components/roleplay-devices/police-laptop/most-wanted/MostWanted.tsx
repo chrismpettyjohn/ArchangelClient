@@ -17,20 +17,20 @@ export interface MostWantedProps {
 export function MostWanted({ goBack }: MostWantedProps) {
     const bounties = useWantedList();
     const [adding, setAdding] = useState(false);
-    const [crime, setCrime] = useState<Crime>();
+    const [crimeID, setCrimeID] = useState<number>();
     const [user, setUser] = useState<RoomUsersListRow>();
 
     function onCancel() {
         setAdding(false);
-        setCrime(undefined);
+        setCrimeID(undefined);
         setUser(undefined);
     }
 
     function onAddUser() {
-        if (!user || !crime) {
+        if (!user || !crimeID) {
             return;
         }
-        WantedListAddUser(user.username, crime.crime);
+        WantedListAddUser(user.username, crimeID);
         onCancel();
     }
 
@@ -41,12 +41,12 @@ export function MostWanted({ goBack }: MostWantedProps) {
                 <br />
                 <Flex center column style={{ gap: 10, padding: 16 }}>
                     <Flex column fullWidth>
-                        <Text bold fontSize={6}>Suspect</Text>
+                        <Text bold fontSize={6} variant="white">Suspect</Text>
                         <UserSelect userID={user?.id} onChange={setUser} />
                     </Flex>
                     <Flex column fullWidth>
-                        <Text bold fontSize={6}>Crime</Text>
-                        <CrimeSelect crime={crime?.crime} onChange={setCrime} />
+                        <Text bold fontSize={6} variant="white">Crime</Text>
+                        <CrimeSelect crimeID={crimeID?.id} onChange={setCrimeID} />
                     </Flex>
                     <Flex fullWidth justifyContent="end" gap={2}>
                         <Button variant="dark" size="sm" onClick={onCancel}>
@@ -67,7 +67,7 @@ export function MostWanted({ goBack }: MostWantedProps) {
         <>
             <Flex justifyContent="between">
                 <Flex center>
-                    <FaCaretLeft onClick={goBack} style={{ color: 'black', cursor: 'pointer', fontSize: 24, marginRight: 4 }} />
+                    <FaCaretLeft onClick={goBack} style={{ color: 'white', cursor: 'pointer', fontSize: 24, marginRight: 4 }} />
                     <Text bold fontSize={4}>Wanted List</Text>
                 </Flex>
                 <Flex center>
@@ -78,40 +78,50 @@ export function MostWanted({ goBack }: MostWantedProps) {
                 </Flex>
             </Flex>
             <br />
-            <table className="table table-striped table-sm table-text-small text-black m-0">
+            <table className="table table-striped table-sm table-text-small text-white m-0">
                 <tbody>
                     <tr>
-                        <th>Suspect</th>
-                        <th>Crime</th>
-                        <th>Jail Time</th>
-                        <th>Added By</th>
-                        <th>Actions</th>
+                        <th>
+                            <Text bold variant="white">Suspect</Text>
+                        </th>
+                        <th>
+                            <Text bold variant="white">Crime</Text>
+                        </th>
+                        <th>
+                            <Text bold variant="white">Jail TIme</Text>
+                        </th>
+                        <th>
+                            <Text bold variant="white">Added By</Text>
+                        </th>
+                        <th>
+                            <Text bold variant="white">Actions</Text>
+                        </th>
                     </tr>
                     {
                         bounties.map(bounty => (
                             <tr key={`bounty_${bounty.userId}`}>
                                 <td>
-                                    <Text bold underline pointer>
+                                    <Text bold underline pointer variant="white">
                                         {bounty.username}
                                     </Text>
                                 </td>
                                 <td>
-                                    <Text>
+                                    <Text variant="white">
                                         {bounty.crime}
                                     </Text>
                                 </td>
                                 <td>
-                                    <Text>
+                                    <Text variant="white">
                                         10 mins
                                     </Text>
                                 </td>
                                 <td>
-                                    <Text bold underline pointer>
+                                    <Text bold underline pointer variant="white">
                                         bob
                                     </Text>
                                 </td>
                                 <td>
-                                    <Text underline pointer onClick={() => WantedListRemoveUser(bounty.username, bounty.crime)}>
+                                    <Text underline pointer onClick={() => WantedListRemoveUser(bounty.username, bounty.crime)} variant="white">
                                         Remove
                                     </Text>
                                 </td>
