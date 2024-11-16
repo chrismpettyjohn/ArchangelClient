@@ -520,4 +520,9 @@ export class IncomingHeader {
     public static ROOM_QUERY_LIST_EVENT = 9049;
     public static GANG_QUERY_LIST_EVENT = 9050;
     public static GANG_QUERY_ONE_EVENT = 9051;
+    public static GANG_ROLE_QUERY_LIST_EVENT = 9052;
+    public static GANG_ROLE_QUERY_ONE_EVENT = 9053;
+    public static GANG_MEMBER_QUERY_LIST_EVENT = 9054;
+    public static MAP_QUERY_EVENT = 9055;
+    public static EMU_SETTINGS_QUERY_LIST_EVENT = 9056;
 }

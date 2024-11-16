@@ -1,14 +1,14 @@
 import { ILinkEventTracker, RoomEngineEvent, RoomId, RoomObjectCategory, RoomObjectType } from '@nitro-rp/renderer';
 import { FC, useEffect, useRef, useState } from 'react';
 import { AddEventLinkTracker, CreateLinkEvent, GetRoomSession, ISelectedUser, RemoveLinkEventTracker } from '../../api';
-import { Base, Button, DraggableWindowPosition, Grid, NitroCardAccordionSetView, NitroCardAccordionView, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../common';
+import { Base, Button, DraggableWindowPosition, Grid, NitroCardAccordionSetView, NitroCardAccordionView, NitroCardContentView, NitroCardHeaderView, NitroCardView } from '../../common';
 import { useModTools, useObjectSelectedEvent, useRoomEngineEvent } from '../../hooks';
 import { ModToolsChatlogView } from './views/room/ModToolsChatlogView';
 import { ModToolsRoomView } from './views/room/ModToolsRoomView';
 import { ModToolsTicketsView } from './views/tickets/ModToolsTicketsView';
 import { ModToolsUserChatlogView } from './views/user/ModToolsUserChatlogView';
 import { ModToolsUserView } from './views/user/ModToolsUserView';
-import { FaBoxOpen, FaBriefcase, FaBug, FaCrosshairs, FaHouseUser, FaPlusCircle, FaStar, FaStoreAlt, FaVial } from 'react-icons/fa';
+import { FaBoxOpen, FaBriefcase, FaBug, FaCog, FaCrosshairs, FaHouseUser, FaStar, FaStoreAlt, FaVial } from 'react-icons/fa';
 import { ModToolsBetaCodesView } from './views/beta/ModToolsBetaCodesView';
 import { ModToolsBugReportsView } from './views/beta/ModToolsBugReportsView';
 import { ModToolsWeaponsManagerView } from './views/roleplay/ModToolsWeaponsManagerView';
@@ -20,6 +20,7 @@ import { ModToolsUserSuperhireView } from './views/user/ModToolsUserSuperhireVie
 import { ModToolsCrimesCreatorView } from './views/roleplay/ModToolsCrimesCreatorView';
 import { ModToolsWeaponsCreatorView } from './views/roleplay/ModToolsWeaponsCreatorView';
 import { ModToolsRoomsManagerView } from './views/room/ModToolsRoomsManagerView';
+import { ModTooolsEmuSettingsView } from './views/admin/EmuSettingsView';
 
 export const ModToolsView: FC<{}> = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -128,10 +129,15 @@ export const ModToolsView: FC<{}> = () => {
                 <NitroCardView uniqueKey="mod-tools" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" >
                     <NitroCardHeaderView headerText="Staff Tools" onCloseClick={() => setIsVisible(false)} />
                     <NitroCardContentView className="text-black" gap={1}>
-                        <form onSubmit={e => e.preventDefault()} style={{ marginBottom: 14 }}>
-                            <input className="form-control form-control-sm" type="text" placeholder="Search tools..." />
-                        </form>
                         <NitroCardAccordionView fullHeight overflow="hidden">
+                            <NitroCardAccordionSetView headerText="Administrator">
+                                <Grid columnCount={2}>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/emu-settings/toggle')} className="position-relative">
+                                        <FaCog style={{ marginRight: 4 }} />
+                                        EMU Settings
+                                    </Button>
+                                </Grid>
+                            </NitroCardAccordionSetView>
                             <NitroCardAccordionSetView headerText="Moderator" isExpanded>
                                 <Grid columnCount={2}>
                                     <Button gap={1} onClick={() => CreateLinkEvent(`mod-tools/toggle-room-info/${currentRoomId}`)} disabled={(currentRoomId <= 0)} className="position-relative">
@@ -206,6 +212,7 @@ export const ModToolsView: FC<{}> = () => {
             <ModToolsUserSuperhireView />
             <ModToolsUserWeaponsManagerView />
             <ModToolsRoomsManagerView />
+            <ModTooolsEmuSettingsView />
             {(openRooms.length > 0) && openRooms.map(roomId => <ModToolsRoomView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-info/${roomId}`)} />)}
             {(openRoomChatlogs.length > 0) && openRoomChatlogs.map(roomId => <ModToolsChatlogView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-chatlog/${roomId}`)} />)}
             {(openUserInfos.length > 0) && openUserInfos.map(userId => <ModToolsUserView key={userId} userId={userId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-user-info/${userId}`)} />)}

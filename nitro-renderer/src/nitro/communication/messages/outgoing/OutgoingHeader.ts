@@ -683,4 +683,10 @@ export class OutgoingHeader {
 
     public static GANG_QUERY_LIST_COMPOSER = 8111;
 
+    public static EMU_SETTINGS_QUERY_LIST_COMPOSER = 8112;
+
+    public static EMU_SETTINGS_UPDATE_COMPOSER = 8113;
+
+    public static EMU_SETTINGS_DELETE_COMPOSER = 8114;
+
 }
