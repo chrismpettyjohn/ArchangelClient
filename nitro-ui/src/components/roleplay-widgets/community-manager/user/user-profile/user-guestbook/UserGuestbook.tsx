@@ -1,15 +1,16 @@
 import { ChangeEvent, SyntheticEvent, useCallback, useEffect, useState } from "react";
 import { Button, LayoutAvatarImageView, Text } from "../../../../../../common";
-import { UserGuestbookCreateComposer, UserGuestbookPost, UserGuestbookQueryListComposer, UserGuestbookQueryListEvent, UserGuestbookQueryOneComposer } from "@nitro-rp/renderer";
-import { useMessageEvent } from "../../../../../../hooks";
+import { UserGuestbookCreateComposer, UserGuestbookDeleteComposer, UserGuestbookPost, UserGuestbookQueryListComposer, UserGuestbookQueryListEvent, UserGuestbookQueryOneComposer } from "@nitro-rp/renderer";
+import { useMessageEvent, useSessionInfo } from "../../../../../../hooks";
 import { SendMessageComposer } from "../../../../../../api";
-import { FaPlusSquare } from "react-icons/fa";
+import { FaPlusSquare, FaTrashAlt } from "react-icons/fa";
 
 export interface UserGuestbookProps {
     userId: number;
 }
 
 export function UserGuestbook({ userId }: UserGuestbookProps) {
+    const session = useSessionInfo();
     const [message, setMessage] = useState('');
     const [creatorMode, setCreatorMode] = useState(false);
     const [posts, setPosts] = useState<UserGuestbookPost[]>([]);
@@ -23,6 +24,11 @@ export function UserGuestbook({ userId }: UserGuestbookProps) {
         if (!message) return;
         SendMessageComposer(new UserGuestbookCreateComposer(userId, message))
     }, [message, setMessage]);
+
+    const onDeletePost = useCallback((postId: number) => {
+        SendMessageComposer(new UserGuestbookDeleteComposer(postId))
+    }, [setMessage]);
+
 
     useEffect(() => {
         SendMessageComposer(new UserGuestbookQueryListComposer(userId))
@@ -51,37 +57,46 @@ export function UserGuestbook({ userId }: UserGuestbookProps) {
     }
 
     return (
-        <div className="guestbook">
-            {posts.map((post, index) => (
-                <div key={index} className="guestbook-post">
-                    <div className="guestbook-post-header">
-                        <LayoutAvatarImageView figure={post.userFigure} direction={2} className="guestbook-post-pic" />
-                        <div className="guestbook-post-info">
-                            <span className="guestbook-post-username">{post.userName}</span>
+        <>
+            <div className="guestbook" style={{ overflowY: 'auto', height: 480 }}>
+                {posts.map((post, index) => (
+                    <div key={index} className="guestbook-post">
+                        <div className="guestbook-post-header">
+                            <LayoutAvatarImageView figure={post.userFigure} direction={2} className="guestbook-post-pic" />
+                            <div className="guestbook-post-info">
+                                <span className="guestbook-post-username">{post.userName}</span>
+                            </div>
+                        </div>
+                        <div className="guestbook-post-message">
+                            <Text variant="white">{post.message}</Text>
+                        </div>
+                        <div style={{ display: 'flex', flex: 1, justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div className="guestbook-post-createdAt">{post.createdAt}</div>
+                            <div className="guestbook-post-votes">
+                                <span className="upvotes">👍 {post.upvotes}</span>
+                                <span className="downvotes">👎 {post.downvotes}</span>
+                                {
+                                    post.userId === session?.userInfo?.userId && (
+                                        <span className="downvotes" style={{ alignItems: 'center', display: 'flex' }}>
+                                            <FaTrashAlt style={{ cursor: 'pointer' }} onClick={() => onDeletePost(post.id)} />
+                                        </span>
+                                    )
+                                }
+                            </div>
                         </div>
                     </div>
-                    <div className="guestbook-post-message">
-                        <Text variant="white">{post.message}</Text>
-                    </div>
-                    <div style={{ display: 'flex', flex: 1, justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div className="guestbook-post-createdAt">{post.createdAt}</div>
-                        <div className="guestbook-post-votes">
-                            <span className="upvotes">👍 {post.upvotes}</span>
-                            <span className="downvotes">👎 {post.downvotes}</span>
-                        </div>
-                    </div>
-                </div>
-            ))}
-            {
-                !posts.length && <Text fontSize={6} variant="white">There are no posts yet</Text>
-            }
+                ))}
+                {
+                    !posts.length && <Text fontSize={6} variant="white">There are no posts yet</Text>
+                }
+            </div>
             <div style={{ display: 'flex', flex: 1, marginTop: 'auto', justifyContent: 'flex-end', alignItems: 'center' }}>
                 <Button onClick={() => setCreatorMode(true)}>
                     <FaPlusSquare style={{ marginRight: 8 }} />
                     Add
                 </Button>
             </div>
-        </div>
+        </>
 
     )
 }

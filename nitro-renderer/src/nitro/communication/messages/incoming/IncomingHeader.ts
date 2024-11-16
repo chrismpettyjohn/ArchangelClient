@@ -526,4 +526,6 @@ export class IncomingHeader {
     public static MAP_QUERY_EVENT = 9055;
     public static EMU_SETTINGS_QUERY_LIST_EVENT = 9056;
     public static NOTIFICATION_EVENT = 9057;
+    public static USER_GUESTBOOK_QUERY_LIST_EVENT = 9058;
+    public static USER_GUESTBOOK_QUERY_ONE_EVENT = 9059;
 }
