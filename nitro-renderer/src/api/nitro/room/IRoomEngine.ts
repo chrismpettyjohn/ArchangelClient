@@ -23,8 +23,6 @@ export interface IRoomEngine extends INitroManager {
     disableUpdate(flag: boolean): void;
     runUpdate(): void;
     createRoomInstance(roomId: number, roomMap: IRoomMapData): void;
-    setCursorMode(cursor: CursorMode): void;
-    getCursorMode(): CursorMode;
     getRoomInstanceDisplay(roomId: number, id: number, width: number, height: number, scale: number): DisplayObject;
     setRoomInstanceRenderingCanvasScale(roomId: number, canvasId: number, scale: number, point?: Point, offsetPoint?: Point, override?: boolean, asDelta?: boolean): void;
     setRoomInstanceRenderingCanvasMask(roomId: number, canvasId: number, flag: boolean): void;

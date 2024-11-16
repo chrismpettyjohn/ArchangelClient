@@ -8,7 +8,6 @@ import { IObjectData } from './object';
 import { IFurnitureStackingHeightMap, ILegacyWallGeometry, ITileObjectMap } from './utils';
 
 export interface IRoomEngineServices {
-    getCursorMode(): CursorMode;
     getRoomInstance(roomId: number): IRoomInstance;
     getActiveRoomInstanceRenderingCanvas(): IRoomRenderingCanvas;
     addRoomInstanceFloorHole(roomId: number, objectId: number): void;

@@ -742,10 +742,6 @@ export class RoomEngine extends NitroManager implements IRoomEngine, IRoomCreato
         this.setPointer()
     }
 
-    public getCursorMode(): CursorMode {
-        return this._cursorMode;
-    }
-
     private setPointer(): void {
         this._mouseCursorUpdate = false;
 

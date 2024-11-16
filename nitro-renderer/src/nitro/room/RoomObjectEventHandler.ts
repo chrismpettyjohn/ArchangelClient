@@ -363,7 +363,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 break;
             case RoomObjectOperationType.OBJECT_UNDEFINED:
                 if (category === RoomObjectCategory.ROOM) {
-                    if (!didWalk && (event instanceof RoomObjectTileMouseEvent)) this.onRoomObjectTileMouseEvent(roomId, event);
+                    return;
                 }
                 else {
                     this.setSelectedObject(roomId, event.objectId, category);
@@ -935,19 +935,6 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 event.object.model.setValue(RoomObjectVariable.SESSION_URL_PREFIX, NitroConfiguration.getValue('url.prefix'));
                 return;
         }
-    }
-
-    private onRoomObjectTileMouseEvent(roomId: number, event: RoomObjectTileMouseEvent): void {
-
-        const session = this._roomEngine.roomSessionManager.getSession(roomId);
-
-        if (!session || session.isSpectator) return;
-
-        if (this._roomEngine.getCursorMode() === CursorMode.Attack) {
-            this.attackTarget(event.tileX, event.tileY, event.tileZ);
-            return;
-        }
-
     }
 
     private handleObjectMove(event: RoomObjectMouseEvent, roomId: number): void {
@@ -1782,14 +1769,6 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
             case RoomObjectCategory.FLOOR:
             case RoomObjectCategory.WALL:
                 if (category === RoomObjectCategory.UNIT) {
-
-                    if (this._roomEngine.getCursorMode() === CursorMode.Attack) {
-                        const roomObject = this._roomEngine.getRoomObject(roomId, objectId, category);
-                        const roomLoc = this.getActiveSurfaceLocation(roomObject, {});
-                        console.log({ roomObject, roomLoc })
-                        this._roomEngine.connection.send(new UserAttackComposer(~~(roomObject.location.x), ~~(roomObject.location.y), ~~(roomObject.location.z)));
-                        return;
-                    }
 
                     this.deselectObject(roomId);
                     this.setSelectedAvatar(roomId, objectId, true);

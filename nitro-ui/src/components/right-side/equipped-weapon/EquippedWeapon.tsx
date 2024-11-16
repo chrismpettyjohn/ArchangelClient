@@ -100,9 +100,6 @@ export function EquippedWeapon() {
                             </Button>
                         </>
                     ) : ''}
-                    <Button variant="link" onClick={onToggleSafety} className="reload-button">
-                        {safety ? <FaShieldAlt /> : <FaSkullCrossbones style={{ color: 'red' }} />}
-                    </Button>
                 </div>
             </div>
         </div>
