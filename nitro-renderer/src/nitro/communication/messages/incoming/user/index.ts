@@ -24,4 +24,6 @@ export * from './PetSupplementedNotificationEvent';
 export * from './RespectReceivedEvent';
 export * from './ScrSendKickbackInfoMessageEvent';
 export * from './wardrobe';
+export * from './UserGuestbookQueryListEvent';
+export * from './UserGuestbookQueryOneEvent';
 export * from './WelcomeGiftChangeEmailResultEvent';

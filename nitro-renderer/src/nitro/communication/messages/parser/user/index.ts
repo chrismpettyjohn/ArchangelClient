@@ -27,4 +27,6 @@ export * from './RoomEntryData';
 export * from './ScrKickbackData';
 export * from './ScrSendKickbackInfoMessageParser';
 export * from './wardrobe';
+export * from './UserGuestbookQueryListEventParser';
+export * from './UserGuestbookQueryOneEventParser';
 export * from './WelcomeGiftChangeEmailResultParser';
