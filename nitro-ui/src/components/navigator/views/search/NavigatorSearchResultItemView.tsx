@@ -86,7 +86,7 @@ export function NavigatorSearchResultItemView({ canSeeAllRooms, roomData, disabl
                 <FaUser className="fa-icon" />
                 {roomData.userCount}
             </Flex>
-            <Text truncate grow>{roomData.roomName}</Text>
+            <Text truncate grow variant="black">{roomData.roomName}</Text>
             {!!arrivesAt && (
                 <Flex center className="badge p-1 bg-success" gap={1}>
                     <FaClock className="fa-icon" />

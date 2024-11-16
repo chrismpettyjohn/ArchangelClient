@@ -32,7 +32,7 @@ export function NavigatorSearchResultView({ canSeeAllRooms, searchResult, taxiFe
                 <Flex grow pointer alignItems="center" gap={1} onClick={event => setIsExtended(prevValue => !prevValue)}>
                     {isExtended && <FaMinus className="text-secondary fa-icon" />}
                     {!isExtended && <FaPlus className="text-secondary fa-icon" />}
-                    <Text>{LocalizeText(getResultTitle())}</Text>
+                    <Text variant="black">{LocalizeText(getResultTitle())}</Text>
                 </Flex>
             </Flex>
             {isExtended &&
