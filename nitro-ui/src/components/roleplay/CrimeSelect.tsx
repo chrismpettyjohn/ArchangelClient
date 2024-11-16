@@ -1,6 +1,6 @@
 import Select from 'react-select';
 import { useMemo } from "react";
-import { Crime, useCrimes } from "../../api/roleplay/police/GetCrimes";
+import { useCrimes } from "../../api/roleplay/police/GetCrimes";
 import { getSelectDarkTheme, SELECT_DARK_THEME } from './select.base';
 
 export interface CrimeSelectProps {
@@ -12,7 +12,7 @@ export function CrimeSelect({ crimeID, onChange }: CrimeSelectProps) {
     const crimeList = useCrimes();
     const crimeOptions = useMemo(() => {
         return crimeList.map(_ => ({
-            label: <>{_.crime} ({_.sentence} mins)</>,
+            label: <>{_.displayName} ({_.jailTime} mins)</>,
             value: _.id,
         }))
     }, [crimeList]);

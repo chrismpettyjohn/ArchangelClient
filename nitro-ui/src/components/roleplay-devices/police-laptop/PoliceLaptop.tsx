@@ -1,4 +1,4 @@
-import { FaExclamationCircle, FaPhone, FaSearch } from "react-icons/fa";
+import { FaCaretLeft, FaExclamationCircle, FaPhone, FaSearch } from "react-icons/fa";
 import { Button, ColorVariantType, Column, Flex, Grid, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from "../../../common";
 import { DeviceClose } from "../../../api/roleplay/device/DeviceClose";
 import { ReactNode, useEffect, useMemo, useState } from "react";
@@ -85,31 +85,42 @@ export function PoliceLaptop() {
             <PoliceCall />
             {
                 isVisible && (
-                    <NitroCardView uniqueKey="policeLaptop" className="nitro-inventory" style={{ height: 450 }}>
+                    <NitroCardView uniqueKey="policeLaptop" className="nitro-inventory" style={{ height: 450, width: 600 }}>
                         <NitroCardHeaderView headerText="Police Laptop" onCloseClick={() => setIsVisible(false)} />
                         <NitroCardContentView>
-                            <div style={{ height: 450, width: '100%' }}>
+                            <div style={{ height: 450, width: '100%', overflow: 'hidden' }}>
                                 <Flex center column>
                                     <CorpBadge corpID={rpStats.corporationID} />
                                 </Flex>
-                                <hr />
-                                {!activeApp && (
-                                    <Grid fullWidth={true} fullHeight={false} overflow="hidden" gap={2}>
-                                        {policeApps.map(app => (
-                                            <Column key={`app_${app.key}`} fullHeight={false} fullWidth={false} size={12} style={{ flex: 0 }}>
-                                                <Button variant={app.color} onClick={() => setActiveApp(app)}>
-                                                    {app.label}
-                                                </Button>
-                                            </Column>
-                                        ))}
-                                    </Grid>
-                                )}
-                                {activeApp && (
-                                    <>
-                                        {activeApp.children}
-
-                                    </>
-                                )}
+                                <br />
+                                <div style={{ height: 240, overflow: 'auto' }}>
+                                    {!activeApp && (
+                                        <Grid fullWidth={true} fullHeight={false} overflow="hidden" gap={2}>
+                                            {policeApps.map(app => (
+                                                <Column key={`app_${app.key}`} fullHeight={false} fullWidth={false} size={12} style={{ flex: 0 }}>
+                                                    <Button variant={app.color} onClick={() => setActiveApp(app)}>
+                                                        {app.label}
+                                                    </Button>
+                                                </Column>
+                                            ))}
+                                        </Grid>
+                                    )}
+                                    {activeApp && (
+                                        <>
+                                            {activeApp.children}
+                                        </>
+                                    )}
+                                </div>
+                                {
+                                    activeApp && (
+                                        <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'flex-end' }}>
+                                            <Button onClick={() => setActiveApp(undefined)}>
+                                                <FaCaretLeft style={{ marginRight: 8 }} />
+                                                Go back
+                                            </Button>
+                                        </div>
+                                    )
+                                }
                             </div>
                             <hr />
                             <div style={{ display: 'flex', gap: 8 }}>

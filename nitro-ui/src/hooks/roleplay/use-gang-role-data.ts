@@ -15,6 +15,7 @@ export function useGangRoleData(gangRoleId: number): GangRoleData {
     });
 
     useEffect(() => {
+        if (!gangRoleId) return;
         SendMessageComposer(new GangRoleQueryOneComposer(gangRoleId));
     }, [gangRoleId]);
 

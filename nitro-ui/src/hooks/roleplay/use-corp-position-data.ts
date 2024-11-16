@@ -7,9 +7,7 @@ export function useCorpPositionData(corpPositionID: number): CorpPositionInfoDat
     const [corpPositionData, setCorpPositionData] = useState<CorpPositionInfoData>(undefined);
 
     useEffect(() => {
-        if (corpPositionID === corpPositionData?.id) {
-            return;
-        }
+        if (!corpPositionID) return;
         CorpPositionInfoQuery(corpPositionID);
     }, [corpPositionID, corpPositionData]);
 

@@ -1,14 +1,19 @@
-import { GetConfiguration } from "../../nitro";
+import { useEffect, useState } from "react";
+import { GetConfiguration, SendMessageComposer } from "../../nitro";
+import { CrimeData, CrimeListEvent, CrimeQueryListComposer } from "@nitro-rp/renderer";
+import { useMessageEvent } from "../../../hooks";
 
-export interface Crime {
-    id: number;
-    crime: string;
-    sentence: number;
-}
 
-export function useCrimes(): Crime[] {
-    return GetConfiguration<Crime[]>('roleplay.crimes').map((_, i) => ({
-        ..._,
-        id: i + 1,
-    }))
+export function useCrimes(): CrimeData[] {
+    const [crimes, setCrimes] = useState<CrimeData[]>([]);
+
+    useEffect(() => {
+        SendMessageComposer(new CrimeQueryListComposer());
+    }, []);
+
+    useMessageEvent(CrimeListEvent, (event: CrimeListEvent) => {
+        setCrimes(event.getParser().crimes);
+    });
+
+    return crimes
 }

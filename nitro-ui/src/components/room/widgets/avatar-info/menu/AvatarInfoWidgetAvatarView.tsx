@@ -164,7 +164,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                     sessionRoleplayStats.isWorking && (
                                         <>
                                             <ContextMenuListItemView onClick={() => processAction('view_business')}>
-                                                {LocalizeText('infostand.button.business')}
+                                                Work
                                                 <FaChevronRight className="right fa-icon" />
                                             </ContextMenuListItemView>
                                         </>
@@ -174,7 +174,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                     sessionRoleplayStats.isWorking && myCorpData.industry === CorpIndustry.Police && (
                                         <ContextMenuListItemView onClick={() => processAction('view_police')}>
                                             <FaChevronRight className="right fa-icon" />
-                                            {LocalizeText('infostand.button.police')}
+                                            Police
                                         </ContextMenuListItemView>
                                     )
                                 }
@@ -182,7 +182,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                     roleplayStats.gangID ? (
                                         <ContextMenuListItemView onClick={() => processAction('view_gang')}>
                                             <FaChevronRight className="right fa-icon" />
-                                            {LocalizeText('infostand.button.gang')}
+                                            Gang
                                         </ContextMenuListItemView>
                                     )
                                         : null}
@@ -220,13 +220,13 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                     roleplayStats.corporationID === sessionRoleplayStats.corporationID && (
                                         <>
                                             <ContextMenuListItemView onClick={() => processAction('corp_fire_user')}>
-                                                {LocalizeText('infostand.button.corp_fire_user')}
+                                                Fire
                                             </ContextMenuListItemView>
                                             <ContextMenuListItemView onClick={() => processAction('corp_promote_user')}>
-                                                {LocalizeText('infostand.button.corp_promote_user')}
+                                                Promote
                                             </ContextMenuListItemView>
                                             <ContextMenuListItemView onClick={() => processAction('corp_demote_user')}>
-                                                {LocalizeText('infostand.button.corp_demote_user')}
+                                                Demote
                                             </ContextMenuListItemView>
                                         </>
                                     )
@@ -238,7 +238,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                     roleplayStats.gangID !== sessionRoleplayStats.gangID && (
                                         <>
                                             <ContextMenuListItemView onClick={() => processAction('gang_invite_user')}>
-                                                {LocalizeText('infostand.button.gang_invite_user')}
+                                                Invite
                                             </ContextMenuListItemView>
                                         </>
                                     )
@@ -250,42 +250,42 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                 {
                                     !roleplayStats.isCuffed && !roleplayStats.isStunned && !roleplayStats.isDead && (
                                         <ContextMenuListItemView onClick={() => processAction('police_stun')}>
-                                            {LocalizeText('infostand.button.police_stun')}
+                                            Stun
                                         </ContextMenuListItemView>
                                     )
                                 }
                                 {
                                     roleplayStats.isStunned && !roleplayStats.isCuffed && (
                                         <ContextMenuListItemView onClick={() => processAction('police_cuff')}>
-                                            {LocalizeText('infostand.button.police_cuff')}
+                                            Cuff
                                         </ContextMenuListItemView>
                                     )
                                 }
                                 {
                                     roleplayStats.isCuffed && !roleplayStats.escortedByUserID && (
                                         <ContextMenuListItemView onClick={() => processAction('police_escort')}>
-                                            {LocalizeText('infostand.button.police_start_escort')}
+                                            Escort
                                         </ContextMenuListItemView>
                                     )
                                 }
                                 {
                                     roleplayStats.escortedByUserID === sessionInfo.userId && (
                                         <ContextMenuListItemView onClick={() => processAction('police_escort')}>
-                                            {LocalizeText('infostand.button.police_stop_escort')}
+                                            Stop Escort
                                         </ContextMenuListItemView>
                                     )
                                 }
                                 {
                                     roleplayStats.isCuffed && roleplayStats.escortedByUserID == null && (
                                         <ContextMenuListItemView onClick={() => processAction('police_cuff')}>
-                                            {LocalizeText('infostand.button.police_uncuff')}
+                                            Uncuff
                                         </ContextMenuListItemView>
                                     )
                                 }
                                 {
                                     roleplayStats.isCuffed && !!roleplayStats.escortedByUserID && (
                                         <ContextMenuListItemView onClick={() => processAction('view_police_arrest')}>
-                                            {LocalizeText('infostand.button.police_arrest')}
+                                            Arrest
                                         </ContextMenuListItemView>
                                     )
                                 }
@@ -295,7 +295,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                             <>
                                 {
                                     crimeList.map(crime => (
-                                        <ContextMenuListItemView key={`crime_${crime.crime}`} onClick={() => { onClose(); PoliceArrestUser(avatarInfo.name, crime.crime, crime.sentence) }}>
+                                        <ContextMenuListItemView key={`crime_${crime.crime}`} onClick={() => { onClose(); PoliceArrestUser(avatarInfo.webID) }}>
                                             {crime.crime} ({crime.sentence}mins)
                                         </ContextMenuListItemView>
                                     ))

@@ -121,23 +121,6 @@ export const InfoStandWidgetUserView: FC<InfoStandWidgetUserViewProps> = props =
                             </Flex>
                         </Column>
                     </Flex>
-                    <hr className="m-0" />
-                </Column>
-                <Column gap={1}>
-                    <Text bold fullWidth pointer wrap textBreak small variant="white">Current activity</Text>
-                    <Flex alignItems="center" className="bg-light-dark rounded py-1 px-2">
-                        <Text small fullWidth variant="white">{avatarInfo?.motto ?? '-'}</Text>
-                    </Flex>
-                    <hr className="m-0" />
-                </Column>
-                <Column gap={1}>
-                    {(avatarInfo.carryItem > 0) &&
-                        <>
-                            <hr className="m-0" />
-                            <Text variant="white" small wrap>
-                                {LocalizeText('infostand.text.handitem', ['item'], [LocalizeText('handitem' + avatarInfo.carryItem)])}
-                            </Text>
-                        </>}
                 </Column>
                 <Column gap={1}>
                     <InfoStandWidgetUserRelationshipsView relationships={relationships} />

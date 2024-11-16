@@ -3,11 +3,10 @@ import { Flex, Text } from "../../../../common";
 import { useWantedList } from "../../../../hooks/roleplay/use-wanted-list"
 import { WantedListAddUser } from "../../../../api/roleplay/police/WantedListAddUser";
 import { Button } from "react-bootstrap";
-import { FaCaretLeft, FaPlusCircle, FaPlusSquare, FaTimes } from "react-icons/fa";
+import { FaPlusCircle, FaPlusSquare, FaTimes } from "react-icons/fa";
 import { UserSelect } from "../../../roleplay/UserSelect";
 import { RoomUsersListRow } from "@nitro-rp/renderer";
 import { CrimeSelect } from "../../../roleplay/CrimeSelect";
-import { Crime } from "../../../../api/roleplay/police/GetCrimes";
 import { WantedListRemoveUser } from "../../../../api/roleplay/police/WantedListRemoveUser";
 
 export interface MostWantedProps {
@@ -46,7 +45,7 @@ export function MostWanted({ goBack }: MostWantedProps) {
                     </Flex>
                     <Flex column fullWidth>
                         <Text bold fontSize={6} variant="white">Crime</Text>
-                        <CrimeSelect crimeID={crimeID?.id} onChange={setCrimeID} />
+                        <CrimeSelect crimeID={crimeID} onChange={setCrimeID} />
                     </Flex>
                     <Flex fullWidth justifyContent="end" gap={2}>
                         <Button variant="dark" size="sm" onClick={onCancel}>
@@ -67,8 +66,7 @@ export function MostWanted({ goBack }: MostWantedProps) {
         <>
             <Flex justifyContent="between">
                 <Flex center>
-                    <FaCaretLeft onClick={goBack} style={{ color: 'white', cursor: 'pointer', fontSize: 24, marginRight: 4 }} />
-                    <Text bold fontSize={4}>Wanted List</Text>
+                    <Text bold fontSize={4}>Most Wanted</Text>
                 </Flex>
                 <Flex center>
                     <Button variant="success" size="sm" onClick={() => setAdding(true)}>
