@@ -1,0 +1,50 @@
+import { useEffect, useState } from 'react';
+import { MapData, MapQueryComposer, MapQueryEvent } from '@nitro-rp/renderer';
+import { SendMessageComposer } from '../../../api';
+import { useMessageEvent } from '../../../hooks';
+
+export function MiniMap() {
+    const [map, setMap] = useState<MapData>();
+
+    useEffect(() => {
+        SendMessageComposer(new MapQueryComposer());
+    }, []);
+
+    useMessageEvent(MapQueryEvent, (event: MapQueryEvent) => {
+        setMap(event.getParser().map);
+    });
+
+    console.log('Map: ', map);
+
+    const startRoom = map?.rooms?.find((room) => room.name === map?.startRoomName);
+
+    return (
+        <div className="mini-map">
+            <div className="map-container">
+                {startRoom && map && (
+                    <>
+                        <div
+                            className="room"
+                            key={startRoom.name}
+                            data-room-name={startRoom.name}
+                            style={{
+                                top: `${50 + startRoom.y * 50}%`,
+                                left: `${50 + startRoom.x * 50}%`,
+                            }}
+                        />
+                        {map.rooms
+                            .filter((room) => room.name !== map.startRoomName)
+                            .map((room) => (
+                                <div
+                                    className="room"
+                                    key={room.name}
+                                    data-room-name={room.name}
+                                    style={{ top: `${50 + room.y * 50}%`, left: `${50 + room.x * 50}%` }}
+                                />
+                            ))}
+                    </>
+                )}
+            </div>
+        </div>
+    );
+}

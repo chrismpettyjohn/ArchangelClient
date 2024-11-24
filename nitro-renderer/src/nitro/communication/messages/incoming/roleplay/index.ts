@@ -35,6 +35,7 @@ export * from './items/HotBarListItemsEvent';
 export * from './license/LicenseAgencyListEvent';
 export * from './license/LicenseOpenComputerEvent';
 export * from './license/LicenseStatusEvent';
+export * from './map/MapQueryEvent';
 export * from './player/PlayerQueryListEvent';
 export * from './player/PlayerQuerySkillsListEvent';
 export * from './police/PoliceCallInfoEvent';

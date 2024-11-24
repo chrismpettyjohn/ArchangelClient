@@ -251,11 +251,11 @@ export function NavigatorView() {
                     <NitroCardHeaderView headerText={LocalizeText(isCreatorOpen ? 'Create Room' : 'Taxi')} onCloseClick={() => setIsVisible(false)} />
                     <NitroCardContentView position="relative">
                         {
-                            taxiTimeLeft
+                            rpStats?.isDead
                                 ? (
                                     <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                        <Text bold fontSize={2}>Taxi called</Text>
-                                        <Text fontSize={6}>The taxi has been called and is on the way!</Text>
+                                        <Text bold fontSize={2}>You're dead</Text>
+                                        <Text fontSize={6}>You need a doctor, not a taxi.</Text>
                                         <div style={{ background: 'white', width: 250, height: 4, marginTop: 10, marginBottom: 10 }} />
                                         <Text bold fontSize={4}> <b style={{ color: '#A7B2FE' }}>{taxiTimeLeft} secs</b> remaining</Text>
                                         <div style={{ marginTop: 'auto' }}>
@@ -265,34 +265,48 @@ export function NavigatorView() {
                                         </div>
                                     </div>
                                 )
-                                : !canPayTaxiFee
+                                : taxiTimeLeft
                                     ? (
                                         <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                                            <Text bold fontSize={2}>You're broke!</Text>
-                                            <Text fontSize={5}>You need <strong>${taxiInfo?.fee}</strong> to use the taxi</Text>
+                                            <Text bold fontSize={2}>Taxi called</Text>
+                                            <Text fontSize={6}>The taxi has been called and is on the way!</Text>
+                                            <div style={{ background: 'white', width: 250, height: 4, marginTop: 10, marginBottom: 10 }} />
+                                            <Text bold fontSize={4}> <b style={{ color: '#A7B2FE' }}>{taxiTimeLeft} secs</b> remaining</Text>
+                                            <div style={{ marginTop: 'auto' }}>
+                                                <Button variant="danger" onClick={onCancelTrip}>Cancel Trip</Button>
+                                                <br />
+                                                <Text fontSize={5}><small style={{ color: 'red' }}>Your trip will be cancelled if you leave the stand.</small></Text>
+                                            </div>
                                         </div>
                                     )
-                                    : (
-                                        <>
-                                            {
-                                                rpPerms.canSeeAllRooms && (
-                                                    <Base className="form-check">
-                                                        <input className="form-check-input" type="checkbox" name="taxiOnly" checked={taxiOnly} onChange={onToggleTaxi} />
-                                                        <label className="form-check-label" style={{ color: 'white' }}>Show all rooms</label>
-                                                    </Base>
-                                                )
-                                            }
-                                            {isLoading &&
-                                                <Base fit position="absolute" className="top-0 start-0 z-index-1 bg-muted opacity-0-5" />}
-                                            {!isCreatorOpen &&
-                                                <>
-                                                    <Column innerRef={elementRef} overflow="auto">
-                                                        {(searchResult && searchResult.results.map((result, index) => <NavigatorSearchResultView key={index} searchResult={result} taxiFee={taxiInfo?.fee} taxiPending={!!taxiTimeLeft} onVisitRoom={onVisitRoom} canSeeAllRooms={taxiOnly} canPayTaxiFee={canPayTaxiFee} />))}
-                                                    </Column>
-                                                </>}
-                                            {isCreatorOpen && <NavigatorRoomCreatorView />}
-                                        </>
-                                    )
+                                    : !canPayTaxiFee
+                                        ? (
+                                            <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                                <Text bold fontSize={2}>You're broke!</Text>
+                                                <Text fontSize={5}>You need <strong>${taxiInfo?.fee}</strong> to use the taxi</Text>
+                                            </div>
+                                        )
+                                        : (
+                                            <>
+                                                {
+                                                    rpPerms.canSeeAllRooms && (
+                                                        <Base className="form-check">
+                                                            <input className="form-check-input" type="checkbox" name="taxiOnly" checked={taxiOnly} onChange={onToggleTaxi} />
+                                                            <label className="form-check-label" style={{ color: 'white' }}>Show all rooms</label>
+                                                        </Base>
+                                                    )
+                                                }
+                                                {isLoading &&
+                                                    <Base fit position="absolute" className="top-0 start-0 z-index-1 bg-muted opacity-0-5" />}
+                                                {!isCreatorOpen &&
+                                                    <>
+                                                        <Column innerRef={elementRef} overflow="auto">
+                                                            {(searchResult && searchResult.results.map((result, index) => <NavigatorSearchResultView key={index} searchResult={result} taxiFee={taxiInfo?.fee} taxiPending={!!taxiTimeLeft} onVisitRoom={onVisitRoom} canSeeAllRooms={taxiOnly} canPayTaxiFee={canPayTaxiFee} />))}
+                                                        </Column>
+                                                    </>}
+                                                {isCreatorOpen && <NavigatorRoomCreatorView />}
+                                            </>
+                                        )
                         }
 
                     </NitroCardContentView>

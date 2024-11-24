@@ -1,0 +1,34 @@
+.mini-map {
+  position: absolute;
+  bottom: 100px;
+  left: 40px;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #ccc;
+  overflow: hidden;
+
+  .map-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    .room {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #007bff; // Example color
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+
+      &::before {
+        content: attr(data-room-name);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 10px;
+        color: white;
+      }
+    }
+  }
+}

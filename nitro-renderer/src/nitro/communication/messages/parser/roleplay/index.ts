@@ -35,6 +35,7 @@ export * from './items/HotBarListItemsEventParser';
 export * from './license/LicenseAgencyListEventParser';
 export * from './license/LicenseOpenComputerEventParser';
 export * from './license/LicenseStatusEventParser';
+export * from './map/MapQueryEventParser';
 export * from './player/PlayerQueryListEventParser';
 export * from './player/PlayerQuerySkillsListEventParser';
 export * from './police/PoliceCallInfoEventParser';

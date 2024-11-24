@@ -701,4 +701,6 @@ export class OutgoingHeader {
 
     public static CANCEL_TAXI_COMPOSER = 8120;
 
+    public static MAP_QUERY_COMPOSER = 8121;
+
 }

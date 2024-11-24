@@ -76,6 +76,7 @@ export * from './license/LicenseAgencyListComposer';
 export * from './license/LicenseConnectComputerComposer';
 export * from './license/LicenseOfferComposer';
 export * from './license/LicenseStatusQueryComposer';
+export * from './map/MapQueryComposer';
 export * from './player/PlayerQueryListComposer';
 export * from './player/PlayerQuerySkillsListComposer';
 export * from './police/CallPoliceComposer';
