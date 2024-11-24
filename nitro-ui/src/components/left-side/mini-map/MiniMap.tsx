@@ -4,20 +4,19 @@ import { SendMessageComposer } from '../../../api';
 import { useMessageEvent } from '../../../hooks';
 
 export function MiniMap() {
-    const [map, setMap] = useState<MapData>();
+    const [map, setMap] = useState<MapData[]>([]);
 
     useEffect(() => {
         SendMessageComposer(new MapQueryComposer());
     }, []);
 
     useMessageEvent(MapQueryEvent, (event: MapQueryEvent) => {
-        setMap(event.getParser().map);
+        setMap(event.getParser().rooms);
     });
 
     console.log('Map: ', map);
 
-    const startRoom = map?.rooms?.find((room) => room.name === map?.startRoomName);
-
+    const startRoom = map[0];
     return (
         <div className="mini-map">
             <div className="map-container">
@@ -32,8 +31,7 @@ export function MiniMap() {
                                 left: `${50 + startRoom.x * 50}%`,
                             }}
                         />
-                        {map.rooms
-                            .filter((room) => room.name !== map.startRoomName)
+                        {map
                             .map((room) => (
                                 <div
                                     className="room"
