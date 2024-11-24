@@ -10,10 +10,11 @@ export interface NavigatorSearchResultViewProps {
     taxiFee: number;
     onVisitRoom(roomData: RoomDataParser): void;
     taxiPending: boolean;
+    canPayTaxiFee: boolean;
     canSeeAllRooms: boolean;
 }
 
-export function NavigatorSearchResultView({ canSeeAllRooms, searchResult, taxiFee, taxiPending, onVisitRoom }: NavigatorSearchResultViewProps) {
+export function NavigatorSearchResultView({ canSeeAllRooms, searchResult, taxiFee, taxiPending, onVisitRoom, canPayTaxiFee }: NavigatorSearchResultViewProps) {
     const [isExtended, setIsExtended] = useState(true);
 
     const getResultTitle = () => {
@@ -37,7 +38,7 @@ export function NavigatorSearchResultView({ canSeeAllRooms, searchResult, taxiFe
             </Flex>
             {isExtended &&
                 <Grid columnCount={1} className="navigator-grid" gap={0}>
-                    {searchResult.rooms.length > 0 && searchResult.rooms.map((room, index) => <NavigatorSearchResultItemView canSeeAllRooms={canSeeAllRooms} key={index} roomData={room} taxiFee={taxiFee} disabled={taxiPending} onVisitRoom={() => onVisitRoom(room)} />)}
+                    {searchResult.rooms.length > 0 && searchResult.rooms.map((room, index) => <NavigatorSearchResultItemView canPayTaxiFee={canPayTaxiFee} canSeeAllRooms={canSeeAllRooms} key={index} roomData={room} taxiFee={taxiFee} disabled={taxiPending} onVisitRoom={() => onVisitRoom(room)} />)}
                 </Grid>
             }
         </Column>

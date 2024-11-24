@@ -16,17 +16,14 @@ export interface NavigatorSearchResultItemViewProps extends LayoutGridItemProps 
     roomData: RoomDataParser;
     onVisitRoom(): void;
     taxiFee: number;
+    canPayTaxiFee: boolean;
     canSeeAllRooms: boolean;
 }
 
-export function NavigatorSearchResultItemView({ canSeeAllRooms, roomData, disabled, onVisitRoom, taxiFee, ...rest }) {
-    const session = useSessionInfo();
-    const rpStats = useRoleplayStats(session.userInfo.userId);
+export function NavigatorSearchResultItemView({ canSeeAllRooms, roomData, disabled, onVisitRoom, taxiFee, canPayTaxiFee, ...rest }) {
     const { roomSession } = useRoom();
     const [arrivesAt, setArrivesAt] = useState<number>();
     const [remainingSecs, setRemainingSecs] = useState<number>(0);
-
-    const canPayTaxiFee = rpStats.cashBalance >= taxiFee;
 
     const isCurrentRoom = roomData?.roomId === roomSession?.roomId;
 
