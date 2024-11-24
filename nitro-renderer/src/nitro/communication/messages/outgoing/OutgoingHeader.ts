@@ -699,4 +699,6 @@ export class OutgoingHeader {
 
     public static USER_GUESTBOOK_QUERY_ONE_COMPOSER = 8119;
 
+    public static CANCEL_TAXI_COMPOSER = 8120;
+
 }

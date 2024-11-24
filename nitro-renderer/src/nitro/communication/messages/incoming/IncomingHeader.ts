@@ -479,7 +479,7 @@ export class IncomingHeader {
     public static COMBAT_DELAY_QUERY = 9008;
     public static CASH_REGISTER_QUERY = 9009;
     public static BILLING_INVOICE_QUERY = 9010;
-    public static TAXI_FEE_QUERY = 9011;
+    public static TAXI_STAND_EVENT = 9011;
     public static TAXI_DISPATCHED = 9012;
     public static BANK_ACCOUNT_INFO = 9013;
     public static BANK_OPEN_ATM = 9014;

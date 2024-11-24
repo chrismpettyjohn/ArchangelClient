@@ -22,7 +22,7 @@ export * from './crime/CrimeDataEvent';
 export * from './crime/CrimeListEvent';
 export * from './device/InfoScreenViewEvent';
 export * from './device/DeviceOpenEvent';
-export * from './taxi/TaxiFeeQueryEvent';
+export * from './taxi/TaxiStandEvent';
 export * from './gang/GangMemberQueryListEvent';
 export * from './gang/GangQueryListEvent';
 export * from './gang/GangQueryOneEvent';

@@ -1,8 +1,7 @@
-import { ConvertGlobalRoomIdMessageComposer, HabboWebTools, ILinkEventTracker, LegacyExternalInterface, NavigatorInitComposer, NavigatorSearchComposer, RoomDataParser, RoomEnterEvent, RoomSessionEvent, TaxiFeeQueryEvent } from '@nitro-rp/renderer';
+import { CancelTaxiComposer, ConvertGlobalRoomIdMessageComposer, HabboWebTools, ILinkEventTracker, LegacyExternalInterface, NavigatorInitComposer, NavigatorSearchComposer, RoomDataParser, RoomEnterEvent, RoomSessionEvent, TaxiInformation, TaxiStandEvent } from '@nitro-rp/renderer';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { FaPlus } from 'react-icons/fa';
-import { AddEventLinkTracker, LocalizeText, RemoveLinkEventTracker, SendMessageComposer, TryVisitRoom } from '../../api';
-import { Base, Column, NitroCardContentView, NitroCardHeaderView, NitroCardTabsItemView, NitroCardTabsView, NitroCardView, Text } from '../../common';
+import { AddEventLinkTracker, GetSessionDataManager, LocalizeText, RemoveLinkEventTracker, SendMessageComposer, TryVisitRoom } from '../../api';
+import { Base, Button, Column, NitroCardContentView, NitroCardHeaderView, NitroCardView, Text } from '../../common';
 import { useMessageEvent, useNavigator, useRoom, useRoomSessionManagerEvent } from '../../hooks';
 import { NavigatorDoorStateView } from './views/NavigatorDoorStateView';
 import { NavigatorRoomCreatorView } from './views/NavigatorRoomCreatorView';
@@ -17,18 +16,23 @@ export function NavigatorView() {
     const [taxiOnly, setTaxiOnly] = useState(false);
     const { roomSession } = useRoom();
     const rpPerms = useRoleplayPermissions();
-    const [taxiFee, setTaxiFee] = useState(0);
+    const [taxiInfo, setTaxiInfo] = useState<TaxiInformation>();
     const [isVisible, setIsVisible] = useState(false);
-    const [taxiPending, setTaxiPending] = useState(false);
+    const [taxiTimeLeft, setTaxiTimeLeft] = useState(0);
     const [isReady, setIsReady] = useState(false);
     const [isCreatorOpen, setCreatorOpen] = useState(false);
     const [isRoomInfoOpen, setRoomInfoOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [needsInit, setNeedsInit] = useState(true);
     const [needsSearch, setNeedsSearch] = useState(false);
-    const { searchResult = null, topLevelContext = null, topLevelContexts = null, navigatorData = null } = useNavigator();
+    const { searchResult = null, topLevelContext = null, navigatorData = null } = useNavigator();
     const pendingSearch = useRef<{ value: string, code: string }>(null);
     const elementRef = useRef<HTMLDivElement>();
+
+    const onCancelTrip = useCallback(() => {
+        SendMessageComposer(new CancelTaxiComposer())
+        setTaxiTimeLeft(0);
+    }, [setTaxiTimeLeft]);
 
     useRoomSessionManagerEvent<RoomSessionEvent>(RoomSessionEvent.CREATED, event => {
         setIsVisible(false);
@@ -42,6 +46,7 @@ export function NavigatorView() {
 
         setIsLoading(true);
     }, []);
+
 
     const reloadCurrentSearch = useCallback(() => {
         if (!isReady) {
@@ -80,21 +85,25 @@ export function NavigatorView() {
         if (roomData.roomId === roomSession?.roomId) {
             return;
         }
-        if (taxiPending) return;
-        setTaxiPending(true);
+        if (taxiTimeLeft) return;
+        setTaxiTimeLeft(taxiInfo?.delay);
         CallTaxi(roomData.roomId);
     }
+
 
     useMessageEvent<RoomEnterEvent>(RoomEnterEvent, event => {
         const parser = event.getParser();
         if (!parser) return;
-        setTaxiPending(false);
+        setTaxiTimeLeft(0);
         setIsVisible(false);
     });
 
     useEffect(() => {
         const linkTracker: ILinkEventTracker = {
             linkReceived: (url: string) => {
+                if (!GetSessionDataManager().isModerator) {
+                    return;
+                }
                 const parts = url.split('/');
 
                 if (parts.length < 2) return;
@@ -204,37 +213,78 @@ export function NavigatorView() {
         taxiFeeQuery();
     }, []);
 
-    useMessageEvent<TaxiFeeQueryEvent>(TaxiFeeQueryEvent, event => {
+    useMessageEvent<TaxiStandEvent>(TaxiStandEvent, event => {
         const parser = event.getParser();
         if (!parser) return;
-        setTaxiFee(parser.taxiFee);
+        setTaxiInfo(parser.taxiInfo);
+        setIsVisible(true);
+        setNeedsSearch(true);
     });
+
+    useEffect(() => {
+        let timer;
+
+        if (taxiTimeLeft > 0) {
+            timer = setInterval(() => {
+                setTaxiTimeLeft(prevTime => {
+                    if (prevTime <= 1) {
+                        clearInterval(timer);
+                        return 0;
+                    }
+                    return prevTime - 1;
+                });
+            }, 1000);
+        }
+
+        return () => clearInterval(timer);
+    }, [taxiTimeLeft]);
 
     return (
         <>
             {isVisible &&
-                <NitroCardView uniqueKey="navigator" className="nitro-navigator">
+                <NitroCardView uniqueKey="navigator" className="nitro-navigator" style={{ height: 300, width: 300 }}>
                     <NitroCardHeaderView headerText={LocalizeText(isCreatorOpen ? 'Create Room' : 'Taxi')} onCloseClick={() => setIsVisible(false)} />
                     <NitroCardContentView position="relative">
                         {
-                            rpPerms.canSeeAllRooms && (
-                                <Base className="form-check">
-                                    <input className="form-check-input" type="checkbox" name="taxiOnly" checked={taxiOnly} onChange={onToggleTaxi} />
-                                    <label className="form-check-label" style={{ color: 'white' }}>Show all rooms</label>
-                                </Base>
-                            )
+                            taxiTimeLeft
+                                ? (
+                                    <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text bold fontSize={2}>Taxi called</Text>
+                                        <Text fontSize={6}>The taxi has been called and is on the way!</Text>
+                                        <div style={{ background: 'white', width: 250, height: 4, marginTop: 10, marginBottom: 10 }} />
+                                        <Text bold fontSize={4}> <b style={{ color: '#A7B2FE' }}>{taxiTimeLeft} secs</b> remaining</Text>
+                                        <div style={{ marginTop: 'auto' }}>
+                                            <Button variant="danger" onClick={onCancelTrip}>Cancel Trip</Button>
+                                            <br />
+                                            <Text fontSize={5}><small style={{ color: 'red' }}>Your trip will be cancelled if you leave the stand.</small></Text>
+                                        </div>
+                                    </div>
+                                )
+                                : (
+                                    <>
+                                        {
+                                            rpPerms.canSeeAllRooms && (
+                                                <Base className="form-check">
+                                                    <input className="form-check-input" type="checkbox" name="taxiOnly" checked={taxiOnly} onChange={onToggleTaxi} />
+                                                    <label className="form-check-label" style={{ color: 'white' }}>Show all rooms</label>
+                                                </Base>
+                                            )
+                                        }
+                                        {isLoading &&
+                                            <Base fit position="absolute" className="top-0 start-0 z-index-1 bg-muted opacity-0-5" />}
+                                        {!isCreatorOpen &&
+                                            <>
+                                                <Column innerRef={elementRef} overflow="auto">
+                                                    {(searchResult && searchResult.results.map((result, index) => <NavigatorSearchResultView key={index} searchResult={result} taxiFee={taxiInfo?.fee} taxiPending={!!taxiTimeLeft} onVisitRoom={onVisitRoom} canSeeAllRooms={taxiOnly} />))}
+                                                </Column>
+                                            </>}
+                                        {isCreatorOpen && <NavigatorRoomCreatorView />}
+                                    </>
+                                )
                         }
-                        {isLoading &&
-                            <Base fit position="absolute" className="top-0 start-0 z-index-1 bg-muted opacity-0-5" />}
-                        {!isCreatorOpen &&
-                            <>
-                                <Column innerRef={elementRef} overflow="auto">
-                                    {(searchResult && searchResult.results.map((result, index) => <NavigatorSearchResultView key={index} searchResult={result} taxiFee={taxiFee} taxiPending={taxiPending} onVisitRoom={onVisitRoom} canSeeAllRooms={taxiOnly} />))}
-                                </Column>
-                            </>}
-                        {isCreatorOpen && <NavigatorRoomCreatorView />}
+
                     </NitroCardContentView>
-                </NitroCardView>}
+                </NitroCardView >}
             <NavigatorDoorStateView />
             {isRoomInfoOpen && <NavigatorRoomInfoView onCloseClick={() => setRoomInfoOpen(false)} />}
             <NavigatorRoomSettingsView />

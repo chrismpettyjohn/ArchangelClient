@@ -1,9 +1,10 @@
 import { RoomDeleteComposer } from '@nitro-rp/renderer';
-import { ChangeEvent, FC, useEffect, useState } from 'react';
-import { FaPlusCircle, FaTimes } from 'react-icons/fa';
+import { ChangeEvent, FC, useCallback, useEffect, useState } from 'react';
+import { FaPlusCircle, FaTimes, FaTimesCircle } from 'react-icons/fa';
 import { CreateLinkEvent, GetMaxVisitorsList, IRoomData, LocalizeText, SendMessageComposer } from '../../../../api';
 import { AutoGrid, Base, Column, Flex, Text } from '../../../../common';
 import { useNavigator, useNotification } from '../../../../hooks';
+import { useDebouncedEffect } from '../../../../hooks/useDebouncedEffect';
 
 const ROOM_NAME_MIN_LENGTH = 3;
 const ROOM_NAME_MAX_LENGTH = 60;
@@ -47,18 +48,23 @@ export const NavigatorRoomSettingsBasicTabView: FC<NavigatorRoomSettingsTabViewP
         ])
     }
 
-    function onChangeTag(index: number, event: ChangeEvent<HTMLInputElement>) {
+    const onChangeTag = useCallback((index: number, event: ChangeEvent<HTMLInputElement>) => {
         event.persist();
         setRoomTags(_ => {
             const newRoomsTags = [..._];
             newRoomsTags[index] = event.target.value;
             return newRoomsTags;
         })
-    }
+    }, []);
 
-    function onSaveTags() {
-        handleChange('tags', roomTags)
-    }
+    const onDeleteTag = useCallback((index: number) => {
+        setRoomTags((prevTags) => {
+            const newTags = [...prevTags];
+            newTags.splice(index, 1);
+            return newTags;
+        });
+    }, [setRoomTags]);
+
 
     const saveRoomDescription = () => {
         if ((roomDescription === roomData.roomDescription) || (roomDescription.length > DESC_MAX_LENGTH)) return;
@@ -71,6 +77,10 @@ export const NavigatorRoomSettingsBasicTabView: FC<NavigatorRoomSettingsTabViewP
         setRoomDescription(roomData.roomDescription);
         setRoomTags(roomData.tags);
     }, [roomData]);
+
+    useDebouncedEffect(() => {
+        handleChange('tags', roomTags)
+    }, [roomTags], 300);
 
     return (
         <>
@@ -112,15 +122,16 @@ export const NavigatorRoomSettingsBasicTabView: FC<NavigatorRoomSettingsTabViewP
                 {LocalizeText('navigator.tags')}
                 <FaPlusCircle className="fa-icon" onClick={onAddTag} style={{ cursor: 'pointer', marginLeft: 4 }} />
             </Text>
-            <AutoGrid columnCount={3} columnMinWidth={50} columnMinHeight={50}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
                 {
                     roomTags.map((tag, index) => (
-                        <Column fullWidth gap={0} key={`room_tag_${index}`}>
-                            <input className="form-control form-control-sm" value={tag} onChange={event => onChangeTag(index, event)} onBlur={onSaveTags} />
-                        </Column>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: 100 }}>
+                            <FaTimesCircle style={{ color: 'red', cursor: 'pointer', marginRight: 8, fontSize: 24 }} onClick={() => onDeleteTag(index)} />
+                            <input className="form-control form-control-sm" value={tag} onChange={event => onChangeTag(index, event)} />
+                        </div>
                     ))
                 }
-            </AutoGrid>
+            </div>
             <Flex alignItems="center" gap={1}>
                 <Base className="col-3" />
                 <input className="form-check-input" type="checkbox" checked={roomData.allowWalkthrough} onChange={event => handleChange('allow_walkthrough', event.target.checked)} />

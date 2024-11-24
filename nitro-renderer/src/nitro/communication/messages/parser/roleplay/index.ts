@@ -44,7 +44,7 @@ export * from './police/WantedListEventParser';
 export * from './room/RoomListUsersEventParser';
 export * from './room/RoomQueryListEventParser';
 export * from './taxi/TaxiDispatchedEventParser';
-export * from './taxi/TaxiFeeEventParser'
+export * from './taxi/TaxiStandEventParser'
 export * from './user/UserOpenWardrobeEventParser';
 export * from './user/RoleplayPermissionsEventParser';
 export * from './user/UserOnlineCountEventParser';

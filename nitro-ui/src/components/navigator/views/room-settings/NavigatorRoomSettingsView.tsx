@@ -15,16 +15,14 @@ const TABS: string[] = [
     'navigator.roomsettings.tab.5'
 ];
 
-export const NavigatorRoomSettingsView: FC<{}> = props =>
-{
-    const [ roomData, setRoomData ] = useState<IRoomData>(null);
-    const [ currentTab, setCurrentTab ] = useState(TABS[0]);
+export const NavigatorRoomSettingsView: FC<{}> = props => {
+    const [roomData, setRoomData] = useState<IRoomData>(null);
+    const [currentTab, setCurrentTab] = useState(TABS[0]);
 
-    useMessageEvent<RoomSettingsDataEvent>(RoomSettingsDataEvent, event =>
-    {
+    useMessageEvent<RoomSettingsDataEvent>(RoomSettingsDataEvent, event => {
         const parser = event.getParser();
 
-        if(!parser) return;
+        if (!parser) return;
 
         const data = parser.data;
 
@@ -61,20 +59,16 @@ export const NavigatorRoomSettingsView: FC<{}> = props =>
         SendMessageComposer(new RoomBannedUsersComposer(data.roomId));
     });
 
-    const onClose = () =>
-    {
+    const onClose = () => {
         setRoomData(null);
         setCurrentTab(TABS[0]);
     }
 
-    const handleChange = (field: string, value: string | number | boolean | string[]) =>
-    {
-        setRoomData(prevValue =>
-        {
+    const handleChange = (field: string, value: string | number | boolean | string[]) => {
+        setRoomData(prevValue => {
             const newValue = { ...prevValue };
 
-            switch(field)
-            {
+            switch (field) {
                 case 'name':
                     newValue.roomName = String(value);
                     break;
@@ -91,6 +85,7 @@ export const NavigatorRoomSettingsView: FC<{}> = props =>
                     newValue.tradeState = Number(value);
                     break;
                 case 'tags':
+                    console.log({ value })
                     newValue.tags = value as Array<string>;
                     break;
                 case 'allow_walkthrough':
@@ -176,26 +171,25 @@ export const NavigatorRoomSettingsView: FC<{}> = props =>
         });
     }
 
-    if(!roomData) return null;
+    if (!roomData) return null;
 
     return (
         <NitroCardView uniqueKey="nitro-room-settings" className="nitro-room-settings">
-            <NitroCardHeaderView headerText={ LocalizeText('navigator.roomsettings') } onCloseClick={ onClose } />
+            <NitroCardHeaderView headerText={LocalizeText('navigator.roomsettings')} onCloseClick={onClose} />
             <NitroCardTabsView>
-                { TABS.map(tab =>
-                {
-                    return <NitroCardTabsItemView key={ tab } isActive={ (currentTab === tab) } onClick={ event => setCurrentTab(tab) }>{ LocalizeText(tab) }</NitroCardTabsItemView>
-                }) }
+                {TABS.map(tab => {
+                    return <NitroCardTabsItemView key={tab} isActive={(currentTab === tab)} onClick={event => setCurrentTab(tab)}>{LocalizeText(tab)}</NitroCardTabsItemView>
+                })}
             </NitroCardTabsView>
             <NitroCardContentView>
-                { (currentTab === TABS[0]) &&
-                    <NavigatorRoomSettingsBasicTabView roomData={ roomData } handleChange={ handleChange } onClose={ onClose } /> }
-                { (currentTab === TABS[1]) &&
-                    <NavigatorRoomSettingsRightsTabView roomData={ roomData } handleChange={ handleChange } /> }
-                { (currentTab === TABS[2]) &&
-                    <NavigatorRoomSettingsVipChatTabView roomData={ roomData } handleChange={ handleChange } /> }
-                { (currentTab === TABS[3]) &&
-                    <NavigatorRoomSettingsModTabView roomData={ roomData } handleChange={ handleChange } /> }
+                {(currentTab === TABS[0]) &&
+                    <NavigatorRoomSettingsBasicTabView roomData={roomData} handleChange={handleChange} onClose={onClose} />}
+                {(currentTab === TABS[1]) &&
+                    <NavigatorRoomSettingsRightsTabView roomData={roomData} handleChange={handleChange} />}
+                {(currentTab === TABS[2]) &&
+                    <NavigatorRoomSettingsVipChatTabView roomData={roomData} handleChange={handleChange} />}
+                {(currentTab === TABS[3]) &&
+                    <NavigatorRoomSettingsModTabView roomData={roomData} handleChange={handleChange} />}
             </NitroCardContentView>
         </NitroCardView>
     );

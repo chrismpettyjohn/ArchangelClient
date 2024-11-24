@@ -92,6 +92,7 @@ export * from './room/RoomListUsersComposer';
 export * from './room/RoomQueryListComposer';
 export * from './taxi/TaxiFeeQueryComposer';
 export * from './taxi/CallTaxiComposer';
+export * from './taxi/CancelTaxiComposer';
 export * from './user/UserRoleplayStatsQueryComposer';
 export * from './user/RoleplayPermissionsComposer'
 export * from './user/UserOnlineCountComposer';
