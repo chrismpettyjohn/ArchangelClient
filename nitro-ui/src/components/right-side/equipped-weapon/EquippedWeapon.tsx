@@ -6,7 +6,7 @@ import { useMyWeaponList } from "../../../hooks/roleplay/use-my-weapon-list";
 import { useRoleplayStats } from "../../../hooks/roleplay/use-rp-stats";
 import { CombatDelayEvent, CursorMode, NitroConfiguration } from "@nitro-rp/renderer";
 import { Button } from "react-bootstrap";
-import { FaRedo, FaShieldAlt, FaSkullCrossbones } from "react-icons/fa"; // Font Awesome reload icon
+import { FaRedo, FaShieldAlt, FaSkullCrossbones } from "react-icons/fa";
 import { WeaponReload } from "../../../api/roleplay/combat/WeaponReload";
 
 export function EquippedWeapon() {
@@ -36,7 +36,7 @@ export function EquippedWeapon() {
 
         const interval = setInterval(() => {
             const currentTime = Math.floor(Date.now() / 1000);
-            const timeLeft = combatDelayExpiresAt - currentTime + 1; // Add 1 second to account for rounding
+            const timeLeft = combatDelayExpiresAt - currentTime + 1;
 
             if (timeLeft <= 0) {
                 setCombatDelayExpiresAt(undefined);
@@ -81,25 +81,23 @@ export function EquippedWeapon() {
                     </div>
                 )
             }
-            <div className="weapon-hud">
-                <div className="weapon-info">
-                    <img src={`${NitroConfiguration.getValue('image.library.url')}/weapon_icons/${equippedWeapon.uniqueName}.png`} alt={equippedWeapon.uniqueName} className="weapon-icon" style={{ width: 145 }} />
-                    <div className="weapon-name">
-                        <Text bold center variant="white" fontSize={4} style={{ paddingTop: 20 }}>
-                            {equippedWeapon.displayName}
-                        </Text>
+            <div className="weapon-hud" style={{ display: 'flex', alignItems: 'center' }}>
+                <img src={`${NitroConfiguration.getValue('image.library.url')}/weapon_icons/${equippedWeapon.uniqueName}.png`} alt={equippedWeapon.uniqueName} className="weapon-icon" />
+                <div className="weapon-info" style={{ textAlign: 'center', flex: 1 }}>
+                    <Text bold center variant="white" fontSize={4}>
+                        {equippedWeapon.displayName}
+                    </Text>
+                    <div className="ammo-info" style={{ justifyContent: 'center', marginTop: '5px', fontSize: '12px' }}>
+                        {equippedWeapon?.magazineSize ? (
+                            <>
+                                <div className="current-ammo">{roleplayStats.equippedWeaponAmmoLeft}</div>
+                                <div className="reserve-ammo">/&nbsp;{equippedWeapon.magazineSize}</div>
+                                <Button variant="link" onClick={onReload} className="reload-button">
+                                    <FaRedo />
+                                </Button>
+                            </>
+                        ) : ''}
                     </div>
-                </div>
-                <div className="ammo-info">
-                    {equippedWeapon?.magazineSize ? (
-                        <>
-                            <div className="current-ammo">{roleplayStats.equippedWeaponAmmoLeft}</div>
-                            <div className="reserve-ammo">/&nbsp;{equippedWeapon.magazineSize}</div>
-                            <Button variant="link" onClick={onReload} className="reload-button">
-                                <FaRedo />
-                            </Button>
-                        </>
-                    ) : ''}
                 </div>
             </div>
         </div>
