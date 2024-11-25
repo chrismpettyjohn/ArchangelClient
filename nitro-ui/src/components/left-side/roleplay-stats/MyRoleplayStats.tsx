@@ -1,9 +1,10 @@
-import { useSessionInfo } from "../../../hooks";
+import { useRoom, useSessionInfo } from "../../../hooks";
 import { RoleplayStatsContainer } from "./roleplay-stats-container/RoleplayStatsContainer";
 
 export function MyRoleplayStats() {
+    const { roomSession } = useRoom();
     const { userInfo } = useSessionInfo();
-    if (!userInfo?.userId) {
+    if (!roomSession || !userInfo?.userId) {
         return null;
     }
     return <RoleplayStatsContainer userID={userInfo.userId} />

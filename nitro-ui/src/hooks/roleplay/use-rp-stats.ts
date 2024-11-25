@@ -36,40 +36,13 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
     })
 
     useEffect(() => {
-        setRoleplayStats({
-            userID: 0,
-            username: '',
-            figure: '',
-            motto: '',
-            joinedAt: 0,
-            lastLogin: 0,
-            online: false,
-            cashBalance: 0,
-            bankBalance: 0,
-            isDead: false,
-            isCuffed: false,
-            isStunned: false,
-            escortedByUserID: 0,
-            healthNow: 0,
-            healthMax: 0,
-            energyNow: 0,
-            energyMax: 0,
-            hungerNow: 0,
-            hungerMax: 0,
-            corporationID: 0,
-            corpName: '',
-            corporationPositionID: 0,
-            corpRoleName: '',
-            isWorking: false,
-            gangID: -1,
-            gangName: '',
-            gangRoleID: -1,
-            gangRoleName: ''
-        })
+        if (!userID) return;
         UserRoleplayStatsQuery(userID)
+        console.log({ userID })
     }, [userID]);
 
     useMessageEvent<UserRoleplayStatsChangeEvent>(UserRoleplayStatsChangeEvent, event => {
+        console.log({ event: event.getParser().data })
         const eventData: UserRoleplayStatsChangeData = event.getParser().data;
         if (eventData.userID !== userID) {
             return;
