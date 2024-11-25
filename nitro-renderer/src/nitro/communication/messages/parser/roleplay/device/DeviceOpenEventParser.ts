@@ -1,8 +1,9 @@
 import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
 
 export enum InteractionType {
+    CAMERA = "rp_camera",
     PHONE = "rp_phone",
-    POLICE_LAPTOP = 'rp_police_laptop'
+    POLICE_LAPTOP = 'rp_police_laptop',
 }
 
 export class DeviceOpenEventParser implements IMessageParser {
