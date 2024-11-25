@@ -1,6 +1,6 @@
 .minimap {
   position: absolute;
-  bottom: 100px;
+  bottom: 140px;
   left: 40px;
   width: 125px;
   height: 125px;
@@ -8,6 +8,7 @@
   background-color: rgba(20, 20, 40, 0.7); /* Blue-ish semi-transparent background */
   border: 1px solid rgba(100, 100, 255, 0.5); /* Blue-ish semi-transparent border */
   backdrop-filter: blur(5px);
+  border-radius: 8px;
 }
 
 .minimap .inner-map {

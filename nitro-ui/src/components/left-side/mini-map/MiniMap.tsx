@@ -29,7 +29,7 @@ export function MiniMap() {
     const startingRoom = map[0];
 
     return (
-        <div className="minimap animate__animated animate__slideInLeft animate__fast">
+        <div className="minimap animate__animated animate__slideInLeft animate__fast glass-panel">
             <div className="inner-map">
                 {map.map((room, index) => {
                     const isStartingRoom = room.id === startingRoom.id;

@@ -18,7 +18,7 @@ export function HotBarView() {
         <div className="nitro-hotbar">
             <div className="hotbar glass-panel ">
                 {
-                    Array.from(new Array(12)).map((_, i) => {
+                    Array.from(new Array(9)).map((_, i) => {
                         const item = items[i]
                         const iconURL = item?.spriteId && GetRoomEngine().getFurnitureFloorIconUrl(item.spriteId);
                         return (
