@@ -1,6 +1,5 @@
-import { DeviceOpenEvent, ILinkEventTracker, InteractionType, RoomSessionEvent } from '@nitro-rp/renderer';
-import { FC, useEffect, useState } from 'react';
-import { AddEventLinkTracker, RemoveLinkEventTracker } from '../../api';
+import { DeviceOpenEvent, InteractionType, RoomSessionEvent } from '@nitro-rp/renderer';
+import { FC, useState } from 'react';
 import { useCamera, useMessageEvent, useRoomSessionManagerEvent } from '../../hooks';
 import { CameraWidgetCaptureView } from './views/CameraWidgetCaptureView';
 import { CameraWidgetCheckoutView } from './views/CameraWidgetCheckoutView';

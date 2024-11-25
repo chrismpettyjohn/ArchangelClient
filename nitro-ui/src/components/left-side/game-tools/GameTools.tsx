@@ -30,9 +30,6 @@ export function GameTools() {
 
         <div style={{ position: 'relative' }}>
             <div className="quick-menu">
-                <div className="menu-button glass-panel " onClick={() => CreateLinkEvent('camera/toggle')} >
-                    <FaCamera size={20} />
-                </div>
                 <div className="menu-button glass-panel " onClick={() => CreateLinkEvent('game-settings/toggle')} >
                     <FaCog size={20} />
                 </div>
