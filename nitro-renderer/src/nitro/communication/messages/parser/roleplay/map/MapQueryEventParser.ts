@@ -1,6 +1,6 @@
 import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
 
-export interface RoomData {
+export interface MapData {
     id: number;
     name: string;
     x: number;
@@ -9,7 +9,7 @@ export interface RoomData {
 }
 
 export class MapQueryEventParser implements IMessageParser {
-    private _rooms: RoomData[];
+    private _rooms: MapData[];
 
     public flush(): boolean {
         this._rooms = [];
@@ -21,7 +21,7 @@ export class MapQueryEventParser implements IMessageParser {
 
         try {
             const roomCount = wrapper.readInt();
-            const rooms: RoomData[] = [];
+            const rooms: MapData[] = [];
 
             for (let i = 0; i < roomCount; i++) {
                 const roomData = wrapper.readString().split(";");
@@ -43,7 +43,7 @@ export class MapQueryEventParser implements IMessageParser {
         return true;
     }
 
-    public get rooms(): RoomData[] {
+    public get rooms(): MapData[] {
         return this._rooms;
     }
 }

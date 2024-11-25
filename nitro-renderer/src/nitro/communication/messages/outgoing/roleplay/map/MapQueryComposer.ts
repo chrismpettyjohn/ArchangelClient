@@ -3,8 +3,8 @@ import { IMessageComposer } from "../../../../../../api";
 export class MapQueryComposer implements IMessageComposer<ConstructorParameters<typeof MapQueryComposer>> {
     private _data: ConstructorParameters<typeof MapQueryComposer>;
 
-    constructor() {
-        this._data = [];
+    constructor(roomId: number) {
+        this._data = [roomId];
     }
 
     public getMessageArray() {

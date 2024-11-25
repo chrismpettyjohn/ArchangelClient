@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { MapData, MapQueryComposer, MapQueryEvent } from '@nitro-rp/renderer';
 import { SendMessageComposer } from '../../../api';
-import { useMessageEvent } from '../../../hooks';
+import { useMessageEvent, useRoom } from '../../../hooks';
 
 export function MiniMap() {
+    const { roomSession } = useRoom();
     const [map, setMap] = useState<MapData[]>([]);
 
     useEffect(() => {
-        SendMessageComposer(new MapQueryComposer());
-    }, []);
+        if (!roomSession) return;
+        SendMessageComposer(new MapQueryComposer(roomSession.roomId));
+    }, [roomSession]);
 
     useMessageEvent(MapQueryEvent, (event: MapQueryEvent) => {
         setMap(event.getParser().rooms);
