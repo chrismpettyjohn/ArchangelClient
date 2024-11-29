@@ -11,7 +11,7 @@ export function TurfTimer() {
     const [markerPosition, setMarkerPosition] = useState(50); // Start at the middle
 
     useEffect(() => {
-        if (timer.finishesAt > 0) {
+        if (timer.finishesAt > 0 && timer.isCapturing) {
             const updateCountdown = () => {
                 const remainingTime = Math.max(0, Math.ceil((timer.finishesAt - Date.now()) / 1000));
                 setTimeLeft(remainingTime);
@@ -28,7 +28,8 @@ export function TurfTimer() {
             const interval = setInterval(updateCountdown, 1000);
             return () => clearInterval(interval); // Cleanup
         }
-    }, [timer.finishesAt, timer.capturingGangId, rpStats.gangID]);
+    }, [timer.finishesAt, timer.capturingGangId, rpStats.gangID, timer.isCapturing]); // Add timer.isCapturing as dependency
+
 
     const { allyPlayers, enemyPlayers } = useMemo(() => {
         const gangs = timer.gangs || [];
