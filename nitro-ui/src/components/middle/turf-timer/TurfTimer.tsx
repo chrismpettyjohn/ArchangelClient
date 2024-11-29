@@ -28,7 +28,7 @@ export function TurfTimer() {
             const interval = setInterval(updateCountdown, 1000);
             return () => clearInterval(interval); // Cleanup
         }
-    }, [timer.finishesAt, timer.capturingGangId, rpStats.gangID, timer.isCapturing]); // Add timer.isCapturing as dependency
+    }, [timer.finishesAt, timer.capturingGangId, rpStats.gangID, timer.isCapturing]);
 
 
     const { allyPlayers, enemyPlayers } = useMemo(() => {

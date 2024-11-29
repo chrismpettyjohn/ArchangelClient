@@ -7,6 +7,8 @@ export class RoomDataParser {
     public static SHOWOWNER_BITMASK = 8;
     public static ALLOW_PETS_BITMASK = 16;
     public static DISPLAY_ROOMAD_BITMASK = 32;
+    public static DISPLAY_CORP_BITMASK = 64;
+    public static DISPLAY_GANG_BITMASK = 128;
 
     public static OPEN_STATE = 0;
     public static DOORBELL_STATE = 1;
@@ -31,11 +33,19 @@ export class RoomDataParser {
     private _groupId: number;
     private _groupName: string;
     private _groupBadge: string;
+    private _corpId: number;
+    private _corpName: string;
+    private _corpBadge: string;
+    private _gangId: number;
+    private _gangName: string;
+    private _gangBadge: string;
     private _tags: string[];
     private _bitMask: number;
     private _thumbnail: any;
     private _allowPets: boolean;
     private _displayAd: boolean;
+    private _hasCorp: boolean;
+    private _hasGang: boolean;
     private _adName: string;
     private _adDescription: string;
     private _adExpiresIn: number;
@@ -68,6 +78,12 @@ export class RoomDataParser {
         this._groupId = 0;
         this._groupName = null;
         this._groupBadge = null;
+        this._corpId = 0;
+        this._corpName = '';
+        this._corpBadge = '';
+        this._gangId = 0;
+        this._gangName = '';
+        this._gangBadge = '';
         this._tags = [];
         this._bitMask = 0;
         this._thumbnail = null;
@@ -127,6 +143,7 @@ export class RoomDataParser {
         if (!wrapper) return false;
 
         this._bitMask = wrapper.readInt();
+        console.log("Bitmask: " + this._bitMask); // Add this for debugging
 
         if (this._bitMask & RoomDataParser.THUMBNAIL_BITMASK) this._officialRoomPicRef = wrapper.readString();
 
@@ -134,6 +151,16 @@ export class RoomDataParser {
             this._groupId = wrapper.readInt();
             this._groupName = wrapper.readString();
             this._groupBadge = wrapper.readString();
+        }
+        if (this._bitMask & RoomDataParser.DISPLAY_CORP_BITMASK) {
+            this._corpId = wrapper.readInt();
+            this._corpName = wrapper.readString();
+            this._corpBadge = wrapper.readString();
+        }
+        if (this._bitMask & RoomDataParser.DISPLAY_GANG_BITMASK) {
+            this._gangId = wrapper.readInt();
+            this._gangName = wrapper.readString();
+            this._gangBadge = wrapper.readString();
         }
 
         if (this._bitMask & RoomDataParser.ROOMAD_BITMASK) {
@@ -145,10 +172,16 @@ export class RoomDataParser {
         this._showOwner = (this._bitMask & RoomDataParser.SHOWOWNER_BITMASK) > 0;
         this._allowPets = (this._bitMask & RoomDataParser.ALLOW_PETS_BITMASK) > 0;
         this._displayAd = (this._bitMask & RoomDataParser.DISPLAY_ROOMAD_BITMASK) > 0;
+        this._hasCorp = (this._bitMask & RoomDataParser.DISPLAY_CORP_BITMASK) > 0;
+        this._hasGang = (this._bitMask & RoomDataParser.DISPLAY_GANG_BITMASK) > 0;
+
+        console.log("Has Gang: " + this._hasGang); // Add this for debugging
+
         this._thumbnail = null;
 
         return true;
     }
+
 
     public get roomId(): number {
         return this._roomId;
@@ -222,6 +255,30 @@ export class RoomDataParser {
         return this._groupBadge;
     }
 
+    public get corpId(): number {
+        return this._corpId;
+    }
+
+    public get corpName(): string {
+        return this._corpName;
+    }
+
+    public get corpBadge(): string {
+        return this._corpBadge;
+    }
+
+    public get gangId(): number {
+        return this._gangId;
+    }
+
+    public get gangName(): string {
+        return this._gangName;
+    }
+
+    public get gangBadge(): string {
+        return this._gangBadge;
+    }
+
     public get roomAdName(): string {
         return this._adName;
     }
@@ -244,6 +301,14 @@ export class RoomDataParser {
 
     public get displayRoomEntryAd(): boolean {
         return this._displayAd;
+    }
+
+    public get hasCorp(): boolean {
+        return this._hasCorp;
+    }
+
+    public get hasGang(): boolean {
+        return this._hasGang;
     }
 
     public get canMute(): boolean {

@@ -1,15 +1,12 @@
 import { FaMapPin, FaSkull } from 'react-icons/fa';
 import { TurfTimer } from './turf-timer/TurfTimer';
-import { useNavigator, useRoom } from '../../hooks';
+import { useNavigator } from '../../hooks';
 import { Flex, Text } from '../../common';
-import { CreateLinkEvent, SendMessageComposer } from '../../api';
-import { useEffect } from 'react';
-import { TurfTimerQuery } from '../../api/roleplay/gang/TurfTimerQuery';
+import { CreateLinkEvent } from '../../api';
 
 export function MiddleView() {
     const { navigatorData = null } = useNavigator();
-    const { roomSession = null } = useRoom();
-
+    console.log(navigatorData)
     return (
         <>
             <div className="middle-bar">
@@ -30,14 +27,14 @@ export function MiddleView() {
                         </Flex>
                     </div>
                     {
-                        roomSession?.isGuildRoom && (
+                        navigatorData?.enteredGuestRoom?.gangId ? (
                             <div className="player-info">
                                 <Text bold className="level-badge" variant="white" fontSize={6}>
                                     <FaSkull style={{ fontSize: 14, marginRight: 8 }} />
-                                    Crips
+                                    {navigatorData.enteredGuestRoom.gangName}
                                 </Text>
                             </div>
-                        )
+                        ) : ''
                     }
                 </div>
 
