@@ -66,7 +66,6 @@ export function PoliceLaptop() {
     ], [goBack]);
 
     useMessageEvent<DeviceOpenEvent>(DeviceOpenEvent, event => {
-        console.log('int: ', event.getParser().interactionType);
         if (event.getParser().interactionType !== InteractionType.POLICE_LAPTOP) {
             return;
         }

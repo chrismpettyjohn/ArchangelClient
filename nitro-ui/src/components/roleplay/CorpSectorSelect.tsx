@@ -9,8 +9,6 @@ export interface CorpSectorSelectProps {
 
 const CORP_SECTOR_OPTIONS: Array<{ label: string; value: CorpSector }> = Object.entries(CorpSector).map(([key, value]) => ({ label: key, value }));
 
-console.log(CORP_SECTOR_OPTIONS)
-
 export function CorpSectorSelect({ sector, onChange }: CorpSectorSelectProps) {
 
     function onChangeSector(opt: any) {

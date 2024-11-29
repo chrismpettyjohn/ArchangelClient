@@ -22,7 +22,6 @@ export function ModToolsUserWeaponsManagerView() {
     }, [userId]);
 
     useMessageEvent(PlayerWeaponListEvent, (event: PlayerWeaponListEvent) => {
-        console.log(event.getParser().playerWeapons)
         setPlayerWeapons(event.getParser().playerWeapons);
         setLoading(false);
     })
@@ -71,8 +70,6 @@ export function ModToolsUserWeaponsManagerView() {
     if (!userId) {
         return null;
     }
-
-    console.log({ loading })
 
     return (
         <NitroCardView uniqueKey="staff-player-weapons" className="nitro-mod-tools" windowPosition={DraggableWindowPosition.TOP_LEFT} theme="primary-slim" style={{ width: 400, height: 400 }}>

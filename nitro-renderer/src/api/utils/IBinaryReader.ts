@@ -1,5 +1,4 @@
-export interface IBinaryReader
-{
+export interface IBinaryReader {
     readBytes(length: number): IBinaryReader;
     readByte(): number;
     readShort(): number;

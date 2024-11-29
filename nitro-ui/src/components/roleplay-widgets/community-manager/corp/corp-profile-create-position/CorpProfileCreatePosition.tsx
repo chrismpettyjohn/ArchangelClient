@@ -29,7 +29,6 @@ export function CorpProfileCreatePosition() {
         CreateLinkEvent(`community/corps/profile-position-edit/${event.getParser().data.id}`)
     })
 
-    console.log({ active, resourceID, canEditCorp })
     if (!active || !resourceID || !canEditCorp) {
         return null;
     }

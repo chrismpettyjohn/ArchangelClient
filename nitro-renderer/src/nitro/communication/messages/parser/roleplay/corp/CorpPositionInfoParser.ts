@@ -51,25 +51,20 @@ export class CorpPositionInfoParser implements IMessageParser {
     public parse(wrapper: IMessageDataWrapper): boolean {
         if (!wrapper) return false;
 
-        try {
-            this._id = wrapper.readInt();
-            this._corpID = wrapper.readInt();
-            this._name = wrapper.readString();
-            this._description = wrapper.readString();
-            this._motto = wrapper.readString();
-            this._salary = wrapper.readInt();
-            this._orderID = wrapper.readInt();
-            this._maleUniform = wrapper.readString();
-            this._femaleUniform = wrapper.readString();
-            this._canHire = wrapper.readBoolean();
-            this._canFire = wrapper.readBoolean();
-            this._canPromote = wrapper.readBoolean();
-            this._canDemote = wrapper.readBoolean();
-            this._canWorkAnywhere = wrapper.readBoolean();
-        } catch (e: any) {
-            console.log(e);
-            throw e;
-        }
+        this._id = wrapper.readInt();
+        this._corpID = wrapper.readInt();
+        this._name = wrapper.readString();
+        this._description = wrapper.readString();
+        this._motto = wrapper.readString();
+        this._salary = wrapper.readInt();
+        this._orderID = wrapper.readInt();
+        this._maleUniform = wrapper.readString();
+        this._femaleUniform = wrapper.readString();
+        this._canHire = wrapper.readBoolean();
+        this._canFire = wrapper.readBoolean();
+        this._canPromote = wrapper.readBoolean();
+        this._canDemote = wrapper.readBoolean();
+        this._canWorkAnywhere = wrapper.readBoolean();
 
         return true;
     }

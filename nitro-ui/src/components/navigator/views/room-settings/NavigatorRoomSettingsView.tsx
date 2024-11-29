@@ -85,7 +85,6 @@ export const NavigatorRoomSettingsView: FC<{}> = props => {
                     newValue.tradeState = Number(value);
                     break;
                 case 'tags':
-                    console.log({ value })
                     newValue.tags = value as Array<string>;
                     break;
                 case 'allow_walkthrough':

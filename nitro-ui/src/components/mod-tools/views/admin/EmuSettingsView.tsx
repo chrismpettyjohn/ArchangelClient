@@ -14,7 +14,6 @@ export function ModTooolsEmuSettingsView() {
     const filteredConfig = useMemo(() => config.filter(() => true), [config, query]);
 
     const onSetValue = useCallback((key: string, value: string) => {
-        console.log({ key, value })
         SendMessageComposer(new EmuSettingsUpdateComposer(key, value));
     }, []);
 

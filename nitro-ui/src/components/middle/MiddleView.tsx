@@ -1,16 +1,17 @@
 import { FaMapPin, FaSkull } from 'react-icons/fa';
 import { TurfTimer } from './turf-timer/TurfTimer';
-import { useNavigator } from '../../hooks';
+import { useNavigator, useRoom } from '../../hooks';
 import { Flex, Text } from '../../common';
-import { CreateLinkEvent } from '../../api';
+import { CreateLinkEvent, SendMessageComposer } from '../../api';
+import { useEffect } from 'react';
+import { TurfTimerQuery } from '../../api/roleplay/gang/TurfTimerQuery';
 
 export function MiddleView() {
     const { navigatorData = null } = useNavigator();
+    const { roomSession = null } = useRoom();
+
     return (
         <>
-            <div className="nitro-middle">
-                <TurfTimer />
-            </div>
             <div className="middle-bar">
                 <div className="top-bar glass-panel ">
                     <div className="location-info" onClick={() => CreateLinkEvent('navigator/toggle-room-info')} style={{ cursor: 'pointer' }}>
@@ -28,13 +29,19 @@ export function MiddleView() {
                             }
                         </Flex>
                     </div>
-                    <div className="player-info">
-                        <Text bold className="level-badge" variant="white" fontSize={6}>
-                            <FaSkull style={{ fontSize: 14, marginRight: 8 }} />
-                            CRIPS
-                        </Text>
-                    </div>
+                    {
+                        roomSession?.isGuildRoom && (
+                            <div className="player-info">
+                                <Text bold className="level-badge" variant="white" fontSize={6}>
+                                    <FaSkull style={{ fontSize: 14, marginRight: 8 }} />
+                                    Crips
+                                </Text>
+                            </div>
+                        )
+                    }
                 </div>
+
+                <TurfTimer />
             </div>
         </>
     )

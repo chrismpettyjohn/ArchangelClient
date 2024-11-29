@@ -272,11 +272,9 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
         switch (event.type) {
             case RoomObjectMouseEvent.CLICK:
-                console.log({ event })
                 this.handleRoomObjectMouseClickEvent(event, roomId);
                 return;
             case RoomObjectMouseEvent.DOUBLE_CLICK:
-                console.log({ event })
                 this.handleRoomObjectMouseDoubleClickEvent(event, roomId);
                 return;
             case RoomObjectMouseEvent.MOUSE_MOVE:

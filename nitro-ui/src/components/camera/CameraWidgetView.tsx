@@ -47,7 +47,6 @@ export const CameraWidgetView: FC<{}> = props => {
 
 
     useMessageEvent<DeviceOpenEvent>(DeviceOpenEvent, event => {
-        console.log('int: ', event.getParser().interactionType);
         if (event.getParser().interactionType !== InteractionType.CAMERA) {
             return;
         }

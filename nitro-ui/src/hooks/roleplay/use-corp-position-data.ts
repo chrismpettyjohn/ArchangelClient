@@ -13,7 +13,6 @@ export function useCorpPositionData(corpPositionID: number): CorpPositionInfoDat
 
     useMessageEvent<CorpPositionInfoQueryEvent>(CorpPositionInfoQueryEvent, event => {
         const eventData: CorpPositionInfoData = event.getParser().data;
-        console.log({ eventData })
         if (eventData.id !== corpPositionID) {
             return;
         }

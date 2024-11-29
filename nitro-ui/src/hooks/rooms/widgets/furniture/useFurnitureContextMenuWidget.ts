@@ -21,9 +21,6 @@ const useFurnitureContextMenuWidgetState = () => {
     const [objectOwnerId, setObjectOwnerId] = useState(-1);
     const { roomSession = null } = useRoom();
 
-
-    console.log({ objectId, mode, groupData })
-
     const onClose = () => {
         setObjectId(-1);
         setGroupData(null);

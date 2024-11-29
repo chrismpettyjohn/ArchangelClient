@@ -53,25 +53,19 @@ export class CorpInfoParser implements IMessageParser {
     public parse(wrapper: IMessageDataWrapper): boolean {
         if (!wrapper) return false;
 
-        try {
-            this._id = wrapper.readInt();
-            this._userID = wrapper.readInt();
-            this._userName = wrapper.readString();
-            this._userLook = wrapper.readString();
-            this._roomID = wrapper.readInt();
-            this._roomName = wrapper.readString();
-            this._displayName = wrapper.readString();
-            this._description = wrapper.readString();
-            this._badgeCode = wrapper.readString();
-            this._employeeCount = wrapper.readInt();
-            this._industry = toCorpIndustry(wrapper.readString());
-            this._sector = toCorpSector(wrapper.readString());
-            this._createdAt = wrapper.readString();
-        } catch (e: any) {
-            alert('ok')
-            console.log({ e });
-            throw e;
-        }
+        this._id = wrapper.readInt();
+        this._userID = wrapper.readInt();
+        this._userName = wrapper.readString();
+        this._userLook = wrapper.readString();
+        this._roomID = wrapper.readInt();
+        this._roomName = wrapper.readString();
+        this._displayName = wrapper.readString();
+        this._description = wrapper.readString();
+        this._badgeCode = wrapper.readString();
+        this._employeeCount = wrapper.readInt();
+        this._industry = toCorpIndustry(wrapper.readString());
+        this._sector = toCorpSector(wrapper.readString());
+        this._createdAt = wrapper.readString();
 
         return true;
     }

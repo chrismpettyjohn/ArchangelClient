@@ -38,11 +38,9 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
     useEffect(() => {
         if (!userID) return;
         UserRoleplayStatsQuery(userID)
-        console.log({ userID })
     }, [userID]);
 
     useMessageEvent<UserRoleplayStatsChangeEvent>(UserRoleplayStatsChangeEvent, event => {
-        console.log({ event: event.getParser().data })
         const eventData: UserRoleplayStatsChangeData = event.getParser().data;
         if (eventData.userID !== userID) {
             return;

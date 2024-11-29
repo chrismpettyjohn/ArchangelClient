@@ -14,20 +14,14 @@ export class CrimeListEventParser implements IMessageParser {
 
         const crimeCount = wrapper.readInt();
 
-        try {
-            for (let i = 0; i < crimeCount; i++) {
-                const [id, displayName, description, jailTime] = wrapper.readString().split(';');
-                this._crimes.push({
-                    id: Number(id),
-                    displayName,
-                    description,
-                    jailTime: Number(jailTime),
-                })
-            }
-        }
-        catch (e: any) {
-            console.log(e);
-            throw e;
+        for (let i = 0; i < crimeCount; i++) {
+            const [id, displayName, description, jailTime] = wrapper.readString().split(';');
+            this._crimes.push({
+                id: Number(id),
+                displayName,
+                description,
+                jailTime: Number(jailTime),
+            })
         }
 
         return true;

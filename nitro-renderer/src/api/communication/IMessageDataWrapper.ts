@@ -1,7 +1,6 @@
 import { IBinaryReader } from '../utils';
 
-export interface IMessageDataWrapper
-{
+export interface IMessageDataWrapper {
     readByte(): number;
     readBytes(length: number): IBinaryReader;
     readBoolean(): boolean;
