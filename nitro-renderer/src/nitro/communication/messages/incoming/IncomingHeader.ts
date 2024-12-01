@@ -528,4 +528,5 @@ export class IncomingHeader {
     public static NOTIFICATION_EVENT = 9057;
     public static USER_GUESTBOOK_QUERY_LIST_EVENT = 9058;
     public static USER_GUESTBOOK_QUERY_ONE_EVENT = 9059;
+    public static MY_AMMO_LIST_EVENT = 9060;
 }

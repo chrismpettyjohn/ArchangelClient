@@ -12,8 +12,8 @@ export function WeaponWheel() {
     const [weaponList, setWeaponList] = useState<MyWeaponData[]>([]);
     const [hoveredItem, setHoveredItem] = useState<MyWeaponData>();
 
-    const onEquip = useCallback((uniqueName: string) => {
-        EquipWeapon(uniqueName);
+    const onEquip = useCallback((playerWeaponId: number) => {
+        EquipWeapon(playerWeaponId);
         setVisible(false);
     }, []);
 
@@ -67,7 +67,7 @@ export function WeaponWheel() {
             <div className="wheel" onClick={e => e.stopPropagation()}>
                 {
                     (weaponList.slice(0, 8)).map((weapon, i) => (
-                        <div className="wheel-item" key={`weapon_${weapon.uniqueName}`} id={`item${i + 1}`} onMouseEnter={() => setHoveredItem(weapon)} onClick={() => onEquip(weapon.uniqueName)}>
+                        <div className="wheel-item" key={`weapon_${weapon.uniqueName}`} id={`item${i + 1}`} onMouseEnter={() => setHoveredItem(weapon)} onClick={() => onEquip(weapon.id)}>
                             <img src={`${NitroConfiguration.getValue('image.library.url')}/weapon_icons/${weapon.uniqueName}.png`} alt={weapon.uniqueName} className="weapon-icon" />
                         </div>
                     ))

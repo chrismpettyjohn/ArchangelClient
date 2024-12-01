@@ -1,12 +1,12 @@
 import { SyntheticEvent, useEffect, useMemo, useState } from "react";
-import { CreateLinkEvent, GetRoomEngine } from "../../../api";
+import { CreateLinkEvent } from "../../../api";
 import { Text } from "../../../common";
 import { useMessageEvent, useSessionInfo } from "../../../hooks";
 import { useMyWeaponList } from "../../../hooks/roleplay/use-my-weapon-list";
 import { useRoleplayStats } from "../../../hooks/roleplay/use-rp-stats";
-import { CombatDelayEvent, CursorMode, NitroConfiguration } from "@nitro-rp/renderer";
+import { CombatDelayEvent, NitroConfiguration } from "@nitro-rp/renderer";
 import { Button } from "react-bootstrap";
-import { FaRedo, FaShieldAlt, FaSkullCrossbones } from "react-icons/fa";
+import { FaRedo } from "react-icons/fa";
 import { WeaponReload } from "../../../api/roleplay/combat/WeaponReload";
 
 export function EquippedWeapon() {
@@ -15,16 +15,6 @@ export function EquippedWeapon() {
     const roleplayStats = useRoleplayStats(session?.userInfo?.userId);
     const [combatDelayExpiresAt, setCombatDelayExpiresAt] = useState<number>();
     const [remainingTime, setRemainingTime] = useState<number>(0);
-    const [safety, setSafety] = useState(true);
-
-    function onToggleSafety(event: SyntheticEvent) {
-        event.stopPropagation();
-        setSafety(prev => !prev);
-    }
-
-    useEffect(() => {
-        GetRoomEngine().setCursorMode(safety ? CursorMode.Interact : CursorMode.Attack);
-    }, [safety]);
 
     useMessageEvent(CombatDelayEvent, (event: CombatDelayEvent) => {
         const expiresAt = event.getParser().data.combatDelayRemaining;

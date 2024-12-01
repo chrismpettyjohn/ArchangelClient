@@ -1,6 +1,6 @@
 import { EquipWeaponComposer } from '@nitro-rp/renderer';
 import { SendMessageComposer } from '../../';
 
-export function EquipWeapon(uniqueName: string): void {
-    SendMessageComposer(new EquipWeaponComposer(uniqueName));
+export function EquipWeapon(playerWeaponId: number): void {
+    SendMessageComposer(new EquipWeaponComposer(playerWeaponId));
 }

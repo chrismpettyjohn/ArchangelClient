@@ -703,4 +703,8 @@ export class OutgoingHeader {
 
     public static MAP_QUERY_COMPOSER = 8121;
 
+    public static EQUIP_AMMO_COMPOSER = 8122;
+
+    public static LIST_MY_AMMO_COMPOSER = 8123;
+
 }

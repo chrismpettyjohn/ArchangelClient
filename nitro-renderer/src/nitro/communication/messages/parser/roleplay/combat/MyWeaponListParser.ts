@@ -1,6 +1,7 @@
 import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
 
 export interface MyWeaponData {
+    id: number;
     itemID: number;
     uniqueName: string;
     displayName: string;
@@ -26,11 +27,12 @@ export class MyWeaponListParser implements IMessageParser {
             try {
                 const weaponStr = wrapper.readString().split(';')
                 this._weapons.push({
-                    itemID: Number(weaponStr[0]),
-                    uniqueName: weaponStr[1],
-                    displayName: weaponStr[2],
-                    equipEffect: Number(weaponStr[3]),
-                    magazineSize: Number(weaponStr[4]),
+                    id: Number(weaponStr[0]),
+                    itemID: Number(weaponStr[1]),
+                    uniqueName: weaponStr[2],
+                    displayName: weaponStr[3],
+                    equipEffect: Number(weaponStr[4]),
+                    magazineSize: Number(weaponStr[5]),
                 })
             } catch (e) {
                 break;

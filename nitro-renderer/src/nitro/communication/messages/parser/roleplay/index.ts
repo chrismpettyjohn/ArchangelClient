@@ -7,6 +7,7 @@ export * from './billing/BillingInvoiceQueryEventParser';
 export * from './bug-report/BugReportDataEventParser';
 export * from './bug-report/BugReportListEventParser';
 export * from './combat/CombatDelayParser';
+export * from './combat/MyAmmoListEventParser';
 export * from './combat/MyWeaponListParser';
 export * from './combat/UserDiedEventParser'
 export * from './combat/WeaponActionEventParser';
