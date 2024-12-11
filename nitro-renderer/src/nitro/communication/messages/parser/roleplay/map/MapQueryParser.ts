@@ -1,4 +1,4 @@
-import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
+import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export interface MapData {
     id: number;
@@ -14,7 +14,7 @@ export interface MapData {
     doorTargetRooms: number[];
 }
 
-export class MapQueryEventParser implements IMessageParser {
+export class MapQueryParser implements IMessageParser {
     private _rooms: MapData[];
 
     public flush(): boolean {
@@ -30,15 +30,16 @@ export class MapQueryEventParser implements IMessageParser {
             const rooms: MapData[] = [];
 
             for (let i = 0; i < roomCount; i++) {
-                const roomData = wrapper.readString().split(";");
-                const doorCount = parseInt(roomData[5], 10);
+                const roomData = wrapper.readString().split(';');
+                const doorCount = parseInt(roomData[6], 10);
+
                 const doorX: number[] = [];
                 const doorY: number[] = [];
                 const doorTargetX: number[] = [];
                 const doorTargetY: number[] = [];
                 const doorTargetRooms: number[] = [];
 
-                let offset = 6;
+                let offset = 7;
                 for (let j = 0; j < doorCount; j++) {
                     doorX.push(parseInt(roomData[offset++], 10));
                     doorY.push(parseInt(roomData[offset++], 10));
@@ -63,9 +64,9 @@ export class MapQueryEventParser implements IMessageParser {
             }
 
             this._rooms = rooms;
-        } catch (e: any) {
-            console.log(e);
-            throw e;
+        } catch (e) {
+            console.error('MapQueryParser.parse error:', e);
+            return false;
         }
 
         return true;

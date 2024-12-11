@@ -1,13 +1,13 @@
-import { IMessageEvent } from "../../../../../../api";
-import { MessageEvent } from "../../../../../../events";
-import { MapQueryEventParser } from "../../../parser";
+import { IMessageEvent } from '../../../../../../api';
+import { MessageEvent } from '../../../../../../events';
+import { MapQueryParser } from '../../../parser/roleplay/map/MapQueryParser';
 
 export class MapQueryEvent extends MessageEvent implements IMessageEvent {
     constructor(callBack: Function) {
-        super(callBack, MapQueryEventParser);
+        super(callBack, MapQueryParser);
     }
 
-    public getParser(): MapQueryEventParser {
-        return this.parser as MapQueryEventParser;
+    public getParser(): MapQueryParser {
+        return this.parser as MapQueryParser;
     }
 }
