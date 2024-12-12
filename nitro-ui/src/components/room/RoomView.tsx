@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef } from 'react';
-import { GetNitroInstance, DispatchMouseEvent, DispatchTouchEvent } from '../../api';
+import { DispatchMouseEvent, DispatchTouchEvent, GetNitroInstance } from '../../api';
 import { Base } from '../../common';
 import { useRoom } from '../../hooks';
 import { RoomWidgetsView } from './widgets/RoomWidgetsView';
@@ -30,17 +30,14 @@ export const RoomView: FC<{}> = props =>
         if(!element) return;
 
         element.appendChild(canvas);
-
-        return () => {
-            if(element.contains(canvas)) {
-                element.removeChild(canvas);
-            }
-        };
-    }, [roomSession]);
+    }, []);
 
     return (
         <Base fit innerRef={ elementRef } className={ (!roomSession && 'd-none') }>
-            { roomSession && <RoomWidgetsView /> }
+            { roomSession &&
+                <>
+                    <RoomWidgetsView />
+                </> }
         </Base>
     );
 }
