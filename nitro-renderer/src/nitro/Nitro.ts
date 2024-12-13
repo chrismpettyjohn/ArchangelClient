@@ -45,7 +45,7 @@ export class Nitro implements INitro {
     private _cameraManager: IRoomCameraWidgetManager;
     private _soundManager: ISoundManager;
     private _linkTrackers: ILinkEventTracker[];
-    private _initializationPending: boolean;
+    private _pageVisibilityInterval: number;
 
     private _isReady: boolean;
     private _isDisposed: boolean;
@@ -66,7 +66,6 @@ export class Nitro implements INitro {
         this._cameraManager = new RoomCameraWidgetManager();
         this._soundManager = new SoundManager();
         this._linkTrackers = [];
-        this._initializationPending = false;
 
         this._isReady = false;
         this._isDisposed = false;
@@ -74,7 +73,43 @@ export class Nitro implements INitro {
         this._core.configuration.events.addEventListener(ConfigurationEvent.LOADED, this.onConfigurationLoadedEvent.bind(this));
         this._roomEngine.events.addEventListener(RoomEngineEvent.ENGINE_INITIALIZED, this.onRoomEngineReady.bind(this));
         
-        document.addEventListener('visibilitychange', this.onVisibilityChange.bind(this));
+        // Keep page active
+        this.preventTabInactive();
+    }
+
+    private preventTabInactive(): void {
+        // Create a small audio context to keep the tab active
+        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        // Set volume to 0 so it's silent
+        gainNode.gain.value = 0;
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        oscillator.start();
+
+        // Use requestAnimationFrame to keep the thread active
+        const keepAlive = () => {
+            requestAnimationFrame(keepAlive);
+        };
+        keepAlive();
+        
+        // Keep page visible
+        Object.defineProperty(document, 'hidden', {
+            value: false,
+            writable: false
+        });
+        
+        Object.defineProperty(document, 'visibilityState', {
+            value: 'visible',
+            writable: false
+        });
+        
+        // Prevent visibility change events
+        document.addEventListener('visibilitychange', (event) => {
+            event.stopImmediatePropagation();
+        }, true);
     }
 
     public static bootstrap(): void {
@@ -94,53 +129,18 @@ export class Nitro implements INitro {
             view: canvas,
             antialias: true,
             powerPreference: 'high-performance',
+            // Prevent context loss
+            preserveDrawingBuffer: true
         });
 
         canvas.addEventListener('webglcontextlost', () => {
             instance.events.dispatchEvent(new NitroEvent(Nitro.WEBGL_CONTEXT_LOST));
-            if (!document.hidden) {
-                instance.handleContextLost();
-            }
+            instance._application?.renderer?.reset();
         });
-    }
-
-    private handleContextLost(): void {
-        if (this._application?.renderer) {
-            this._application.renderer.reset();
-            
-            // Attempt to restore context after a short delay
-            setTimeout(() => {
-                if (!document.hidden && this._application?.renderer) {
-                    this._application.renderer.reset();
-                    if (!this._isReady && this._initializationPending) {
-                        this.init();
-                    }
-                }
-            }, 100);
-        }
-    }
-
-    private onVisibilityChange(): void {
-        if (!document.hidden) {
-            // Tab is now visible
-            if (this._application?.renderer) {
-                this._application.renderer.reset();
-                if (!this._isReady && this._initializationPending) {
-                    this.init();
-                }
-            }
-        }
     }
 
     public init(): void {
         if (this._isReady || this._isDisposed) return;
-
-        if (document.hidden) {
-            this._initializationPending = true;
-            return;
-        }
-
-        this._initializationPending = false;
 
         if (this._avatar) this._avatar.init();
 
@@ -216,8 +216,6 @@ export class Nitro implements INitro {
 
             this._application = null;
         }
-
-        document.removeEventListener('visibilitychange', this.onVisibilityChange.bind(this));
 
         this._isDisposed = true;
         this._isReady = false;
