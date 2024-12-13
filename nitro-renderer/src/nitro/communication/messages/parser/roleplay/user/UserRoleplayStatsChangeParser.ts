@@ -103,36 +103,40 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
     public parse(wrapper: IMessageDataWrapper): boolean {
         if (!wrapper) return false;
 
-        this._userID = wrapper.readInt();
-        this._username = wrapper.readString();
-        this._figure = wrapper.readString();
-        this._motto = wrapper.readString();
-        this._joinedAt = wrapper.readInt();
-        this._lastLogin = wrapper.readInt();
-        this._online = wrapper.readBoolean();
-        this._cashBalance = wrapper.readInt();
-        this._bankBalance = wrapper.readInt();
-        this._isDead = wrapper.readBoolean();
-        this._isStunned = wrapper.readBoolean();
-        this._isCuffed = wrapper.readBoolean();
-        this._isWorking = wrapper.readBoolean();
-        this._escortedByUserID = wrapper.readInt();
-        this._healthNow = wrapper.readInt();
-        this._healthMax = wrapper.readInt();
-        this._energyNow = wrapper.readInt();
-        this._energyMax = wrapper.readInt();
-        this._hungerNow = wrapper.readInt();
-        this._hungerMax = wrapper.readInt();
-        this._equippedWeaponID = wrapper.readInt();
-        this._equippedWeaponAmmoLeft = wrapper.readInt();
-        this._corporationID = wrapper.readInt();
-        this._corpName = wrapper.readString();
-        this._corporationPositionID = wrapper.readInt();
-        this._corpRoleName = wrapper.readString();
-        this._gangID = wrapper.readInt();
-        this._gangName = wrapper.readString();
-        this._gangRoleID = wrapper.readInt();
-        this._gangRoleName = wrapper.readString();
+        try {
+            this._userID = wrapper.readInt();
+            this._username = wrapper.readString();
+            this._figure = wrapper.readString();
+            this._motto = wrapper.readString();
+            this._joinedAt = wrapper.readInt();
+            this._lastLogin = wrapper.readInt();
+            this._online = wrapper.readBoolean();
+            this._cashBalance = wrapper.readInt();
+            this._bankBalance = wrapper.readInt();
+            this._isDead = wrapper.readBoolean();
+            this._isStunned = wrapper.readBoolean();
+            this._isCuffed = wrapper.readBoolean();
+            this._isWorking = wrapper.readBoolean();
+            this._escortedByUserID = wrapper.readInt();
+            this._healthNow = wrapper.readInt();
+            this._healthMax = wrapper.readInt();
+            this._energyNow = wrapper.readInt();
+            this._energyMax = wrapper.readInt();
+            this._hungerNow = wrapper.readInt();
+            this._hungerMax = wrapper.readInt();
+            this._equippedWeaponID = wrapper.readInt();
+            this._equippedWeaponAmmoLeft = wrapper.readInt();
+            this._corporationID = wrapper.readInt();
+            this._corpName = wrapper.readString();
+            this._corporationPositionID = wrapper.readInt();
+            this._corpRoleName = wrapper.readString();
+            this._gangID = wrapper.readInt();
+            this._gangName = wrapper.readString();
+            this._gangRoleID = wrapper.readInt();
+            this._gangRoleName = wrapper.readString();
+        } catch (e) {
+            alert(e);
+        }
 
         return true;
     }

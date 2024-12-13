@@ -8,7 +8,8 @@ export function RoleplayStatsContainer({ userID, onToggle }: RoleplayStatsContai
     const roleplayStats = useRoleplayStats(userID);
 
     const [healthPercent, energyPercent] = useMemo(() => {
-        const healthPercent = (roleplayStats.healthNow / roleplayStats.healthMax) * 100;
+        const healthMax = Math.max(roleplayStats.healthMax, 100);
+        const healthPercent = (roleplayStats.healthNow / healthMax) * 100;
         const energyPercent = (roleplayStats.energyNow / roleplayStats.energyMax) * 100;
         return [healthPercent, energyPercent];
     }, [roleplayStats.healthMax, roleplayStats.healthNow, roleplayStats.energyMax, roleplayStats.energyNow]);
