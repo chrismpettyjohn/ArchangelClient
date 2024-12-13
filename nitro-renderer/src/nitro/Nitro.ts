@@ -45,6 +45,7 @@ export class Nitro implements INitro {
     private _cameraManager: IRoomCameraWidgetManager;
     private _soundManager: ISoundManager;
     private _linkTrackers: ILinkEventTracker[];
+    private _initializationPending: boolean;
 
     private _isReady: boolean;
     private _isDisposed: boolean;
@@ -65,12 +66,15 @@ export class Nitro implements INitro {
         this._cameraManager = new RoomCameraWidgetManager();
         this._soundManager = new SoundManager();
         this._linkTrackers = [];
+        this._initializationPending = false;
 
         this._isReady = false;
         this._isDisposed = false;
 
         this._core.configuration.events.addEventListener(ConfigurationEvent.LOADED, this.onConfigurationLoadedEvent.bind(this));
         this._roomEngine.events.addEventListener(RoomEngineEvent.ENGINE_INITIALIZED, this.onRoomEngineReady.bind(this));
+        
+        document.addEventListener('visibilitychange', this.onVisibilityChange.bind(this));
     }
 
     public static bootstrap(): void {
@@ -88,13 +92,55 @@ export class Nitro implements INitro {
             height: window.innerHeight,
             resolution: window.devicePixelRatio,
             view: canvas,
+            antialias: true,
+            powerPreference: 'high-performance',
         });
 
-        canvas.addEventListener('webglcontextlost', () => instance.events.dispatchEvent(new NitroEvent(Nitro.WEBGL_CONTEXT_LOST)));
+        canvas.addEventListener('webglcontextlost', () => {
+            instance.events.dispatchEvent(new NitroEvent(Nitro.WEBGL_CONTEXT_LOST));
+            if (!document.hidden) {
+                instance.handleContextLost();
+            }
+        });
+    }
+
+    private handleContextLost(): void {
+        if (this._application?.renderer) {
+            this._application.renderer.reset();
+            
+            // Attempt to restore context after a short delay
+            setTimeout(() => {
+                if (!document.hidden && this._application?.renderer) {
+                    this._application.renderer.reset();
+                    if (!this._isReady && this._initializationPending) {
+                        this.init();
+                    }
+                }
+            }, 100);
+        }
+    }
+
+    private onVisibilityChange(): void {
+        if (!document.hidden) {
+            // Tab is now visible
+            if (this._application?.renderer) {
+                this._application.renderer.reset();
+                if (!this._isReady && this._initializationPending) {
+                    this.init();
+                }
+            }
+        }
     }
 
     public init(): void {
         if (this._isReady || this._isDisposed) return;
+
+        if (document.hidden) {
+            this._initializationPending = true;
+            return;
+        }
+
+        this._initializationPending = false;
 
         if (this._avatar) this._avatar.init();
 
@@ -170,6 +216,8 @@ export class Nitro implements INitro {
 
             this._application = null;
         }
+
+        document.removeEventListener('visibilitychange', this.onVisibilityChange.bind(this));
 
         this._isDisposed = true;
         this._isReady = false;
