@@ -15,7 +15,6 @@ export interface WeaponData {
     ammoCapacity: number;
     weight: number;
     cooldown: number;
-    specialAbilities: string;
     equipEffect: number;
     equipMessage: string;
     unequipMessage: string;
@@ -36,7 +35,6 @@ export class WeaponDataEventParser implements IMessageParser {
     private _ammoCapacity: number;
     private _weight: number;
     private _cooldown: number;
-    private _specialAbilities: string;
     private _equipEffect: number;
     private _equipMessage: string;
     private _unequipMessage: string;
@@ -56,7 +54,6 @@ export class WeaponDataEventParser implements IMessageParser {
         this._ammoCapacity = -1;
         this._weight = -1;
         this._cooldown = -1;
-        this._specialAbilities = '';
         this._equipEffect = -1;
         this._equipMessage = '';
         this._unequipMessage = '';
@@ -81,7 +78,6 @@ export class WeaponDataEventParser implements IMessageParser {
         this._ammoCapacity = wrapper.readInt();
         this._weight = wrapper.readInt();
         this._cooldown = wrapper.readInt();
-        this._specialAbilities = wrapper.readString();
         this._equipEffect = wrapper.readInt();
         this._equipMessage = wrapper.readString();
         this._unequipMessage = wrapper.readString();
@@ -105,7 +101,6 @@ export class WeaponDataEventParser implements IMessageParser {
             ammoCapacity: this._ammoCapacity,
             weight: this._weight,
             cooldown: this._cooldown,
-            specialAbilities: this._specialAbilities,
             equipEffect: this._equipEffect,
             equipMessage: this._equipMessage,
             unequipMessage: this._unequipMessage,

@@ -2,6 +2,7 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 
 export enum WeaponType {
     GUN = "gun",
+    TOOL = "tool",
     MELEE = "melee"
 }
 

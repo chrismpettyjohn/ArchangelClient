@@ -24,7 +24,6 @@ export function WeaponEditor({ defaultWeapon, onSubmit }: WeaponEditorProps) {
         ammoCapacity: defaultWeapon?.ammoCapacity ?? 0,
         weight: defaultWeapon?.weight ?? 0,
         cooldown: defaultWeapon?.cooldown ?? 0,
-        specialAbilities: defaultWeapon?.specialAbilities ?? '',
         equipEffect: defaultWeapon?.equipEffect ?? 0,
         equipMessage: defaultWeapon?.equipMessage ?? '',
         unequipMessage: defaultWeapon?.unequipMessage ?? '',
