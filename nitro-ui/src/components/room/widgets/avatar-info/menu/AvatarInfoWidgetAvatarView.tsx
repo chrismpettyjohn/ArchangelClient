@@ -10,7 +10,7 @@ import { CorpDemoteUser } from '../../../../../api/roleplay/corp/CorpDemoteUser'
 import { CorpPromoteUser } from '../../../../../api/roleplay/corp/CorpPromoteUser';
 import { CorpFireUser } from '../../../../../api/roleplay/corp/CorpFireUser';
 import { CorpOfferJob } from '../../../../../api/roleplay/corp/CorpOfferJob';
-import { FaChevronRight } from 'react-icons/fa';
+import { FaCaretLeft, FaChevronRight } from 'react-icons/fa';
 import { useRoleplayStats } from '../../../../../hooks/roleplay/use-rp-stats';
 import { PoliceArrestUser } from '../../../../../api/roleplay/police/PoliceArrestUser';
 import { PoliceCuffUser } from '../../../../../api/roleplay/police/PoliceCuffUser';
@@ -57,6 +57,8 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
 
         return flag;
     }, []);
+
+    console.log(roleplayStats.corpIndustry)
 
     const processAction = (name: string) => {
         let hideMenu = true;
@@ -118,17 +120,11 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     hideMenu = false;
                     setMode(MODE_SELL_AMMO);
                     break;
-                case 'whisper':
-                    DispatchUiEvent(new RoomWidgetUpdateChatInputContentEvent(RoomWidgetUpdateChatInputContentEvent.WHISPER, avatarInfo.name));
-                    break;
                 case 'friend':
                     SendMessageComposer(new RequestFriendComposer(avatarInfo.name));
                     break;
                 case 'unfriend':
                     SendMessageComposer(new RemoveFriendComposer(avatarInfo.webID));
-                    break;
-                case 'pass_hand_item':
-                    SendMessageComposer(new RoomUnitGiveHandItemComposer(avatarInfo.webID));
                     break;
             }
         }
@@ -156,13 +152,6 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
             {
                 !roleplayStats.isDead && (
                     <>
-                        {
-                            mode !== MODE_NORMAL && (
-                                <ContextMenuListItemView onClick={() => processAction('back')}>
-                                    {LocalizeText('infostand.button.back')}
-                                </ContextMenuListItemView>
-                            )
-                        }
                         {(mode === MODE_NORMAL) &&
                             <>
                                 {
@@ -202,12 +191,6 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                             </ContextMenuListItemView>
                                             : ''
                                 }
-                                <ContextMenuListItemView onClick={() => processAction('whisper')}>
-                                    {LocalizeText('infostand.button.whisper')}
-                                </ContextMenuListItemView>
-                                {canGiveHandItem && <ContextMenuListItemView onClick={() => processAction('pass_hand_item')}>
-                                    {LocalizeText('avatar.widget.pass_hand_item')}
-                                </ContextMenuListItemView>}
                             </>}
                         {(mode === MODE_WORK) &&
                             <>
@@ -337,6 +320,15 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                     ))
                                 }
                             </>
+                        }
+
+                        {
+                            mode !== MODE_NORMAL && (
+                                <ContextMenuListItemView onClick={() => processAction('back')}>
+                                    <FaCaretLeft style={{ marginRight: 6 }} />
+                                    Back
+                                </ContextMenuListItemView>
+                            )
                         }
                     </>
                 )

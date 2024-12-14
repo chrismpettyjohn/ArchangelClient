@@ -1,6 +1,6 @@
 import { AvatarAction, AvatarExpressionEnum, RoomObjectCategory, RoomUnitDropHandItemComposer, UserOpenWardrobeEvent } from '@nitro-rp/renderer';
 import { FC, useState } from 'react';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaCaretLeft, FaChevronRight } from 'react-icons/fa';
 import { AvatarInfoUser, CreateLinkEvent, GetCanStandUp, GetCanUseExpression, GetOwnPosture, GetUserProfile, HasHabboClub, HasHabboVip, IsRidingHorse, LocalizeText, PostureTypeEnum, SendMessageComposer } from '../../../../../api';
 import { Flex, LayoutCurrencyIcon } from '../../../../../common';
 import { useRoom } from '../../../../../hooks';
@@ -193,8 +193,8 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                         {LocalizeText('widget.memenu.dance4')}
                     </ContextMenuListItemView>
                     <ContextMenuListItemView onClick={() => processAction('back')}>
-                        <FaChevronLeft className="left fa-icon" />
-                        {LocalizeText('generic.back')}
+                        <FaCaretLeft style={{ marginRight: 6 }} />
+                        Back
                     </ContextMenuListItemView>
                 </>}
             {(mode === MODE_EXPRESSIONS) &&
@@ -225,7 +225,7 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                         {LocalizeText('widget.memenu.idle')}
                     </ContextMenuListItemView>
                     <ContextMenuListItemView onClick={() => processAction('back')}>
-                        <FaChevronLeft className="left fa-icon" />
+                        <FaCaretLeft style={{ marginRight: 6 }} />
                         {LocalizeText('generic.back')}
                     </ContextMenuListItemView>
                 </>}
@@ -298,7 +298,7 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                         </ContextMenuListItemView>
                     </Flex>
                     <ContextMenuListItemView onClick={() => processAction('back')}>
-                        <FaChevronLeft className="left fa-icon" />
+                        <FaCaretLeft style={{ marginRight: 6 }} />
                         {LocalizeText('generic.back')}
                     </ContextMenuListItemView>
                 </>}
@@ -315,7 +315,7 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                         </ContextMenuListItemView>
                     )}
                     <ContextMenuListItemView onClick={() => processAction('back')}>
-                        <FaChevronLeft className="left fa-icon" />
+                        <FaCaretLeft style={{ marginRight: 6 }} />
                         {LocalizeText('generic.back')}
                     </ContextMenuListItemView>
                 </>}
@@ -341,7 +341,7 @@ export const AvatarInfoWidgetOwnAvatarView: FC<AvatarInfoWidgetOwnAvatarViewProp
                             )
                     }
                     <ContextMenuListItemView onClick={() => processAction('back')}>
-                        <FaChevronLeft className="left fa-icon" />
+                        <FaCaretLeft style={{ marginRight: 6 }} />
                         {LocalizeText('generic.back')}
                     </ContextMenuListItemView>
                 </>
