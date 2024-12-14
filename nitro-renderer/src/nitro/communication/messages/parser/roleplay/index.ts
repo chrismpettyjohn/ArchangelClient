@@ -32,6 +32,8 @@ export * from './gang/GangRoleQueryOneEventParser';
 export * from './gang/GangRoleQueryListEventParser';
 export * from './gang/TurfCaptureTimeLeftEventParser';
 export * from './gang/TurfCaptureTimeLeftEventParser';
+export * from './gunstore/AmmoCrateDataEventParser';
+export * from './gunstore/WeaponVendingMachineDataEventParser';
 export * from './items/HotBarListItemsEventParser';
 export * from './license/LicenseAgencyListEventParser';
 export * from './license/LicenseOpenComputerEventParser';
@@ -45,6 +47,7 @@ export * from './police/UserArrestedEventParser';
 export * from './police/WantedListEventParser';
 export * from './room/RoomListUsersEventParser';
 export * from './room/RoomQueryListEventParser';
+export * from './store/OfferStoreProductEventParser';
 export * from './taxi/TaxiDispatchedEventParser';
 export * from './taxi/TaxiStandEventParser'
 export * from './user/UserOpenWardrobeEventParser';

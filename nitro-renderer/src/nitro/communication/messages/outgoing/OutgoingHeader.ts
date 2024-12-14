@@ -707,4 +707,14 @@ export class OutgoingHeader {
 
     public static LIST_MY_AMMO_COMPOSER = 8123;
 
+    public static AMMO_CRATE_TAKE_COMPOSER = 8124;
+
+    public static WEAPON_VENDING_MACHINE_TAKE_COMPOSER = 8125;
+
+    public static CREATE_STORE_PRODUCT_OFFER_COMPOSER = 8126;
+
+    public static ACCEPT_STORE_PRODUCT_OFFER_COMPOSER = 8127;
+
+    public static REJECT_STORE_PRODUCT_OFFER_COMPOSER = 8128;
+
 }

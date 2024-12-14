@@ -529,4 +529,8 @@ export class IncomingHeader {
     public static USER_GUESTBOOK_QUERY_LIST_EVENT = 9058;
     public static USER_GUESTBOOK_QUERY_ONE_EVENT = 9059;
     public static MY_AMMO_LIST_EVENT = 9060;
+    public static AMMO_CRATE_DATA_EVENT = 9061;
+    public static WEAPON_VENDING_MACHINE_DATA_EVENT = 9062;
+    public static OFFER_STORE_PRODUCT_EVENT = 9063;
+
 }
