@@ -8,6 +8,7 @@ import { CombatDelayEvent, NitroConfiguration } from "@nitro-rp/renderer";
 import { Button } from "react-bootstrap";
 import { FaRedo } from "react-icons/fa";
 import { WeaponReload } from "../../../api/roleplay/combat/WeaponReload";
+import { AmmoSelect } from "../../roleplay/AmmoSelect";
 
 export function EquippedWeapon() {
     const session = useSessionInfo();

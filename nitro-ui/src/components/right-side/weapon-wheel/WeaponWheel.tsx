@@ -1,10 +1,11 @@
 import { Text } from "../../../common";
 import { useCallback, useEffect, useState } from "react";
-import { ILinkEventTracker, MyWeaponData, MyWeaponListEvent, NitroConfiguration } from "@nitro-rp/renderer";
+import { AmmoSize, EquipAmmoComposer, ILinkEventTracker, MyWeaponData, MyWeaponListEvent, NitroConfiguration } from "@nitro-rp/renderer";
 import { EquipWeapon } from "../../../api/roleplay/combat/EquipWeapon";
-import { AddEventLinkTracker, RemoveLinkEventTracker } from "../../../api";
+import { AddEventLinkTracker, RemoveLinkEventTracker, SendMessageComposer } from "../../../api";
 import { useMessageEvent } from "../../../hooks";
 import { ListMyWeapons } from "../../../api/roleplay/combat/ListMyWeapons";
+import { AmmoSelect } from "../../roleplay/AmmoSelect";
 
 export function WeaponWheel() {
 
@@ -79,6 +80,13 @@ export function WeaponWheel() {
                         {hoveredItem ? hoveredItem.displayName : ''}
                         {!weaponList.length ? "You don't own any weapons" : ''}
                     </Text>
+                    {
+                        hoveredItem && (
+                            <div style={{ width: 200, marginTop: 12 }} onClick={e => e.stopPropagation()}>
+                                <AmmoSelect ammoId={1} ammoSize={AmmoSize._556_45} onChange={_ => SendMessageComposer(new EquipAmmoComposer(_.id))} />
+                            </div>
+                        )
+                    }
                 </div>
             </div>
         </div >
