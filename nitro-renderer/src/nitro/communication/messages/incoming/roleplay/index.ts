@@ -48,6 +48,7 @@ export * from './police/WantedListEvent';
 export * from './room/RoomListUsersEvent';
 export * from './room/RoomQueryListEvent';
 export * from './store/OfferStoreProductEvent';
+export * from './store/StoreShiftInventoryDataEvent';
 export * from './user/UserOpenWardrobeEvent';
 export * from './user/UserRoleplayStatsChangeEvent';
 export * from './user/UserOnlineCountEvent';

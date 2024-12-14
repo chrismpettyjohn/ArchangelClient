@@ -532,5 +532,6 @@ export class IncomingHeader {
     public static AMMO_CRATE_DATA_EVENT = 9061;
     public static WEAPON_VENDING_MACHINE_DATA_EVENT = 9062;
     public static OFFER_STORE_PRODUCT_EVENT = 9063;
+    public static SHIFT_INVENTORY_PRODUCT_DATA_EVENT = 9064;;
 
 }

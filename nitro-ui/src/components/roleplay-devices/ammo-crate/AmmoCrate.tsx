@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import {
     NitroCardContentView,
     NitroCardHeaderView,
@@ -9,8 +9,9 @@ import {
     Grid,
 } from "../../../common";
 import { useMessageEvent } from "../../../hooks";
-import { AmmoCrateData, AmmoCrateDataEvent, AmmoSize } from "@nitro-rp/renderer";
+import { AmmoCrateData, AmmoCrateDataEvent, AmmoCrateTakeComposer, AmmoSize } from "@nitro-rp/renderer";
 import { AmmoSizeSelect } from "../../roleplay/AmmoSizeOption";
+import { SendMessageComposer } from "../../../api";
 
 export function AmmoCrate() {
     const [isVisible, setIsVisible] = useState(false);
@@ -26,10 +27,10 @@ export function AmmoCrate() {
         setIsVisible(false);
     }
 
-    function grabAmmo(id: number) {
-        console.log(`Ammo with ID ${id} grabbed.`);
-        // Implement grab logic here
-    }
+    const takeAmmo = useCallback((ammoId: number) => {
+        SendMessageComposer(new AmmoCrateTakeComposer(ammoId));
+        setIsVisible(false);
+    }, []);
 
     const filteredAmmo = useMemo(() => {
         if (!ammoSize) {
@@ -55,7 +56,7 @@ export function AmmoCrate() {
                                     <strong>{item.displayName}</strong> ({item.ammoSize})
                                 </Text>
                                 <Text variant="white">Type: {item.ammoType}</Text>
-                                <Button onClick={() => grabAmmo(item.id)}>Take</Button>
+                                <Button onClick={() => takeAmmo(item.id)}>Take</Button>
                             </Column>
                         ))}
                         {

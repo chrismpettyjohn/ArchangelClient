@@ -48,6 +48,7 @@ export * from './police/WantedListEventParser';
 export * from './room/RoomListUsersEventParser';
 export * from './room/RoomQueryListEventParser';
 export * from './store/OfferStoreProductEventParser';
+export * from './store/StoreShiftInventoryDataEventParser';
 export * from './taxi/TaxiDispatchedEventParser';
 export * from './taxi/TaxiStandEventParser'
 export * from './user/UserOpenWardrobeEventParser';

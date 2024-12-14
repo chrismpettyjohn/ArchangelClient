@@ -1,4 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
+import { CorpIndustry } from "../corp/CorpListEventParser";
 
 export interface UserRoleplayStatsChangeData {
     userID: number;
@@ -24,6 +25,7 @@ export interface UserRoleplayStatsChangeData {
     equippedWeaponAmmoLeft?: number;
     corporationID: number;
     corpName: string;
+    corpIndustry: CorpIndustry;
     corporationPositionID: number;
     corpRoleName: string;
     isWorking: boolean;
@@ -59,6 +61,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
     private _equippedWeaponAmmoLeft?: number;
     private _corporationID: number;
     private _corpName: string;
+    private _corpIndustry: CorpIndustry;
     private _corporationPositionID: number;
     private _corpRoleName: string;
     private _gangID: number;
@@ -91,6 +94,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
         this._equippedWeaponAmmoLeft = 0;
         this._corporationID = 0;
         this._corpName = '';
+        this._corpIndustry = CorpIndustry.Bank;
         this._corporationPositionID = 0;
         this._corpRoleName = '';
         this._gangID = 0;
@@ -128,6 +132,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
             this._equippedWeaponAmmoLeft = wrapper.readInt();
             this._corporationID = wrapper.readInt();
             this._corpName = wrapper.readString();
+            this._corpIndustry = parseCorpIndustry(wrapper.readString());
             this._corporationPositionID = wrapper.readInt();
             this._corpRoleName = wrapper.readString();
             this._gangID = wrapper.readInt();
@@ -167,6 +172,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
             equippedWeaponAmmoLeft: this._equippedWeaponAmmoLeft,
             corporationID: this._corporationID,
             corpName: this._corpName,
+            corpIndustry: this._corpIndustry,
             corporationPositionID: this._corporationPositionID,
             corpRoleName: this._corpRoleName,
             gangID: this._gangID,
@@ -174,5 +180,14 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
             gangRoleID: this._gangRoleID,
             gangRoleName: this._gangRoleName,
         }
+    }
+}
+
+export function parseCorpIndustry(type: string): CorpIndustry | null {
+    if (Object.values(CorpIndustry).includes(type as CorpIndustry)) {
+        return type as CorpIndustry;
+    } else {
+        console.error(`Invalid corp industry: ${type}`);
+        return null;
     }
 }

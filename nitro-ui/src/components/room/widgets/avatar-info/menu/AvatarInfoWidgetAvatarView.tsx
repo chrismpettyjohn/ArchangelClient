@@ -17,7 +17,6 @@ import { PoliceCuffUser } from '../../../../../api/roleplay/police/PoliceCuffUse
 import { PoliceStunUser } from '../../../../../api/roleplay/police/PoliceStunUser';
 import { PoliceEscortUser } from '../../../../../api/roleplay/police/PoliceEscortUser';
 import { useCrimes } from '../../../../../api/roleplay/police/GetCrimes';
-import { useCombatDelay } from '../../../../../hooks/roleplay/use-combat-delay';
 import { useCorpData } from '../../../../../hooks/roleplay/use-corp-data';
 
 interface AvatarInfoWidgetAvatarViewProps {
@@ -26,16 +25,17 @@ interface AvatarInfoWidgetAvatarViewProps {
 }
 
 const MODE_NORMAL = 0;
-const MODE_BUSINESS = 1;
+const MODE_WORK = 1;
 const MODE_GANG = 2;
 const MODE_POLICE = 3;
 const MODE_ARREST = 4;
+const MODE_SELL_WEAPONS = 5;
+const MODE_SELL_AMMO = 6;
 
 export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = props => {
     const { userInfo: sessionInfo } = useSessionInfo();
     const { avatarInfo = null, onClose = null } = props;
     const roleplayStats = useRoleplayStats(avatarInfo?.webID);
-    const combatDelay = useCombatDelay();
     const sessionRoleplayStats = useRoleplayStats(sessionInfo?.userId);
     const [mode, setMode] = useState(MODE_NORMAL);
     const { canRequestFriend = null, getFriend } = useFriends();
@@ -69,7 +69,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     break;
                 case 'view_business':
                     hideMenu = false
-                    setMode(MODE_BUSINESS);
+                    setMode(MODE_WORK);
                     break;
                 case 'view_gang':
                     hideMenu = false
@@ -110,6 +110,14 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     hideMenu = false
                     PoliceEscortUser(avatarInfo.name);
                     break;
+                case 'sell_weapons':
+                    hideMenu = false;
+                    setMode(MODE_SELL_WEAPONS)
+                    break;
+                case 'sell_ammo':
+                    hideMenu = false;
+                    setMode(MODE_SELL_AMMO);
+                    break;
                 case 'whisper':
                     DispatchUiEvent(new RoomWidgetUpdateChatInputContentEvent(RoomWidgetUpdateChatInputContentEvent.WHISPER, avatarInfo.name));
                     break;
@@ -118,9 +126,6 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                     break;
                 case 'unfriend':
                     SendMessageComposer(new RemoveFriendComposer(avatarInfo.webID));
-                    break;
-                case 'trade':
-                    SendMessageComposer(new TradingOpenComposer(avatarInfo.roomIndex));
                     break;
                 case 'pass_hand_item':
                     SendMessageComposer(new RoomUnitGiveHandItemComposer(avatarInfo.webID));
@@ -197,9 +202,6 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                             </ContextMenuListItemView>
                                             : ''
                                 }
-                                <ContextMenuListItemView onClick={() => processAction('trade')}>
-                                    {LocalizeText('infostand.button.trade')}
-                                </ContextMenuListItemView>
                                 <ContextMenuListItemView onClick={() => processAction('whisper')}>
                                     {LocalizeText('infostand.button.whisper')}
                                 </ContextMenuListItemView>
@@ -207,8 +209,20 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                     {LocalizeText('avatar.widget.pass_hand_item')}
                                 </ContextMenuListItemView>}
                             </>}
-                        {(mode === MODE_BUSINESS) &&
+                        {(mode === MODE_WORK) &&
                             <>
+                                {
+                                    roleplayStats.corpIndustry === CorpIndustry.GunStore && (
+                                        <>
+                                            <ContextMenuListItemView onClick={() => processAction('sell_ammo')}>
+                                                Sell Ammo
+                                            </ContextMenuListItemView>
+                                            <ContextMenuListItemView onClick={() => processAction('sell_weapons')}>
+                                                Sell Weapons
+                                            </ContextMenuListItemView>
+                                        </>
+                                    )
+                                }
                                 {
                                     roleplayStats.corporationID !== sessionRoleplayStats.corporationID && (
                                         <ContextMenuListItemView onClick={() => processAction('corp_offer_job')}>
@@ -295,8 +309,30 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                             <>
                                 {
                                     crimeList.map(crime => (
-                                        <ContextMenuListItemView key={`crime_${crime.crime}`} onClick={() => { onClose(); PoliceArrestUser(avatarInfo.webID) }}>
-                                            {crime.crime} ({crime.sentence}mins)
+                                        <ContextMenuListItemView key={`crime_${crime.id}`} onClick={() => { onClose(); PoliceArrestUser(avatarInfo.webID) }}>
+                                            {crime.displayName} ({crime.jailTime}mins)
+                                        </ContextMenuListItemView>
+                                    ))
+                                }
+                            </>
+                        }
+                        {(mode === MODE_SELL_WEAPONS) &&
+                            <>
+                                {
+                                    crimeList.map(crime => (
+                                        <ContextMenuListItemView key={`crime_${crime.id}`} onClick={() => { onClose(); PoliceArrestUser(avatarInfo.webID) }}>
+                                            {crime.displayName} ({crime.jailTime}mins)
+                                        </ContextMenuListItemView>
+                                    ))
+                                }
+                            </>
+                        }
+                        {(mode === MODE_SELL_AMMO) &&
+                            <>
+                                {
+                                    crimeList.map(crime => (
+                                        <ContextMenuListItemView key={`crime_${crime.id}`} onClick={() => { onClose(); PoliceArrestUser(avatarInfo.webID) }}>
+                                            {crime.displayName} ({crime.jailTime}mins)
                                         </ContextMenuListItemView>
                                     ))
                                 }
