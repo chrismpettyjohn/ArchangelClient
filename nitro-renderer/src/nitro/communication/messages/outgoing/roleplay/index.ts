@@ -97,6 +97,7 @@ export * from './store/AcceptStoreProductOfferComposer';
 export * from './store/AmmoCrateTakeComposer';
 export * from './store/CreateStoreProductOfferComposer';
 export * from './store/RejectStoreProductOfferComposer';
+export * from './store/ShiftInventoryQueryComposer';
 export * from './store/WeaponVendingMachineTakeOneComposer';
 export * from './taxi/TaxiFeeQueryComposer';
 export * from './taxi/CallTaxiComposer';

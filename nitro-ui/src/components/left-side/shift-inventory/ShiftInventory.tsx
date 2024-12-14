@@ -1,18 +1,13 @@
 import './ShiftInventory.scss';
-import { useState } from "react";
 import { Text } from "../../../common";
-import { useMessageEvent, useSessionInfo } from "../../../hooks";
-import { StoreShiftInventoryData, StoreShiftInventoryDataEvent } from "@nitro-rp/renderer";
+import { useSessionInfo } from "../../../hooks";
 import { useRoleplayStats } from '../../../hooks/roleplay/use-rp-stats';
+import { useShiftInventory } from '../../../api/roleplay/store/GetShiftInventory';
 
 export function ShiftInventory() {
-    const [inventory, setInventory] = useState<StoreShiftInventoryData[]>([]);
     const sessionInfo = useSessionInfo();
+    const shiftInventory = useShiftInventory();
     const rpStats = useRoleplayStats(sessionInfo?.userInfo?.userId);
-
-    useMessageEvent<StoreShiftInventoryDataEvent>(StoreShiftInventoryDataEvent, event => {
-        setInventory(event.getParser().items);
-    });
 
     if (!rpStats.isWorking) {
         return;
@@ -21,7 +16,7 @@ export function ShiftInventory() {
     return (
         <div className="shift-inventory glass-panel">
             <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 45px)", gap: 10, justifyContent: "center", padding: 10 }}>
-                {inventory.map(item => (
+                {shiftInventory.map(item => (
                     <div
                         key={item.productId}
                         style={{

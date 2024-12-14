@@ -1,6 +1,6 @@
-import { CorpIndustry, RemoveFriendComposer, RequestFriendComposer, RoomObjectCategory } from '@nitro-rp/renderer';
-import { FC, useEffect, useState } from 'react';
-import { AvatarInfoUser, GetUserProfile, LocalizeText, SendMessageComposer } from '../../../../../api';
+import { CorpIndustry, CreateStoreProductOfferComposer, RemoveFriendComposer, RequestFriendComposer, RoomObjectCategory, StoreProductType } from '@nitro-rp/renderer';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { AvatarInfoUser, GetUserProfile, LocalizeText, ProductTypeEnum, SendMessageComposer } from '../../../../../api';
 import { useFriends, useSessionInfo } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
@@ -18,6 +18,7 @@ import { PoliceStunUser } from '../../../../../api/roleplay/police/PoliceStunUse
 import { PoliceEscortUser } from '../../../../../api/roleplay/police/PoliceEscortUser';
 import { useCrimes } from '../../../../../api/roleplay/police/GetCrimes';
 import { useCorpData } from '../../../../../hooks/roleplay/use-corp-data';
+import { useShiftInventory } from '../../../../../api/roleplay/store/GetShiftInventory';
 
 interface AvatarInfoWidgetAvatarViewProps {
     avatarInfo: AvatarInfoUser;
@@ -40,9 +41,20 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
     const [mode, setMode] = useState(MODE_NORMAL);
     const { canRequestFriend = null, getFriend } = useFriends();
     const crimeList = useCrimes();
+    const shiftInventory = useShiftInventory();
+
+    const shiftWeapons = useMemo(() => shiftInventory.filter(_ => _.productType === StoreProductType.WEAPON), [shiftInventory]);
+    const shiftAmmo = useMemo(() => shiftInventory.filter(_ => _.productType === StoreProductType.AMMO), [shiftInventory]);
+
+    console.log({ shiftWeapons, shiftAmmo, shiftInventory })
 
     const myRoleplayStats = useRoleplayStats(sessionInfo?.userId)
     const myCorpData = useCorpData(myRoleplayStats.corporationID);
+
+    const onSellProduct = useCallback((productId: number) => {
+        SendMessageComposer(new CreateStoreProductOfferComposer(productId));
+        onClose();
+    }, []);
 
 
     const processAction = (name: string) => {
@@ -287,9 +299,9 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                         {(mode === MODE_SELL_WEAPONS) &&
                             <>
                                 {
-                                    crimeList.map(crime => (
-                                        <ContextMenuListItemView key={`crime_${crime.id}`} onClick={() => { onClose(); PoliceArrestUser(avatarInfo.webID) }}>
-                                            {crime.displayName} ({crime.jailTime}mins)
+                                    shiftWeapons.map(weapon => (
+                                        <ContextMenuListItemView key={`weapon_${weapon.productId}`} onClick={() => { onSellProduct(weapon.productId) }}>
+                                            {weapon.productName}
                                         </ContextMenuListItemView>
                                     ))
                                 }
@@ -298,9 +310,9 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                         {(mode === MODE_SELL_AMMO) &&
                             <>
                                 {
-                                    crimeList.map(crime => (
-                                        <ContextMenuListItemView key={`crime_${crime.id}`} onClick={() => { onClose(); PoliceArrestUser(avatarInfo.webID) }}>
-                                            {crime.displayName} ({crime.jailTime}mins)
+                                    shiftAmmo.map(ammo => (
+                                        <ContextMenuListItemView key={`ammo_${ammo.productId}`} onClick={() => { onSellProduct(ammo.productId) }}>
+                                            {ammo.productName}
                                         </ContextMenuListItemView>
                                     ))
                                 }

@@ -717,4 +717,6 @@ export class OutgoingHeader {
 
     public static REJECT_STORE_PRODUCT_OFFER_COMPOSER = 8128;
 
+    public static SHIFT_INVENTORY_QUERY_COMPOSER = 8129;
+
 }
