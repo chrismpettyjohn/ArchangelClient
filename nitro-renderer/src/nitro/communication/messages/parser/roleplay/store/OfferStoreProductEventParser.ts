@@ -6,35 +6,40 @@ enum ProductType {
     ITEM = "item"
 }
 
-export interface ProductOffer {
+export interface StoreProductOffer {
     id: number;
     productId: number;
     productType: ProductType;
 }
 
 export class OfferStoreProductEventParser implements IMessageParser {
-    private _offers: Array<ProductOffer> = [];
+    private _id: number;
+    private _productId: number;
+    private _productType: ProductType;
 
     public flush(): boolean {
-        this._offers = [];
+        this._id = -1;
+        this._productId = -1;
+        this._productType = ProductType.ITEM;
         return true;
     }
 
     public parse(wrapper: IMessageDataWrapper): boolean {
         if (!wrapper) return false;
 
-        const totalOffers = wrapper.readInt();
-
-        for (let i = 0; i < totalOffers; i++) {
-            const [id, productId, productType] = wrapper.readString().split(';');
-            this._offers.push({ id: Number(id), productId: Number(productId), productType } as any);
-        }
+        this._id = wrapper.readInt();
+        this._productId = wrapper.readInt();
+        this._productType = wrapper.readString() as ProductType;
 
         return true;
     }
 
-    public get pffers(): Array<ProductOffer> {
-        return this._offers;
+    public get offer(): StoreProductOffer {
+        return {
+            id: this._id,
+            productId: this._productId,
+            productType: this._productType,
+        };
     }
 
 }

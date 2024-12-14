@@ -33,9 +33,9 @@ export enum AmmoSize {
     _762_51 = "762x51",
     _9MM = "9mm",
     _45ACP = "45acp",
-    STUN_CARTRIDGE = "stun_cartridge"
+    STUN_CARTRIDGE = "stun_cartridge",
+    HEALTH_SYRINGE = "health_syringe"
 }
-
 
 export interface MyAmmoData {
     id: number;

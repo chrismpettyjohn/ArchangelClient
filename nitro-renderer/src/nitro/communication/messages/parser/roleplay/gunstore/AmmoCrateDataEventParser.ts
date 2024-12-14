@@ -1,9 +1,12 @@
 import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
+import { AmmoSize, AmmoType, parseAmmoSize, parseAmmoType } from "../combat/MyAmmoListEventParser";
 
 export interface AmmoCrateData {
     id: number;
     uniqueName: string;
     displayName: string;
+    ammoType: AmmoType;
+    ammoSize: AmmoSize;
 }
 
 export class AmmoCrateDataEventParser implements IMessageParser {
@@ -15,20 +18,27 @@ export class AmmoCrateDataEventParser implements IMessageParser {
     }
 
     public parse(wrapper: IMessageDataWrapper): boolean {
-        if (!wrapper) return false;
+        try {
+            if (!wrapper) return false;
 
-        const itemCount = wrapper.readInt();
+            const itemCount = wrapper.readInt();
 
-        for (let i = 0; i < itemCount; i++) {
-            const [id, uniqueName, displayName] = wrapper.readString().split(';');
-            this._items.push({
-                id: Number(id),
-                uniqueName,
-                displayName
-            })
+            for (let i = 0; i < itemCount; i++) {
+                const [id, uniqueName, displayName, ammoType, ammoSize] = wrapper.readString().split(';');
+                this._items.push({
+                    id: Number(id),
+                    uniqueName,
+                    displayName,
+                    ammoType: parseAmmoType(ammoType),
+                    ammoSize: parseAmmoSize(ammoSize),
+                })
+            }
+
+            return true;
+        } catch (e: any) {
+            console.log(e)
+            throw e;
         }
-
-        return true;
     }
 
     public get items(): AmmoCrateData[] {
