@@ -39,17 +39,6 @@ export function AmmoCrate() {
         return ammo.filter(_ => _.ammoSize === ammoSize);
     }, [ammo, ammoSize]);
 
-    const sizeOptions = useMemo(
-        () => [
-            { value: "all", text: "All Sizes" },
-            ...Array.from(new Set(ammo.map(item => item.ammoSize))).map(size => ({
-                value: size,
-                text: size
-            }))
-        ],
-        [ammo]
-    );
-
     if (!isVisible) return null;
 
     return (

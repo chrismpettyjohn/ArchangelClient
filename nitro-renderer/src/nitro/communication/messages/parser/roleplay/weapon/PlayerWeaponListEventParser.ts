@@ -3,7 +3,8 @@ import { IMessageDataWrapper, IMessageParser } from '../../../../../../api';
 export enum WeaponType {
     GUN = "gun",
     TOOL = "tool",
-    MELEE = "melee"
+    MELEE = "melee",
+    CONSUMABLE = "consumable"
 }
 
 export interface PlayerWeaponListRow {

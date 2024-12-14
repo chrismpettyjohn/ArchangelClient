@@ -1,9 +1,12 @@
 import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
+import { WeaponType } from "../weapon/PlayerWeaponListEventParser";
+import { parseWeaponType } from "../weapon/WeaponDataEventParser";
 
 export interface WeaponVendingMachineData {
     id: number;
     uniqueName: string;
     displayName: string;
+    weaponType: WeaponType;
 }
 
 export class WeaponVendingMachineDataEventParser implements IMessageParser {
@@ -20,11 +23,12 @@ export class WeaponVendingMachineDataEventParser implements IMessageParser {
         const itemCount = wrapper.readInt();
 
         for (let i = 0; i < itemCount; i++) {
-            const [id, uniqueName, displayName] = wrapper.readString().split(';');
+            const [id, uniqueName, displayName, weaponType] = wrapper.readString().split(';');
             this._items.push({
                 id: Number(id),
                 uniqueName,
                 displayName,
+                weaponType: parseWeaponType(weaponType),
             })
         }
 
