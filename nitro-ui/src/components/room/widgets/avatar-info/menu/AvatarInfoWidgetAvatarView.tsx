@@ -1,6 +1,6 @@
-import { CorpIndustry, RemoveFriendComposer, RequestFriendComposer, RoomObjectCategory, RoomObjectVariable, RoomUnitGiveHandItemComposer, TradingOpenComposer } from '@nitro-rp/renderer';
-import { FC, useEffect, useMemo, useState } from 'react';
-import { AvatarInfoUser, DispatchUiEvent, GetOwnRoomObject, GetUserProfile, LocalizeText, RoomWidgetUpdateChatInputContentEvent, SendMessageComposer } from '../../../../../api';
+import { CorpIndustry, RemoveFriendComposer, RequestFriendComposer, RoomObjectCategory } from '@nitro-rp/renderer';
+import { FC, useEffect, useState } from 'react';
+import { AvatarInfoUser, GetUserProfile, LocalizeText, SendMessageComposer } from '../../../../../api';
 import { useFriends, useSessionInfo } from '../../../../../hooks';
 import { ContextMenuHeaderView } from '../../context-menu/ContextMenuHeaderView';
 import { ContextMenuListItemView } from '../../context-menu/ContextMenuListItemView';
@@ -44,21 +44,6 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
     const myRoleplayStats = useRoleplayStats(sessionInfo?.userId)
     const myCorpData = useCorpData(myRoleplayStats.corporationID);
 
-    const canGiveHandItem = useMemo(() => {
-        let flag = false;
-
-        const roomObject = GetOwnRoomObject();
-
-        if (roomObject) {
-            const carryId = roomObject.model.getValue<number>(RoomObjectVariable.FIGURE_CARRY_OBJECT);
-
-            if ((carryId > 0) && (carryId < 999999)) flag = true;
-        }
-
-        return flag;
-    }, []);
-
-    console.log(roleplayStats.corpIndustry)
 
     const processAction = (name: string) => {
         let hideMenu = true;
