@@ -32,6 +32,7 @@ const MODE_POLICE = 3;
 const MODE_ARREST = 4;
 const MODE_SELL_WEAPONS = 5;
 const MODE_SELL_AMMO = 6;
+const MODE_STORE = 7;
 
 export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = props => {
     const { userInfo: sessionInfo } = useSessionInfo();
@@ -52,9 +53,10 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
     const myCorpData = useCorpData(myRoleplayStats.corporationID);
 
     const onSellProduct = useCallback((productId: number) => {
-        SendMessageComposer(new CreateStoreProductOfferComposer(productId));
+        if (!avatarInfo?.webID) return;
+        SendMessageComposer(new CreateStoreProductOfferComposer(productId, avatarInfo.webID));
         onClose();
-    }, []);
+    }, [avatarInfo?.webID]);
 
 
     const processAction = (name: string) => {
@@ -77,6 +79,10 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                 case 'view_police':
                     hideMenu = false
                     setMode(MODE_POLICE);
+                    break;
+                case 'view_store':
+                    hideMenu = false
+                    setMode(MODE_STORE);
                     break;
                 case 'view_police_arrest':
                     hideMenu = false
@@ -162,6 +168,16 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                     )
                                 }
                                 {
+                                    roleplayStats.corpIndustry === CorpIndustry.GunStore && (
+                                        <>
+                                            <ContextMenuListItemView onClick={() => processAction('view_store')}>
+                                                Sell
+                                                <FaChevronRight className="right fa-icon" />
+                                            </ContextMenuListItemView>
+                                        </>
+                                    )
+                                }
+                                {
                                     sessionRoleplayStats.isWorking && myCorpData.industry === CorpIndustry.Police && (
                                         <ContextMenuListItemView onClick={() => processAction('view_police')}>
                                             <FaChevronRight className="right fa-icon" />
@@ -189,7 +205,7 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                             : ''
                                 }
                             </>}
-                        {(mode === MODE_WORK) &&
+                        {(mode === MODE_STORE) &&
                             <>
                                 {
                                     roleplayStats.corpIndustry === CorpIndustry.GunStore && (
@@ -203,6 +219,9 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
                                         </>
                                     )
                                 }
+                            </>}
+                        {(mode === MODE_WORK) &&
+                            <>
                                 {
                                     roleplayStats.corporationID !== sessionRoleplayStats.corporationID && (
                                         <ContextMenuListItemView onClick={() => processAction('corp_offer_job')}>

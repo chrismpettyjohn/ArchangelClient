@@ -1,4 +1,5 @@
 import { IMessageDataWrapper, IMessageParser } from "../../../../../../api";
+import { AmmoSize, parseAmmoSize } from "./MyAmmoListEventParser";
 
 export interface MyWeaponData {
     id: number;
@@ -7,6 +8,7 @@ export interface MyWeaponData {
     displayName: string;
     equipEffect: number;
     magazineSize: number;
+    ammoSize: AmmoSize;
 }
 
 export class MyWeaponListParser implements IMessageParser {
@@ -33,8 +35,10 @@ export class MyWeaponListParser implements IMessageParser {
                     displayName: weaponStr[3],
                     equipEffect: Number(weaponStr[4]),
                     magazineSize: Number(weaponStr[5]),
+                    ammoSize: parseAmmoSize(weaponStr[6]),
                 })
             } catch (e) {
+                console.log(e)
                 break;
             }
         }

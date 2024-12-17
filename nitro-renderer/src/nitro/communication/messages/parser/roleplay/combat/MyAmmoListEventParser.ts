@@ -28,6 +28,7 @@ export function parseAmmoSize(typeName: string): AmmoSize {
 }
 
 export enum AmmoSize {
+    NONE = "none",
     _556_45 = "556x45",
     _762_39 = "762x39",
     _762_51 = "762x51",

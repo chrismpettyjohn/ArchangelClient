@@ -12,6 +12,7 @@ export interface StoreProductOffer {
     productType: StoreProductType;
     productCost: number;
     productName: string;
+    productKey: string;
 }
 
 export class OfferStoreProductEventParser implements IMessageParser {
@@ -20,12 +21,15 @@ export class OfferStoreProductEventParser implements IMessageParser {
     private _productType: StoreProductType;
     private _productCost: number;
     private _productName: string;
+    private _productKey: string;
 
     public flush(): boolean {
         this._id = -1;
         this._productId = -1;
         this._productType = StoreProductType.ITEM;
         this._productCost = -1;
+        this._productName = '';
+        this._productKey = '';
         return true;
     }
 
@@ -37,6 +41,7 @@ export class OfferStoreProductEventParser implements IMessageParser {
         this._productType = parseProductType(wrapper.readString())
         this._productCost = wrapper.readInt();
         this._productName = wrapper.readString();
+        this._productKey = wrapper.readString();
 
         return true;
     }
@@ -48,6 +53,7 @@ export class OfferStoreProductEventParser implements IMessageParser {
             productType: this._productType,
             productCost: this._productCost,
             productName: this._productName,
+            productKey: this._productKey,
         };
     }
 
