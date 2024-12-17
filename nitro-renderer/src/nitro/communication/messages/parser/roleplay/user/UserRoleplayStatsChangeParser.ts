@@ -21,8 +21,12 @@ export interface UserRoleplayStatsChangeData {
     energyMax: number;
     hungerNow: number;
     hungerMax: number;
-    equippedWeaponID?: number;
-    equippedWeaponAmmoLeft?: number;
+    equippedWeaponID: number;
+    equippedWeaponDisplayName: string;
+    equippedWeaponUniqueName: string;
+    equippedWeaponAmmoId: number;
+    equippedWeaponAmmoLeft: number;
+    totalAmmoLeft: number;
     corporationID: number;
     corpName: string;
     corpIndustry: CorpIndustry;
@@ -57,8 +61,12 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
     private _energyMax: number;
     private _hungerNow: number;
     private _hungerMax: number;
-    private _equippedWeaponID?: number;
-    private _equippedWeaponAmmoLeft?: number;
+    private _equippedWeaponID: number;
+    private _equippedWeaponDisplayName: string;
+    private _equippedWeaponUniqueName: string;
+    private _equippedWeaponAmmoId: number;
+    private _equippedWeaponAmmoLeft: number;
+    private _totalAmmoLeft: number;
     private _corporationID: number;
     private _corpName: string;
     private _corpIndustry: CorpIndustry;
@@ -91,7 +99,11 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
         this._hungerNow = 0;
         this._hungerMax = 0;
         this._equippedWeaponID = 0;
+        this._equippedWeaponDisplayName = '';
+        this._equippedWeaponUniqueName = '';
+        this._equippedWeaponAmmoId = 0;
         this._equippedWeaponAmmoLeft = 0;
+        this._totalAmmoLeft = 0;
         this._corporationID = 0;
         this._corpName = '';
         this._corpIndustry = CorpIndustry.Bank;
@@ -129,7 +141,11 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
             this._hungerNow = wrapper.readInt();
             this._hungerMax = wrapper.readInt();
             this._equippedWeaponID = wrapper.readInt();
+            this._equippedWeaponDisplayName = wrapper.readString();
+            this._equippedWeaponUniqueName = wrapper.readString();
+            this._equippedWeaponAmmoId = wrapper.readInt();
             this._equippedWeaponAmmoLeft = wrapper.readInt();
+            this._totalAmmoLeft = wrapper.readInt();
             this._corporationID = wrapper.readInt();
             this._corpName = wrapper.readString();
             this._corpIndustry = parseCorpIndustry(wrapper.readString());
@@ -169,7 +185,11 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
             hungerNow: this._hungerNow,
             hungerMax: this._hungerMax,
             equippedWeaponID: this._equippedWeaponID,
+            equippedWeaponUniqueName: this._equippedWeaponUniqueName,
+            equippedWeaponDisplayName: this._equippedWeaponDisplayName,
+            equippedWeaponAmmoId: this._equippedWeaponAmmoId,
             equippedWeaponAmmoLeft: this._equippedWeaponAmmoLeft,
+            totalAmmoLeft: this._totalAmmoLeft,
             corporationID: this._corporationID,
             corpName: this._corpName,
             corpIndustry: this._corpIndustry,
@@ -187,6 +207,7 @@ export function parseCorpIndustry(type: string): CorpIndustry | null {
     if (Object.values(CorpIndustry).includes(type as CorpIndustry)) {
         return type as CorpIndustry;
     } else {
+        console.log(type)
         console.error(`Invalid corp industry: ${type}`);
         return null;
     }

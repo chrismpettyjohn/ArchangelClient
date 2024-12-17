@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UserRoleplayStatsChangeData, UserRoleplayStatsChangeEvent } from "@nitro-rp/renderer";
+import { CorpIndustry, UserRoleplayStatsChangeData, UserRoleplayStatsChangeEvent } from "@nitro-rp/renderer";
 import { UserRoleplayStatsQuery } from "../../api/roleplay/user/UserRoleplayStatsQuery";
 import { useMessageEvent } from "../events";
 
@@ -28,11 +28,19 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
         corpName: '',
         corporationPositionID: 0,
         corpRoleName: '',
+        corpIndustry: CorpIndustry.Bank,
         isWorking: false,
         gangID: -1,
         gangName: '',
         gangRoleID: -1,
         gangRoleName: '',
+        equippedWeaponID: 0,
+        equippedWeaponDisplayName: '',
+        equippedWeaponUniqueName: '',
+        equippedWeaponAmmoId: 0,
+        equippedWeaponAmmoLeft: 0,
+        totalAmmoLeft: 0,
+
     })
 
     useEffect(() => {

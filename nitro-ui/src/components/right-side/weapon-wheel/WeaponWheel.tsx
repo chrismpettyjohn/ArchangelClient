@@ -3,12 +3,14 @@ import { useCallback, useEffect, useState } from "react";
 import { AmmoSize, EquipAmmoComposer, ILinkEventTracker, MyWeaponData, MyWeaponListEvent, NitroConfiguration } from "@nitro-rp/renderer";
 import { EquipWeapon } from "../../../api/roleplay/combat/EquipWeapon";
 import { AddEventLinkTracker, RemoveLinkEventTracker, SendMessageComposer } from "../../../api";
-import { useMessageEvent } from "../../../hooks";
+import { useMessageEvent, useSessionInfo } from "../../../hooks";
 import { ListMyWeapons } from "../../../api/roleplay/combat/ListMyWeapons";
 import { AmmoSelect } from "../../roleplay/AmmoSelect";
+import { useRoleplayStats } from "../../../hooks/roleplay/use-rp-stats";
 
 export function WeaponWheel() {
-
+    const { userInfo } = useSessionInfo();
+    const rpStats = useRoleplayStats(userInfo?.userId)
     const [visible, setVisible] = useState(false)
     const [weaponList, setWeaponList] = useState<MyWeaponData[]>([]);
     const [hoveredItem, setHoveredItem] = useState<MyWeaponData>();
@@ -83,7 +85,7 @@ export function WeaponWheel() {
                     {
                         hoveredItem && (
                             <div style={{ width: 200, marginTop: 12 }} onClick={e => e.stopPropagation()}>
-                                <AmmoSelect ammoId={1} ammoSize={AmmoSize._556_45} onChange={_ => SendMessageComposer(new EquipAmmoComposer(_.id))} />
+                                <AmmoSelect ammoId={rpStats?.equippedWeaponAmmoId} ammoSize={hoveredItem?.ammoSize} onChange={_ => SendMessageComposer(new EquipAmmoComposer(_.id))} />
                             </div>
                         )
                     }
