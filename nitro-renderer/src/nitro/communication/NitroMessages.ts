@@ -1372,6 +1372,7 @@ export class NitroMessages implements IMessageConfiguration {
         this._composers.set(OutgoingHeader.USER_GUESTBOOK_QUERY_ONE_COMPOSER, UserGuestbookQueryOneComposer)
         this._composers.set(OutgoingHeader.CANCEL_TAXI_COMPOSER, CancelTaxiComposer)
         this._composers.set(OutgoingHeader.MAP_QUERY_COMPOSER, MapQueryComposer);
+        this._composers.set(OutgoingHeader.EQUIP_AMMO_COMPOSER, EquipAmmoComposer);
         this._composers.set(OutgoingHeader.LIST_MY_AMMO_COMPOSER, ListMyAmmoComposer);
         this._composers.set(OutgoingHeader.AMMO_CRATE_TAKE_COMPOSER, AmmoCrateTakeComposer);
         this._composers.set(OutgoingHeader.WEAPON_VENDING_MACHINE_TAKE_COMPOSER, WeaponVendingMachineTakeOneComposer);
