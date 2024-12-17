@@ -82,7 +82,7 @@ export function EquippedWeapon() {
                         {equippedWeapon?.magazineSize ? (
                             <>
                                 <div className="current-ammo">{roleplayStats.equippedWeaponAmmoLeft}</div>
-                                <div className="reserve-ammo">/&nbsp;{equippedWeapon.magazineSize}</div>
+                                <div className="reserve-ammo">/&nbsp;{roleplayStats.totalAmmoLeft}</div>
                                 <Button variant="link" onClick={onReload} className="reload-button">
                                     <FaRedo />
                                 </Button>
