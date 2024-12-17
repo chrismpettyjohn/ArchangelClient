@@ -86,6 +86,9 @@ export function WeaponWheel() {
                         hoveredItem && (
                             <div style={{ width: 200, marginTop: 12 }} onClick={e => e.stopPropagation()}>
                                 <AmmoSelect ammoId={rpStats?.equippedWeaponAmmoId} ammoSize={hoveredItem?.ammoSize} onChange={_ => SendMessageComposer(new EquipAmmoComposer(_.id))} />
+                                <div style={{ marginTop: 12 }}>
+                                    <Text fontSize={5}><strong>{rpStats.totalAmmoLeft}</strong> rounds left</Text>
+                                </div>
                             </div>
                         )
                     }
