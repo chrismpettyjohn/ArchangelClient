@@ -24,7 +24,7 @@ export const HealthBarView: FC<HealthBarViewProps> = props => {
         <Column className="health-bar-container nitro-room-user-health" style={{
             position: 'absolute',
             left: `${props.position.x}px`,
-            top: `${props.position.y - 20}px`,
+            top: `${props.position.y - 10}px`,
             width: '50px',
             transform: 'translate(-50%, -1900%)'
         }}>
