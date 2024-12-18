@@ -6,8 +6,9 @@ import { _setVisible } from "ag-grid-community";
 import { useRoleplayStats } from "../../../../../hooks/roleplay/use-rp-stats";
 import { useSessionInfo } from "../../../../../hooks";
 import { usePlayerSkills } from "../../../../../hooks/roleplay/use-player-skills";
-import { ReactNode, useMemo } from "react";
+import { useMemo } from "react";
 import { UserGuestbook } from "./user-guestbook/UserGuestbook";
+import { useProfileBanner } from "../../../../../hooks/roleplay/user-profile-banner";
 
 
 export function UserProfile() {
@@ -15,7 +16,9 @@ export function UserProfile() {
     const { active, resourceID, onHide } = useCommunityLinkTracker('users', 'profile');
     const rpStats = useRoleplayStats(resourceID);
     const rpSkills = usePlayerSkills(resourceID);
+    const banner = useProfileBanner(resourceID);
 
+    console.log({ banner })
 
     const skills = useMemo(() => {
         return [
@@ -82,7 +85,7 @@ export function UserProfile() {
                 <Column size={5} fullHeight fullWidth>
                     <div className="h-100 w-100">
                         <div className="profile-card" style={{ height: 'calc(100% - 55px)' }}>
-                            <div className="profile-header" style={{ backgroundImage: 'url(https://j.gifs.com/rR9pv4.gif)', backgroundSize: 'cover' }}>
+                            <div className="profile-header" style={{ backgroundImage: `url(${banner})`, backgroundSize: 'cover' }}>
                                 <div className="overlay" />
                                 <div className="avatar-placeholder" style={{ display: 'flex', height: 60, justifyContent: 'center', alignItems: 'center' }}>
                                     <img src="https://i.imgur.com/5Id8akw.png" />

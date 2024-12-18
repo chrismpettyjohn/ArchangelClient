@@ -725,4 +725,8 @@ export class OutgoingHeader {
 
     public static QUERY_EMAIL_COMPOSER = 8132;
 
+    public static QUERY_BANNER_COMPOSER = 8133;
+
+    public static CHANGE_BANNER_COMPOSER = 8134;
+
 }
