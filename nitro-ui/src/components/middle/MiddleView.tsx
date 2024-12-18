@@ -19,7 +19,7 @@ export function MiddleView() {
                         <Flex gap={4}>
                             {
                                 navigatorData?.enteredGuestRoom?.tags?.map(_ => (
-                                    <Text fontSize={5} variant="white">
+                                    <Text fontSize={5} variant="white" key={`tag_${_}`}>
                                         #{_}
                                     </Text>
                                 ))
