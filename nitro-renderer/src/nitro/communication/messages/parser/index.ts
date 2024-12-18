@@ -40,6 +40,7 @@ export * from './mysterybox';
 export * from './navigator';
 export * from './navigator/utils';
 export * from './notifications';
+export * from './nova';
 export * from './perk';
 export * from './perk/common';
 export * from './pet';

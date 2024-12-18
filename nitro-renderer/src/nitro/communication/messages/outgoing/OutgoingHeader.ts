@@ -719,4 +719,6 @@ export class OutgoingHeader {
 
     public static SHIFT_INVENTORY_QUERY_COMPOSER = 8129;
 
+    public static CHANGE_PASSWORD_COMPOSER = 8130;
+
 }
