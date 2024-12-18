@@ -1,4 +1,4 @@
-import { Text } from "../../../common";
+import { Button, Text } from "../../../common";
 import { useCallback, useEffect, useState } from "react";
 import { AmmoSize, EquipAmmoComposer, ILinkEventTracker, MyWeaponData, MyWeaponListEvent, NitroConfiguration } from "@nitro-rp/renderer";
 import { EquipWeapon } from "../../../api/roleplay/combat/EquipWeapon";
@@ -17,6 +17,11 @@ export function WeaponWheel() {
 
     const onEquip = useCallback((playerWeaponId: number) => {
         EquipWeapon(playerWeaponId);
+        setVisible(false);
+    }, []);
+
+    const onUnequip = useCallback(() => {
+        EquipWeapon(0);
         setVisible(false);
     }, []);
 
@@ -88,6 +93,9 @@ export function WeaponWheel() {
                                 <AmmoSelect ammoId={rpStats?.equippedWeaponAmmoId} ammoSize={hoveredItem?.ammoSize} onChange={_ => SendMessageComposer(new EquipAmmoComposer(_.id))} />
                                 <div style={{ marginTop: 12 }}>
                                     <Text fontSize={5}><strong>{rpStats.totalAmmoLeft}</strong> rounds left</Text>
+                                </div>
+                                <div style={{ marginTop: 12 }}>
+                                    <Button variant="danger" size="sm" onClick={onUnequip}>Unequip</Button>
                                 </div>
                             </div>
                         )
