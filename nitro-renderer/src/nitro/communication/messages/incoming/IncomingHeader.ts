@@ -534,5 +534,6 @@ export class IncomingHeader {
     public static OFFER_STORE_PRODUCT_EVENT = 9063;
     public static SHIFT_INVENTORY_PRODUCT_DATA_EVENT = 9064;
     public static CHANGE_PASSWORD_SUCCESS_EVENT = 9065;
-
+    public static CURRENT_EMAIL_EVENT = 9066;
+    public static USER_PROFILE_BANNER_EVENT = 9067;
 }

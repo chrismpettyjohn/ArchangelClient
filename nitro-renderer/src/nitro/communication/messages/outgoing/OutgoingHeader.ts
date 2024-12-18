@@ -721,4 +721,8 @@ export class OutgoingHeader {
 
     public static CHANGE_PASSWORD_COMPOSER = 8130;
 
+    public static CHANGE_EMAIL_COMPOSER = 8131;
+
+    public static QUERY_EMAIL_COMPOSER = 8132;
+
 }

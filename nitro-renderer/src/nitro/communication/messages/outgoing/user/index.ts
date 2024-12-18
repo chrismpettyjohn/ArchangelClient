@@ -1,6 +1,5 @@
 export * from './ApproveNameMessageComposer';
 export * from './CatalogGroupsComposer';
-export * from './ChangeEmailComposer';
 export * from './data';
 export * from './GetEmailStatusComposer';
 export * from './GetHabboGroupBadgesMessageComposer';

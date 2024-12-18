@@ -22,11 +22,9 @@ export function ChangePassword() {
 
     const canChangePassword = useMemo(() => !!passwordNow && !!passwordNew && (passwordNew === passwordNewRepeat) && state === PasswordState.None, [passwordNow, passwordNew, passwordNewRepeat, state]);
 
-    console.log({ passwordNow, passwordNew, passwordNewRepeat, state })
-
     const onChangePassword = useCallback((event: SyntheticEvent) => {
-        // event.preventDefault();
-        // if (!canChangePassword) return;
+        event.preventDefault();
+        if (!canChangePassword) return;
         setState(PasswordState.Pending);
         SendMessageComposer(new ChangePasswordComposer(passwordNow, passwordNew, passwordNewRepeat))
 
@@ -47,7 +45,6 @@ export function ChangePassword() {
     }
 
     if (state === PasswordState.Failed) {
-
         return (
             <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                 <FaThumbsDown style={{ fontSize: 24 }} />
