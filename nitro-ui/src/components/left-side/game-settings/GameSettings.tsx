@@ -1,6 +1,6 @@
 import { ILinkEventTracker } from "@nitro-rp/renderer";
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import { FaInfoCircle, FaKeyboard, FaLock, FaMicrophone, FaStar, FaUserLock, FaWrench } from "react-icons/fa";
+import { FaGamepad, FaInfoCircle, FaKeyboard, FaLock, FaMicrophone, FaStar, FaUserLock, FaWrench } from "react-icons/fa";
 import { AddEventLinkTracker, RemoveLinkEventTracker } from "../../../api";
 import { ArchangelAboutPanel } from './archangel-section/AboutPanel';
 import { useSessionInfo } from "../../../hooks";
@@ -14,6 +14,7 @@ import { HowToFightPanel } from "./help-section/HowToFightPanel";
 import { MakingMoneyPanel } from "./help-section/MakingMoneyPanel";
 import { JoiningAGangPanel } from "./help-section/JoiningAGangPanel";
 import { ChatWidgetOverlay } from "../../chat-widget-overlay/ChatWidgetOverlay";
+import { GamePanel } from "./settings-section/GamePanel";
 
 export interface SettingParent {
     type: 'parent';
@@ -77,6 +78,16 @@ export function GameSettings() {
                         </>
                     ),
                     view: () => <PrivacyPanel />
+                },
+                {
+                    type: 'child',
+                    label: (
+                        <>
+                            <FaGamepad style={{ marginRight: 8 }} />
+                            Game
+                        </>
+                    ),
+                    view: () => <GamePanel />
                 },
                 {
                     type: 'child',

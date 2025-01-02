@@ -12,6 +12,7 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
         joinedAt: 0,
         lastLogin: 0,
         online: false,
+        passiveMode: false,
         cashBalance: 0,
         bankBalance: 0,
         isDead: false,

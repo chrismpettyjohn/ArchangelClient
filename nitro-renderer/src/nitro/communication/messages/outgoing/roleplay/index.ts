@@ -22,6 +22,7 @@ export * from './combat/EquipWeaponComposer';
 export * from './combat/ListMyAmmoComposer';
 export * from './combat/ListMyWeaponsComposer';
 export * from './combat/WeaponReloadComposer';
+export * from './combat/TogglePassiveModeComposer';
 export * from './controls/UserAttackComposer';
 export * from './controls/UserMovementComposer';
 export * from './corp/CorpAcceptJobComposer';

@@ -729,4 +729,6 @@ export class OutgoingHeader {
 
     public static CHANGE_BANNER_COMPOSER = 8134;
 
+    public static TOGGLE_PASSIVE_MODE = 8135;
+
 }

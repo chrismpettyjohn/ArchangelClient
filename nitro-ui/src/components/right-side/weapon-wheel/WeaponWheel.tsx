@@ -76,7 +76,7 @@ export function WeaponWheel() {
                 {
                     (weaponList.slice(0, 8)).map((weapon, i) => (
                         <div className="wheel-item" key={`weapon_${weapon.uniqueName}`} id={`item${i + 1}`} onMouseEnter={() => setHoveredItem(weapon)} onClick={() => onEquip(weapon.id)}>
-                            <img src={`${NitroConfiguration.getValue('image.library.url')}/weapon_icons/${weapon.uniqueName}.png`} alt={weapon.uniqueName} className="weapon-icon" />
+                            <img src={`${NitroConfiguration.getValue('image.library.url')}/weapon_icons/${weapon.uniqueName}.png`} alt={weapon.uniqueName} className="weapon-icon" style={{ width: 75 }} />
                         </div>
                     ))
                 }

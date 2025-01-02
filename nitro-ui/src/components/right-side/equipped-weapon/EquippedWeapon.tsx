@@ -61,6 +61,10 @@ export function EquippedWeapon() {
         }
     }, [roleplayStats.equippedWeaponID]);
 
+    if (roleplayStats.passiveMode) {
+        return null;
+    }
+
     return (
         <div className="nitro-equipped-weapon glass-panel" onClick={() => CreateLinkEvent('weapon-wheel/toggle')} style={{ zIndex: 1000, cursor: !!combatDelayExpiresAt ? 'not-allowed' : 'pointer' }}>
             {

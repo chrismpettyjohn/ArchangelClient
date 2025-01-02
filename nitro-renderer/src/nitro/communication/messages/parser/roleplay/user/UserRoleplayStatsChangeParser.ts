@@ -9,6 +9,7 @@ export interface UserRoleplayStatsChangeData {
     joinedAt: number;
     lastLogin: number;
     online: boolean;
+    passiveMode: boolean;
     cashBalance: number;
     bankBalance: number;
     isDead: boolean;
@@ -48,6 +49,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
     private _joinedAt: number;
     private _lastLogin: number;
     private _online: boolean;
+    private _passiveMode: boolean;
     private _cashBalance: number;
     private _bankBalance: number;
     private _isDead: boolean;
@@ -85,6 +87,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
         this._joinedAt = -1;
         this._lastLogin = -1;
         this._online = false;
+        this._passiveMode = false;
         this._cashBalance = 0;
         this._bankBalance = 0;
         this._isDead = false;
@@ -127,6 +130,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
             this._joinedAt = wrapper.readInt();
             this._lastLogin = wrapper.readInt();
             this._online = wrapper.readBoolean();
+            this._passiveMode = wrapper.readBoolean();
             this._cashBalance = wrapper.readInt();
             this._bankBalance = wrapper.readInt();
             this._isDead = wrapper.readBoolean();
@@ -171,6 +175,7 @@ export class UserRoleplayStatsChangeParser implements IMessageParser {
             joinedAt: this._joinedAt,
             lastLogin: this._lastLogin,
             online: this._online,
+            passiveMode: this._passiveMode,
             cashBalance: this._cashBalance,
             bankBalance: this._bankBalance,
             isDead: this._isDead,
