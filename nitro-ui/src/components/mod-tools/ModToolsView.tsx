@@ -19,7 +19,6 @@ import { ModToolsUserWeaponsManagerView } from './views/user/ModToolsUserWeapons
 import { ModToolsUserSuperhireView } from './views/user/ModToolsUserSuperhireView';
 import { ModToolsCrimesCreatorView } from './views/roleplay/ModToolsCrimesCreatorView';
 import { ModToolsWeaponsCreatorView } from './views/roleplay/ModToolsWeaponsCreatorView';
-import { ModToolsRoomsManagerView } from './views/room/ModToolsRoomsManagerView';
 import { ModTooolsEmuSettingsView } from './views/admin/EmuSettingsView';
 
 export const ModToolsView: FC<{}> = () => {
@@ -167,10 +166,6 @@ export const ModToolsView: FC<{}> = () => {
                                         <FaBoxOpen style={{ marginRight: 4 }} />
                                         Inventory
                                     </Button>
-                                    <Button gap={1} onClick={() => CreateLinkEvent('staff/rooms-manager/toggle')} className="position-relative">
-                                        <FaHouseUser style={{ marginRight: 4 }} />
-                                        Rooms
-                                    </Button>
                                 </Grid>
                             </NitroCardAccordionSetView>
                             <NitroCardAccordionSetView headerText="Roleplay">
@@ -214,7 +209,6 @@ export const ModToolsView: FC<{}> = () => {
             <ModToolsCrimesCreatorView />
             <ModToolsUserSuperhireView />
             <ModToolsUserWeaponsManagerView />
-            <ModToolsRoomsManagerView />
             <ModTooolsEmuSettingsView />
             {(openRooms.length > 0) && openRooms.map(roomId => <ModToolsRoomView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-info/${roomId}`)} />)}
             {(openRoomChatlogs.length > 0) && openRoomChatlogs.map(roomId => <ModToolsChatlogView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-chatlog/${roomId}`)} />)}
