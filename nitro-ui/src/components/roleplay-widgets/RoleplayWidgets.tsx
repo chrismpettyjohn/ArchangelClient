@@ -1,6 +1,5 @@
 import { GameControls } from "./game-controls/GameControls";
 import { WeaponEffects } from "./weapon-effects/WeaponEffects";
-import { ReportBug } from "./report-bug/ReportBug";
 import { WebsocketDisconnect } from "./websocket-disconnect/WebsocketDisconnect";
 import { CorpManager } from "./community-manager/corp/CorpManager";
 import { UserManager } from "./community-manager/user/UserManager";
@@ -11,7 +10,6 @@ export function RoleplayWidgets() {
         <>
             <GameControls />
             <WeaponEffects />
-            <ReportBug />
             <WebsocketDisconnect />
             <CorpManager />
             <GangManager />

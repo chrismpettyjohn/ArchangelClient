@@ -124,7 +124,7 @@ export const ChatInputView: FC<{}> = props => {
 
     return createPortal(
         <ChatWidgetOverlay visible={isFocused}>
-            <div className="nitro-chat-input-container glass-panel">
+            <div className="nitro-chat-input-container glass-panel" onClick={() => setIsFocused(true)}>
                 <div className="input-sizer align-items-center">
                     {!floodBlocked && (
                         <input
