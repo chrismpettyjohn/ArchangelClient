@@ -6,11 +6,10 @@ import { CreateLinkEvent } from '../../api';
 
 export function MiddleView() {
     const { navigatorData = null } = useNavigator();
-    console.log(navigatorData)
     return (
         <>
             <div className="middle-bar">
-                <div className="top-bar glass-panel ">
+                <div className="top-bar glass-panel">
                     <div className="location-info" onClick={() => CreateLinkEvent('navigator/toggle-room-info')} style={{ cursor: 'pointer' }}>
                         <FaMapPin />
                         <Text fontSize={4} variant="white">

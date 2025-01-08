@@ -1,4 +1,4 @@
-import { FaCamera, FaCog, FaCogs, FaMicrophone, FaShieldAlt, FaTaxi } from "react-icons/fa";
+import { FaCog, FaShieldAlt } from "react-icons/fa";
 import { CreateLinkEvent, GetSessionDataManager } from "../../../api";
 import { useState } from "react";
 import { useRoomSessionManagerEvent } from "../../../hooks";

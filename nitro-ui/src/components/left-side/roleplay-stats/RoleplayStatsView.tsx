@@ -4,7 +4,7 @@ import { TargetRoleplayStats } from "./TargetRoleplayStats";
 
 export function RoleplayStatsView() {
     return (
-        <div style={{ padding: 20, width: 800, marginTop: 20 }}>
+        <div style={{ padding: 20, width: 800 }}>
             <Flex fullWidth gap={4}>
                 <MyRoleplayStats />
                 <TargetRoleplayStats />

@@ -11,12 +11,12 @@
     flex-direction: column;
     justify-content: center;
     position: absolute;
-    top: 20px;
+    top: 18px;
     left: 20px;
     right: 20px;
     overflow: hidden;
     gap: 8px;
-    width: calc(100% - 40px);
+    width: 100%;
     z-index: 1000;
 }
 
