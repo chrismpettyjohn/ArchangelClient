@@ -8,7 +8,7 @@ import { ModToolsRoomView } from './views/room/ModToolsRoomView';
 import { ModToolsTicketsView } from './views/tickets/ModToolsTicketsView';
 import { ModToolsUserChatlogView } from './views/user/ModToolsUserChatlogView';
 import { ModToolsUserView } from './views/user/ModToolsUserView';
-import { FaBoxOpen, FaBriefcase, FaBug, FaCog, FaCrosshairs, FaHouseUser, FaStar, FaStoreAlt, FaVial } from 'react-icons/fa';
+import { FaBoxOpen, FaBriefcase, FaBug, FaCog, FaCrosshairs, FaHouseUser, FaPlusCircle, FaStar, FaStoreAlt, FaVial } from 'react-icons/fa';
 import { ModToolsBetaCodesView } from './views/beta/ModToolsBetaCodesView';
 import { ModToolsBugReportsView } from './views/beta/ModToolsBugReportsView';
 import { ModToolsWeaponsManagerView } from './views/roleplay/ModToolsWeaponsManagerView';
@@ -139,9 +139,6 @@ export const ModToolsView: FC<{}> = () => {
                             </NitroCardAccordionSetView>
                             <NitroCardAccordionSetView headerText="Moderator" isExpanded>
                                 <Grid columnCount={2}>
-                                    <Button gap={1} onClick={() => CreateLinkEvent('navigator/toggle')} disabled={(currentRoomId <= 0)} className="position-relative">
-                                        <Base className="icon icon-small-room position-absolute start-1" /> Navigator
-                                    </Button>
                                     <Button gap={1} onClick={() => CreateLinkEvent(`mod-tools/toggle-room-info/${currentRoomId}`)} disabled={(currentRoomId <= 0)} className="position-relative">
                                         <Base className="icon icon-small-room position-absolute start-1" /> Room Tool
                                     </Button>
@@ -158,6 +155,14 @@ export const ModToolsView: FC<{}> = () => {
                             </NitroCardAccordionSetView>
                             <NitroCardAccordionSetView headerText="Builder">
                                 <Grid columnCount={2}>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('navigator/toggle')} className="position-relative">
+                                        <FaStoreAlt style={{ marginRight: 4 }} />
+                                        Rooms
+                                    </Button>
+                                    <Button gap={1} onClick={() => CreateLinkEvent('navigator/create')} className="position-relative">
+                                        <FaPlusCircle style={{ marginRight: 4 }} />
+                                        New Room
+                                    </Button>
                                     <Button gap={1} onClick={() => CreateLinkEvent('catalog/toggle')} className="position-relative">
                                         <FaStoreAlt style={{ marginRight: 4 }} />
                                         Catalog
