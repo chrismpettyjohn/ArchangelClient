@@ -445,6 +445,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         const category = this._roomEngine.getRoomObjectCategoryForType(type);
         const object = this._roomEngine.getRoomObject(roomId, id, category);
 
+        console.log(new UserAttackComposer(object.location.x + .499, object.location.y, object.location.z))
         this._roomEngine.connection.send(new UserAttackComposer(object.location.x + .499, object.location.y, object.location.z));
 
 
