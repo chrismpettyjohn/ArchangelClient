@@ -361,7 +361,7 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
                 break;
             case RoomObjectOperationType.OBJECT_UNDEFINED:
                 if (category === RoomObjectCategory.ROOM) {
-                    return;
+                    if (!didWalk && (event instanceof RoomObjectTileMouseEvent)) this.onRoomObjectTileMouseEvent(roomId, event);
                 }
                 else {
                     this.setSelectedObject(roomId, event.objectId, category);
@@ -935,6 +935,16 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         }
     }
 
+    private onRoomObjectTileMouseEvent(roomId: number, event: RoomObjectTileMouseEvent): void {
+        if (!this._roomEngine || !this._roomEngine.roomSessionManager) return;
+
+        const session = this._roomEngine.roomSessionManager.getSession(roomId);
+
+        if (!session || session.isSpectator) return;
+
+        this.sendWalkUpdate(event.tileXAsInt, event.tileYAsInt);
+    }
+
     private handleObjectMove(event: RoomObjectMouseEvent, roomId: number): void {
         if (!event || !this._roomEngine) return;
 
@@ -1301,8 +1311,10 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
         return true;
     }
 
-    private attackTarget(x: number, y: number, z: number): void {
+    private sendWalkUpdate(x: number, y: number): void {
         if (!this._roomEngine || !this._roomEngine.connection) return;
+
+        this._roomEngine.connection.send(new RoomUnitWalkComposer(x, y));
     }
 
     private handleMouseOverObject(category: number, roomId: number, event: RoomObjectMouseEvent): ObjectTileCursorUpdateMessage {
@@ -1332,6 +1344,12 @@ export class RoomObjectEventHandler extends Disposable implements IRoomCanvasMou
 
         const _local_3 = this._roomEngine.getRoomObject(k, _arg_2.objectId, RoomObjectCategory.FLOOR);
         const _local_4 = this.getActiveSurfaceLocation(_local_3, _arg_2);
+
+        if (_local_4) {
+            this.sendWalkUpdate(_local_4.x, _local_4.y);
+
+            return true;
+        }
 
         return false;
     }
