@@ -18,8 +18,6 @@ export function UserProfile() {
     const rpSkills = usePlayerSkills(resourceID);
     const banner = useProfileBanner(resourceID);
 
-    console.log({ banner })
-
     const skills = useMemo(() => {
         return [
             {

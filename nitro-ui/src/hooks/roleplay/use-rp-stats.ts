@@ -51,7 +51,6 @@ export function useRoleplayStats(userID: number): UserRoleplayStatsChangeData {
 
     useMessageEvent<UserRoleplayStatsChangeEvent>(UserRoleplayStatsChangeEvent, event => {
         const eventData: UserRoleplayStatsChangeData = event.getParser().data;
-        console.log(eventData.userID, userID)
         if (eventData.userID !== userID) {
             return;
         }

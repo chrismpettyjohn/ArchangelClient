@@ -212,7 +212,6 @@ export function parseCorpIndustry(type: string): CorpIndustry | null {
     if (Object.values(CorpIndustry).includes(type as CorpIndustry)) {
         return type as CorpIndustry;
     } else {
-        console.log(type)
         console.error(`Invalid corp industry: ${type}`);
         return null;
     }
