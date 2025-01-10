@@ -47,8 +47,6 @@ export const AvatarInfoWidgetAvatarView: FC<AvatarInfoWidgetAvatarViewProps> = p
     const shiftWeapons = useMemo(() => shiftInventory.filter(_ => _.productType === StoreProductType.WEAPON), [shiftInventory]);
     const shiftAmmo = useMemo(() => shiftInventory.filter(_ => _.productType === StoreProductType.AMMO), [shiftInventory]);
 
-    console.log({ shiftWeapons, shiftAmmo, shiftInventory })
-
     const myRoleplayStats = useRoleplayStats(sessionInfo?.userId)
     const myCorpData = useCorpData(myRoleplayStats.corporationID);
 

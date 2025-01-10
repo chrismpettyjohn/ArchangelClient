@@ -100,9 +100,6 @@ export const AvatarInfoWidgetView: FC<{}> = props => {
 
     return (
         <>
-            {[AvatarInfoUser.PEER, AvatarInfoUser.OWN_USER].includes(avatarInfo?.type) && (
-                <AvatarQuickView userType={(avatarInfo as AvatarInfoUser).userType} objectId={(avatarInfo as AvatarInfoUser).roomIndex} category={RoomObjectCategory.UNIT} />
-            )}
             {getMenuView()}
             {avatarInfo &&
                 <Column alignItems="end" className="nitro-infostand-container glass-panel">

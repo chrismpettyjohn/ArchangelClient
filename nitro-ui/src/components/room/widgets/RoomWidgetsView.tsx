@@ -18,19 +18,6 @@ import { HealthBarView } from './health-bar/HealthBarView';
 export const RoomWidgetsView: FC<{}> = props => {
     const { roomSession = null } = useRoom();
     const { simpleAlert = null } = useNotification();
-    const [users, setUsers] = useState([])
-
-
-    // Update positions periodically
-    useEffect(() => {
-        if (!roomSession) return;
-
-        const interval = setInterval(() => {
-            setUsers(GetRoomEngine().getRoomObjects(roomSession?.roomId, RoomObjectCategory.UNIT))
-        });
-
-        return () => clearInterval(interval);
-    }, [roomSession]);
 
     useRoomEngineEvent<RoomZoomEvent>(RoomZoomEvent.ROOM_ZOOM, event => GetRoomEngine().setRoomInstanceRenderingCanvasScale(event.roomId, 1, event.level, null, null, false, event.asDelta));
 
@@ -49,8 +36,6 @@ export const RoomWidgetsView: FC<{}> = props => {
         ], event => {
             if (!roomSession) return;
 
-            const objectId = event.objectId;
-            const category = event.category;
             let updateEvent: RoomWidgetUpdateRoomObjectEvent = null;
 
             switch (event.type) {
@@ -171,13 +156,6 @@ export const RoomWidgetsView: FC<{}> = props => {
             <UserChooserWidgetView />
             <WordQuizWidgetView />
             <FriendRequestWidgetView />
-            {users?.map(user => (
-                <HealthBarView
-                    key={user.id}
-                    userId={user.id}
-                    position={GetRoomEngine().getRoomObjectScreenLocation(roomSession?.roomId, user.id, RoomObjectCategory.UNIT)}
-                />
-            ))}
         </>
     );
 }

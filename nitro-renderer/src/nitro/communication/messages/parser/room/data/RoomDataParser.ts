@@ -143,7 +143,6 @@ export class RoomDataParser {
         if (!wrapper) return false;
 
         this._bitMask = wrapper.readInt();
-        console.log("Bitmask: " + this._bitMask); // Add this for debugging
 
         if (this._bitMask & RoomDataParser.THUMBNAIL_BITMASK) this._officialRoomPicRef = wrapper.readString();
 
@@ -174,8 +173,6 @@ export class RoomDataParser {
         this._displayAd = (this._bitMask & RoomDataParser.DISPLAY_ROOMAD_BITMASK) > 0;
         this._hasCorp = (this._bitMask & RoomDataParser.DISPLAY_CORP_BITMASK) > 0;
         this._hasGang = (this._bitMask & RoomDataParser.DISPLAY_GANG_BITMASK) > 0;
-
-        console.log("Has Gang: " + this._hasGang); // Add this for debugging
 
         this._thumbnail = null;
 

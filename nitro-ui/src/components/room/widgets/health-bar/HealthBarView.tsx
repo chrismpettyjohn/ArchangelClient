@@ -16,8 +16,6 @@ export const HealthBarView: FC<HealthBarViewProps> = props => {
         return healthPercent;
     }, [rpStats.healthMax, rpStats.healthNow]);
 
-    console.log(rpStats.healthNow, rpStats.healthMax, healthPercent);
-
     if (!props.position) return null;
 
     return (
