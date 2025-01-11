@@ -137,7 +137,7 @@ export const ModToolsView: FC<{}> = () => {
                                     </Button>
                                 </Grid>
                             </NitroCardAccordionSetView>
-                            <NitroCardAccordionSetView headerText="Moderator" isExpanded>
+                            <NitroCardAccordionSetView headerText="Moderator">
                                 <Grid columnCount={2}>
                                     <Button gap={1} onClick={() => CreateLinkEvent(`mod-tools/toggle-room-info/${currentRoomId}`)} disabled={(currentRoomId <= 0)} className="position-relative">
                                         <Base className="icon icon-small-room position-absolute start-1" /> Room Tool
@@ -153,7 +153,7 @@ export const ModToolsView: FC<{}> = () => {
                                     </Button>
                                 </Grid>
                             </NitroCardAccordionSetView>
-                            <NitroCardAccordionSetView headerText="Builder">
+                            <NitroCardAccordionSetView headerText="Builder" isExpanded>
                                 <Grid columnCount={2}>
                                     <Button gap={1} onClick={() => CreateLinkEvent('navigator/toggle')} className="position-relative">
                                         <FaStoreAlt style={{ marginRight: 4 }} />
