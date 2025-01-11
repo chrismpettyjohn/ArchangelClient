@@ -10,6 +10,11 @@ export function CashRegister() {
         }
         alert(cashRegister)
     }, [cashRegister]);
+
+    if (!cashRegister) {
+        return null;
+    }
+
     return (
         <>
             cash register
