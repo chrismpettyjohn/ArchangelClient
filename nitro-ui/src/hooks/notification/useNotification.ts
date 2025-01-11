@@ -163,11 +163,6 @@ const useNotificationState = () => {
         })
     }, []);
 
-    useMessageEvent<UserDiedEvent>(UserDiedEvent, event => {
-        const data = event.getParser().data;
-        showSingleBubble(`${data.attackerUsername} killed ${data.victimUsername} (${data.attackerKills} vs ${data.victimKills})`, NotificationBubbleType.INFO)
-    });
-
     useMessageEvent<UserArrestedEvent>(UserArrestedEvent, event => {
         const parser = event.getParser();
         showSingleBubble(`${parser.arrestedByUsername} arrested ${parser.username}`, NotificationBubbleType.INFO)

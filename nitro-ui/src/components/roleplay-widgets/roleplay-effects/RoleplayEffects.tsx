@@ -37,7 +37,7 @@ export function RoleplayEffects() {
 
     useMessageEvent<UserDiedEvent>(UserDiedEvent, event => {
         const parser = event.getParser();
-        if (parser.userId !== userInfo?.userId) {
+        if (parser.data.victimUserId !== userInfo?.userId) {
             return;
         }
         PlaySound(SoundNames.WASTED)

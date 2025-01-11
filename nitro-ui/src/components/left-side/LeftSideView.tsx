@@ -2,6 +2,7 @@ import { GameTools } from './game-tools/GameTools';
 import { GameSettings } from './game-settings/GameSettings';
 import { RoleplayStatsView } from './roleplay-stats/RoleplayStatsView';
 import { MiniMap } from './mini-map/MiniMap';
+import { NotificationCenterView } from '../notification-center/NotificationCenterView';
 
 export function LeftSideView() {
     return (
@@ -9,6 +10,7 @@ export function LeftSideView() {
             <RoleplayStatsView />
             <GameTools />
             <GameSettings />
+            <NotificationCenterView />
             <MiniMap />
         </div>
     );

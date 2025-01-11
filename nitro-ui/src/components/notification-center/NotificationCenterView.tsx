@@ -3,25 +3,24 @@ import { NotificationBubbleType } from '../../api';
 import { Column } from '../../common';
 import { useMessageEvent, useNotification } from '../../hooks';
 import { GetAlertLayout } from './views/alert-layouts/GetAlertLayout';
-import { GetBubbleLayout } from './views/bubble-layouts/GetBubbleLayout';
 import { GetConfirmLayout } from './views/confirm-layouts/GetConfirmLayout';
 import { NotificationEvent } from '@nitro-rp/renderer';
+import { NotificationDefaultBubbleView } from './views/bubble-layouts/NotificationDefaultBubbleView';
 
 export const NotificationCenterView: FC<{}> = props => {
     const { alerts = [], bubbleAlerts = [], confirms = [], closeAlert = null, closeBubbleAlert = null, closeConfirm = null, showSingleBubble } = useNotification();
 
     useMessageEvent(NotificationEvent, (event: NotificationEvent) => {
-        alert(event.getParser().message)
         showSingleBubble(event.getParser().message, NotificationBubbleType.INFO);
     })
 
-    const getAlerts = useMemo(() => {
+    const displayedAlerts = useMemo(() => {
         if (!alerts || !alerts.length) return null;
 
         const elements: ReactNode[] = [];
 
         for (const alert of alerts) {
-            const element = GetAlertLayout(alert, () => closeAlert(alert));
+            const element = GetAlertLayout(alert, () => console.log('fuck off'));
 
             elements.push(element);
         }
@@ -29,24 +28,10 @@ export const NotificationCenterView: FC<{}> = props => {
         return elements;
     }, [alerts, closeAlert]);
 
-    const getBubbleAlerts = useMemo(() => {
+    const displayedBubbleAlerts = useMemo(() => {
         if (!bubbleAlerts || !bubbleAlerts.length) return null;
 
-        const elements: ReactNode[] = [];
-
-        for (const alert of bubbleAlerts) {
-            const element = GetBubbleLayout(alert, () => closeBubbleAlert(alert));
-
-            if (alert.notificationType === NotificationBubbleType.CLUBGIFT) {
-                elements.unshift(element);
-
-                continue;
-            }
-
-            elements.push(element);
-        }
-
-        return elements;
+        return bubbleAlerts.map(alert => <NotificationDefaultBubbleView key={`notification_${alert.id}`} item={alert} onClose={() => closeBubbleAlert(alert)} />)
     }, [bubbleAlerts, closeBubbleAlert]);
 
     const getConfirms = useMemo(() => {
@@ -64,12 +49,10 @@ export const NotificationCenterView: FC<{}> = props => {
     }, [confirms, closeConfirm]);
 
     return (
-        <>
-            <Column gap={1}>
-                {getBubbleAlerts}
-            </Column>
+        <div className="nitro-notification-center-container">
+            {displayedBubbleAlerts}
             {getConfirms}
-            {getAlerts}
-        </>
+            {displayedAlerts}
+        </div>
     );
 }

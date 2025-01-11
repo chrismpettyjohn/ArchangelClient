@@ -1,11 +1,15 @@
 .nitro-notification-center-container {
     position: absolute;
-    top: 0;
-    right: 0;
-    width: 300px;
-    height: calc(100% - #{$toolbar-height});
+    bottom: 5%;
+    left: 40px;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
     z-index: $notification-center-zindex;
     pointer-events: none;
+    overflow-y: auto;
 
     .nitro-notification-center {
         background-color: $dark;
@@ -46,14 +50,9 @@
 }
 
 .nitro-notification-bubble {
+    height: fit-content;
+    width: 100%;
+    background-color: rgba(0, 8, 17, 0.4);
     pointer-events: all;
-    padding: 6px 5px;
-    background-color: rgba($dark,.95);
-    box-shadow: inset 0px 5px lighten(rgba($dark,.6),2.5), inset 0 -4px darken(rgba($dark,.6),4);
     font-size: $font-size-sm;
-
-    .bubble-image-container {
-        width: 50px;
-        height: 50px;
-    }
 }

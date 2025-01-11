@@ -27,7 +27,6 @@ export const RightSideView: FC<{}> = props => {
                     <MysteryBoxExtensionView />
                     <OfferView />
                     <RoomPromotesWidgetView />
-                    <NotificationCenterView />
                     <EquippedWeapon />
                     <WeaponWheel />
                 </div>
