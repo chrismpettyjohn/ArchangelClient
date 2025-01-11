@@ -25,6 +25,7 @@ export class RoomDataParser {
     private _userCount: number;
     private _maxUserCount: number;
     private _description: string;
+    private _canTaxi: boolean;
     private _tradeMode: number;
     private _score: number;
     private _ranking: number;
@@ -70,6 +71,7 @@ export class RoomDataParser {
         this._userCount = 0;
         this._maxUserCount = 0;
         this._description = null;
+        this._canTaxi = false;
         this._tradeMode = 2;
         this._score = 0;
         this._ranking = 0;
@@ -111,6 +113,7 @@ export class RoomDataParser {
         this._userCount = wrapper.readInt();
         this._maxUserCount = wrapper.readInt();
         this._description = wrapper.readString();
+        this._canTaxi = wrapper.readBoolean();
         this._tradeMode = wrapper.readInt();
         this._score = wrapper.readInt();
         this._ranking = wrapper.readInt();
@@ -214,6 +217,10 @@ export class RoomDataParser {
 
     public get description(): string {
         return this._description;
+    }
+
+    public get canTaxi(): boolean {
+        return this._canTaxi;
     }
 
     public get tradeMode(): number {

@@ -1,10 +1,9 @@
 import { RoomDataParser } from '@nitro-rp/renderer';
-import { FaCaretRight, FaClock, FaDollarSign, FaShieldAlt, FaUser } from 'react-icons/fa';
+import { FaCaretRight, FaClock, FaDollarSign, FaUser } from 'react-icons/fa';
 import { Flex, LayoutGridItemProps, Text } from '../../../../common';
-import { useMessageEvent, useRoom, useSessionInfo } from '../../../../hooks';
+import { useMessageEvent, useRoom } from '../../../../hooks';
 import { TaxiDispatchedEvent } from '@nitro-rp/renderer/src/nitro/communication/messages/incoming/roleplay/taxi/TaxiDispatchedEvent';
 import { useCallback, useEffect, useState } from 'react';
-import { useRoleplayStats } from '../../../../hooks/roleplay/use-rp-stats';
 
 export enum RoomType {
     TAXI = "taxi",
@@ -73,7 +72,7 @@ export function NavigatorSearchResultItemView({ canSeeAllRooms, roomData, disabl
         return null;
     };
 
-    if (!roomData.tags.includes(RoomType.TAXI) && !canSeeAllRooms) {
+    if (!roomData.canTaxi && !canSeeAllRooms) {
         return null;
     }
 
