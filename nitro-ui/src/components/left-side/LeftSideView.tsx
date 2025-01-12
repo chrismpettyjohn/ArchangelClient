@@ -1,8 +1,8 @@
 import { GameTools } from './game-tools/GameTools';
 import { GameSettings } from './game-settings/GameSettings';
 import { RoleplayStatsView } from './roleplay-stats/RoleplayStatsView';
-import { MiniMap } from './mini-map/MiniMap';
 import { NotificationCenterView } from '../notification-center/NotificationCenterView';
+import { GameMap } from './game-map/GameMap';
 
 export function LeftSideView() {
     return (
@@ -11,7 +11,7 @@ export function LeftSideView() {
             <GameTools />
             <GameSettings />
             <NotificationCenterView />
-            <MiniMap />
+            <GameMap />
         </div>
     );
 }

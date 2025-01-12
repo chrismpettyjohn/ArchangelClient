@@ -207,6 +207,9 @@ importers:
       dotenv:
         specifier: 16.4.7
         version: 16.4.7
+      leaflet:
+        specifier: 1.9.4
+        version: 1.9.4
       otpauth:
         specifier: 9.3.5
         version: 9.3.5
@@ -3992,6 +3995,9 @@ packages:
   language-tags@1.0.9:
     resolution: {integrity: sha512-MbjN408fEndfiQXbFQ1vnd+1NoLDsnQW41410oQBXiyXDMYH5z505juWa4KUE1LqxRC7DgOgZDbKLxHIwm27hA==}
     engines: {node: '>=0.10'}
+
+  leaflet@1.9.4:
+    resolution: {integrity: sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA==}
 
   lerna@8.1.9:
     resolution: {integrity: sha512-ZRFlRUBB2obm+GkbTR7EbgTMuAdni6iwtTQTMy7LIrQ4UInG44LyfRepljtgUxh4HA0ltzsvWfPkd5J1DKGCeQ==}
@@ -9977,6 +9983,8 @@ snapshots:
   language-tags@1.0.9:
     dependencies:
       language-subtag-registry: 0.3.23
+
+  leaflet@1.9.4: {}
 
   lerna@8.1.9(babel-plugin-macros@3.1.0)(encoding@0.1.13):
     dependencies:
