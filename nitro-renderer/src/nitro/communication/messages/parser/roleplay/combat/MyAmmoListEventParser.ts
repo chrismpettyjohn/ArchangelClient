@@ -4,7 +4,8 @@ export enum AmmoType {
     STANDARD = "standard",
     FMJ = "fmj",
     STUN = "stun",
-    ARMOR_PIERCING = "ap"
+    ARMOR_PIERCING = "ap",
+    LOCKPICK = "lockpick"
 }
 
 export function parseAmmoType(typeName: string): AmmoType {
@@ -35,7 +36,8 @@ export enum AmmoSize {
     _9MM = "9mm",
     _45ACP = "45acp",
     STUN_CARTRIDGE = "stun_cartridge",
-    HEALTH_SYRINGE = "health_syringe"
+    HEALTH_SYRINGE = "health_syringe",
+    LOCKPICK = "lockpick"
 }
 
 export interface MyAmmoData {

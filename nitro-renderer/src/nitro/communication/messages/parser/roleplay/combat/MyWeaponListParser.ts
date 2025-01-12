@@ -13,7 +13,6 @@ export interface MyWeaponData {
 
 export class MyWeaponListParser implements IMessageParser {
     private _weapons: MyWeaponData[];
-    private _
 
     public flush(): boolean {
         this._weapons = [];
