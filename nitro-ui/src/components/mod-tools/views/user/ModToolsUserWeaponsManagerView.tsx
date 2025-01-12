@@ -18,7 +18,7 @@ export function ModToolsUserWeaponsManagerView() {
         if (!userId) {
             return;
         }
-        SendMessageComposer(new PlayerWeaponQueryListComposer())
+        SendMessageComposer(new PlayerWeaponQueryListComposer(userId))
     }, [userId]);
 
     useMessageEvent(PlayerWeaponListEvent, (event: PlayerWeaponListEvent) => {
