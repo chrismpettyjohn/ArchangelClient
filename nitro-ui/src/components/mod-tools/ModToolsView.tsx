@@ -8,14 +8,13 @@ import { ModToolsRoomView } from './views/room/ModToolsRoomView';
 import { ModToolsTicketsView } from './views/tickets/ModToolsTicketsView';
 import { ModToolsUserChatlogView } from './views/user/ModToolsUserChatlogView';
 import { ModToolsUserView } from './views/user/ModToolsUserView';
-import { FaBoxOpen, FaBriefcase, FaBug, FaCog, FaCrosshairs, FaHouseUser, FaPlusCircle, FaStar, FaStoreAlt, FaVial } from 'react-icons/fa';
+import { FaBoxOpen, FaBriefcase, FaBug, FaCog, FaCrosshairs, FaPlusCircle, FaStar, FaStoreAlt, FaVial } from 'react-icons/fa';
 import { ModToolsBetaCodesView } from './views/beta/ModToolsBetaCodesView';
 import { ModToolsBugReportsView } from './views/beta/ModToolsBugReportsView';
 import { ModToolsWeaponsManagerView } from './views/roleplay/ModToolsWeaponsManagerView';
 import { ModToolsWeaponsEditorView } from './views/roleplay/ModToolsWeaponsEditorView';
 import { ModToolsCrimesManagerView } from './views/roleplay/ModToolsCrimesManagerView';
 import { ModToolsCrimesEditorView } from './views/roleplay/ModToolsCrimesEditorView';
-import { ModToolsUserWeaponsManagerView } from './views/user/ModToolsUserWeaponsManagerView';
 import { ModToolsUserSuperhireView } from './views/user/ModToolsUserSuperhireView';
 import { ModToolsCrimesCreatorView } from './views/roleplay/ModToolsCrimesCreatorView';
 import { ModToolsWeaponsCreatorView } from './views/roleplay/ModToolsWeaponsCreatorView';
@@ -213,7 +212,6 @@ export const ModToolsView: FC<{}> = () => {
             <ModToolsCrimesEditorView />
             <ModToolsCrimesCreatorView />
             <ModToolsUserSuperhireView />
-            <ModToolsUserWeaponsManagerView />
             <ModTooolsEmuSettingsView />
             {(openRooms.length > 0) && openRooms.map(roomId => <ModToolsRoomView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-info/${roomId}`)} />)}
             {(openRoomChatlogs.length > 0) && openRoomChatlogs.map(roomId => <ModToolsChatlogView key={roomId} roomId={roomId} onCloseClick={() => CreateLinkEvent(`mod-tools/close-room-chatlog/${roomId}`)} />)}

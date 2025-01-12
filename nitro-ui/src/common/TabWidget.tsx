@@ -23,7 +23,7 @@ export function TabWidget({ widgets }: TabWidgetProps) {
                     ))
                 }
             </div>
-            <div className="content">
+            <div className="content" style={{ height: '100%', overflowY: 'auto' }}>
                 {widget.view()}
             </div>
         </>

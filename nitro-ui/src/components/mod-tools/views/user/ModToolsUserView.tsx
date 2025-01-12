@@ -6,6 +6,7 @@ import { useMessageEvent } from '../../../../hooks';
 import { ModToolsUserModActionView } from './ModToolsUserModActionView';
 import { ModToolsUserRoomVisitsView } from './ModToolsUserRoomVisitsView';
 import { ModToolsUserSendMessageView } from './ModToolsUserSendMessageView';
+import { ModToolsInventoryView } from './ModToolsInventoryView';
 
 interface ModToolsUserViewProps {
     userId: number;
@@ -138,8 +139,8 @@ export const ModToolsUserView: FC<ModToolsUserViewProps> = props => {
                             <Button onClick={() => CreateLinkEvent(`staff/superhire/${userInfo.userId}`)}>
                                 Employment
                             </Button>
-                            <Button onClick={() => CreateLinkEvent(`staff/player-weapons-manager/${userInfo.userId}`)}>
-                                Weapon Inventory
+                            <Button onClick={() => CreateLinkEvent(`staff/player-inventory-manager/${userInfo.userId}`)}>
+                                Inventory
                             </Button>
                         </Column>
                     </Grid>
@@ -152,6 +153,7 @@ export const ModToolsUserView: FC<ModToolsUserViewProps> = props => {
             {roomVisitsVisible &&
                 <ModToolsUserRoomVisitsView userId={userId} onCloseClick={() => setRoomVisitsVisible(false)} />
             }
+            <ModToolsInventoryView />
         </>
     );
 }
